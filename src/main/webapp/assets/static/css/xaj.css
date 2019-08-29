@@ -1,0 +1,190 @@
+body{
+	background-color:#f5f5f5;
+}
+.space{
+	padding-left:20px;
+}
+.clear{
+	clear:both;
+	float:none !important;
+}
+.layui-tab{
+    height: auto !important;
+}
+.layui-layout-admin .layui-side{
+	width:248px;
+}
+.layui-side-scroll{
+	width:10%;
+	top:70px;
+	-moz-box-shadow:0px 0px 5px #ccc;
+	-webkit-box-shadow:0px 0px 5px #ccc;
+	box-shadow:0px 0px 5px #ccc;
+	border:1px solid #ccc;
+}
+.layui-nav-tree{
+	width:100%;
+	background-color:#fff;
+}
+.my-header .my-header-link{
+	width:250px;
+	float:left;
+}
+.my-header .layui-nav .layui-nav-item a.selected{
+	color:#fff;
+}
+.my-header .layui-nav .layui-nav-item a:hover .tname, .my-header .layui-nav .layui-nav-item a.selected .tname{
+	border-bottom: 2px solid #fff;
+	padding-bottom:10px;
+}
+.my-body{
+	overflow-y:auto;
+}
+.name, .name span{
+	margin-left:15px;
+}
+#time-week{
+	font-size: 14px;
+    letter-spacing: 5px;
+    margin-left:30px;
+}
+#notify{
+	margin-left:10px;
+}
+.my-body-left {
+    left: 10%;
+    margin-left:2px;
+}
+.my-side{
+	-moz-box-shadow:2px 2px 5px #ccc; 
+	-webkit-box-shadow:2px 2px 5px #ccc;
+	box-shadow:2px 2px 5px #ccc;
+}
+.my-side .layui-nav{
+	background-color:#fff;
+	border-right:1px solid #ccc;
+	padding-top:12px;
+}
+.layui-nav-tree .layui-nav-item a{
+	color: #747474;
+	text-align:center;
+}
+.layui-collapse{
+	background-color: #fff;
+	-moz-box-shadow:0px 0px 5px #ccc;
+	-webkit-box-shadow:0px 0px 5px #ccc;
+	box-shadow:0px 0px 5px #ccc;
+	border:1px solid #ccc;
+	display:none;
+}
+.layui-layout-admin .my-header, .layui-nav-tree .layui-nav-item a:hover, .layui-nav-tree .layui-nav-item a.selected, .calc-content .layui-calc-title, #div-nav a.selected, .layui-progress .layui-bg-blue{
+	color: #fff;
+	background: -webkit-linear-gradient(left, #1a2980, #26d0ce); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #1a2980, #26d0ce); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #1a2980, #26d0ce); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #1a2980, #26d0ce); /* 鏍囧噯鐨勮娉曪紙蹇呴』鏀惧湪鏈�鍚庯級 */
+}
+.my-index-main{
+	padding-bottom: 5px !important;
+}
+.my-index-main .layui-colla-item{
+	overflow:hidden;
+}
+.layui-table .layui-btn:hover, a.layui-btn:hover{
+	color:#fff !important;
+	background: -webkit-linear-gradient(left, #229CB5, #24CACA); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #229CB5, #24CACA); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #229CB5, #24CACA); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #229CB5, #24CACA); /* 鏍囧噯鐨勮娉曪紙蹇呴』鏀惧湪鏈�鍚庯級 */
+}
+.calc-content .layui-form-radio{
+	margin-top:0;
+	margin-right:0;
+	padding-right:0;
+}
+.calc-content .layui-form-item{
+	padding: 0 10px;
+	margin-bottom:0;
+	margin-top:10px;
+}
+.calc-content .layui-form-item .xaj-col-button{
+	text-align:center;
+	margin-top:10px;
+}
+.calc-content .layui-field-title{
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.calc-content .layui-calc-title{
+	color: #fff;
+	padding: 8px 0;
+	text-align:center;
+	font-size:16px;
+	margin-top:10px;
+}
+.calc-content .layui-field-title legend{
+	text-align: center;
+}
+.calc-content .layui-form-label{
+	padding-left:0;
+	padding-right:0;
+	float:none;
+	width:100%;
+}
+.calc-content .layui-form-label span{
+	margin-right:15px;
+}
+.calc-content .layui-form-label b{
+	text-align:center;
+	width:100%;
+	display:block;
+	font-weight:normal;
+}
+/*
+.calc-content .xaj-input-block{
+	padding: 0 15px;
+}
+.calc-content .xaj-input-left{
+	padding-left: 15px;
+}
+.calc-content .xaj-input-center{
+	
+}
+.calc-content .xaj-input-right{
+	padding-right: 15px;
+}*/
+.layui-nav * {
+    font-size: 16px;
+}
+#div-nav a{
+	position:relative;
+	line-height:38px;
+	display:block;
+	float:left;
+	padding:0 20px;
+	color:#fff;
+	margin-right:30px;
+	background:#ccc;
+}
+#div-nav a:before{
+    position:absolute;
+    content:"";
+    width:0;
+    height:0;
+    border:19px solid transparent;
+    border-left-color:#ccc;
+    top:0;
+    right:-38px
+}
+#div-nav a.selected:before{
+	border-left-color:#26d0ce;
+}
+#div-nav a:last-child:before{
+    border:none;
+}
+
+@media screen and (max-width: 1023px){
+	.layui-field-title {
+	    display: block !important;
+	}
+}

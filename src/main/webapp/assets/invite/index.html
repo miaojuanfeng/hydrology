@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="no-js">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>来自朋友的邀请</title>
+
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+
+		<link rel="stylesheet" href="./css/amazeui.min.css">
+		<link rel="stylesheet" href="./css/index.min.css">
+		<script>
+			var html = document.querySelector('html');
+			changeRem();
+			window.addEventListener('resize', changeRem);
+
+			function changeRem() {
+				var width = html.getBoundingClientRect().width;
+				html.style.fontSize = width / 37.5 + 'px';
+			}
+		</script>
+	</head>
+
+	<body>
+		<!--在这里编写你的代码-->
+		<div id="app">
+			<header>
+				<img src="img/logo.png" alt="链活logo" class="logo" />
+				<div class="logoTitle">
+					<p>上链活</p>
+					<p>采活力果免费购物</p>
+				</div>
+			</header>
+			<div id="content">
+				<div>
+					<img src="img/logo.png" alt="用户头像" class="headImg" />
+				</div>
+				<div>
+					<p class="tips">Hi,&nbsp;&nbsp;我入驻链活啦！</p>
+				</div>
+				<div class="formBox">
+					<img src="img/10dian.png" alt="10点贡献值" class="dian10" />
+					<div class="tips2">
+						<p>一起来采活力果上活力商城免费购物啦！</p>
+					</div>
+					<div style="padding-top:4.5rem;">
+						<div style="display: flex;" class="inputBox">
+							<input type="text" class="input input_phone" placeholder="请输入手机号" id="phone" />
+							<div class="input_btn_box">
+								<input type="button" value="获取验证码" class="input_btn" id="phoneCode" />
+							</div>
+
+						</div>
+						<div class="inputBox">
+							<input type="text" class="input input_Keycode" placeholder="请输入短信验证码" id="keyCode" />
+						</div>
+						<div class="inputBox">
+							<input type="text" class="input input_password" placeholder="请设置登录密码" id="passWord" />
+						</div>
+						<div>
+							<img src="img/zhuceBtn.png" alt="" class="zhuceBtn" id="zhuceBtn" />
+						</div>
+					</div>
+				</div>
+				<div>
+					<p style="font-size:1.4rem;line-height:2.5rem;color:#fff;text-align: center;">
+						入驻步骤：完成注册-下载链活APP-登录APP
+					</p>
+				</div>
+			</div>
+
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+				<div class="am-modal-dialog">
+					<div class="am-modal-bd" style="font-size:1.6rem;">
+
+					</div>
+				</div>
+			</div>
+			<img src="img/caidai_1.png" alt="彩带1" class="caidai" />
+			<img src="img/caidai_2.png" alt="彩带2" class="caidai_2" />
+			<img src="img/caidai_3.png" alt="彩带3" class="caidai_3" />
+			<img src="img/caidai_4.png" alt="彩带4" class="caidai_4" />
+			<img src="img/caidai_5.png" alt="彩带5" class="caidai_5" />
+			<img src="img/caidai_6.png" alt="彩带6" class="caidai_6" />
+		</div>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="./js/jquery.min.js"></script>
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+			<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+			<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<![endif]-->
+		<!--<script src="../javascripts/md5.js"></script>-->
+		<script src="./js/amazeui.min.js"></script>
+		<script src="https://cdn.bootcss.com/jsencrypt/3.0.0-beta.1/jsencrypt.min.js"></script>
+		<script src="./js/sha1.min.js"></script>
+		<script src="./js/index.min.js"></script>
+	</body>
+
+</html>
