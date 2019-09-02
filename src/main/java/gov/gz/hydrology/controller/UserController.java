@@ -2,17 +2,30 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import gov.gz.hydrology.entity.write.User;
+import gov.gz.hydrology.service.write.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("cms/user")
 public class UserController {
 
-	@RequestMapping("login")
+	@Autowired
+	private UserService userService;
+
+	@GetMapping("login")
 	public String login() {
+		return "LoginView";
+	}
+
+	@PostMapping("login")
+	public String login(@RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, ModelMap model) {
+		User user = userService.selectByPrimaryKey(userId);
+		model.put("reason", "手机号或密码错误");
 		return "LoginView";
 	}
 	

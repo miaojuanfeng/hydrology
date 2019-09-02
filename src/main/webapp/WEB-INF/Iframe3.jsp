@@ -9,6 +9,6 @@
 </style>
 <div id="weather-view-he"></div>
 <script>
-	WIDGET = {ID: 'c887CIR6TM'};
+	WIDGET = {ID: '${widget}'};
 </script>
 <script type="text/javascript" src="https://apip.weatherdt.com/view/static/js/r.js?v=1111"></script>

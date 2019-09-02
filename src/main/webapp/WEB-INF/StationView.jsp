@@ -110,10 +110,10 @@
        	$(".layui-colla-item").css("height", viewHeight);
     	
     	$('#iframe1').attr('src', '<c:url value="/cms/iframe/1?station=${station}"></c:url>');
-    	$('#iframe2').attr('src', '<c:url value="/cms/iframe/2"></c:url>');
-    	$('#iframe3').attr('src', '<c:url value="/cms/iframe/3"></c:url>');
-    	$('#iframe4').attr('src', '<c:url value="/cms/iframe/4"></c:url>');
-    	$('#iframe5').attr('src', '<c:url value="/cms/iframe/5"></c:url>');
+    	$('#iframe2').attr('src', '<c:url value="/cms/iframe/2?station=${station}"></c:url>');
+    	$('#iframe3').attr('src', '<c:url value="/cms/iframe/3?station=${station}"></c:url>');
+    	$('#iframe4').attr('src', '<c:url value="/cms/iframe/4?station=${station}"></c:url>');
+    	$('#iframe5').attr('src', '<c:url value="/cms/iframe/5?station=${station}"></c:url>');
     	
     	$(".layui-collapse").fadeIn();
     });

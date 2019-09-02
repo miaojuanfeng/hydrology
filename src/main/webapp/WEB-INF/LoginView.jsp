@@ -16,15 +16,15 @@
 
 <div class="login-main">
     <header class="layui-elip" style="font-weight:bold;color:#1E9F95;margin-top:100px;">系统登录</header>
-    <p><c:if test="${reason != null}">${reason}</c:if></p>
-    <form class="layui-form" action="<c:url value="/cms/login"></c:url>" method="post">
+    <p style="margin-bottom:10px;text-align: center;color:#ff0000;"><c:if test="${reason != null}">${reason}</c:if></p>
+    <form class="layui-form" action="<c:url value="/cms/user/login"></c:url>" method="post" id="loginForm">
         <div class="layui-input-inline">
         	<span style="width:38px;height:38px;display:block;float:left;background:url(<c:url value="/assets/static/image/login_u.png"></c:url>);background-size:cover;"></span>
-            <input style="width:312px;border:none;" type="text" name="username" required lay-verify="required" placeholder="手机号" autocomplete="off" class="layui-input">
+            <input style="width:312px;border:none;" type="text" name="userId" required lay-verify="required" placeholder="手机号" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
         	<span style="width:38px;height:38px;display:block;float:left;background:url(<c:url value="/assets/static/image/login_p.png"></c:url>);background-size:cover;"></span>
-            <input style="width:312px;border:none;" type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+            <input style="width:312px;border:none;" type="password" name="userPsd" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
         </div>
         <!-- div class="layui-input-inline">
         	<div class="layui-col-xs8">
@@ -36,7 +36,7 @@
         </div -->
 	    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
 	        <div class="layui-input-inline">
-	            <a type="submit" class="layui-btn layui-btn-normal" style="width:100%;background-color:#1E9F95;">登录</a>
+	            <a id="loginButton" class="layui-btn layui-btn-normal" style="width:100%;background-color:#1E9F95;">登录</a>
 	        </div>
 	    </div>
 	    <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
@@ -66,7 +66,11 @@
 
         // you code ...
 
-
+        $(document).ready(function () {
+            $("#loginButton").click(function () {
+                $("#loginForm").submit();
+            });
+        });
     });
 </script>
 </body>

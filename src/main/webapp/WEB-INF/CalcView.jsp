@@ -35,17 +35,16 @@
 							            	<label class="layui-form-label"><span>预报站</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
-							            	<select name="quiz1" lay-verify="required" lay-search="">
-								                <option value="站类1">站类1</option>
-								                <option value="站类2">站类2</option>
-								                <option value="站类3">站类3</option>
+							            	<select lay-filter="sType">
+								                <option value="基本站">基本站</option>
+								                <option value="水库站">水库站</option>
 								            </select>
 								        </div>
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
-											<select name="modules" lay-verify="required" lay-search="">
-												<option value="站类1">站类1</option>
-												<option value="站类2">站类2</option>
-												<option value="站类3">站类3</option>
+											<select id="sName">
+                                                <c:forEach items="${stationList}" var="station" varStatus="id">
+                                                    <option value="${station.userStcd}">${station.stname}</option>
+                                                </c:forEach>
 											</select>
 										</div>
 								    </div>
@@ -333,7 +332,26 @@
             type: 'datetime'
         });
 
-
+        form.on('select(sType)', function (data) {
+            $("#sName").html('');
+            $.post(
+                "<c:url value="/cms/common/station"></c:url>",
+                {
+                    type: data.value
+                },
+                function(data){
+                    var obj = $.parseJSON(data);
+                    var arr = obj.data;
+                    var html = '';
+                    for(var i=0;i<arr.length;i++){
+                        html += '<option value="'+arr[i].userStcd+'">'+arr[i].stname+'</option>';
+                    }
+                    $("#sName").html(html);
+                    layui.form.render('select');
+                }
+            );
+        });
+        form.on('select(sType)');
         
 
         $(document).ready(function(){

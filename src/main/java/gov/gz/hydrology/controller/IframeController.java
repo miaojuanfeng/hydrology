@@ -20,6 +20,14 @@ public class IframeController {
 			}else if( station == 3 ) {
 				map.put("img", "3.png");
 			}
+		}else if( id == 3 ){
+			if( station == 1 ) {
+				map.put("widget", "ysH5nz0RtF");
+			}else if( station == 2 ) {
+				map.put("widget", "xcF5vTh47J");
+			}else if( station == 3 ) {
+				map.put("widget", "ysH5nz0RtF");
+			}
 		}
 		return "Iframe"+id;
 	}
