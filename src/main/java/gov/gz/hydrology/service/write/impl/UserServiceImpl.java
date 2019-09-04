@@ -16,5 +16,10 @@ public class UserServiceImpl implements UserService {
 	public User selectByPrimaryKey(String userId) {
 		return userDao.selectByPrimaryKey(userId);
 	}
-	
+
+	@Override
+	public int insertSelective(User user) {
+		return userDao.insertSelective(user);
+	}
+
 }

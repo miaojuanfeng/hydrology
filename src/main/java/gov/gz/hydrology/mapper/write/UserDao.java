@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserDao {
 	User selectByPrimaryKey(@Param("userId") String userId);
+	int insertSelective(User user);
 }

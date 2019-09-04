@@ -1,14 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-#weather-view-he{
-	border:none !important;
-	width:100% !important;
-	height:100% !important;
-}
+    body{
+        margin:0;
+    }
 </style>
-<div id="weather-view-he"></div>
-<script>
-	WIDGET = {ID: '${widget}'};
-</script>
-<script type="text/javascript" src="https://apip.weatherdt.com/view/static/js/r.js?v=1111"></script>
+<iframe scrolling="no" src="https://tianqiapi.com/api.php?style=tw&skin=sogou&city=${city}" frameborder="0" width="100%" height="375" allowtransparency="true"></iframe>

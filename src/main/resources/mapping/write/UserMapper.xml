@@ -9,13 +9,61 @@
 		<result column="user_time" property="userTime" jdbcType="INTEGER" />
 		<result column="user_head" property="userHead" jdbcType="VARCHAR" />
 	</resultMap>
-	<sql id="Base_Column_List" >
-    ltc_id, ltc_level, ltc_yield, day_yield, vitality_yield, freeze_yield, vtb_price, update_user,
-    update_time
-  </sql>
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
 		select * from [user] where user_id = #{userId}
 	</select>
+	<insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.User" >
+		insert into [user]
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="userId != null" >
+				user_id,
+			</if>
+			<if test="userPsd != null" >
+				user_psd,
+			</if>
+			<if test="userName != null" >
+				user_name,
+			</if>
+			<if test="userLevel != null" >
+				user_level,
+			</if>
+			<if test="userTime != null" >
+				user_time,
+			</if>
+			<if test="userHead != null" >
+				user_head,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="userId != null" >
+				#{userId},
+			</if>
+			<if test="userPsd != null" >
+				#{userPsd},
+			</if>
+			<if test="userName != null" >
+				#{userName},
+			</if>
+			<if test="userLevel != null" >
+				#{userLevel},
+			</if>
+			<if test="userTime != null" >
+				#{userTime},
+			</if>
+			<if test="userHead != null" >
+				#{userHead},
+			</if>
+		</trim>
+	</insert>
+
+
+
+
+
+
+
+
 	<select id="selectAllTrees" resultMap="BaseResultMap">
   	select * from ltc
   </select>
@@ -31,67 +79,7 @@
       #{ltcYield,jdbcType=DECIMAL}, #{dayYield,jdbcType=DECIMAL}, #{vitalityYield,jdbcType=DECIMAL}, #{freezeYield,jdbcType=DECIMAL}, #{vtbPrice,jdbcType=DECIMAL},
       #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-	<insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Station" >
-		insert into ltc
-		<trim prefix="(" suffix=")" suffixOverrides="," >
-			<if test="ltcId != null" >
-				ltc_id,
-			</if>
-			<if test="ltcLevel != null" >
-				ltc_level,
-			</if>
-			<if test="ltcYield != null" >
-				ltc_yield,
-			</if>
-			<if test="dayYield != null" >
-				day_yield,
-			</if>
-			<if test="vitalityYield != null" >
-				vitality_yield,
-			</if>
-			<if test="freezeYield != null" >
-				freeze_yield,
-			</if>
-			<if test="vtbPrice != null" >
-				vtb_price,
-			</if>
-			<if test="updateUser != null" >
-				update_user,
-			</if>
-			<if test="updateTime != null" >
-				update_time,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides="," >
-			<if test="ltcId != null" >
-				#{ltcId,jdbcType=INTEGER},
-			</if>
-			<if test="ltcLevel != null" >
-				#{ltcLevel,jdbcType=INTEGER},
-			</if>
-			<if test="ltcYield != null" >
-				#{ltcYield,jdbcType=DECIMAL},
-			</if>
-			<if test="dayYield != null" >
-				#{dayYield,jdbcType=DECIMAL},
-			</if>
-			<if test="vitalityYield != null" >
-				#{vitalityYield,jdbcType=DECIMAL},
-			</if>
-			<if test="freezeYield != null" >
-				#{freezeYield,jdbcType=DECIMAL},
-			</if>
-			<if test="vtbPrice != null" >
-				#{vtbPrice,jdbcType=DECIMAL},
-			</if>
-			<if test="updateUser != null" >
-				#{updateUser,jdbcType=VARCHAR},
-			</if>
-			<if test="updateTime != null" >
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
-		</trim>
-	</insert>
+
 	<update id="updateByPrimaryKeySelective" parameterType="gov.gz.hydrology.entity.write.Station" >
 		update ltc
 		<set >

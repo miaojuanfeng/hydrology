@@ -7,7 +7,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>登录</title>
+    <title>系统登录</title>
     <link rel="stylesheet" href="<c:url value="/assets/layui/css/layui.css"></c:url>">
     <link rel="stylesheet" href="<c:url value="/assets/static/css/style.css"></c:url>">
     <link rel="icon" href="<c:url value="/assets/static/image/code.png"></c:url>">
@@ -15,7 +15,7 @@
 <body style="background:url(<c:url value="/assets/static/image/login_bg.jpg"></c:url>);background-size:cover;">
 
 <div class="login-main">
-    <header class="layui-elip" style="font-weight:bold;color:#1E9F95;margin-top:100px;">系统登录</header>
+    <header class="layui-elip" style="font-weight:bold;color:#1E9F95;margin-top:100px;">系统登录</header>
     <p style="margin-bottom:10px;text-align: center;color:#ff0000;"><c:if test="${reason != null}">${reason}</c:if></p>
     <form class="layui-form" action="<c:url value="/cms/user/login"></c:url>" method="post" id="loginForm">
         <div class="layui-input-inline">

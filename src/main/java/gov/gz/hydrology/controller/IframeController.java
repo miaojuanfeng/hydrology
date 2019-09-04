@@ -22,11 +22,11 @@ public class IframeController {
 			}
 		}else if( id == 3 ){
 			if( station == 1 ) {
-				map.put("widget", "ysH5nz0RtF");
+				map.put("city", "宁都");
 			}else if( station == 2 ) {
-				map.put("widget", "xcF5vTh47J");
+				map.put("city", "于都");
 			}else if( station == 3 ) {
-				map.put("widget", "ysH5nz0RtF");
+				map.put("city", "石城");
 			}
 		}
 		return "Iframe"+id;

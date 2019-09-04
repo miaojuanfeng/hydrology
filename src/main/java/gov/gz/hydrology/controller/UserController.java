@@ -2,7 +2,9 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import gov.gz.hydrology.entity.write.Staff;
 import gov.gz.hydrology.entity.write.User;
+import gov.gz.hydrology.service.write.StaffService;
 import gov.gz.hydrology.service.write.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private StaffService staffService;
+
 	@GetMapping("login")
 	public String login() {
 		return "LoginView";
@@ -25,12 +30,43 @@ public class UserController {
 	@PostMapping("login")
 	public String login(@RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, ModelMap model) {
 		User user = userService.selectByPrimaryKey(userId);
-		model.put("reason", "手机号或密码错误");
+		if( user != null ){
+			if( userPsd.equals(user.getUserPsd()) ){
+				return "redirect:/cms/station/1";
+			}else{
+				model.put("reason", "手机号或密码错误");
+			}
+		}else {
+			model.put("reason", "手机号或密码错误");
+		}
 		return "LoginView";
 	}
 	
-	@RequestMapping("register")
+	@GetMapping("register")
 	public String register() {
+		return "RegisterView";
+	}
+
+	@PostMapping("register")
+	public String register(@RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, @RequestParam("psdCfm") String psdCfm, ModelMap model) {
+		Staff staff = staffService.selectByPrimaryKey(userId);
+		if( staff != null ){
+			if( !"".equals(userPsd) && userPsd.equals(psdCfm) ){
+				User user = new User();
+				user.setUserId(userId);
+				user.setUserPsd(userPsd);
+				user.setUserName(staff.getName());
+				user.setUserLevel(0);
+				user.setUserTime(0);
+				userService.insertSelective(user);
+
+				return "redirect:/cms/user/init";
+			}else{
+				model.put("reason", "两次密码输入不一致");
+			}
+		}else{
+			model.put("reason", "用户不存在");
+		}
 		return "RegisterView";
 	}
 	

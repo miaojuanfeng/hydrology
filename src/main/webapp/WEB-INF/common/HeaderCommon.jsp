@@ -49,7 +49,7 @@
                 </dl>
             </li -->
             <li class="layui-nav-item">
-            	<div id="time-week">${date}</div>
+            	<div id="time-week"><iframe scrolling="no" src="https://tianqiapi.com/api.php?style=ty&skin=sogou&city=${city}" frameborder="0" width="200" height="60" allowtransparency="true"></iframe></div>
             </li>
             <li class="layui-nav-item">
 			    <div id="notify" style="position:relative">
