@@ -33,7 +33,7 @@
 						        </div>
 						    </div>
 						    
-						    <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+						    <div class="layui-col-xs12 layui-col-sm6 layui-col-md8">
 						        <div class="layui-collapse">
 						        	<div class="layui-colla-item">
 								    	<iframe id="iframe2" width="100%" frameborder="0" scrolling="no"></iframe>
@@ -41,13 +41,13 @@
 						        </div>
 						    </div>
 						    
-							<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-						        <div class="layui-collapse">
-						            <div class="layui-colla-item">
-					                    <iframe id="iframe3" width="100%" frameborder="0" scrolling="no"></iframe>
-						            </div>
-						        </div>
-						    </div>
+							<%--<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">--%>
+						        <%--<div class="layui-collapse">--%>
+						            <%--<div class="layui-colla-item">--%>
+					                    <%--<iframe id="iframe3" width="100%" frameborder="0" scrolling="no"></iframe>--%>
+						            <%--</div>--%>
+						        <%--</div>--%>
+						    <%--</div>--%>
 						    
 						    <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
 						        <div class="layui-collapse">
@@ -111,7 +111,7 @@
     	
     	$('#iframe1').attr('src', '<c:url value="/cms/iframe/1?station=${station}"></c:url>');
     	$('#iframe2').attr('src', '<c:url value="/cms/iframe/2?station=${station}"></c:url>');
-    	$('#iframe3').attr('src', '<c:url value="/cms/iframe/3?station=${station}"></c:url>');
+    	<%--$('#iframe3').attr('src', '<c:url value="/cms/iframe/3?station=${station}"></c:url>');--%>
     	$('#iframe4').attr('src', '<c:url value="/cms/iframe/4?station=${station}"></c:url>');
     	$('#iframe5').attr('src', '<c:url value="/cms/iframe/5?station=${station}"></c:url>');
     	

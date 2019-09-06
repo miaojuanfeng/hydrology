@@ -51,18 +51,23 @@ public class UserController {
 	public String register(@RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, @RequestParam("psdCfm") String psdCfm, ModelMap model) {
 		Staff staff = staffService.selectByPrimaryKey(userId);
 		if( staff != null ){
-			if( !"".equals(userPsd) && userPsd.equals(psdCfm) ){
-				User user = new User();
-				user.setUserId(userId);
-				user.setUserPsd(userPsd);
-				user.setUserName(staff.getName());
-				user.setUserLevel(0);
-				user.setUserTime(0);
-				userService.insertSelective(user);
+			User user = userService.selectByPrimaryKey(userId);
+			if( user == null ) {
+				if (!"".equals(userPsd) && userPsd.equals(psdCfm)) {
+					User newUser = new User();
+					newUser.setUserId(userId);
+					newUser.setUserPsd(userPsd);
+					newUser.setUserName(staff.getName());
+					newUser.setUserLevel(0);
+					newUser.setUserTime(0);
+					userService.insertSelective(newUser);
 
-				return "redirect:/cms/user/init";
+					return "redirect:/cms/user/init";
+				} else {
+					model.put("reason", "两次密码输入不一致");
+				}
 			}else{
-				model.put("reason", "两次密码输入不一致");
+				model.put("reason", "用户已注册");
 			}
 		}else{
 			model.put("reason", "用户不存在");
@@ -70,8 +75,25 @@ public class UserController {
 		return "RegisterView";
 	}
 	
-	@RequestMapping("init")
+	@GetMapping("init")
 	public String init() {
+		return "InitView";
+	}
+
+	@PostMapping("init")
+	public String init(@RequestParam("stcd") String[] stcd, ModelMap model) {
+		boolean error = true;
+		for (int i = 0; i < stcd.length; i++) {
+			if( !"".equals(stcd[i]) ){
+				error = false;
+				break;
+			}
+		}
+		if( !error ) {
+
+		}else{
+			model.put("reason", "请至少选择一个站");
+		}
 		return "InitView";
 	}
 	
