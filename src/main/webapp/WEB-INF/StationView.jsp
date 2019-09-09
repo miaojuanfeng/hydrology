@@ -88,20 +88,6 @@
     var layer       = layui.layer
         ,vipNav     = layui.vip_nav
         ,$          = layui.jquery;
-
-    // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
-    // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.main('./json/nav_main.json','side-main',true);
-
-
-    
-    
-    
-    
-    
-    
-    
     
 
     $(document).ready(function(){
@@ -109,11 +95,11 @@
        	var viewHeight = contentHeight / 2;
        	$(".layui-colla-item").css("height", viewHeight);
     	
-    	$('#iframe1').attr('src', '<c:url value="/cms/iframe/1?station=${station}"></c:url>');
-    	$('#iframe2').attr('src', '<c:url value="/cms/iframe/2?station=${station}"></c:url>');
+    	$('#iframe1').attr('src', '<c:url value="/cms/iframe/1?stcd=${stcd}"></c:url>');
+    	$('#iframe2').attr('src', '<c:url value="/cms/iframe/2?stcd=${stcd}"></c:url>');
     	<%--$('#iframe3').attr('src', '<c:url value="/cms/iframe/3?station=${station}"></c:url>');--%>
-    	$('#iframe4').attr('src', '<c:url value="/cms/iframe/4?station=${station}"></c:url>');
-    	$('#iframe5').attr('src', '<c:url value="/cms/iframe/5?station=${station}"></c:url>');
+    	$('#iframe4').attr('src', '<c:url value="/cms/iframe/4?stcd=${stcd}"></c:url>');
+    	$('#iframe5').attr('src', '<c:url value="/cms/iframe/5?stcd=${stcd}"></c:url>');
     	
     	$(".layui-collapse").fadeIn();
     });

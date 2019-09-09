@@ -31,10 +31,11 @@ public class StationController {
 	
 	@RequestMapping("{stcd}")
 	public String index(ModelMap map, @PathVariable("stcd") String stcd) {
-		map.put("date", DateUtil.getDate());
+		map.put("stcd", stcd);
+		Station station = stationService.selectByPrimaryKey(stcd);
+		map.put("station", station);
 		List<Station> stationList = userStationService.selectByUserId("16607978866");
 		map.put("stationList", stationList);
-		map.put("stcd", stcd);
 		return "StationView";
 	}
 }

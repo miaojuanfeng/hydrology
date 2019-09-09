@@ -49,7 +49,7 @@
                 </dl>
             </li -->
             <li class="layui-nav-item">
-            	<div id="time-week"><iframe allowtransparency="true" frameborder="0" width="565" height="60" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=3&bd=0&k=&f=ffffff&ltf=009944&htf=cc0000&q=0&e=0&a=0&c=60905&w=565&h=60&align=center"></iframe></div>
+            	<div id="time-week"><iframe allowtransparency="true" frameborder="0" width="565" height="60" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=3&bd=0&k=&f=ffffff&ltf=009944&htf=cc0000&q=0&e=0&a=0&c=${station.wea}&w=565&h=60&align=center"></iframe></div>
             </li>
             <li class="layui-nav-item">
 			    <div id="notify" style="position:relative">

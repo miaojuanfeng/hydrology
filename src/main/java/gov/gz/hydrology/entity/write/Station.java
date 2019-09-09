@@ -5,6 +5,8 @@ public class Station {
 	private String type;
 	private String stname;
 	private String dis;
+	private String wea;
+	private String fileCd;
 	public String getStcd() {
 		return stcd;
 	}
@@ -29,6 +31,20 @@ public class Station {
 	public void setDis(String dis) {
 		this.dis = dis;
 	}
-	
-	
+
+	public String getWea() {
+		return wea;
+	}
+
+	public void setWea(String wea) {
+		this.wea = wea;
+	}
+
+	public String getFileCd() {
+		return fileCd;
+	}
+
+	public void setFileCd(String fileCd) {
+		this.fileCd = fileCd;
+	}
 }

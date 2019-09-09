@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="gov.gz.hydrology.mapper.write.StationDao" >
+<mapper namespace="gov.gz.hydrology.mapper.write.UserStationDao" >
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.UserStation" >
 		<id column="user_id" property="userId" jdbcType="VARCHAR" />
 		<result column="user_stcd" property="userStcd" jdbcType="VARCHAR" />
+		<collection property="station" ofType="gov.gz.hydrology.entity.write.Station" column="stcd">
+			<id column="stcd" property="stcd" jdbcType="VARCHAR" />
+			<result column="type" property="type" jdbcType="VARCHAR" />
+			<result column="stname" property="stname" jdbcType="VARCHAR" />
+			<result column="dis" property="dis" jdbcType="VARCHAR" />
+		</collection>
 	</resultMap>
-	<select id="selectByUser" resultMap="BaseResultMap">
-		select * from user_station
-		where user_id = #{userId}
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		select us.user_stcd, s.* from user_station us
+		inner join station s on us.user_stcd = s.stcd
+		where us.user_id = #{userId}
 	</select>
 
 </mapper>
