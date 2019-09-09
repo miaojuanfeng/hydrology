@@ -1,15 +1,15 @@
 package gov.gz.hydrology.entity.write;
 
 public class Station {
-	private String userStcd;
+	private String stcd;
 	private String type;
 	private String stname;
 	private String dis;
-	public String getUserStcd() {
-		return userStcd;
+	public String getStcd() {
+		return stcd;
 	}
-	public void setUserStcd(String userStcd) {
-		this.userStcd = userStcd;
+	public void setStcd(String stcd) {
+		this.stcd = stcd;
 	}
 	public String getType() {
 		return type;

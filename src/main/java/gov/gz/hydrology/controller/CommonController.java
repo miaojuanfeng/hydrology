@@ -27,10 +27,10 @@ public class CommonController {
     public String station(@RequestParam("type") String type) {
         JSONObject retval = new JSONObject();
         JSONArray temp = new JSONArray();
-        List<Station> stationList = stationService.getStationByType(type);
+        List<Station> stationList = stationService.selectStationByType(type);
         for (Station station : stationList){
             JSONObject t = new JSONObject();
-            t.put("userStcd", station.getUserStcd());
+            t.put("stcd", station.getStcd());
             t.put("stname", station.getStname());
             temp.add(t);
         }

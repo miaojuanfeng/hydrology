@@ -6,6 +6,6 @@ import gov.gz.hydrology.entity.write.User;
 import java.util.List;
 
 public interface StationService {
-	Station selectByPrimaryKey(String userStcd);
-	List<Station> getStationByType(String type);
+	Station selectByPrimaryKey(String stcd);
+	List<Station> selectStationByType(String type);
 }

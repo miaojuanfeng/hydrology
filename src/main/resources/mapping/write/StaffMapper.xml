@@ -6,7 +6,7 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
-		select * from my_staff
+		select * from user_staff
 		where pho = #{pho}
 	</select>
 

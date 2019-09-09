@@ -16,13 +16,13 @@ public class StationServiceImpl implements StationService{
 	@Autowired
 	private StationDao stationDao;
 
-	public Station selectByPrimaryKey(String userStcd) {
-		return stationDao.selectByPrimaryKey(userStcd);
+	public Station selectByPrimaryKey(String stcd) {
+		return stationDao.selectByPrimaryKey(stcd);
 	}
 
 	@Override
-	public List<Station> getStationByType(String type) {
-		return stationDao.getStationByType(type);
+	public List<Station> selectStationByType(String type) {
+		return stationDao.selectStationByType(type);
 	}
 
 }

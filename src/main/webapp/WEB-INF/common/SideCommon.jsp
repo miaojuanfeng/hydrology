@@ -4,9 +4,13 @@
     <div class="layui-side-scroll">
         <!-- 左侧主菜单添加选项卡监听 -->
         <ul class="layui-nav layui-nav-tree" lay-filter="side-main">
-        	<li class="layui-nav-item">
-                <a href="<c:url value="/cms/station/1"></c:url>" class="<c:if test="${station == 1}">selected</c:if>">宁都站</a>
-            </li>
+            <c:forEach items="${stationList}" var="station">
+                <li class="layui-nav-item">
+                    <a href="<c:url value="/cms/station/1"></c:url>" class="<c:if test="${station.stcd == stcd}">selected</c:if>">宁都站</a>
+                </li>
+                ${id.index} ${keyword}<br>
+            </c:forEach>
+
             <li class="layui-nav-item">
                 <a href="<c:url value="/cms/station/2"></c:url>" class="<c:if test="${station == 2}">selected</c:if>">汾坑站</a>
             </li>

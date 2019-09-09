@@ -9,6 +9,6 @@ import java.util.List;
 
 @Mapper
 public interface StationDao {
-	Station selectByPrimaryKey(@Param("userStcd") String userStcd);
-	List<Station> getStationByType(@Param("type") String type);
+	Station selectByPrimaryKey(@Param("stcd") String stcd);
+	List<Station> selectStationByType(@Param("type") String type);
 }

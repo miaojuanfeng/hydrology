@@ -43,7 +43,7 @@
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
 											<select id="sName">
                                                 <c:forEach items="${stationList}" var="station" varStatus="id">
-                                                    <option value="${station.userStcd}">${station.stname}</option>
+                                                    <option value="${station.stcd}">${station.stname}</option>
                                                 </c:forEach>
 											</select>
 										</div>
@@ -344,7 +344,7 @@
                     var arr = obj.data;
                     var html = '';
                     for(var i=0;i<arr.length;i++){
-                        html += '<option value="'+arr[i].userStcd+'">'+arr[i].stname+'</option>';
+                        html += '<option value="'+arr[i].stcd+'">'+arr[i].stname+'</option>';
                     }
                     $("#sName").html(html);
                     layui.form.render('select');

@@ -21,7 +21,7 @@ public class CalcController {
 	@RequestMapping("index")
 	public String index(ModelMap map) {
 		map.put("date", DateUtil.getDate());
-		List<Station> stationList = stationService.getStationByType("基本站");
+		List<Station> stationList = stationService.selectStationByType("基本站");
 		map.put("stationList", stationList);
 		return "CalcView";
 	}
