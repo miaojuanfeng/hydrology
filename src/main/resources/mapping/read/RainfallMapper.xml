@@ -4,14 +4,23 @@
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.read.Rainfall" >
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
 	</resultMap>
-	<sql id="Base_Column_List" >
-    ltc_id, ltc_level, ltc_yield, day_yield, vitality_yield, freeze_yield, vtb_price, update_user,
-    update_time
-  </sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
-		select * from st_pptn_r
-		where stcd = #{stcd}
+
+	<select id="selectRainfallTotal" resultMap="BaseResultMap">
+		select stcd, sum(drp) as rainfall_total from st_pptn_r
+		where stcd in
+		<foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
+			#{stcd}
+		</foreach>
+		group by stcd
 	</select>
+
+
+
+
+
+
+
+
 	<select id="selectAllTrees" resultMap="BaseResultMap">
   	select * from ltc
   </select>

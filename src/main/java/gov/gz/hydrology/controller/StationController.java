@@ -28,12 +28,4 @@ public class StationController {
 		map.put("station", id);
 		return "StationView";
 	}
-	
-	@RequestMapping("test")
-	@ResponseBody
-	public String test() {
-		Station station = stationService.selectByPrimaryKey("62303305");
-		rainfallService.selectByPrimaryKey("62323685");
-		return "1";
-	}
 }

@@ -11,4 +11,5 @@ import java.util.List;
 public interface StationDao {
 	Station selectByPrimaryKey(@Param("userStcd") String userStcd);
 	List<Station> getStationByType(@Param("type") String type);
+	List<String> selectChildStcdByStcd(@Param("stcd") String stcd);
 }

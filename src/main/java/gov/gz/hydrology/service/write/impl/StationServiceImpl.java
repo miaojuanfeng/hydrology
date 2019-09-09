@@ -25,4 +25,9 @@ public class StationServiceImpl implements StationService{
 		return stationDao.getStationByType(type);
 	}
 
+	@Override
+	public List<String> selectChildStcdByStcd(String stcd) {
+		return stationDao.selectChildStcdByStcd(stcd);
+	}
+
 }

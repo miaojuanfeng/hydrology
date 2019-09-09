@@ -7,8 +7,8 @@
    	var myChart = echarts.init(document.getElementById('main'), 'macarons');
    	option = {
 	    title : {
-	           text: '小时雨量',
-	        subtext: '7时',
+            text: '累计雨量',
+	        subtext: '${hour}',
 	        x: 'center',
 	        align: 'right'
 
