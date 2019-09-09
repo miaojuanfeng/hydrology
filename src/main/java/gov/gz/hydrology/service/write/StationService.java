@@ -8,4 +8,5 @@ import java.util.List;
 public interface StationService {
 	Station selectByPrimaryKey(String stcd);
 	List<Station> selectStationByType(String type);
+	List<String> selectChildStcdByStcd(String stcd);
 }

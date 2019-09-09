@@ -15,6 +15,10 @@
 		select * from station
 		where type = #{type}
 	</select>
+	<select id="selectChildStcdByStcd" resultType="java.util.Map">
+		select stcd from station where dis = (select dis from station where stcd = #{stcd})
+	</select>
+
 
 
 
