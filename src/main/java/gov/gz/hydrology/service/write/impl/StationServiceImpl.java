@@ -9,6 +9,7 @@ import gov.gz.hydrology.mapper.write.StationDao;
 import gov.gz.hydrology.service.write.StationService;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StationServiceImpl implements StationService{
@@ -26,8 +27,8 @@ public class StationServiceImpl implements StationService{
 	}
 
 	@Override
-	public List<String> selectChildStcdByStcd(String stcd) {
-		return stationDao.selectChildStcdByStcd(stcd);
+	public List<Map> selectChildStationByStcd(String stcd) {
+		return stationDao.selectChildStationByStcd(stcd);
 	}
 
 }

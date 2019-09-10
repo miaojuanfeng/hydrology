@@ -15,7 +15,7 @@
 	color:#aaa;
 }
 </style>
-<div class="river" style="height:100%;background:url(<c:url value="/assets/images/${img}"></c:url>);background-position:center;">
+<div class="river" style="height:100%;background:url(<c:url value="/assets/images/${station.fileCd}"></c:url>);background-position:center;">
 	<p class="title">汇流示意</p>
-	<p class="desc">宁都站</p>
+	<p class="desc">${station.stname}</p>
 </div>

@@ -3,16 +3,19 @@
 <mapper namespace="gov.gz.hydrology.mapper.read.RainfallDao" >
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.read.Rainfall" >
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
+        <result column="rainfall_total" property="rainfallTotal"/>
 	</resultMap>
 
 	<select id="selectRainfallTotal" resultMap="BaseResultMap">
 		select stcd, sum(drp) as rainfall_total from st_pptn_r
-		where stcd in
+		<!--where CONVERT(varchar(100), tm, 5) = CONVERT(varchar(100), GETDATE(), 5)-->
+        where CONVERT(varchar(100), tm, 5) = '20-06-18'
+        and stcd in
 		<foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
 			#{stcd}
 		</foreach>
 		group by stcd
-	</select>
+    </select>
 
 
 

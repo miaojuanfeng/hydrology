@@ -30,7 +30,12 @@
 	    xAxis : [
 	        {
 	            type : 'category',
-	            data : ['固村','山车','留田','禾塘水库','大沽','山田水库','小布','和平','小吟','马头']
+	            // data : ['固村','山车','留田','禾塘水库','大沽','山田水库','小布','和平','小吟','马头']
+                data:[
+                    <c:forEach items="${stationArr}" var="station" varStatus="id">
+                        '${station}',
+                    </c:forEach>
+                ]
 	        }
 	    ],
 	    yAxis : [
@@ -49,7 +54,12 @@
 	                                    }
 	                                },
 
-	            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.22, 32.6, 20.0],
+	            //data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.22, 32.6, 20.0],
+                data:[
+                    <c:forEach items="${rainfallArr}" var="rainfall" varStatus="id">
+                        ${rainfall},
+                    </c:forEach>
+                ],
 	            markPoint : {
 	            	symbolSize: 70,
 	                data : [
