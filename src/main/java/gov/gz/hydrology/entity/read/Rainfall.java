@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class Rainfall {
     private String stcd;
 
-    private BigDecimal rainfallTotal;
+    private BigDecimal rainfall;
 
     public String getStcd() {
         return stcd;
@@ -15,11 +15,11 @@ public class Rainfall {
         this.stcd = stcd;
     }
 
-    public BigDecimal getRainfallTotal() {
-        return rainfallTotal;
+    public BigDecimal getRainfall() {
+        return rainfall;
     }
 
-    public void setRainfallTotal(BigDecimal rainfallTotal) {
-        this.rainfallTotal = rainfallTotal;
+    public void setRainfall(BigDecimal rainfall) {
+        this.rainfall = rainfall;
     }
 }

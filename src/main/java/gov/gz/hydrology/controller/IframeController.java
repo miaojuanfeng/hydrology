@@ -51,14 +51,27 @@ public class IframeController {
 				String s = String.valueOf(stations.get(i).get("stcd"));
 				for (int j=0;j<rainfallTotal.size();j++){
 					if( rainfallTotal.get(j).getStcd().equals(s) ){
-						rainfallArr.set(i, rainfallTotal.get(j).getRainfallTotal());
+						rainfallArr.set(i, rainfallTotal.get(j).getRainfall());
 						break;
 					}
 				}
 			}
 			map.put("stationArr", stationArr);
 			map.put("rainfallArr", rainfallArr);
-		}
+		}else if( id == 4 ){
+            Station station = stationService.selectByPrimaryKey(stcd);
+            map.put("station", station);
+            //
+            List<Map> stations = stationService.selectChildStationByStcd(stcd);
+            List<String> stcdId = new ArrayList<>();
+            for(int i=0;i<stations.size();i++){
+                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
+            }
+            List<Rainfall> rainfallDaily = rainfallService.selectRainfallDaily(stcdId);
+            //
+            List<String> stationArr = new ArrayList<>();
+            List<BigDecimal> rainfallArr = new ArrayList<>();
+        }
 		return "Iframe"+id;
 	}
 }

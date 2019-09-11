@@ -13,7 +13,7 @@
 	option = {
 	    title : {
 	        text: '降雨趋势',
-	        subtext: '宁都',
+	        subtext: '${station.stname}',
 	        x: 'center',
 	        align: 'right'
 	    },
