@@ -4,9 +4,6 @@
 <html lang="en">
 <head>
 	<%@ include file="common/LinkCommon.jsp" %>
-	<script type="text/javascript" src="<c:url value="/assets/echarts/echarts.min.js"></c:url>"></script>
-    <script type="text/javascript" src="<c:url value="/assets/echarts/macarons.js"></c:url>"></script>
-    <title>链活后台管理系统</title>
 </head>
 <body>
 

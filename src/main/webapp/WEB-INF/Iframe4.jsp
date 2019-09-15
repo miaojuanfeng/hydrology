@@ -41,7 +41,11 @@
 	    },
 	    xAxis: {
 	        type: 'category',
-	        data: ['7月1日', '7月2日', '7月3日', '7月4日', '7月5日']
+	        data: [
+                <c:forEach items="${dateArr}" var="date" varStatus="id">
+                '${date}',
+                </c:forEach>
+            ]
 	    },
 	    yAxis: {
 	         
@@ -51,7 +55,11 @@
 	        
 	    },
 	    series: [{
-	        data: [820, 932, 901, 934, 1290],
+	        data: [
+                <c:forEach items="${rainfallArr}" var="rainfall" varStatus="id">
+                '${rainfall}',
+                </c:forEach>
+            ],
 	        type: 'line',
 	        name:'日雨量',
 	         label: {

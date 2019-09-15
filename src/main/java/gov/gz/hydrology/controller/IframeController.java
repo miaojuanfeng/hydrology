@@ -68,9 +68,22 @@ public class IframeController {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
             }
             List<Rainfall> rainfallDaily = rainfallService.selectRainfallDaily(stcdId);
-            //
-            List<String> stationArr = new ArrayList<>();
-            List<BigDecimal> rainfallArr = new ArrayList<>();
+			//
+			List<String> dateArr = new ArrayList<>();
+			List<BigDecimal> rainfallArr = new ArrayList<>();
+			for (int i=0;i<rainfallDaily.size();i++){
+				dateArr.add(rainfallDaily.get(i).getDate());
+				rainfallArr.add(rainfallDaily.get(i).getRainfall());
+//				String s = String.valueOf(stations.get(i).get("stcd"));
+//				for (int j=0;j<rainfallDaily.size();j++){
+//					if( rainfallDaily.get(j).getStcd().equals(s) ){
+//						rainfallArr.set(i, rainfallDaily.get(j).getRainfall());
+//						break;
+//					}
+//				}
+			}
+			map.put("dateArr", dateArr);
+			map.put("rainfallArr", rainfallArr);
         }
 		return "Iframe"+id;
 	}

@@ -4,7 +4,6 @@
 <html lang="en">
 <head>
 	<%@ include file="common/LinkCommon.jsp" %>
-    <title>链活后台管理系统</title>
 </head>
 <body style="background:url(<c:url value="/assets/static/image/bg.jpg"></c:url>);">
 
