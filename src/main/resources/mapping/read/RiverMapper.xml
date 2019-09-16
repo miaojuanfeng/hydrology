@@ -3,19 +3,15 @@
 <mapper namespace="gov.gz.hydrology.mapper.read.RiverDao" >
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.read.River" >
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
-        <result column="time" property="time"/>
+        <result column="tm" property="tm"/>
         <result column="z" property="z"/>
 	</resultMap>
 
     <select id="selectRainfallTime" resultMap="BaseResultMap">
-        select CONVERT(varchar(100), dateadd(day, -1, tm), 23) as date, sum(drp)/count(drp) as rainfall from st_river_r
+        select stcd, tm, z from st_river_r
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
-        where CONVERT(varchar(100), tm, 23) >= '2018-06-18'
-        and stcd in
-        <foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
-            #{stcd}
-        </foreach>
-        group by CONVERT(varchar(100), dateadd(day, -1, tm), 23)
-        order by CONVERT(varchar(100), dateadd(day, -1, tm), 23) asc
+        where stcd = #{stcd}
+        and 24*60>=datediff(mi,tm,'2018-06-18 12:25:00')
+        and datediff(mi,tm,'2018-06-18 12:25:00')>=0
     </select>
 </mapper>

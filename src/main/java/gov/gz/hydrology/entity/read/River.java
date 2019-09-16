@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class River {
     private String stcd;
 
-    private String time;
+    private String tm;
 
     private BigDecimal z;
 
@@ -17,12 +17,12 @@ public class River {
         this.stcd = stcd;
     }
 
-    public String getTime() {
-        return time;
+    public String getTm() {
+        return tm;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTm(String tm) {
+        this.tm = tm;
     }
 
     public BigDecimal getZ() {
