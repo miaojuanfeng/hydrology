@@ -7,7 +7,7 @@
         <result column="z" property="z"/>
 	</resultMap>
 
-    <select id="selectRainfallTime" resultMap="BaseResultMap">
+    <select id="selectRiverTime" resultMap="BaseResultMap">
         select stcd, tm, z
         from ST_RIVER_R
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->

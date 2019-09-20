@@ -1,9 +1,10 @@
 package gov.gz.hydrology.service.read;
 
 import gov.gz.hydrology.entity.read.Rainfall;
+import gov.gz.hydrology.entity.read.River;
 
 import java.util.List;
 
 public interface RiverService {
-	List<Rainfall> selectRainfallTime(List<String> list);
+	List<River> selectRiverTime(String stcd);
 }

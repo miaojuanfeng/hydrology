@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="gov.gz.hydrology.mapper.write.CacheRiverTimeDao" >
-	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.CacheRiverTime" >
+	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.read.River" >
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
         <result column="tm" property="tm"/>
         <result column="z" property="z"/>
@@ -9,11 +9,22 @@
 
     <!-- 批量设备数据 -->
     <insert id="insertBatch" parameterType="java.util.List">
-        insert into t_device_data
-        (device_id,data_type,device_data,inserter,insert_time,updater,update_time)
+        insert into cache_river_time
+        (stcd,tm,z)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.deviceId},#{item.dataType},#{item.deviceData},#{item.inserter},#{item.insertTime},#{item.updater},#{item.updateTime})
+            (#{item.stcd},#{item.tm},#{item.z})
         </foreach>
     </insert>
+
+    <delete id="deleteByStcd" parameterType="java.lang.String">
+        delete from cache_river_time where stcd = #{stcd}
+    </delete>
+
+    <select id="selectRiverTime" resultMap="BaseResultMap">
+        select *
+        from cache_river_time
+        where stcd = #{stcd}
+        order by tm asc
+    </select>
 </mapper>

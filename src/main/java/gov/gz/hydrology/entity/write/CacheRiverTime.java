@@ -1,11 +1,12 @@
 package gov.gz.hydrology.entity.write;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class CacheRiverTime {
     private String stcd;
 
-    private String tm;
+    private Date tm;
 
     private BigDecimal z;
 
@@ -17,11 +18,11 @@ public class CacheRiverTime {
         this.stcd = stcd;
     }
 
-    public String getTm() {
+    public Date getTm() {
         return tm;
     }
 
-    public void setTm(String tm) {
+    public void setTm(Date tm) {
         this.tm = tm;
     }
 

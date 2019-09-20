@@ -2,8 +2,11 @@ package gov.gz.hydrology.controller;
 
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.read.Rainfall;
+import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.service.read.RainfallService;
+import gov.gz.hydrology.service.read.RiverService;
+import gov.gz.hydrology.service.write.CacheRiverTimeService;
 import gov.gz.hydrology.service.write.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,12 @@ public class IframeController {
 
 	@Autowired
 	private RainfallService rainfallService;
+
+	@Autowired
+	private RiverService riverService;
+
+	@Autowired
+	private CacheRiverTimeService cacheRiverTimeService;
 
 	@RequestMapping("{id}")
 	public String index(ModelMap map, @PathVariable("id") Integer id, @RequestParam(value="stcd", required=false) String stcd) {
@@ -84,7 +93,38 @@ public class IframeController {
 			}
 			map.put("dateArr", dateArr);
 			map.put("rainfallArr", rainfallArr);
-        }
+        }else if( id == 5 ){
+			Station station = stationService.selectByPrimaryKey(stcd);
+			map.put("station", station);
+			//
+//			List<River> riverTime = riverService.selectRiverTime(stcd);
+			List<River> riverTime = cacheRiverTimeService.selectRiverTime(stcd);
+			//
+//			cacheRiverTimeService.deleteByStcd(stcd);
+//			List<River> copyRiverTime = new ArrayList<>();
+//			for (int i=0;i<riverTime.size();i++){
+//				copyRiverTime.add(riverTime.get(i));
+//				if(copyRiverTime.size()>=500 || i==riverTime.size()-1) {
+//					cacheRiverTimeService.insertBatch(copyRiverTime);
+//					copyRiverTime.clear();
+//				}
+//			}
+			//
+			List<String> timeArr = new ArrayList<>();
+			List<BigDecimal> riverArr = new ArrayList<>();
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd HH:mm");
+			for (int i=0;i<riverTime.size();i++){
+				String time = format.format(riverTime.get(i).getTm());
+				if( time.endsWith(":00") ) {
+					timeArr.add(time);
+				}else{
+					timeArr.add("");
+				}
+				riverArr.add(riverTime.get(i).getZ());
+			}
+			map.put("timeArr", timeArr);
+			map.put("riverArr", riverArr);
+		}
 		return "Iframe"+id;
 	}
 }

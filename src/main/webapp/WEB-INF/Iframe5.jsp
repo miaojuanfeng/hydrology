@@ -8,7 +8,7 @@
     option = {
         title : {
             text: '水位过程',
-            subtext: '宁都站',
+            subtext: '${station.stname}',
             x: 'center',
             align: 'right'
         },
@@ -51,7 +51,9 @@
                 boundaryGap : false,
                 axisLine: {onZero: false},
                 data : [
-                    '10/17 22:00',  '10/17 23:00', '10/18 0:00',  '10/18 1:00', '10/18 2:00', '10/18 3:00', '10/18 4:00', '10/18 5:00', '10/18 6:00', '10/18 7:00', '10/18 8:00'
+                    <c:forEach items="${timeArr}" var="time" varStatus="id">
+                    '${time}',
+                    </c:forEach>
                 ].map(function (str) {
                     return str.replace(' ', '\n')
                 })
@@ -89,7 +91,9 @@
 
 
                 data:[
-                    0,100,200,450,150,200,190,180,160,10,0
+                    <c:forEach items="${riverArr}" var="river" varStatus="id">
+                    '${river}',
+                    </c:forEach>
                 ],
 
                 markLine: {

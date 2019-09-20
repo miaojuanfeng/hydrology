@@ -1,6 +1,7 @@
 package gov.gz.hydrology.service.write.impl;
 
 import gov.gz.hydrology.entity.read.Rainfall;
+import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.write.CacheRiverTime;
 import gov.gz.hydrology.mapper.read.RiverDao;
 import gov.gz.hydrology.mapper.write.CacheRiverTimeDao;
@@ -18,7 +19,17 @@ public class CacheRiverTimeServiceImpl implements CacheRiverTimeService {
     private CacheRiverTimeDao cacheRiverTimeDao;
 
     @Override
-    public void insertBatch(List<CacheRiverTime> cacheRiverTimes) {
-        cacheRiverTimeDao.insertBatch(cacheRiverTimes);
+    public void insertBatch(List<River> rivers) {
+        cacheRiverTimeDao.insertBatch(rivers);
+    }
+
+    @Override
+    public void deleteByStcd(String stcd) {
+        cacheRiverTimeDao.deleteByStcd(stcd);
+    }
+
+    @Override
+    public List<River> selectRiverTime(String stcd) {
+        return cacheRiverTimeDao.selectRiverTime(stcd);
     }
 }
