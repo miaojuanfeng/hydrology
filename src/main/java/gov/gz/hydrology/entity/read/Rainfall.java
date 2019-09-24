@@ -7,6 +7,8 @@ public class Rainfall {
 
     private String date;
 
+    private String stname;
+
     private BigDecimal rainfall;
 
     public String getStcd() {
@@ -23,6 +25,14 @@ public class Rainfall {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getStname() {
+        return stname;
+    }
+
+    public void setStname(String stname) {
+        this.stname = stname;
     }
 
     public BigDecimal getRainfall() {

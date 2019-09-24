@@ -50,6 +50,9 @@
                 type : 'category',
                 boundaryGap : false,
                 axisLine: {onZero: false},
+                axisLabel:{
+                    interval: (12*8-3),
+                },
                 data : [
                     <c:forEach items="${timeArr}" var="time" varStatus="id">
                     '${time}',
@@ -63,7 +66,8 @@
             {
                 name: '水位(m)',
                 type: 'value',
-                max: 500
+                max: ${max},
+                min: ${min}
             }
 
         ],

@@ -6,6 +6,8 @@ import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
+import gov.gz.hydrology.service.write.CacheRainfallDailyService;
+import gov.gz.hydrology.service.write.CacheRainfallTotalService;
 import gov.gz.hydrology.service.write.CacheRiverTimeService;
 import gov.gz.hydrology.service.write.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,12 @@ public class IframeController {
 	@Autowired
 	private CacheRiverTimeService cacheRiverTimeService;
 
+	@Autowired
+	private CacheRainfallDailyService cacheRainfallDailyService;
+
+	@Autowired
+	private CacheRainfallTotalService cacheRainfallTotalService;
+
 	@RequestMapping("{id}")
 	public String index(ModelMap map, @PathVariable("id") Integer id, @RequestParam(value="stcd", required=false) String stcd) {
 		if( id == 1 ) {
@@ -51,6 +59,22 @@ public class IframeController {
 				stcdId.add(String.valueOf(stations.get(i).get("stcd")));
 			}
 			List<Rainfall> rainfallTotal = rainfallService.selectRainfallTotal(stcdId);
+
+			//
+
+
+			cacheRainfallTotalService.deleteByStcd(stcd);
+			List<Rainfall> copyRainfallTotal = new ArrayList<>();
+			for (int i=0;i<rainfallTotal.size();i++){
+				rainfallTotal.get(i).setStcd(stcd);
+				copyRainfallTotal.add(rainfallTotal.get(i));
+				if(copyRainfallTotal.size()>=500 || i==rainfallTotal.size()-1) {
+					cacheRainfallTotalService.insertBatch(copyRainfallTotal);
+					copyRainfallTotal.clear();
+				}
+			}
+
+
 			//
 			List<String> stationArr = new ArrayList<>();
 			List<BigDecimal> rainfallArr = new ArrayList<>();
@@ -71,12 +95,26 @@ public class IframeController {
             Station station = stationService.selectByPrimaryKey(stcd);
             map.put("station", station);
             //
-            List<Map> stations = stationService.selectChildStationByStcd(stcd);
-            List<String> stcdId = new ArrayList<>();
-            for(int i=0;i<stations.size();i++){
-                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
-            }
-            List<Rainfall> rainfallDaily = rainfallService.selectRainfallDaily(stcdId);
+//            List<Map> stations = stationService.selectChildStationByStcd(stcd);
+//            List<String> stcdId = new ArrayList<>();
+//            for(int i=0;i<stations.size();i++){
+//                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
+//            }
+//            List<Rainfall> rainfallDaily = rainfallService.selectRainfallDaily(stcdId);
+			List<Rainfall> rainfallDaily = cacheRainfallDailyService.selectByStcd(stcd);
+			//
+
+//			cacheRainfallDailyService.deleteByStcd(stcd);
+//			List<Rainfall> copyRainfallDaily = new ArrayList<>();
+//			for (int i=0;i<rainfallDaily.size();i++){
+//				rainfallDaily.get(i).setStcd(stcd);
+//				copyRainfallDaily.add(rainfallDaily.get(i));
+//				if(copyRainfallDaily.size()>=500 || i==rainfallDaily.size()-1) {
+//					cacheRainfallDailyService.insertBatch(copyRainfallDaily);
+//					copyRainfallDaily.clear();
+//				}
+//			}
+
 			//
 			List<String> dateArr = new ArrayList<>();
 			List<BigDecimal> rainfallArr = new ArrayList<>();
@@ -113,18 +151,39 @@ public class IframeController {
 			List<String> timeArr = new ArrayList<>();
 			List<BigDecimal> riverArr = new ArrayList<>();
 			SimpleDateFormat format = new SimpleDateFormat("MM/dd HH:mm");
+			Integer max = Integer.MIN_VALUE;
+			Integer min = Integer.MAX_VALUE;
 			for (int i=0;i<riverTime.size();i++){
 				String time = format.format(riverTime.get(i).getTm());
-				if( time.endsWith(":00") ) {
+//				if( time.endsWith(":00") ) {
 					timeArr.add(time);
-				}else{
-					timeArr.add("");
-				}
+//				}else{
+//					timeArr.add("");
+//				}
 				riverArr.add(riverTime.get(i).getZ());
+				if( max < riverTime.get(i).getZ().intValue() ){
+					max = riverTime.get(i).getZ().add(new BigDecimal(1)).intValue();
+				}
+				if( min > riverTime.get(i).getZ().intValue() ){
+					min = riverTime.get(i).getZ().intValue();
+				}
 			}
 			map.put("timeArr", timeArr);
 			map.put("riverArr", riverArr);
+			map.put("max", max);
+			map.put("min", min);
 		}
 		return "Iframe"+id;
 	}
+
+//	private BigDecimal getMaxValue(BigDecimal maxValue){
+//		switch ( maxValue.subtract(new BigDecimal(maxValue.intValue())).compareTo(new BigDecimal(0.5)) ){
+//			case 1:
+//				return new BigDecimal(maxValue.intValue()).add(new BigDecimal(1));
+//			case -1:
+//				return new BigDecimal(maxValue.intValue()).add(new BigDecimal(0.5));
+//			default:
+//				return new BigDecimal(maxValue.intValue());
+//		}
+//	}
 }
