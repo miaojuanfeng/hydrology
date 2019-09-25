@@ -16,6 +16,7 @@
 			#{stcd}
 		</foreach>
 		group by stcd
+        order by stcd asc
     </select>
 
     <select id="selectRainfallDaily" resultMap="BaseResultMap">

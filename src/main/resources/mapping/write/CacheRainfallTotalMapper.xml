@@ -10,10 +10,10 @@
     <!-- 批量设备数据 -->
     <insert id="insertBatch" parameterType="java.util.List">
         insert into cache_rainfall_total
-        (stcd,date,rainfall)
+        (stcd,stname,rainfall)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.stcd},#{item.date},#{item.rainfall})
+            (#{item.stcd},#{item.stname},#{item.rainfall})
         </foreach>
     </insert>
 
@@ -22,9 +22,9 @@
     </delete>
 
     <select id="selectByStcd" resultMap="BaseResultMap">
-        select *
+        select stcd,stname,rainfall
         from cache_rainfall_total
         where stcd = #{stcd}
-        order by date asc
+        order by stcd asc
     </select>
 </mapper>

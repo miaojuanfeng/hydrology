@@ -53,41 +53,41 @@ public class IframeController {
 			map.put("station", station);
 		}else if( id == 2 ){
 			map.put("hour", new SimpleDateFormat("H时").format(new Date()));
-			List<Map> stations = stationService.selectChildStationByStcd(stcd);
-			List<String> stcdId = new ArrayList<>();
-			for(int i=0;i<stations.size();i++){
-				stcdId.add(String.valueOf(stations.get(i).get("stcd")));
-			}
-			List<Rainfall> rainfallTotal = rainfallService.selectRainfallTotal(stcdId);
-
-			//
-
-
-			cacheRainfallTotalService.deleteByStcd(stcd);
-			List<Rainfall> copyRainfallTotal = new ArrayList<>();
-			for (int i=0;i<rainfallTotal.size();i++){
-				rainfallTotal.get(i).setStcd(stcd);
-				copyRainfallTotal.add(rainfallTotal.get(i));
-				if(copyRainfallTotal.size()>=500 || i==rainfallTotal.size()-1) {
-					cacheRainfallTotalService.insertBatch(copyRainfallTotal);
-					copyRainfallTotal.clear();
-				}
-			}
+//			List<Map> stations = stationService.selectChildStationByStcd(stcd);
+//			List<String> stcdId = new ArrayList<>();
+//			for(int i=0;i<stations.size();i++){
+//				stcdId.add(String.valueOf(stations.get(i).get("stcd")));
+//			}
+//			List<Rainfall> rainfallTotal = rainfallService.selectRainfallTotal(stcdId);
+            List<Rainfall> rainfallTotal = cacheRainfallTotalService.selectByStcd(stcd);
+//
+//			//
+//
+//
+//			cacheRainfallTotalService.deleteByStcd(stcd);
+//			List<Rainfall> copyRainfallTotal = new ArrayList<>();
+//			for (int i=0;i<rainfallTotal.size();i++){
+//                for (int j=0;j<stations.size();j++) {
+//                    if( rainfallTotal.get(i).getStcd().equals(String.valueOf(stations.get(j).get("stcd"))) ){
+//                        rainfallTotal.get(i).setStname(String.valueOf(stations.get(j).get("stname")));
+//                        break;
+//                    }
+//                }
+//                rainfallTotal.get(i).setStcd(stcd);
+//                copyRainfallTotal.add(rainfallTotal.get(i));
+//                if (copyRainfallTotal.size() >= 500 || i == rainfallTotal.size() - 1) {
+//                    cacheRainfallTotalService.insertBatch(copyRainfallTotal);
+//                    copyRainfallTotal.clear();
+//                }
+//			}
 
 
 			//
 			List<String> stationArr = new ArrayList<>();
 			List<BigDecimal> rainfallArr = new ArrayList<>();
-			for (int i=0;i<stations.size();i++){
-				stationArr.add(String.valueOf(stations.get(i).get("stname")));
-				rainfallArr.add(new BigDecimal(0));
-				String s = String.valueOf(stations.get(i).get("stcd"));
-				for (int j=0;j<rainfallTotal.size();j++){
-					if( rainfallTotal.get(j).getStcd().equals(s) ){
-						rainfallArr.set(i, rainfallTotal.get(j).getRainfall());
-						break;
-					}
-				}
+			for (int i=0;i<rainfallTotal.size();i++){
+				stationArr.add(rainfallTotal.get(i).getStname());
+				rainfallArr.add(rainfallTotal.get(i).getRainfall());
 			}
 			map.put("stationArr", stationArr);
 			map.put("rainfallArr", rainfallArr);
