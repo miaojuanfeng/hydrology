@@ -3,6 +3,8 @@ package gov.gz.hydrology.thread;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.service.common.DataService;
 
+import java.text.SimpleDateFormat;
+
 public class DataThread extends Thread{
 
     private static DataService dataService;
@@ -12,7 +14,11 @@ public class DataThread extends Thread{
      */
     private static Object lock = new Object();
 
-    private static final Long timeout = 20*1000L;
+    private static final Long timeout = 5*60*1000L;
+
+    private static String dataTime = "";
+
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public DataThread(){
         dataService = CommonConst.APPLICATION_CONTEXT.getBean(DataService.class);

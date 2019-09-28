@@ -7,6 +7,8 @@ public class Station {
 	private String dis;
 	private String wea;
 	private String fileCd;
+	private Integer jbLine;
+	private Integer jjLine;
 	public String getStcd() {
 		return stcd;
 	}
@@ -46,5 +48,21 @@ public class Station {
 
 	public void setFileCd(String fileCd) {
 		this.fileCd = fileCd;
+	}
+
+	public Integer getJbLine() {
+		return jbLine;
+	}
+
+	public void setJbLine(Integer jbLine) {
+		this.jbLine = jbLine;
+	}
+
+	public Integer getJjLine() {
+		return jjLine;
+	}
+
+	public void setJjLine(Integer jjLine) {
+		this.jjLine = jjLine;
 	}
 }

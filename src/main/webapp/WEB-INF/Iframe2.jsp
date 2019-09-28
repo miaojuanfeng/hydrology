@@ -60,13 +60,13 @@
                         ${rainfall},
                     </c:forEach>
                 ],
-	            markPoint : {
-	            	symbolSize: 70,
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	               
-	                ]
-	            },
+	            // markPoint : {
+	            // 	symbolSize: 70,
+	            //     data : [
+	            //         {type : 'max', name: '最大值'},
+	            //
+	            //     ]
+	            // },
 	            markLine : {
 	                data : [
 	                    {type : 'average', name: '平均值'}

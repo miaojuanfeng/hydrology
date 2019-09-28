@@ -38,21 +38,17 @@
             }
         },
         dataZoom: [
-
             {
                 type: 'inside',
                 realtime: true,
-
             }
         ],
         xAxis : [
             {
-                type : 'category',
-                boundaryGap : false,
+                type: 'category',
+                boundaryGap: false,
                 axisLine: {onZero: false},
-                axisLabel:{
-                    interval: (12*8-3),
-                },
+                axisLabel: {interval: 288},
                 data : [
                     <c:forEach items="${timeArr}" var="time" varStatus="id">
                     '${time}',
@@ -69,72 +65,60 @@
                 max: ${max},
                 min: ${min}
             }
-
         ],
         series: [
             {
                 name:'水位',
                 type:'line',
+                areaStyle: {},
+                symbol: 'circle',//折线点设置为实心点
+                symbolSize: 1,   //折线点的大小
                 smooth:true,
                 animation: true,
                 itemStyle:{
                     normal:{
                         color:'#26d0ce',
-
                     }
                 },
                 lineStyle: {
                     normal: {
                         color:'#26d0ce',
-                        width: 3,
+                        width: 1,
                         shadowColor: 'rgba(0,0,0,0.4)',
-                        shadowBlur: 10,
-                        shadowOffsetY: 10
+                        shadowBlur: 15,
+                        //shadowOffsetY: 5
                     }
                 },
-
-
                 data:[
                     <c:forEach items="${riverArr}" var="river" varStatus="id">
                     '${river}',
                     </c:forEach>
                 ],
-
                 markLine: {
-
                     // 	symbol:"none",               //去掉警戒线最后面的箭头
                     label:{
-
                         position:"end"          //将警示值放在哪个位置，三个值“start”,"middle","end"  开始  中点 结束
                     },
-                    data : [{
-                        name :'加报',
-
-
-
-                        lineStyle:{               //警戒线的样式  ，虚实  颜色
-                            //  type:"solid",
-                            color:"#EE9A00",
+                    data : [
+                        {
+                            name :'加报',
+                            lineStyle:{               //警戒线的样式  ，虚实  颜色
+                                //  type:"solid",
+                                color:"#EE9A00",
+                            },
+                            yAxis: ${jbLine}           // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                         },
-                        yAxis: 200           // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
-                    },
                         {
                             name :'警戒',
-
-
-
                             lineStyle:{               //警戒线的样式  ，虚实  颜色
                                 //  type:"solid",
                                 color:"#CD0000",
                             },
-                            yAxis: 300           // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
+                            yAxis: ${jjLine}           // 警戒线的标注值，可以有多个yAxis,多条警示线   或者采用   {type : 'average', name: '平均值'}，type值有  max  min  average，分为最大，最小，平均值
                         }
                     ]
-
                 }
-
             }
-
         ]
     };
     myChart.setOption(option);

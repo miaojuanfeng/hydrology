@@ -168,10 +168,18 @@ public class IframeController {
 					min = riverTime.get(i).getZ().intValue();
 				}
 			}
+//			if( max < station.getJjLine() ){
+//				max = station.getJjLine() + 1;
+//			}
+//			if( min > station.getJbLine() ){
+//				min = station.getJbLine();
+//			}
 			map.put("timeArr", timeArr);
 			map.put("riverArr", riverArr);
 			map.put("max", max);
 			map.put("min", min);
+			map.put("jbLine", station.getJbLine());
+			map.put("jjLine", station.getJjLine());
 		}
 		return "Iframe"+id;
 	}

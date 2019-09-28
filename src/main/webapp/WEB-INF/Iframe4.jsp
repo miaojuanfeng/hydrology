@@ -62,13 +62,15 @@
             ],
 	        type: 'line',
 	        name:'日雨量',
-	         label: {
-	                normal: {
-	                    show: true,
-	                     //  color:'#26d0ce',
-	                    position: 'top'
-	                }
-	            },
+            symbol: 'circle',//折线点设置为实心点
+            symbolSize: 1,   //折线点的大小
+	         // label: {
+	         //        normal: {
+	         //            show: true,
+	         //             //  color:'#26d0ce',
+	         //            position: 'top'
+	         //        }
+	         //    },
 	         smooth: true,
 	          itemStyle:{
 	                                    normal:{
