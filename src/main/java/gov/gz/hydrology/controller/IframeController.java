@@ -85,12 +85,17 @@ public class IframeController {
 			//
 			List<String> stationArr = new ArrayList<>();
 			List<BigDecimal> rainfallArr = new ArrayList<>();
+			Integer max = Integer.MIN_VALUE;
 			for (int i=0;i<rainfallTotal.size();i++){
 				stationArr.add(rainfallTotal.get(i).getStname());
 				rainfallArr.add(rainfallTotal.get(i).getRainfall());
+				if( max < rainfallTotal.get(i).getRainfall().intValue() ){
+					max = rainfallTotal.get(i).getRainfall().intValue() + 10;
+				}
 			}
 			map.put("stationArr", stationArr);
 			map.put("rainfallArr", rainfallArr);
+			map.put("max", max);
 		}else if( id == 4 ){
             Station station = stationService.selectByPrimaryKey(stcd);
             map.put("station", station);

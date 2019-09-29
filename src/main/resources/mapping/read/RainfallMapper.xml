@@ -8,7 +8,7 @@
 	</resultMap>
 
 	<select id="selectRainfallTotal" resultMap="BaseResultMap">
-		select stcd, sum(drp) as rainfall from st_pptn_r
+		select top 10 stcd, sum(drp) as rainfall from st_pptn_r
 		<!--where CONVERT(varchar(100), tm, 23) = CONVERT(varchar(100), GETDATE(), 23)-->
         where CONVERT(varchar(100), tm, 23) = '2018-06-20'
         and stcd in
@@ -16,7 +16,7 @@
 			#{stcd}
 		</foreach>
 		group by stcd
-        order by stcd asc
+        order by sum(drp) desc
     </select>
 
     <select id="selectRainfallDaily" resultMap="BaseResultMap">

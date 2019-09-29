@@ -48,11 +48,8 @@
             ]
 	    },
 	    yAxis: {
-	         
-	            name: '降雨量(mm)',
-	            type: 'value'
-	            
-	        
+            name: '降雨量(mm)',
+            type: 'value',
 	    },
 	    series: [{
 	        data: [
@@ -71,23 +68,21 @@
 	         //            position: 'top'
 	         //        }
 	         //    },
-	         smooth: true,
-	          itemStyle:{
-	                                    normal:{
-	                                         color:'#26d0ce',
-	                                        
-	                                    }
-	                                },
-	            lineStyle: {
-	                normal: {
-	                    color:'#26d0ce',
-	                    width: 3,
-	                    shadowColor: 'rgba(0,0,0,0.4)',
-	                    shadowBlur: 10,
-	                    shadowOffsetY: 10
-	                }
-	            }
-	        
+            smooth: true,
+            itemStyle:{
+                normal:{
+                     color:'#4DBEEE',
+                }
+            },
+            lineStyle: {
+                normal: {
+                    color:'#4DBEEE',
+                    width: 3,
+                    shadowColor: 'rgba(0,0,0,0.4)',
+                    shadowBlur: 10,
+                    shadowOffsetY: 10
+                }
+            }
 	    }]
 	};
 	myChart.setOption(option);

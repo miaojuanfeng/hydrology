@@ -77,12 +77,12 @@
                 animation: true,
                 itemStyle:{
                     normal:{
-                        color:'#26d0ce',
+                        color:'#4DBEEE',
                     }
                 },
                 lineStyle: {
                     normal: {
-                        color:'#26d0ce',
+                        color:'#4DBEEE',
                         width: 1,
                         shadowColor: 'rgba(0,0,0,0.4)',
                         shadowBlur: 15,

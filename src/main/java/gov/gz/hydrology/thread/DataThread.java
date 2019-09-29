@@ -31,12 +31,12 @@ public class DataThread extends Thread{
         while (true){
             synchronized (lock){
                 try {
-                    dataService.rainfallDaily();
                     System.out.println("数据1");
-                    dataService.rainfallTotal();
+                    dataService.rainfallDaily();
                     System.out.println("数据2");
-                    dataService.riverTime();
+                    dataService.rainfallTotal();
                     System.out.println("数据3");
+                    dataService.riverTime();
                     lock.wait(timeout);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
