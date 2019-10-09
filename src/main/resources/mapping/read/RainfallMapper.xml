@@ -20,14 +20,14 @@
     </select>
 
     <select id="selectRainfallDaily" resultMap="BaseResultMap">
-        select CONVERT(varchar(100), dateadd(day, -1, tm), 23) as date, sum(drp)/count(drp) as rainfall from st_pptn_r
+        select CONVERT(varchar(100), dateadd(day, -1, tm), 101) as date, sum(drp)/count(drp) as rainfall from st_pptn_r
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where CONVERT(varchar(100), tm, 23) >= '2018-06-18'
         and stcd in
         <foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
             #{stcd}
         </foreach>
-        group by CONVERT(varchar(100), dateadd(day, -1, tm), 23)
-        order by CONVERT(varchar(100), dateadd(day, -1, tm), 23) asc
+        group by CONVERT(varchar(100), dateadd(day, -1, tm), 101)
+        order by CONVERT(varchar(100), dateadd(day, -1, tm), 101) asc
     </select>
 </mapper>

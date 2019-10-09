@@ -18,15 +18,6 @@
         legend: {
             data:['加报','警戒']
         },
-        toolbox: {
-            feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
-                restore: {},
-                saveAsImage: {}
-            }
-        },
         tooltip : {
             trigger: 'axis',
             axisPointer: {

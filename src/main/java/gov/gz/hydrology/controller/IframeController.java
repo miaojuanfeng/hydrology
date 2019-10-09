@@ -1,6 +1,7 @@
 package gov.gz.hydrology.controller;
 
 import gov.gz.hydrology.constant.CommonConst;
+import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.write.Station;
@@ -47,10 +48,42 @@ public class IframeController {
 	private CacheRainfallTotalService cacheRainfallTotalService;
 
 	@RequestMapping("{id}")
-	public String index(ModelMap map, @PathVariable("id") Integer id, @RequestParam(value="stcd", required=false) String stcd) {
+	public String index(ModelMap map, @PathVariable("id") Integer id, @RequestParam(value="stcd",required=false) String stcd) {
 		if( id == 1 ) {
 			Station station = stationService.selectByPrimaryKey(stcd);
 			map.put("station", station);
+
+            List<Rainfall> rainfallTotal = cacheRainfallTotalService.selectByStcd(stcd);
+            BigDecimal rainfallSum = new BigDecimal(0);
+            for (int i=0;i<rainfallTotal.size();i++){
+                rainfallSum.add(rainfallTotal.get(i).getRainfall());
+            }
+            Integer ava = 0;
+            if( rainfallTotal.size() > 0 ) {
+                Integer rainfallAva = rainfallSum.divide(new BigDecimal(rainfallTotal.size()), NumberConst.DIGIT, NumberConst.MODE).intValue();
+                if (rainfallAva < 50) {
+                    ava = 10;
+                } else if (rainfallAva < 70) {
+                    ava = 20;
+                } else if (rainfallAva < 90) {
+                    ava = 30;
+                } else if (rainfallAva < 110) {
+                    ava = 40;
+                } else if (rainfallAva < 130) {
+                    ava = 50;
+                } else if (rainfallAva < 150) {
+                    ava = 60;
+                } else if (rainfallAva < 170) {
+                    ava = 70;
+                } else if (rainfallAva < 190) {
+                    ava = 80;
+                } else if (rainfallAva < 210) {
+                    ava = 90;
+                } else {
+                    ava = 100;
+                }
+            }
+            map.put("ava", ava);
 		}else if( id == 2 ){
 			map.put("hour", new SimpleDateFormat("H时").format(new Date()));
 //			List<Map> stations = stationService.selectChildStationByStcd(stcd);
@@ -124,7 +157,7 @@ public class IframeController {
 			List<String> dateArr = new ArrayList<>();
 			List<BigDecimal> rainfallArr = new ArrayList<>();
 			for (int i=0;i<rainfallDaily.size();i++){
-				dateArr.add(rainfallDaily.get(i).getDate());
+				dateArr.add(rainfallDaily.get(i).getDate().substring(0,5));
 				rainfallArr.add(rainfallDaily.get(i).getRainfall());
 //				String s = String.valueOf(stations.get(i).get("stcd"));
 //				for (int j=0;j<rainfallDaily.size();j++){

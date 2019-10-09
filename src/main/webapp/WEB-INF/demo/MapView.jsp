@@ -12,7 +12,7 @@
 
 <div id="main-bing" style="width: 100%;height:400px;"></div>
 
-<script type="text/javascript" src="<c:url value="/assets/echarts/echarts.min.js"></c:url>"></script>
+<script type="text/javascript" src="<c:url value="/assets/echarts/echarts.gauge.min.js"></c:url>"></script>
 <script type="text/javascript">
 
     // 基于准备好的dom，初始化echarts实例

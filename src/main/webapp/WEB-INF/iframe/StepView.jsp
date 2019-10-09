@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <%@ include file="common/HeaderCommon.jsp" %>
-    <script type="text/javascript" src="<c:url value="/assets/echarts/echarts.min.js"></c:url>"></script>
+    <script type="text/javascript" src="<c:url value="/assets/echarts/echarts.gauge.min.js"></c:url>"></script>
     <script type="text/javascript" src="<c:url value="/assets/echarts/macarons.js"></c:url>"></script>
 </head>
 <body class="body">
