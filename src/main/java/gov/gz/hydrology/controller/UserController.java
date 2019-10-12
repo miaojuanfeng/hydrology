@@ -2,15 +2,20 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Staff;
 import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.service.write.StaffService;
 import gov.gz.hydrology.service.write.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("cms/user")
@@ -28,10 +33,15 @@ public class UserController {
 	}
 
 	@PostMapping("login")
-	public String login(@RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, ModelMap model) {
+	public String login(HttpServletRequest request, ModelMap model, @RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd) {
+		HttpSession session = request.getSession();
+		if( session.getAttribute(CommonConst.SESSION_KEY_USER) != null ){
+			return "redirect:/cms/station/1";
+		}
 		User user = userService.selectByPrimaryKey(userId);
 		if( user != null ){
 			if( userPsd.equals(user.getUserPsd()) ){
+				session.setAttribute(CommonConst.SESSION_KEY_USER, user);
 				return "redirect:/cms/station/1";
 			}else{
 				model.put("reason", "手机号或密码错误");
@@ -40,6 +50,13 @@ public class UserController {
 			model.put("reason", "手机号或密码错误");
 		}
 		return "LoginView";
+	}
+
+	@GetMapping("logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute(CommonConst.SESSION_KEY_USER);
+		return "redirect:/cms/user/login";
 	}
 	
 	@GetMapping("register")

@@ -1,7 +1,9 @@
 package gov.gz.hydrology.controller;
 
 
+import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Station;
+import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.write.UserStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import gov.gz.hydrology.service.write.StationService;
 import gov.gz.hydrology.utils.DateUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,13 +32,20 @@ public class StationController {
 
 	@Autowired
 	private RainfallService rainfallService;
-	
+
+//	@RequestMapping("/")
+//	public String index(ModelMap map) {
+//
+//	}
+
 	@RequestMapping("{stcd}")
-	public String index(ModelMap map, @PathVariable("stcd") String stcd) {
+	public String stcd(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
 		map.put("stcd", stcd);
 		Station station = stationService.selectByPrimaryKey(stcd);
 		map.put("station", station);
-		List<Station> stationList = userStationService.selectByUserId("16607978866");
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+		List<Station> stationList = userStationService.selectByUserId(user.getUserId());
 		map.put("stationList", stationList);
 		return "StationView";
 	}

@@ -8,4 +8,6 @@ public class CommonConst {
     public static ApplicationContext APPLICATION_CONTEXT = null;
 
     public static final String[] STCD_STATION = {"62303350", "62303500", "62303650"};
+
+    public static final String SESSION_KEY_USER = "user";
 }
