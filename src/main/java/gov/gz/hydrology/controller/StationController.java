@@ -4,6 +4,7 @@ package gov.gz.hydrology.controller;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.User;
+import gov.gz.hydrology.entity.write.UserStation;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.write.UserStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,19 @@ public class StationController {
 	@Autowired
 	private RainfallService rainfallService;
 
-//	@RequestMapping("/")
-//	public String index(ModelMap map) {
-//
-//	}
+	@RequestMapping("")
+	public String index(HttpServletRequest request, ModelMap map) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		UserStation userStation = userStationService.selectDefault(user.getUserId());
+		map.put("stcd", userStation.getStation().getStcd());
+		map.put("station", userStation.getStation());
+
+		List<Station> stationList = userStationService.selectByUserId(user.getUserId());
+		map.put("stationList", stationList);
+		return "StationView";
+	}
 
 	@RequestMapping("{stcd}")
 	public String stcd(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {

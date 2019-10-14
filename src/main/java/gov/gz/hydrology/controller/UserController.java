@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Staff;
 import gov.gz.hydrology.entity.write.User;
+import gov.gz.hydrology.entity.write.UserStation;
 import gov.gz.hydrology.service.write.StaffService;
 import gov.gz.hydrology.service.write.UserService;
+import gov.gz.hydrology.service.write.UserStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("cms/user")
@@ -26,6 +30,9 @@ public class UserController {
 
 	@Autowired
 	private StaffService staffService;
+
+	@Autowired
+	private UserStationService userStationService;
 
 	@GetMapping("login")
 	public String login() {
@@ -65,7 +72,7 @@ public class UserController {
 	}
 
 	@PostMapping("register")
-	public String register(@RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, @RequestParam("psdCfm") String psdCfm, ModelMap model) {
+	public String register(HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, @RequestParam("psdCfm") String psdCfm, ModelMap model) {
 		Staff staff = staffService.selectByPrimaryKey(userId);
 		if( staff != null ){
 			User user = userService.selectByPrimaryKey(userId);
@@ -78,6 +85,9 @@ public class UserController {
 					newUser.setUserLevel(0);
 					newUser.setUserTime(0);
 					userService.insertSelective(newUser);
+
+					HttpSession session = request.getSession();
+					session.setAttribute(CommonConst.SESSION_KEY_USER, newUser);
 
 					return "redirect:/cms/user/init";
 				} else {
@@ -98,16 +108,24 @@ public class UserController {
 	}
 
 	@PostMapping("init")
-	public String init(@RequestParam("stcd") String[] stcd, ModelMap model) {
+	public String init(HttpServletRequest request, @RequestParam("stcd") String[] stcd, ModelMap model) {
 		boolean error = true;
+		List<UserStation> userStationList = new ArrayList<>();
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
 		for (int i = 0; i < stcd.length; i++) {
 			if( !"".equals(stcd[i]) ){
 				error = false;
-				break;
+				//
+				UserStation userStation = new UserStation();
+				userStation.setUserId(user.getUserId());
+				userStation.setUserStcd(stcd[i]);
+				userStationList.add(userStation);
 			}
 		}
 		if( !error ) {
-
+			userStationService.deleteByUserId(user.getUserId());
+			userStationService.insertBatch(userStationList);
 		}else{
 			model.put("reason", "请至少选择一个站");
 		}

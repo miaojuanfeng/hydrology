@@ -33,6 +33,7 @@ public class WebJavaBeanConfiguration {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(loginInterceptor)
                         .excludePathPatterns("/cms/user/login")
+                        .excludePathPatterns("/cms/user/register")
                         .excludePathPatterns("/cms/user/logout")
                         .addPathPatterns("/cms/**");
             }

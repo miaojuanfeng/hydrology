@@ -11,7 +11,7 @@
 
         <!-- 顶部左侧添加选项卡监听 -->
         <ul class="layui-nav" lay-filter="side-top-left">
-        	<li class="layui-nav-item"><a href="<c:url value="/cms/station/1"></c:url>"><span class="tname">首页</span></a></li>
+        	<li class="layui-nav-item"><a href="<c:url value="/cms/station"></c:url>"><span class="tname">首页</span></a></li>
             <li class="layui-nav-item">
             	<a href="javascript:;" class="selected"><span class="tname">预报中心</span></a>
             	<dl class="layui-nav-child">

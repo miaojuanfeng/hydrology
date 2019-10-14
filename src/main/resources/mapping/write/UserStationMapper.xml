@@ -16,5 +16,21 @@
 		inner join station s on us.user_stcd = s.stcd
 		where us.user_id = #{userId}
 	</select>
-
+	<select id="selectDefault" resultMap="BaseResultMap">
+		select top 1 us.user_stcd, s.* from user_station us
+		inner join station s on us.user_stcd = s.stcd
+		where us.user_id = #{userId}
+	</select>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into user_station
+		(user_id,user_stcd)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId},#{item.userStcd})
+		</foreach>
+	</insert>
+	<delete id="deleteByUserId">
+		delete from user_station
+		where user_id = #{userId}
+	</delete>
 </mapper>
