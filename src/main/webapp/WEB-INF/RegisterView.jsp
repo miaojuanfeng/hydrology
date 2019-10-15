@@ -16,11 +16,11 @@
 
 <div class="login-main">
     <header class="layui-elip" style="font-weight:bold;color:#1E9F95;margin-top:100px;">用户注册</header>
-    <p style="margin-bottom:10px;text-align: center;color:#ff0000;"><c:if test="${reason != null}">${reason}</c:if></p>
+    <p style="margin-bottom:10px;text-align: center;color:#fff;"><c:if test="${reason != null}">${reason}</c:if></p>
     <form class="layui-form" action="<c:url value="/cms/user/register"></c:url>" method="post" id="registerForm">
         <div class="layui-input-inline">
         	<span style="width:38px;height:38px;display:block;float:left;background:url(<c:url value="/assets/static/image/login_u.png"></c:url>);background-size:cover;"></span>
-            <input style="width:312px;border:none;" type="text" name="userId" required lay-verify="required" placeholder="手机号" autocomplete="off" class="layui-input">
+            <input style="width:312px;border:none;" type="text" name="userId" required lay-verify="required" placeholder="手机号" autocomplete="off" class="layui-input" value="${userId}">
         </div>
         <div class="layui-input-inline">
         	<span style="width:38px;height:38px;display:block;float:left;background:url(<c:url value="/assets/static/image/login_p.png"></c:url>);background-size:cover;"></span>

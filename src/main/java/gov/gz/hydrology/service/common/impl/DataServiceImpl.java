@@ -3,16 +3,16 @@ package gov.gz.hydrology.service.common.impl;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
+import gov.gz.hydrology.entity.write.Station;
+import gov.gz.hydrology.entity.write.Warning;
 import gov.gz.hydrology.service.common.DataService;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
-import gov.gz.hydrology.service.write.CacheRainfallDailyService;
-import gov.gz.hydrology.service.write.CacheRainfallTotalService;
-import gov.gz.hydrology.service.write.CacheRiverTimeService;
-import gov.gz.hydrology.service.write.StationService;
+import gov.gz.hydrology.service.write.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +37,9 @@ public class DataServiceImpl implements DataService {
 
     @Autowired
     private CacheRainfallDailyService cacheRainfallDailyService;
+
+    @Autowired
+    private WarningService warningService;
 
     @Override
     public void rainfallTotal() {
@@ -94,14 +97,39 @@ public class DataServiceImpl implements DataService {
     public void riverTime() {
         for (String stcd : CommonConst.STCD_STATION) {
             List<River> riverTime = riverService.selectRiverTime(stcd);
+            Station station = stationService.selectByPrimaryKey(stcd);
 
             cacheRiverTimeService.deleteByStcd(stcd);
             List<River> copyRiverTime = new ArrayList<>();
+            List<Warning> warningList = new ArrayList<>();
             for (int i = 0; i < riverTime.size(); i++) {
-                copyRiverTime.add(riverTime.get(i));
+                River r = riverTime.get(i);
+                copyRiverTime.add(r);
                 if (copyRiverTime.size() >= 500 || i == riverTime.size() - 1) {
                     cacheRiverTimeService.insertBatch(copyRiverTime);
                     copyRiverTime.clear();
+                }
+                // 加报
+                if( r.getZ().compareTo(new BigDecimal(station.getJbLine())) == 1 ){
+                    Warning warning = new Warning();
+                    warning.setStcd(stcd);
+                    warning.setTm(r.getTm());
+                    warning.setZ(r.getZ());
+                    warning.setType(CommonConst.TYPE_JB_LINE);
+                    warningList.add(warning);
+                }
+                // 警戒
+                if( r.getZ().compareTo(new BigDecimal(station.getJjLine())) == 1 ){
+                    Warning warning = new Warning();
+                    warning.setStcd(stcd);
+                    warning.setTm(r.getTm());
+                    warning.setZ(r.getZ());
+                    warning.setType(CommonConst.TYPE_JJ_LINE);
+                    warningList.add(warning);
+                }
+                if( warningList.size() >= 500 || i == warningList.size() - 1){
+                    System.out.println(warningList.size());
+                    warningService.insertBatch(warningList);
                 }
             }
         }

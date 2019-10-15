@@ -43,14 +43,15 @@ public class UserController {
 	public String login(HttpServletRequest request, ModelMap model, @RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd) {
 		HttpSession session = request.getSession();
 		if( session.getAttribute(CommonConst.SESSION_KEY_USER) != null ){
-			return "redirect:/cms/station/1";
+			return "redirect:/cms/station";
 		}
 		User user = userService.selectByPrimaryKey(userId);
 		if( user != null ){
 			if( userPsd.equals(user.getUserPsd()) ){
 				session.setAttribute(CommonConst.SESSION_KEY_USER, user);
-				return "redirect:/cms/station/1";
+				return "redirect:/cms/station";
 			}else{
+				model.put("userId", userId);
 				model.put("reason", "手机号或密码错误");
 			}
 		}else {
@@ -91,6 +92,7 @@ public class UserController {
 
 					return "redirect:/cms/user/init";
 				} else {
+					model.put("userId", userId);
 					model.put("reason", "两次密码输入不一致");
 				}
 			}else{
@@ -126,6 +128,7 @@ public class UserController {
 		if( !error ) {
 			userStationService.deleteByUserId(user.getUserId());
 			userStationService.insertBatch(userStationList);
+			return "redirect:/cms/station";
 		}else{
 			model.put("reason", "请至少选择一个站");
 		}
