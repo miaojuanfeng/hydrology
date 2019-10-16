@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface WarningService {
-	List<Station> selectWarning(@Param("stcd") String stcd);
+	List<Warning> selectWarning(@Param("stcd") String stcd);
 	int insertBatch(List<Warning> warnings);
 }

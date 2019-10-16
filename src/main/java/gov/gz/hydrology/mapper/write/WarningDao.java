@@ -10,6 +10,6 @@ import java.util.Map;
 
 @Mapper
 public interface WarningDao {
-	List<Station> selectWarning(@Param("stcd") String stcd);
+	List<Warning> selectWarning(@Param("stcd") String stcd);
 	int insertBatch(List<Warning> warnings);
 }

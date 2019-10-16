@@ -20,7 +20,7 @@ public class WarningServiceImpl implements WarningService {
 
 
 	@Override
-	public List<Station> selectWarning(String stcd) {
+	public List<Warning> selectWarning(String stcd) {
 		return warningDao.selectWarning(stcd);
 	}
 

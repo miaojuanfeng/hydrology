@@ -6,11 +6,21 @@
 		<result column="tm" property="tm"/>
 		<result column="z" property="z"/>
 		<result column="type" property="type" jdbcType="VARCHAR" />
+		<collection property="station" ofType="gov.gz.hydrology.entity.write.Station" column="stcd">
+			<id column="stcd" property="stcd" jdbcType="VARCHAR" />
+			<result column="type" property="type" jdbcType="VARCHAR" />
+			<result column="stname" property="stname" jdbcType="VARCHAR" />
+			<result column="dis" property="dis" jdbcType="VARCHAR" />
+		</collection>
 	</resultMap>
 	<select id="selectWarning" resultMap="BaseResultMap">
-		select * from warning
-		where stcd = #{stcd}
-		order by tm desc
+		select top 10 w.*, s.* from warning w
+		inner join station s on w.stcd = s.stcd
+		where 1=1
+		<if test="stcd != null" >
+			and w.stcd = #{stcd}
+		</if>
+		order by w.tm desc
 	</select>
 	<insert id="insertBatch" parameterType="java.util.List">
 		<foreach collection="list" item="item" index="index">

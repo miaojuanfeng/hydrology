@@ -8,6 +8,7 @@ public class Warning {
 	private BigDecimal z;
 	private Date tm;
 	private Integer type;
+	private Station station;
 
 	public String getStcd() {
 		return stcd;
@@ -39,5 +40,13 @@ public class Warning {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public Station getStation() {
+		return station;
+	}
+
+	public void setStation(Station station) {
+		this.station = station;
 	}
 }

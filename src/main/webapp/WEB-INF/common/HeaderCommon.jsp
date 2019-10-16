@@ -164,6 +164,15 @@
 			    		$("#notify").click(
 		    				function(){
 		    					if( $("#notify-list").is(":hidden") ){
+                                    $.post(
+                                        "<c:url value="/cms/common/warning"></c:url>",
+										{
+										    stcd:"${stcd}"
+										},
+										function(result){
+                                        	console.log(result);
+										}
+                                    );
 		    						$("#notify-list").stop().fadeIn().show();
 		    					}else{
 		    						$("#notify-list").stop().fadeIn().hide();
