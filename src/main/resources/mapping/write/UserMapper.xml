@@ -56,4 +56,15 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="updateSelective" parameterType="gov.gz.hydrology.entity.write.User">
+		update [user]
+		<set>
+			<if test="userPsd != null"> user_psd = #{userPsd},</if>
+			<if test="userName != null"> user_name = #{userName},</if>
+			<if test="userLevel != null"> user_level = #{userLevel},</if>
+			<if test="userTime != null"> user_time = #{userTime},</if>
+			<if test="userHead != null"> user_head = #{userHead} </if>
+		</set>
+		where user_id = #{userId}
+	</update>
 </mapper>

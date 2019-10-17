@@ -135,11 +135,33 @@ public class UserController {
 		return "InitView";
 	}
 	
-	@RequestMapping("info")
+	@GetMapping("info")
 	public String info() {
 		return "InfoView";
 	}
-	
+
+	@PostMapping("info")
+	public String info(HttpServletRequest request, ModelMap model, @RequestParam("psd") String psd, @RequestParam("newPsd") String newPsd, @RequestParam("cfmPsd") String cfmPsd) {
+		if( !newPsd.isEmpty() || !cfmPsd.isEmpty() ) {
+			if( newPsd.equals(cfmPsd) ) {
+				HttpSession session = request.getSession();
+				User user = (User) session.getAttribute(CommonConst.SESSION_KEY_USER);
+				if (user.getUserPsd().equals(psd)) {
+					user.setUserPsd(newPsd);
+					userService.updateSelective(user);
+					model.put("reason", "修改成功");
+				} else {
+					model.put("reason", "原始密码不正确");
+				}
+			}else{
+				model.put("reason", "两次密码输入不一致");
+			}
+		}else {
+			model.put("reason", "新密码不能为空");
+		}
+		return "InfoView";
+	}
+
 	@RequestMapping(value="setting",method=RequestMethod.GET)
 	public String settingGet() {
 		return "SettingView";

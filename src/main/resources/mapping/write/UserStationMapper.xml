@@ -9,6 +9,7 @@
 			<result column="type" property="type" jdbcType="VARCHAR" />
 			<result column="stname" property="stname" jdbcType="VARCHAR" />
 			<result column="dis" property="dis" jdbcType="VARCHAR" />
+			<result column="wea" property="wea" jdbcType="VARCHAR" />
 		</collection>
 	</resultMap>
 	<select id="selectByUserId" resultMap="BaseResultMap">

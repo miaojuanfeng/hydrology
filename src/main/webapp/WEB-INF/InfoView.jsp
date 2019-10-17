@@ -60,21 +60,24 @@
 							            	
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
-							            	<div style="margin-top:20px;text-align:center;font-size:20px;">
-							            		修改密码
-							            	</div>
-							            	<div style="margin-top:20px;">
-							            		<input type="password" name="startTime" class="layui-input" placeholder="原始密码">
-							            	</div>
-							            	<div style="margin-top:20px;">
-							            		<input type="password" name="startTime" class="layui-input" placeholder="新密码">
-							            	</div>
-							            	<div style="margin-top:20px;">
-							            		<input type="password" name="startTime" class="layui-input" placeholder="确认新密码">
-							            	</div>
-							            	<div style="margin-top:20px;text-align:center;">
-								                <a class="layui-btn layui-btn-primary">确定</a>
-								            </div>
+											<form class="layui-form" action="<c:url value="/cms/user/info"></c:url>" method="post" id="infoForm">
+												<div style="margin-top:20px;text-align:center;font-size:20px;">
+													修改密码
+												</div>
+												<p style="margin:10px 0;text-align: center;color:#ff0000;"><c:if test="${reason != null}">${reason}</c:if></p>
+												<div style="margin-top:20px;">
+													<input type="password" name="psd" class="layui-input" placeholder="原始密码">
+												</div>
+												<div style="margin-top:20px;">
+													<input type="password" name="newPsd" class="layui-input" placeholder="新密码">
+												</div>
+												<div style="margin-top:20px;">
+													<input type="password" name="cfmPsd" class="layui-input" placeholder="确认新密码">
+												</div>
+												<div style="margin-top:20px;text-align:center;">
+													<a id="infoButton" class="layui-btn layui-btn-primary">确定</a>
+												</div>
+											</form>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4" style="height:1px;">
 							            	
@@ -129,6 +132,10 @@
            	$(".layui-colla-item").css("height", viewHeight-105-105);
            	
         	$(".layui-collapse").fadeIn();
+
+            $("#infoButton").click(function () {
+                $("#infoForm").submit();
+            });
         });
     });
     

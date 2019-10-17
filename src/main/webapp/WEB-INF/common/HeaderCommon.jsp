@@ -49,113 +49,14 @@
                 </dl>
             </li -->
             <li class="layui-nav-item">
-            	<div id="time-week"><iframe allowtransparency="true" frameborder="0" width="565" height="60" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=3&bd=0&k=&f=ffffff&ltf=009944&htf=cc0000&q=0&e=0&a=0&c=${station.wea}&w=565&h=60&align=center"></iframe></div>
+            	<div id="time-week"><iframe allowtransparency="true" frameborder="0" width="565" height="60" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=3&bd=0&k=&f=ffffff&ltf=009944&htf=cc0000&q=0&e=0&a=0&c=${station.wea}<c:if test="${empty station.wea}">57993</c:if>&w=565&h=60&align=center"></iframe></div>
             </li>
             <li class="layui-nav-item">
 			    <div id="notify" style="position:relative">
 			    	<a href="javascript:;">预警消息<span class="layui-badge">9</span></a>
 			    	<div id="notify-list">
-			    		<ul>
-			    			<li>
-			    				<a href="http://www.baidu.com">
-			    					<div>
-			    						<div class="title">已达加报水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位200米，已达加报水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达警戒水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位300米，已达警戒水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达加报水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位200米，已达加报水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达警戒水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位300米，已达警戒水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达加报水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位200米，已达加报水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达警戒水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位300米，已达警戒水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达加报水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位200米，已达加报水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达警戒水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位300米，已达警戒水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达加报水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位200米，已达加报水位</span>
-			    				</a>
-			    			</li>
-			    			<li>
-			    				<a href="javascript:;">
-			    					<div>
-			    						<div class="title">已达警戒水位！</div>
-			    						<span class="time">2019-07-31 10:23:23</span>
-			    						<div class="clear"></div>
-			    					</div>
-			    					<span class="desc">宁都站即时水位300米，已达警戒水位</span>
-			    				</a>
-			    			</li>
+			    		<ul id="warning-ul">
+
 			    		</ul>
 			    	</div>
 			    	<script type="text/javascript" src="<c:url value="/assets/static/js/jquery.min.js"></c:url>"></script>
@@ -170,7 +71,24 @@
 										    stcd:"${stcd}"
 										},
 										function(result){
-                                        	console.log(result);
+                                        	var obj = eval('(' + result + ')');
+                                        	if( obj.code == 200 ){
+                                                var data = obj.data;
+                                                var html = '';
+												for(var i=0;i<data.length;i++){
+													html += '<li>\n' +
+																'<a href="javascript:;">' +
+																	'<div>' +
+																		'<div class="title">已达'+data[i].type+'水位！</div>' +
+																		'<span class="time">'+data[i].tm+'</span>' +
+																		'<div class="clear"></div>' +
+																	'</div>' +
+																	'<span class="desc">'+data[i].stname+'站即时水位'+data[i].z+'米，已达'+data[i].type+'水位</span>' +
+																'</a>' +
+															'</li>';
+												}
+												$("#warning-ul").html(html);
+                                            }
 										}
                                     );
 		    						$("#notify-list").stop().fadeIn().show();

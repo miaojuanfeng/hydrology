@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDao {
 	User selectByPrimaryKey(@Param("userId") String userId);
 	int insertSelective(User user);
+	int updateSelective(User user);
 }

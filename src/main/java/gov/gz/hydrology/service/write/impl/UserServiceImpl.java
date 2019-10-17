@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.insertSelective(user);
 	}
 
+	@Override
+	public int updateSelective(User user) {
+		return userDao.updateSelective(user);
+	}
+
 }
