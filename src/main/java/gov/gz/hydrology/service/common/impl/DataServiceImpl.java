@@ -106,8 +106,10 @@ public class DataServiceImpl implements DataService {
                 River r = riverTime.get(i);
                 copyRiverTime.add(r);
                 if (copyRiverTime.size() >= 500 || i == riverTime.size() - 1) {
-                    cacheRiverTimeService.insertBatch(copyRiverTime);
-                    copyRiverTime.clear();
+                    if( copyRiverTime.size() > 0 ) {
+                        cacheRiverTimeService.insertBatch(copyRiverTime);
+                        copyRiverTime.clear();
+                    }
                 }
                 // 加报
                 if( r.getZ().compareTo(new BigDecimal(station.getJbLine())) == 1 ){
@@ -127,9 +129,11 @@ public class DataServiceImpl implements DataService {
                     warning.setType(CommonConst.TYPE_JJ_LINE);
                     warningList.add(warning);
                 }
-                if( warningList.size() >= 500 || i == warningList.size() - 1){
-                    System.out.println(warningList.size());
-                    warningService.insertBatch(warningList);
+                if( warningList.size() >= 100 || i == riverTime.size() - 1){
+                    if( warningList.size() > 0 ) {
+                        warningService.insertBatch(warningList);
+                        warningList.clear();
+                    }
                 }
             }
         }

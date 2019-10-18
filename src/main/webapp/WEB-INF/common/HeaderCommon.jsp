@@ -155,7 +155,7 @@
 			    </div>
 			</li>
             <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><img src="<c:url value="/assets/static/image/code.jpg"></c:url>" alt="logo"><span>预报新手 - M.J.F</span></a>
+                <a class="name" href="javascript:;"><img src="<c:url value="${sessionScope.user.userHead}"></c:url>" alt="logo"><span>预报新手 - ${sessionScope.user.userName}</span></a>
                 <dl class="layui-nav-child">
                     <!-- dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
                     <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd-->

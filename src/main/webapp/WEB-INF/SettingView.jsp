@@ -24,9 +24,9 @@
 					        <div class="layui-collapse">
 					            <div class="layui-colla-item">
 						            <form class="layui-form" action="">
-						            	<div style="width:130px;height:130px;background:url(<c:url value="/assets/static/image/code.jpg"></c:url>);background-size:cover;border-radius:50%;border:2px solid #1E9FFF;position:absolute;margin-top:-90px;left:50%;margin-left:-70px;"></div>
+						            	<div style="width:130px;height:130px;background:url(<c:url value="${sessionScope.user.userHead}"></c:url>);background-size:cover;border-radius:10%;border:2px solid #1E9FFF;position:absolute;margin-top:-90px;left:50%;margin-left:-70px;"></div>
 									    <div class="layui-form-item" style="padding-top:80px;text-align:center;font-size:22px;">
-						            		猪猪啊猪猪
+											${sessionScope.user.userName}
 									    </div>
 									    <div class="layui-form-item" style="padding-top:20px;font-size:22px;text-align:center;">
 						            		<span style="width:100px;">当前等级：</span>
