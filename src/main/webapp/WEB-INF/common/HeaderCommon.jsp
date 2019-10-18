@@ -11,43 +11,31 @@
 
         <!-- 顶部左侧添加选项卡监听 -->
         <ul class="layui-nav" lay-filter="side-top-left">
-        	<li class="layui-nav-item"><a href="<c:url value="/cms/station"></c:url>"><span class="tname">首页</span></a></li>
+        	<li class="layui-nav-item">
+                <a href="<c:url value="/cms/station"></c:url>" <c:if test="${sessionScope.urlClass == 'station'}">class="selected"</c:if>><span class="tname">首页</span></a>
+            </li>
             <li class="layui-nav-item">
-            	<a href="javascript:;" class="selected"><span class="tname">预报中心</span></a>
+            	<a href="javascript:;" <c:if test="${sessionScope.urlClass == 'forecast'}">class="selected"</c:if>><span class="tname">预报中心</span></a>
             	<dl class="layui-nav-child">
-                    <dd><a href="<c:url value="/cms/calc/index"></c:url>">新建预报</a></dd>
-                    <dd><a href="<c:url value="/cms/result/1"></c:url>">预报成果</a></dd>
-                    <dd><a href="<c:url value="/cms/plan/1"></c:url>">预报方案</a></dd>
+                    <dd><a href="<c:url value="/cms/forecast/calc"></c:url>">新建预报</a></dd>
+                    <dd><a href="<c:url value="/cms/forecast/result/1"></c:url>">预报成果</a></dd>
+                    <dd><a href="<c:url value="/cms/forecast/plan/1"></c:url>">预报方案</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
-            	<a href="javascript:;"><span class="tname">个人中心</span></a>
+            	<a href="javascript:;" <c:if test="${sessionScope.urlClass == 'user'}">class="selected"</c:if>><span class="tname">个人中心</span></a>
             	<dl class="layui-nav-child">
                     <dd><a href="<c:url value="/cms/user/info"></c:url>">我的账户</a></dd>
                     <dd><a href="<c:url value="/cms/user/setting"></c:url>">我的预报站</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="<c:url value="/cms/step/index"></c:url>"><span class="tname">数据分步计算</span></a></li>
-            <!-- li class="layui-nav-item">
-                <a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础中心</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="demo/btn.html">按钮</a></dd>
-                    <dd><a href="javascript:;" href-url="demo/form.html">表单</a></dd>
-                </dl>
-            </li-->
-             
+            <li class="layui-nav-item">
+                <a href="<c:url value="/cms/step/index"></c:url>" <c:if test="${sessionScope.urlClass == 'step'}">class="selected"</c:if>><span class="tname">数据分步计算</span></a>
+            </li>
         </ul>
 
         <!-- 顶部右侧添加选项卡监听 -->
         <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
-            <!-- li class="layui-nav-item">
-                <a class="name" href="javascript:;"><i class="layui-icon">&#xe629;</i>主题</a>
-                <dl class="layui-nav-child">
-                    <dd data-skin="0"><a href="javascript:;">默认</a></dd>
-                    <dd data-skin="1"><a href="javascript:;">纯白</a></dd>
-                    <dd data-skin="2"><a href="javascript:;">蓝白</a></dd>
-                </dl>
-            </li -->
             <li class="layui-nav-item">
             	<div id="time-week"><iframe allowtransparency="true" frameborder="0" width="565" height="60" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=3&bd=0&k=&f=ffffff&ltf=009944&htf=cc0000&q=0&e=0&a=0&c=${station.wea}<c:if test="${empty station.wea}">57993</c:if>&w=565&h=60&align=center"></iframe></div>
             </li>
@@ -55,9 +43,7 @@
 			    <div id="notify" style="position:relative">
 			    	<a href="javascript:;">预警消息<span class="layui-badge">9</span></a>
 			    	<div id="notify-list">
-			    		<ul id="warning-ul">
-
-			    		</ul>
+			    		<ul id="warning-ul"></ul>
 			    	</div>
 			    	<script type="text/javascript" src="<c:url value="/assets/static/js/jquery.min.js"></c:url>"></script>
 			    	<script>

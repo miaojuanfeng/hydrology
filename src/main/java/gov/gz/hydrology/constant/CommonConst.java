@@ -10,6 +10,7 @@ public class CommonConst {
     public static final String[] STCD_STATION = {"62303350", "62303500", "62303650"};
 
     public static final String SESSION_KEY_USER = "user";
+    public static final String SESSION_URL_CLASS = "urlClass";
 
     public static final Integer TYPE_JB_LINE = 1;
     public static final Integer TYPE_JJ_LINE = 2;
