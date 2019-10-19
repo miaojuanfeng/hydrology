@@ -85,6 +85,7 @@ public class UserController {
 					newUser.setUserName(staff.getName());
 					newUser.setUserLevel(0);
 					newUser.setUserTime(0);
+					newUser.setUserHead("/assets/images/avatar.png");
 					userService.insertSelective(newUser);
 
 					HttpSession session = request.getSession();
