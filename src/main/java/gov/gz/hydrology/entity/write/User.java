@@ -7,6 +7,7 @@ public class User {
     private Integer userLevel;
     private Integer userTime;
     private String userHead;
+    private String userLevelName;
 
     public String getUserId() {
         return userId;
@@ -54,5 +55,13 @@ public class User {
 
     public void setUserHead(String userHead) {
         this.userHead = userHead;
+    }
+
+    public String getUserLevelName() {
+        return userLevelName;
+    }
+
+    public void setUserLevelName(String userLevelName) {
+        this.userLevelName = userLevelName;
     }
 }

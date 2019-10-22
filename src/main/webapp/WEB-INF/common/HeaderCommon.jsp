@@ -61,18 +61,22 @@
                                         	if( obj.code == 200 ){
                                                 var data = obj.data;
                                                 var html = '';
-												for(var i=0;i<data.length;i++){
-													html += '<li>\n' +
-																'<a href="javascript:;">' +
-																	'<div>' +
-																		'<div class="title">已达'+data[i].type+'水位！</div>' +
-																		'<span class="time">'+data[i].tm+'</span>' +
-																		'<div class="clear"></div>' +
-																	'</div>' +
-																	'<span class="desc">'+data[i].stname+'站即时水位'+data[i].z+'米，已达'+data[i].type+'水位</span>' +
-																'</a>' +
-															'</li>';
-												}
+                                                if( data.length > 0 ) {
+                                                    for (var i = 0; i < data.length; i++) {
+                                                        html += '<li>\n' +
+                                                            '<a href="javascript:;">' +
+                                                            '<div>' +
+                                                            '<div class="title">已达' + data[i].type + '水位！</div>' +
+                                                            '<span class="time">' + data[i].tm + '</span>' +
+                                                            '<div class="clear"></div>' +
+                                                            '</div>' +
+                                                            '<span class="desc">' + data[i].stname + '站即时水位' + data[i].z + '米，已达' + data[i].type + '水位</span>' +
+                                                            '</a>' +
+                                                            '</li>';
+                                                    }
+                                                }else{
+                                                    html = '<li><span class="none">暂无记录</span></li>';
+                                                }
 												$("#warning-ul").html(html);
                                             }
 										}
@@ -151,11 +155,16 @@
 			    		float:right;
 			    		color:#aaa;
 			    	}
-			    	</style>
+                    #notify #notify-list ul .none{
+                        display: block;
+                        color:#ff0000;
+                        text-align: center;
+                    }
+                    </style>
 			    </div>
 			</li>
             <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><img src="<c:url value="${sessionScope.user.userHead}"></c:url>" alt="logo"><span>预报新手 - ${sessionScope.user.userName}</span></a>
+                <a class="name" href="javascript:;"><img src="<c:url value="${sessionScope.user.userHead}"></c:url>" alt="logo"><span>${sessionScope.user.userLevelName} - ${sessionScope.user.userName}</span></a>
                 <dl class="layui-nav-child">
                     <!-- dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
                     <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd-->

@@ -7,6 +7,7 @@ import gov.gz.hydrology.entity.write.Staff;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.entity.write.UserStation;
+import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.write.StaffService;
 import gov.gz.hydrology.service.write.StationService;
 import gov.gz.hydrology.service.write.UserService;
@@ -39,6 +40,9 @@ public class UserController {
 	@Autowired
 	private UserStationService userStationService;
 
+	@Autowired
+	private CommonService commonService;
+
 	@GetMapping("login")
 	public String login() {
 		return "LoginView";
@@ -53,6 +57,7 @@ public class UserController {
 		User user = userService.selectByPrimaryKey(userId);
 		if( user != null ){
 			if( userPsd.equals(user.getUserPsd()) ){
+				user.setUserLevelName(commonService.userLevel(user.getUserLevel()));
 				session.setAttribute(CommonConst.SESSION_KEY_USER, user);
 				return "redirect:/cms/station";
 			}else{
@@ -142,7 +147,21 @@ public class UserController {
 	}
 	
 	@GetMapping("info")
-	public String info() {
+	public String info(HttpServletRequest request, ModelMap model) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
+		String userStationName = "";
+		for(UserStation station : userStation) {
+			if( userStationName.isEmpty() ){
+				userStationName = station.getStation().getStname();
+			}else {
+				userStationName = userStationName + "、" + station.getStation().getStname();
+			}
+		}
+		model.put("userStationName", userStationName);
+		model.put("userlevelProcess", commonService.levelProgress(user.getUserLevel()));
 		return "InfoView";
 	}
 
@@ -169,7 +188,21 @@ public class UserController {
 	}
 
 	@RequestMapping(value="setting",method=RequestMethod.GET)
-	public String settingGet() {
+	public String settingGet(HttpServletRequest request, ModelMap model) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
+		String userStationName = "";
+		for(UserStation station : userStation) {
+			if( userStationName.isEmpty() ){
+				userStationName = station.getStation().getStname();
+			}else {
+				userStationName = userStationName + "、" + station.getStation().getStname();
+			}
+		}
+		model.put("userStationName", userStationName);
+		model.put("userlevelProcess", commonService.levelProgress(user.getUserLevel()));
 		return "SettingView";
 	}
 	
