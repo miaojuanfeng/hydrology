@@ -18,7 +18,7 @@ public class UserStationServiceImpl implements UserStationService {
 	private UserStationDao userStationDao;
 
 	@Override
-	public List<Station> selectByUserId(String userId) {
+	public List<UserStation> selectByUserId(String userId) {
 		return userStationDao.selectByUserId(userId);
 	}
 

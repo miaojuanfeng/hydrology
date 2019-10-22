@@ -18,8 +18,8 @@
             	<a href="javascript:;" <c:if test="${sessionScope.urlClass == 'forecast'}">class="selected"</c:if>><span class="tname">预报中心</span></a>
             	<dl class="layui-nav-child">
                     <dd><a href="<c:url value="/cms/forecast/calc"></c:url>">新建预报</a></dd>
-                    <dd><a href="<c:url value="/cms/forecast/result/1"></c:url>">预报成果</a></dd>
-                    <dd><a href="<c:url value="/cms/forecast/plan/1"></c:url>">预报方案</a></dd>
+                    <dd><a href="<c:url value="/cms/forecast/result"></c:url>">预报成果</a></dd>
+                    <dd><a href="<c:url value="/cms/forecast/plan"></c:url>">预报方案</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">

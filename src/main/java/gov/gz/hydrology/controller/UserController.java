@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Staff;
+import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.entity.write.UserStation;
 import gov.gz.hydrology.service.write.StaffService;
+import gov.gz.hydrology.service.write.StationService;
 import gov.gz.hydrology.service.write.UserService;
 import gov.gz.hydrology.service.write.UserStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class UserController {
 
 	@Autowired
 	private StaffService staffService;
+
+	@Autowired
+	private StationService stationService;
 
 	@Autowired
 	private UserStationService userStationService;
@@ -168,24 +173,60 @@ public class UserController {
 		return "SettingView";
 	}
 	
-	@RequestMapping(value="setting",method=RequestMethod.POST,produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="setting",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public String settingPost() {
+	public String settingPost(HttpServletRequest request, ModelMap map) {
+
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
+		List<String> stcdStation = new ArrayList<>();
+		for(UserStation station : userStation) {
+			stcdStation.add(station.getUserStcd());
+		}
+
+		List<Station> stationList = stationService.selectStationByType("基本站");
+
 		JSONObject retval = new JSONObject();
 		JSONArray temp = new JSONArray();
-		JSONObject t = new JSONObject();
-		int count = 100;
-		for(int i=1;i<=count;i++) {
-			t.put("id", i);
-			t.put("code", "AABB");
-			t.put("name", "宁都站");
-			t.put("type", "水库水文站");
-			t.put("area", "赣州章贡");
+		int num = 1;
+		for(Station station : stationList) {
+			JSONObject t = new JSONObject();
+			t.put("id", num++);
+			t.put("stcd", station.getStcd());
+			t.put("stname", station.getStname());
+			t.put("type", station.getType());
+			t.put("area", "赣州市章贡区");
+			if( stcdStation.contains(station.getStcd()) ) {
+				t.put("LAY_CHECKED", true);
+			}else{
+				t.put("LAY_CHECKED", false);
+			}
 			temp.add(t);
 		}
 		retval.put("code", 0);
-		retval.put("count", count);
+		retval.put("count", stationList.size());
 		retval.put("data", temp);
+		return retval.toString();
+	}
+
+	@RequestMapping("setting/update")
+	@ResponseBody
+	public String updateSetting(HttpServletRequest request, @RequestParam("stcd") String[] stcd) {
+		JSONObject retval = new JSONObject();
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		List<UserStation> userStationList = new ArrayList<>();
+		for(String s : stcd){
+			UserStation userStation = new UserStation();
+			userStation.setUserId(user.getUserId());
+			userStation.setUserStcd(s);
+			userStationList.add(userStation);
+		}
+		userStationService.deleteByUserId(user.getUserId());
+		userStationService.insertBatch(userStationList);
 		return retval.toString();
 	}
 	

@@ -15,7 +15,7 @@
 	</resultMap>
 	<select id="selectWarning" resultMap="BaseResultMap">
 		select top 10 w.*, s.* from warning w
-		inner join station s on w.stcd = s.stcd
+		left join station s on w.stcd = s.stcd
 		where 1=1
 		<if test="stcd != null" >
 			and w.stcd = #{stcd}

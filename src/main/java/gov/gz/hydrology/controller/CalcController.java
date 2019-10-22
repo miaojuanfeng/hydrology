@@ -2,8 +2,12 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Station;
+import gov.gz.hydrology.entity.write.User;
+import gov.gz.hydrology.entity.write.UserStation;
 import gov.gz.hydrology.service.write.StationService;
+import gov.gz.hydrology.service.write.UserStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import gov.gz.hydrology.utils.DateUtil;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,6 +28,9 @@ public class CalcController {
 	@Autowired
 	private StationService stationService;
 
+	@Autowired
+	private UserStationService userStationService;
+
 	@RequestMapping("calc")
 	public String calc(ModelMap map) {
 		map.put("date", DateUtil.getDate());
@@ -30,10 +39,29 @@ public class CalcController {
 		return "CalcView";
 	}
 
-	@RequestMapping("result/{id}")
-	public String listResult(ModelMap map, @PathVariable("id") Integer id) {
-		map.put("date", DateUtil.getDate());
-		map.put("station", id);
+	@RequestMapping("result")
+	public String result(HttpServletRequest request, ModelMap map) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		UserStation userStation = userStationService.selectDefault(user.getUserId());
+		map.put("stcd", userStation.getStation().getStcd());
+		map.put("station", userStation.getStation());
+
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+		map.put("stationList", stationList);
+		return "ResultView";
+	}
+
+	@RequestMapping("result/{stcd}")
+	public String stcdResult(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
+		map.put("stcd", stcd);
+		Station station = stationService.selectByPrimaryKey(stcd);
+		map.put("station", station);
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+		map.put("stationList", stationList);
 		return "ResultView";
 	}
 
@@ -59,10 +87,29 @@ public class CalcController {
 		return retval.toString();
 	}
 
-	@RequestMapping("plan/{id}")
-	public String listPlan(ModelMap map, @PathVariable("id") Integer id) {
-		map.put("date", DateUtil.getDate());
-		map.put("station", id);
+	@RequestMapping("plan")
+	public String plan(HttpServletRequest request, ModelMap map) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		UserStation userStation = userStationService.selectDefault(user.getUserId());
+		map.put("stcd", userStation.getStation().getStcd());
+		map.put("station", userStation.getStation());
+
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+		map.put("stationList", stationList);
+		return "PlanView";
+	}
+
+	@RequestMapping("plan/{stcd}")
+	public String stcdPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
+		map.put("stcd", stcd);
+		Station station = stationService.selectByPrimaryKey(stcd);
+		map.put("station", station);
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+		map.put("stationList", stationList);
 		return "PlanView";
 	}
 

@@ -59,14 +59,17 @@
 						               	选择关注的预报站
 					            	</div>
 					            	<div class="layui-form-item" style="margin-bottom:10px;">
+										<%--<form class="layui-form" style="float:left;margin-left:10px;">--%>
+											<%--<div class="layui-inline">--%>
+												<%--<a class="layui-btn layui-btn-normal layui-btn-radius">保存</a>--%>
+											<%--</div>--%>
+										<%--</form>--%>
 					            		<form class="layui-form" style="float:right">
 										    <div class="layui-inline">
 												<div class="layui-input-inline" style="margin-right:0">
 												  	<select name="quiz1" lay-verify="required" lay-search="">
 												  		<option value="">全部行政区</option>
-										                <option value="站类1">梁培东</option>
-										                <option value="站类2">陈济天</option>
-										                <option value="站类3">缪隽峰</option>
+										                <option value="赣州市章贡区">赣州市章贡区</option>
 										            </select>
 												</div>
 										    </div>
@@ -76,7 +79,7 @@
 								    	</form>
 						            </div>
 						            <div style="margin:10px;">
-					            		<table class="layui-hide" id="table"></table>
+					            		<table class="layui-hide" id="table" lay-filter="setting"></table>
 					            	</div>
 					            </div>
 				            </div>
@@ -127,13 +130,41 @@
             ,cols: [[
               {type:'checkbox'}
               ,{field:'id', width:'10%', title: '序号', sort: true, align: 'center'}
-              ,{field:'code', width:'22%', title: '站码', align: 'center'}
-              ,{field:'name', width:'22%', title: '站名', align: 'center'}
+              ,{field:'stcd', width:'22%', title: '站码', align: 'center'}
+              ,{field:'stname', width:'22%', title: '站名', align: 'center'}
               ,{field:'type', width:'22%', title: '站点类型', align: 'center'}
               ,{field:'area', title: '行政区', align: 'center'}
             ]]
             ,page: true
        });
+
+        table.on('checkbox(setting)', function(obj){
+            var checkStatus = table.checkStatus('table');
+            var data = checkStatus.data;
+            var stcd = {};
+            for(var i=0; i<data.length; i++){
+				stcd[i] = data[i].stcd;
+			}
+            $.ajax({
+                type: "post",
+                cache:false,
+                async:false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",//返回值类型
+                url: "<c:url value="/cms/user/setting/update"></c:url>",
+                data:{
+                    stcd: stcd
+                },
+                success: function(data){
+                    var resultData = '返回码='+data.status+',响应结果='+data.message+',耗时='+data.tcost;
+                    layer.msg(resultData,{icon: 1});
+                },
+                error : function(xhr, ts, et) {
+                    layer.msg('服务调用失败!', {icon: 2});
+                }
+            });
+            console.log(stcd);
+        });
 
         table.on('tool(table)', function(obj){
             var data = obj.data;

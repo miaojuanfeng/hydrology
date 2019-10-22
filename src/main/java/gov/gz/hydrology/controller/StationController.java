@@ -43,7 +43,7 @@ public class StationController {
 		map.put("stcd", userStation.getStation().getStcd());
 		map.put("station", userStation.getStation());
 
-		List<Station> stationList = userStationService.selectByUserId(user.getUserId());
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
 		map.put("stationList", stationList);
 		return "StationView";
 	}
@@ -55,7 +55,7 @@ public class StationController {
 		map.put("station", station);
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-		List<Station> stationList = userStationService.selectByUserId(user.getUserId());
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
 		map.put("stationList", stationList);
 		return "StationView";
 	}
