@@ -175,7 +175,7 @@ body{
     border:19px solid transparent;
     border-left-color:#ccc;
     top:0;
-    right:-38px
+    right:-37px
 }
 #div-nav a.selected:before{
 	border-left-color:#26d0ce;

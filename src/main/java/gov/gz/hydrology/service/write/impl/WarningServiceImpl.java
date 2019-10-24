@@ -24,7 +24,12 @@ public class WarningServiceImpl implements WarningService {
 		return warningDao.selectWarning(stcd);
 	}
 
-	@Override
+    @Override
+    public Integer selectNotice(String stcd) {
+        return warningDao.selectNotice(stcd);
+    }
+
+    @Override
 	public int insertBatch(List<Warning> warnings) {
 		return warningDao.insertBatch(warnings);
 	}

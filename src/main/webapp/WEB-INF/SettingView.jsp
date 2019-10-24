@@ -111,28 +111,35 @@
         table.on('checkbox(setting)', function(obj){
             var checkStatus = table.checkStatus('table');
             var data = checkStatus.data;
-            var stcd = {};
+            var stcd = "";
             for(var i=0; i<data.length; i++){
-				stcd[i] = data[i].stcd;
-			}
-            $.ajax({
-                type: "post",
-                cache:false,
-                async:false,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",//返回值类型
-                url: "<c:url value="/cms/user/setting/update"></c:url>",
-                data:{
-                    stcd: stcd
-                },
-                success: function(data){
-                    var resultData = '返回码='+data.status+',响应结果='+data.message+',耗时='+data.tcost;
-                    layer.msg(resultData,{icon: 1});
-                },
-                error : function(xhr, ts, et) {
-                    layer.msg('服务调用失败!', {icon: 2});
+                if( stcd == "" ){
+                    stcd = data[i].stcd;
+                }else{
+                    stcd = stcd + "," + data[i].stcd;
                 }
-            });
+			}
+			if( stcd != "" ) {
+                $.ajax({
+                    type: "post",
+                    cache: false,
+                    async: false,
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    dataType: "json",
+                    url: "<c:url value="/cms/user/setting/update"></c:url>",
+                    data: {
+                        stcds: stcd
+                    },
+                    success: function (data) {
+                        layer.msg("保存成功", {icon: 1});
+                    },
+                    error: function (xhr, ts, et) {
+                        layer.msg('保存失败', {icon: 2});
+                    }
+                });
+            }else{
+                layer.msg('请至少选择一个站', {icon: 2});
+            }
             console.log(stcd);
         });
 

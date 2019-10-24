@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="gov.gz.hydrology.mapper.write.WarningDao" >
-	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.Warning" >
-		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
+<mapper namespace="gov.gz.hydrology.mapper.write.ResultDao" >
+	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.Result" >
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="tm" property="tm"/>
 		<result column="z" property="z"/>
 		<result column="type" property="type" jdbcType="VARCHAR" />

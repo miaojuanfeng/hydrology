@@ -246,13 +246,13 @@ public class UserController {
 
 	@RequestMapping("setting/update")
 	@ResponseBody
-	public String updateSetting(HttpServletRequest request, @RequestParam("stcd") String[] stcd) {
+	public String updateSetting(HttpServletRequest request, @RequestParam("stcds") String stcds) {
 		JSONObject retval = new JSONObject();
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
 
 		List<UserStation> userStationList = new ArrayList<>();
-		for(String s : stcd){
+		for(String s : stcds.split(",")){
 			UserStation userStation = new UserStation();
 			userStation.setUserId(user.getUserId());
 			userStation.setUserStcd(s);

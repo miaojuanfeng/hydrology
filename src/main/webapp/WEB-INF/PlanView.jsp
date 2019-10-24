@@ -46,7 +46,7 @@
 								                <a class="layui-btn layui-btn-primary layui-btn-radius">查询方案</a>
 								            </div>
 								            <div class="layui-inline">
-								                <a href="<c:url value="/cms/plan/insert"></c:url>" class="layui-btn layui-btn-primary layui-btn-radius">新建方案</a>
+								                <a href="<c:url value="/cms/forecast/plan/insert"></c:url>" class="layui-btn layui-btn-primary layui-btn-radius">新建方案</a>
 								            </div>
 								    	</form>
 						            </div>

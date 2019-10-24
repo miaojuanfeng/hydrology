@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/static/css/style.css"></c:url>">
     <link rel="icon" href="<c:url value="/assets/static/image/code.png"></c:url>">
 </head>
-<body style="background:url(<c:url value="/assets/static/image/login_bg.jpg"></c:url>);background-size:cover;">
+<body style="background:url(<c:url value="/assets/static/image/login_bg.jpg"></c:url>);background-repeat:none;background-size:cover;">
 
 <div class="login-main">
     <header class="layui-elip" style="font-weight:bold;color:#1E9F95;margin-top:100px;">系统登录</header>

@@ -11,5 +11,6 @@ import java.util.Map;
 @Mapper
 public interface WarningDao {
 	List<Warning> selectWarning(@Param("stcd") String stcd);
+	Integer selectNotice(@Param("stcd") String stcd);
 	int insertBatch(List<Warning> warnings);
 }

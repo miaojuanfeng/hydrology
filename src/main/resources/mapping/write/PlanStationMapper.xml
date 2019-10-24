@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="gov.gz.hydrology.mapper.write.WarningDao" >
-	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.Warning" >
+<mapper namespace="gov.gz.hydrology.mapper.write.PlanStationDao" >
+	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.PlanStation" >
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
 		<result column="tm" property="tm"/>
 		<result column="z" property="z"/>

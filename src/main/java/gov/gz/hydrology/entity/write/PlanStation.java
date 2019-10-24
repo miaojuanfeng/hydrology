@@ -3,7 +3,7 @@ package gov.gz.hydrology.entity.write;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Warning {
+public class PlanStation {
 	private String stcd;
 	private BigDecimal z;
 	private Date tm;

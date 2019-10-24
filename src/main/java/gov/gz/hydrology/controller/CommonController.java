@@ -54,7 +54,7 @@ public class CommonController {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (Warning warning : warningList){
             JSONObject t = new JSONObject();
-            t.put("stname", warning.getStation().getStname());
+            t.put("stname", warning.getStname());
             t.put("z", warning.getZ());
             t.put("tm", fmt.format(warning.getTm()));
             if( warning.getType().equals(CommonConst.TYPE_JB_LINE) ){
@@ -64,6 +64,19 @@ public class CommonController {
             }
             temp.add(t);
         }
+        retval.put("code", CommonConst.HTTP_OK);
+        retval.put("data", temp);
+        return retval.toString();
+    }
+
+    @RequestMapping("notice")
+    @ResponseBody
+    public String notice(@RequestParam(value="stcd",required=false) String stcd) {
+        JSONObject retval = new JSONObject();
+        JSONObject temp = new JSONObject();
+        Integer count = warningService.selectNotice(stcd);
+        count = count > 10 ? 10 : count;
+        temp.put("count", count);
         retval.put("code", CommonConst.HTTP_OK);
         retval.put("data", temp);
         return retval.toString();

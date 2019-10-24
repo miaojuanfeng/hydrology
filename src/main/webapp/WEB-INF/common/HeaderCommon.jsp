@@ -39,15 +39,28 @@
             <li class="layui-nav-item">
             	<div id="time-week"><iframe allowtransparency="true" frameborder="0" width="565" height="60" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=3&bd=0&k=&f=ffffff&ltf=009944&htf=cc0000&q=0&e=0&a=0&c=${station.wea}<c:if test="${empty station.wea}">57993</c:if>&w=565&h=60&align=center"></iframe></div>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item" style="margin-right: 20px;">
 			    <div id="notify" style="position:relative">
-			    	<a href="javascript:;">预警消息<span class="layui-badge">9</span></a>
+			    	<a href="javascript:;">预警消息<span id="notice-count" class="layui-badge">0</span></a>
 			    	<div id="notify-list">
 			    		<ul id="warning-ul"></ul>
 			    	</div>
 			    	<script type="text/javascript" src="<c:url value="/assets/static/js/jquery.min.js"></c:url>"></script>
 			    	<script>
 			    	$(document).ready(function(){
+                        $.post(
+                            "<c:url value="/cms/common/notice"></c:url>",
+                            {
+                                stcd:"${stcd}"
+                            },
+                            function(result){
+                                var obj = eval('(' + result + ')');
+                                if( obj.code == 200 ){
+                                    var data = obj.data;
+                                    $("#notice-count").html(data.count);
+                                }
+                            }
+                        );
 			    		$("#notify").click(
 		    				function(){
 		    					if( $("#notify-list").is(":hidden") ){
