@@ -5,10 +5,9 @@ import java.util.Date;
 
 public class PlanStation {
 	private String stcd;
-	private BigDecimal z;
-	private Date tm;
-	private Integer type;
-	private String stname;
+	private BigDecimal ke;
+	private BigDecimal xe;
+	private BigDecimal dt;
 
 	public String getStcd() {
 		return stcd;
@@ -18,35 +17,27 @@ public class PlanStation {
 		this.stcd = stcd;
 	}
 
-	public BigDecimal getZ() {
-		return z;
+	public BigDecimal getKe() {
+		return ke;
 	}
 
-	public void setZ(BigDecimal z) {
-		this.z = z;
+	public void setKe(BigDecimal ke) {
+		this.ke = ke;
 	}
 
-	public Date getTm() {
-		return tm;
+	public BigDecimal getXe() {
+		return xe;
 	}
 
-	public void setTm(Date tm) {
-		this.tm = tm;
+	public void setXe(BigDecimal xe) {
+		this.xe = xe;
 	}
 
-	public Integer getType() {
-		return type;
+	public BigDecimal getDt() {
+		return dt;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	public String getStname() {
-		return stname;
-	}
-
-	public void setStname(String stname) {
-		this.stname = stname;
+	public void setDt(BigDecimal dt) {
+		this.dt = dt;
 	}
 }

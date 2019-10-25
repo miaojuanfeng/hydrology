@@ -84,9 +84,14 @@
 											            </select>
 										            </div>
 										        </div>
-										        <div style="margin-left:550px;">
-										        	<a class="layui-btn layui-btn-primary layui-btn-radius">下一步</a>
-										        </div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<div style="margin-left:80px;float:left;">
+														<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+													</div>
+													<div style="margin-left:10px;float:right;">
+														<a class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+													</div>
+												</div>
 										    </div>
 										</div>
 										<div id="step2" class="box-step" style="display:none;">
@@ -197,8 +202,11 @@
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											        <div style="margin-left:80px;">
-											        	<a class="layui-btn layui-btn-primary layui-btn-radius">下一步</a>
+													<div style="margin-left:80px;float:left;">
+														<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+													</div>
+											        <div style="margin-left:10px;float:right;">
+											        	<a class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
 											        </div>
 										        </div>
 										    </div>
@@ -261,9 +269,12 @@
 									            	</div>
 								            	</div>
 								            	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											        <div style="margin-left:35px;margin-top:210px;">
-											        	<a class="layui-btn layui-btn-primary layui-btn-radius">下一步</a>
-											        </div>
+													<div style="margin-left:80px;float:left;">
+														<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+													</div>
+													<div style="margin-left:10px;float:right;">
+														<a class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+													</div>
 										        </div>
 										    </div>
 									    </div>
@@ -449,7 +460,12 @@
 											    	
 											    	</div>
 											    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="text-align:center;padding-top:50px;">
-											        	<a class="layui-btn layui-btn-primary layui-btn-radius">保存</a>
+														<div style="margin-left:0px;float:left;">
+															<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+														</div>
+														<div style="margin-left:10px;float:right;">
+															<a class="layui-btn layui-btn-normal layui-btn-radius">保存</a>
+														</div>
 											        </div>
 											    </div>
 											</div>

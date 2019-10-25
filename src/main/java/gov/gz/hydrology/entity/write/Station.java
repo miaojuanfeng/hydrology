@@ -9,6 +9,7 @@ public class Station {
 	private String fileCd;
 	private Integer jbLine;
 	private Integer jjLine;
+	private String userStcd;
 	public String getStcd() {
 		return stcd;
 	}
@@ -64,5 +65,13 @@ public class Station {
 
 	public void setJjLine(Integer jjLine) {
 		this.jjLine = jjLine;
+	}
+
+	public String getUserStcd() {
+		return userStcd;
+	}
+
+	public void setUserStcd(String userStcd) {
+		this.userStcd = userStcd;
 	}
 }
