@@ -53,9 +53,9 @@ public class StepOneUtil {
 	 * A
 	 */
 	public static BigDecimal getA() {
-		// A = Wmm*[1-(1-W0/Wm)^(1/B+1)]
+		// A = Wmm*[1-(1-W0/Wm)^(1/(B+1))]
 		BigDecimal base = NumberConst.ONE.subtract(getW0().divide(getWm(), NumberConst.DIGIT, NumberConst.MODE));
-		BigDecimal power = NumberConst.ONE.divide(NumberConfig.B, NumberConst.DIGIT, NumberConst.MODE).add(NumberConst.ONE);
+		BigDecimal power = NumberConst.ONE.divide(NumberConfig.B.add(NumberConst.ONE), NumberConst.DIGIT, NumberConst.MODE);
 		return getWmm().multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
 	}
 	
@@ -85,5 +85,9 @@ public class StepOneUtil {
 		}
 		// Rd = PE
 		Rd = PE;
+
+		StepTwoUtil.WUup = NumberConfig.WU0;
+		StepTwoUtil.WLup = NumberConfig.WL0;
+		StepTwoUtil.WDup = NumberConfig.WD0;
 	}
 }

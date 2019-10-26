@@ -2,6 +2,7 @@ package gov.gz.hydrology.utils;
 
 import java.math.BigDecimal;
 
+import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
 
@@ -117,6 +118,9 @@ public class StepTwoUtil {
 				}
 			}
 		}
+		WUup = WU;
+		WLup = WL;
+		WDup = WD;
 	}
 	
 	/**
@@ -207,8 +211,8 @@ public class StepTwoUtil {
 	 * @return
 	 */
 	public static BigDecimal getEKx() {
-		// EKx = PE
-		return StepCommonUtil.getPE();
+		// EKx = K * E
+		return NumberConfig.K.multiply(StepCommonUtil.getE());
 	}
 	
 	/**

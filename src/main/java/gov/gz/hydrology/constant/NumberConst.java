@@ -17,7 +17,7 @@ public class NumberConst {
 	/*
 	 * 小数保留位数
 	 */
-	public static final int DIGIT = 2;
+	public static final int DIGIT = 6;
 	
 	/*
 	 * 小数舍弃模式

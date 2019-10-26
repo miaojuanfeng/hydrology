@@ -3,6 +3,7 @@ package gov.gz.hydrology.utils;
 import java.math.BigDecimal;
 
 import gov.gz.hydrology.constant.NumberConfig;
+import gov.gz.hydrology.constant.NumberConst;
 
 public class StepCommonUtil {
 	
@@ -11,15 +12,19 @@ public class StepCommonUtil {
 	 * @return
 	 */
 	private static BigDecimal getP() {
-		return new BigDecimal("0.1");
+		return new BigDecimal("0.01");
 	}
-	
+
 	/**
 	 * E 蒸发量
 	 * @return
 	 */
-	private static BigDecimal getE() {
-		return new BigDecimal("0.1");
+	public static BigDecimal getE() {
+		/*
+			月分取P的月份/天数/小时
+		 */
+		BigDecimal E = NumberConfig.E.get(9).divide(new BigDecimal(31), NumberConst.DIGIT, NumberConst.MODE).divide(new BigDecimal(24), NumberConst.DIGIT, NumberConst.MODE);
+		return E;
 	}
 	
 	/**

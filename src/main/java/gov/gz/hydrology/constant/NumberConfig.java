@@ -9,12 +9,12 @@ public class NumberConfig {
 	/**
 	 * WU0  上层土壤蓄水容量初始含水量
 	 */
-	public static BigDecimal WU0 = new BigDecimal(40);
+	public static BigDecimal WU0 = new BigDecimal(0);
 	
 	/**
 	 * WL0  下层土壤蓄水容量初始含水量
 	 */
-	public static BigDecimal WL0 = new BigDecimal(20);
+	public static BigDecimal WL0 = new BigDecimal(10);
 	
 	/**
 	 * WD0  深层土壤蓄水容量初始含水量
@@ -60,34 +60,35 @@ public class NumberConfig {
 	 * @return
 	 */
 	public static BigDecimal hourE(BigDecimal monthE) {
-		BigDecimal hourTotal = new BigDecimal(30 * 24);
-		return monthE.divide(hourTotal, NumberConst.DIGIT, NumberConst.MODE);
+//		BigDecimal hourTotal = new BigDecimal(30 * 24);
+//		return monthE.divide(hourTotal, NumberConst.DIGIT, NumberConst.MODE);
+		return monthE;
 	}
 	
 	/**
 	 * WUM  上层土壤蓄水容量
 	 */
-	public static BigDecimal WUM = new BigDecimal(15);
+	public static BigDecimal WUM = new BigDecimal("9.76");
 	
 	/**
 	 * WLM  下层土壤蓄水容量
 	 */
-	public static BigDecimal WLM = new BigDecimal(70);
+	public static BigDecimal WLM = new BigDecimal("36.666");
 	
 	/**
 	 * WDM  深层土壤蓄水容量
 	 */
-	public static BigDecimal WDM = new BigDecimal(16);
+	public static BigDecimal WDM = new BigDecimal("33.576");
 	
 	/**
 	 * B  蓄水容量曲线抛物线指数
 	 */
-	public static BigDecimal B = new BigDecimal("0.456");
+	public static BigDecimal B = new BigDecimal("0.393");
 	
 	/**
 	 * K  蒸散发折算系数
 	 */
-	public static BigDecimal K = new BigDecimal("0.826");
+	public static BigDecimal K = new BigDecimal("0.7");
 	
 	/**
 	 * C  深层蒸散发系数
