@@ -2,17 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="gov.gz.hydrology.mapper.write.PlanDao" >
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.Plan" >
-		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
-		<result column="tm" property="tm"/>
-		<result column="z" property="z"/>
-		<result column="type" property="type" jdbcType="VARCHAR" />
-        <result column="stname" property="stname" jdbcType="VARCHAR" />
-		<!--<collection property="station" ofType="gov.gz.hydrology.entity.write.Station" column="stcd">-->
-			<!--<id column="stcd" property="stcd" jdbcType="VARCHAR" />-->
-			<!--<result column="type" property="type" jdbcType="VARCHAR" />-->
-			<!--<result column="stname" property="stname" jdbcType="VARCHAR" />-->
-			<!--<result column="dis" property="dis" jdbcType="VARCHAR" />-->
-		<!--</collection>-->
+		<id column="id" property="id"/>
+		<result column="stcd" property="stcd"/>
+		<result column="name" property="name"/>
+		<result column="model" property="model"/>
+        <result column="e" property="e"/>
+        <result column="wm" property="wm"/>
+        <result column="wum" property="wum"/>
+        <result column="wlm" property="wlm"/>
+        <result column="r" property="r"/>
+        <result column="c" property="c"/>
+        <result column="b" property="b"/>
+        <result column="im" property="im"/>
+        <result column="sm" property="sm"/>
+        <result column="ex" property="ex"/>
+        <result column="ki" property="ki"/>
+        <result column="kg" property="kg"/>
+        <result column="ci" property="ci"/>
+        <result column="cg" property="cg"/>
+        <result column="cs" property="cs"/>
+        <result column="lag" property="lag"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
 	</resultMap>
 	<select id="selectWarning" resultMap="BaseResultMap">
 		select top 10 w.*, s.stname as stname from warning w

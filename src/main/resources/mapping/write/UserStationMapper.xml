@@ -15,7 +15,7 @@
 	<select id="selectByUserId" resultMap="BaseResultMap">
 		select us.user_stcd, s.* from user_station us
 		inner join station s on us.user_stcd = s.stcd
-		where us.user_id = #{userId}
+		where us.user_id = #{userId} and s.type = '基本站'
 	</select>
 	<select id="selectDefault" resultMap="BaseResultMap">
 		select top 1 us.user_stcd, s.* from user_station us

@@ -5,10 +5,11 @@ import java.util.Date;
 
 public class Result {
 	private String stcd;
-	private BigDecimal z;
-	private Date tm;
-	private Integer type;
-	private String stname;
+	private Date foreTime;
+	private Date flTime;
+	private BigDecimal flow;
+	private String userId;
+	private String fileCd;
 
 	public String getStcd() {
 		return stcd;
@@ -18,35 +19,43 @@ public class Result {
 		this.stcd = stcd;
 	}
 
-	public BigDecimal getZ() {
-		return z;
+	public Date getForeTime() {
+		return foreTime;
 	}
 
-	public void setZ(BigDecimal z) {
-		this.z = z;
+	public void setForeTime(Date foreTime) {
+		this.foreTime = foreTime;
 	}
 
-	public Date getTm() {
-		return tm;
+	public Date getFlTime() {
+		return flTime;
 	}
 
-	public void setTm(Date tm) {
-		this.tm = tm;
+	public void setFlTime(Date flTime) {
+		this.flTime = flTime;
 	}
 
-	public Integer getType() {
-		return type;
+	public BigDecimal getFlow() {
+		return flow;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setFlow(BigDecimal flow) {
+		this.flow = flow;
 	}
 
-	public String getStname() {
-		return stname;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setStname(String stname) {
-		this.stname = stname;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getFileCd() {
+		return fileCd;
+	}
+
+	public void setFileCd(String fileCd) {
+		this.fileCd = fileCd;
 	}
 }

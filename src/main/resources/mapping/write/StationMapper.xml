@@ -10,16 +10,17 @@
 		<result column="file_cd" property="fileCd" jdbcType="VARCHAR" />
 		<result column="jb_line" property="jbLine" jdbcType="INTEGER" />
 		<result column="jj_line" property="jjLine" jdbcType="INTEGER" />
+		<result column="user_stcd" property="userStcd" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
 		select * from station
-		where stcd = #{stcd}
+		where stcd = #{stcd} and user_stcd = #{stcd}
 	</select>
 	<select id="selectStationByType" resultMap="BaseResultMap">
 		select * from station
 		where type = #{type}
 	</select>
 	<select id="selectChildStationByStcd" resultType="java.util.Map">
-		select stcd, stname from station where dis = (select dis from station where stcd = #{stcd})
+		select stcd, stname from station where user_stcd = #{stcd}
 	</select>
 </mapper>
