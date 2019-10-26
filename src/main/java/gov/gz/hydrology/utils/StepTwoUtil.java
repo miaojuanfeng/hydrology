@@ -211,8 +211,8 @@ public class StepTwoUtil {
 	 * @return
 	 */
 	public static BigDecimal getEKx() {
-		// EKx = K * E
-		return NumberConfig.K.multiply(StepCommonUtil.getE());
+		// EKx = PE
+		return StepCommonUtil.getPE();
 	}
 	
 	/**

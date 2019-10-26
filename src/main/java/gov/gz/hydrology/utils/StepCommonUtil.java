@@ -12,7 +12,8 @@ public class StepCommonUtil {
 	 * @return
 	 */
 	private static BigDecimal getP() {
-		return new BigDecimal("0.01");
+//		return new BigDecimal("0.01");
+		return NumberConfig.getTextP();
 	}
 
 	/**

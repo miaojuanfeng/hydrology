@@ -5,6 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NumberConfig {
+
+	public static List<BigDecimal> testP = new ArrayList<>();
+	public static int indexP = 0;
+	static {
+		testP.add(new BigDecimal("0.01"));
+		testP.add(new BigDecimal("5"));
+		testP.add(new BigDecimal("10"));
+		testP.add(new BigDecimal("30"));
+		testP.add(new BigDecimal("50"));
+	}
+	public static BigDecimal getTextP(){
+		return testP.get(indexP);
+	}
+
+
 	
 	/**
 	 * WU0  上层土壤蓄水容量初始含水量

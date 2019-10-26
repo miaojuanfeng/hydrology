@@ -84,7 +84,11 @@ public class StepOneUtil {
 			R = NumberConst.ZERO;
 		}
 		// Rd = PE
-		Rd = PE;
+		if( PE.compareTo(NumberConst.ZERO) == -1 ){
+			Rd = NumberConst.ZERO;
+		}else {
+			Rd = PE;
+		}
 
 		StepTwoUtil.WUup = NumberConfig.WU0;
 		StepTwoUtil.WLup = NumberConfig.WL0;
