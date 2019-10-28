@@ -136,8 +136,11 @@ public class CalcController {
 	}
 
 	@RequestMapping("plan/insert")
-	public String insertPlan(ModelMap map) {
-		map.put("date", DateUtil.getDate());
+	public String insertPlan(HttpServletRequest request, ModelMap map) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+		map.put("stationList", stationList);
 		return "PlanInsertView";
 	}
 }

@@ -42,7 +42,7 @@
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
 											<select id="sName">
                                                 <c:forEach items="${stationList}" var="station" varStatus="id">
-                                                    <option value="${station.stcd}">${station.stname}</option>
+                                                    <option value="${station.userStcd}">${station.stname}</option>
                                                 </c:forEach>
 											</select>
 										</div>

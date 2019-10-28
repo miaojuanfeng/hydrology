@@ -25,21 +25,21 @@
 					            <div class="layui-colla-item" style="overflow-y:auto">
 					            	<div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
 									    <div style="padding:10px;">
-											<a step="1" class="selected" href="javascript:;">
+											<a id="div-nav-a-1" step="1" class="selected" href="javascript:;">
     											<span>1.基本信息</span>
     										</a>
-    										<a step="2" href="javascript:;">
+    										<a id="div-nav-a-2" step="2" href="javascript:;">
     											<span>2.区间参数</span>
     										</a>
-    										<a step="3" href="javascript:;">
+    										<a id="div-nav-a-3" step="3" href="javascript:;">
     											<span>3.演进参数</span>
     										</a>
-    										<a step="4" href="javascript:;">
+    										<a id="div-nav-a-4" step="4" href="javascript:;">
     											<span>4.预览</span>
     										</a>
 										</div>
 									</div>
-					            	<form class="layui-form" style="margin:10px;">
+					            	<form id="form-plan" class="layui-form" style="margin:10px;">
 					            		<div id="step1" class="box-step">
 											<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;border:none;">
 											    <legend>方案基本信息</legend>
@@ -48,20 +48,19 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 										            <label class="layui-form-label">预报站 </label>
 										            <div class="layui-input-block">
-										            	<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-											            	<select name="quiz1">
-												                <option value="站名1">站名1</option>
-												                <option value="站名2">站名2</option>
-												                <option value="站名3">站名3</option>
-												            </select>
-												        </div>
-												        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-											            	<select name="quiz1">
-												                <option value="站类1">站类1</option>
-												                <option value="站类2">站类2</option>
-												                <option value="站类3">站类3</option>
-												            </select>
-												        </div>
+														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+															<select lay-filter="sType">
+																<option value="基本站">基本站</option>
+																<option value="水库站">水库站</option>
+															</select>
+														</div>
+														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
+															<select name="stcd" id="sName">
+																<c:forEach items="${stationList}" var="station" varStatus="id">
+																	<option value="${station.station.stcd}">${station.station.stname}</option>
+																</c:forEach>
+															</select>
+														</div>
 										            </div>
 										        </div>
 										    </div>
@@ -69,7 +68,7 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 										            <label class="layui-form-label">方案名称 </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="planName" id="planName" lay-verify="date" autocomplete="off" class="layui-input">
+										                <input type="text" name="name" id="name" class="layui-input">
 										            </div>
 										        </div>
 										    </div>
@@ -77,19 +76,14 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 										            <label class="layui-form-label">预报模型 </label>
 										            <div class="layui-input-block">
-										                <select name="quiz1">
-											                <option value="站名1">站名1</option>
-											                <option value="站名2">站名2</option>
-											                <option value="站名3">站名3</option>
+										                <select>
+											                <option value="新安江模型">新安江模型</option>
 											            </select>
 										            </div>
 										        </div>
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<div style="margin-left:80px;float:left;">
-														<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
-													</div>
-													<div style="margin-left:10px;float:right;">
-														<a class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+														<a step="2" class="div-button layui-btn layui-btn-normal layui-btn-radius">下一步</a>
 													</div>
 												</div>
 										    </div>
@@ -102,25 +96,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">E = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${stepCommon.PE}" >
+										                <input type="number" name="e" class="layui-input" value="${stepCommon.PE}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WM = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${stepCommon.Ek}" >
+										                <input type="number" name="wm" class="layui-input" value="${stepCommon.Ek}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WUM = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.IM}" >
+										                <input type="number" name="wum"  class="layui-input" value="${para.IM}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WLM = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.XE}" >
+										                <input type="number" name="wlm"  class="layui-input" value="${para.XE}" >
 										            </div>
 										        </div>
 										   	</div>
@@ -128,25 +122,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">K = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.KE}" >
+										                <input type="number" name="k"  class="layui-input" value="${para.KE}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">C = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="c"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">B = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="b"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">IM = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="im"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										    </div>
@@ -154,25 +148,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">SM = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.KE}" >
+										                <input type="number" name="sm"  class="layui-input" value="${para.KE}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">EX = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="ex"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">KI = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="ki"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">KG = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="kg"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										    </div>
@@ -180,33 +174,33 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">CI = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.KE}" >
+										                <input type="number" name="ci"  class="layui-input" value="${para.KE}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">CG = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="cg"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">CS = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="cs"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">LAG = </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+										                <input type="number" name="lag"  class="layui-input" value="${para.DT}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<div style="margin-left:80px;float:left;">
-														<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+														<a step="1" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
 													</div>
 											        <div style="margin-left:10px;float:right;">
-											        	<a class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+											        	<a step="3" class="div-button layui-btn layui-btn-normal layui-btn-radius">下一步</a>
 											        </div>
 										        </div>
 										    </div>
@@ -236,33 +230,33 @@
 														    <tbody>
 														      <tr>
 														        <td>贤心</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>张爱玲</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>Helen Keller</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>岳飞</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>孟子</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 															</tbody>
 														</table>
@@ -270,10 +264,10 @@
 								            	</div>
 								            	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<div style="margin-left:80px;float:left;">
-														<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+														<a step="2" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
 													</div>
 													<div style="margin-left:10px;float:right;">
-														<a class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+														<a step="4" class="div-button layui-btn layui-btn-normal layui-btn-radius">下一步</a>
 													</div>
 										        </div>
 										    </div>
@@ -322,7 +316,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md12">
 											            <label class="layui-form-label">方案名称 </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="planName" id="planName" lay-verify="date" autocomplete="off" class="layui-input">
+											                <input type="text" name="name" id="name" lay-verify="date"  class="layui-input">
 											            </div>
 											        </div>
 											    </div>
@@ -347,13 +341,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">E = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${stepCommon.PE}" >
+											                <input type="text" name="number"  class="layui-input" value="${stepCommon.PE}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${stepCommon.Ek}" >
+											                <input type="text" name="number"  class="layui-input" value="${stepCommon.Ek}" >
 											            </div>
 											        </div>
 											    </div>
@@ -361,13 +355,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WUM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.IM}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.IM}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WLM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.XE}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.XE}" >
 											            </div>
 											        </div>
 											   	</div>
@@ -375,13 +369,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">K = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.KE}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.KE}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">C = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											    </div>
@@ -389,13 +383,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">B = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">IM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											    </div>
@@ -403,13 +397,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">SM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.KE}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.KE}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">EX = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											    </div>
@@ -417,13 +411,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">KI = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">KG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											    </div>
@@ -431,13 +425,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CI = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.KE}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.KE}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											    </div>
@@ -445,13 +439,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CS = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">LAG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="${para.DT}" >
+											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
 											            </div>
 											        </div>
 											    </div>
@@ -461,10 +455,10 @@
 											    	</div>
 											    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="text-align:center;padding-top:50px;">
 														<div style="margin-left:0px;float:left;">
-															<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+															<a step="3" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
 														</div>
 														<div style="margin-left:10px;float:right;">
-															<a class="layui-btn layui-btn-normal layui-btn-radius">保存</a>
+															<a id="save" class="layui-btn layui-btn-normal layui-btn-radius">保存</a>
 														</div>
 											        </div>
 											    </div>
@@ -493,33 +487,33 @@
 														    <tbody>
 														      <tr>
 														        <td>贤心</td>
-														       <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														       <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>张爱玲</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>Helen Keller</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>岳飞</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 														      <tr>
 														        <td>孟子</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number" autocomplete="off" class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
 														      </tr>
 															</tbody>
 														</table>
@@ -593,13 +587,28 @@
             layer.close(index);
           });
         }
-      });
-    
-    
-    
-    
-    
-    
+	});
+
+	form.on('select(sType)', function (data) {
+		$("#sName").html('');
+		$.post(
+			"<c:url value="/cms/common/station"></c:url>",
+			{
+				type: data.value
+			},
+			function(data){
+				var obj = $.parseJSON(data);
+				var arr = obj.data;
+				var html = '';
+				for(var i=0;i<arr.length;i++){
+					html += '<option value="'+arr[i].stcd+'">'+arr[i].stname+'</option>';
+				}
+				$("#sName").html(html);
+				layui.form.render('select');
+			}
+		);
+	});
+	form.on('select(sType)');
 
     $(document).ready(function(){
     	var contentHeight = $(window).height() - 60 - 22;
@@ -609,13 +618,31 @@
     	$(".layui-collapse").fadeIn();
     	
     	
-    	$("#div-nav a").click(function(){
+    	$("#div-nav a, .div-button").click(function(){
     		var step = $(this).attr("step");
     		$("#div-nav a").removeClass("selected");
-    		$(this).addClass("selected");
+    		$("#div-nav-a-"+step).addClass("selected");
     		$(".box-step").hide();
     		$("#step"+step).show();
     	});
+
+    	$("#save").click(function () {
+            $.ajax({
+                type: "post",
+                cache: false,
+                async: false,
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                dataType: "json",
+                url: "<c:url value="/cms/user/setting/xx"></c:url>",
+                data: $("#form-plan").serialize(),
+                success: function (data) {
+                    layer.msg("保存成功", {icon: 1});
+                },
+                error: function (xhr, ts, et) {
+                    layer.msg('保存失败', {icon: 2});
+                }
+            });
+        });
     });
 
 });
