@@ -10,7 +10,7 @@
         <result column="wm" property="wm"/>
         <result column="wum" property="wum"/>
         <result column="wlm" property="wlm"/>
-        <result column="r" property="r"/>
+        <result column="k" property="k"/>
         <result column="c" property="c"/>
         <result column="b" property="b"/>
         <result column="im" property="im"/>
@@ -25,30 +25,178 @@
         <result column="user_id" property="userId"/>
         <result column="create_time" property="createTime"/>
 	</resultMap>
-	<select id="selectWarning" resultMap="BaseResultMap">
-		select top 10 w.*, s.stname as stname from warning w
-		left join station s on w.stcd = s.stcd
+	<select id="selectPlan" resultMap="BaseResultMap">
+		select p.* from [plan] p
 		where 1=1
 		<if test="stcd != null and stcd != ''" >
-			and w.stcd = #{stcd}
+			and p.stcd = #{stcd}
 		</if>
-		order by w.tm desc
+		order by p.create_time desc
 	</select>
-    <select id="selectNotice" resultType="java.lang.Integer">
-        select count(1) from warning w
-        left join station s on w.stcd = s.stcd
-        where 1=1
-        <if test="stcd != null and stcd != ''" >
-            and w.stcd = #{stcd}
-        </if>
-    </select>
 	<insert id="insertBatch" parameterType="java.util.List">
-		<foreach collection="list" item="item" index="index">
-			if not exists (select 1 from warning where stcd = #{item.stcd} and tm = #{item.tm} and type = #{item.type})
-				insert into warning
-				(stcd,tm,z,type)
-				values
-				(#{item.stcd},#{item.tm},#{item.z},#{item.type})
-		</foreach>
+        insert into [plan]
+        (stcd, name, model, e, wm, wum, wlm, k, c, b, im, sm, ex, ki, kg, ci, cg, cs, lag, user_id, create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.stcd},#{item.name},#{item.model},#{item.e},#{item.wm},#{item.wum},#{item.wlm},#{item.k},#{item.c},#{item.b},#{item.im},#{item.sm},#{item.ex},#{item.ki},#{item.kg},#{item.ci},#{item.cg},#{item.cs},#{item.lag},#{item.user_id},#{item.create_time})
+        </foreach>
 	</insert>
+    <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into [plan]
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="stcd != null" >
+                stcd,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="model != null" >
+                model,
+            </if>
+            <if test="e != null" >
+                e,
+            </if>
+            <if test="wm != null" >
+                wm,
+            </if>
+            <if test="wum != null" >
+                wum,
+            </if>
+            <if test="wlm != null" >
+                wlm,
+            </if>
+            <if test="k != null" >
+                k,
+            </if>
+            <if test="c != null" >
+                c,
+            </if>
+            <if test="b != null" >
+                b,
+            </if>
+            <if test="im != null" >
+                im,
+            </if>
+            <if test="sm != null" >
+                sm,
+            </if>
+            <if test="ex != null" >
+                ex,
+            </if>
+            <if test="ki != null" >
+                ki,
+            </if>
+            <if test="kg != null" >
+                kg,
+            </if>
+            <if test="ci != null" >
+                ci,
+            </if>
+            <if test="cg != null" >
+                cg,
+            </if>
+            <if test="cs != null" >
+                cs,
+            </if>
+            <if test="lag != null" >
+                lag,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="stcd != null" >
+                #{stcd},
+            </if>
+            <if test="name != null" >
+                #{name},
+            </if>
+            <if test="model != null" >
+                #{model},
+            </if>
+            <if test="e != null" >
+                #{e},
+            </if>
+            <if test="wm != null" >
+                #{wm},
+            </if>
+            <if test="wum != null" >
+                #{wum},
+            </if>
+            <if test="wlm != null" >
+                #{wlm},
+            </if>
+            <if test="k != null" >
+                #{k},
+            </if>
+            <if test="c != null" >
+                #{c},
+            </if>
+            <if test="b != null" >
+                #{b},
+            </if>
+            <if test="im != null" >
+                #{im},
+            </if>
+            <if test="sm != null" >
+                #{sm},
+            </if>
+            <if test="ex != null" >
+                #{ex},
+            </if>
+            <if test="ki != null" >
+                #{ki},
+            </if>
+            <if test="kg != null" >
+                #{kg},
+            </if>
+            <if test="ci != null" >
+                #{ci},
+            </if>
+            <if test="cg != null" >
+                #{cg},
+            </if>
+            <if test="cs != null" >
+                #{cs},
+            </if>
+            <if test="lag != null" >
+                #{lag},
+            </if>
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="createTime != null" >
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSelective" parameterType="gov.gz.hydrology.entity.write.Plan">
+        update [plan]
+        <set>
+            <if test="stcd != null" > stcd = #{stcd},</if>
+            <if test="name != null" > name = #{name},</if>
+            <if test="model != null" > model = #{model},</if>
+            <if test="e != null" > e = #{e},</if>
+            <if test="wm != null" > wm = #{wm},</if>
+            <if test="wum != null" > wum = #{wum},</if>
+            <if test="wlm != null" > wlm = #{wlm},</if>
+            <if test="k != null" > k = #{k},</if>
+            <if test="c != null" > c = #{c},</if>
+            <if test="b != null" > b = #{b},</if>
+            <if test="im != null" > im = #{im},</if>
+            <if test="sm != null" > sm = #{sm},</if>
+            <if test="ex != null" > ex = #{ex},</if>
+            <if test="ki != null" > ki = #{ki},</if>
+            <if test="kg != null" > kg = #{kg},</if>
+            <if test="ci != null" > ci = #{ci},</if>
+            <if test="cg != null" > cg = #{cg},</if>
+            <if test="cs != null" > cs = #{cs},</if>
+            <if test="lag != null" > lag = #{lag},</if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

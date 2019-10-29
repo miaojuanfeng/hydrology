@@ -12,7 +12,7 @@ public class Plan {
 	private BigDecimal wm;
 	private BigDecimal wum;
 	private BigDecimal wlm;
-	private BigDecimal r;
+	private BigDecimal k;
 	private BigDecimal c;
 	private BigDecimal b;
 	private BigDecimal im;
@@ -91,12 +91,12 @@ public class Plan {
 		this.wlm = wlm;
 	}
 
-	public BigDecimal getR() {
-		return r;
+	public BigDecimal getK() {
+		return k;
 	}
 
-	public void setR(BigDecimal r) {
-		this.r = r;
+	public void setK(BigDecimal k) {
+		this.k = k;
 	}
 
 	public BigDecimal getC() {

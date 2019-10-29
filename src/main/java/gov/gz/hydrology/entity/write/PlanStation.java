@@ -8,6 +8,7 @@ public class PlanStation {
 	private BigDecimal ke;
 	private BigDecimal xe;
 	private BigDecimal dt;
+	private Integer planId;
 
 	public String getStcd() {
 		return stcd;
@@ -39,5 +40,13 @@ public class PlanStation {
 
 	public void setDt(BigDecimal dt) {
 		this.dt = dt;
+	}
+
+	public Integer getPlanId() {
+		return planId;
+	}
+
+	public void setPlanId(Integer planId) {
+		this.planId = planId;
 	}
 }

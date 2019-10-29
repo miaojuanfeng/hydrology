@@ -37,8 +37,6 @@
 												  	<select name="quiz1" lay-verify="required" lay-search="">
 												  		<option value="">全部模型</option>
 										                <option value="新安江模型">新安江模型</option>
-										                <option value="api模型"> api模型</option>
-										                <option value="单位线模型">缪隽峰</option>
 										            </select>
 												</div>
 										    </div>
@@ -91,7 +89,7 @@
 
     table.render({
         elem: '#table'
-        ,url:'<c:url value="/cms/plan/data"></c:url>'
+        ,url:'<c:url value="/cms/forecast/plan/data"></c:url>'
         ,height: 'full-198'
         ,cols: [[
           {field:'id', width:'10%', title: '序号', sort: true, align: 'center'}

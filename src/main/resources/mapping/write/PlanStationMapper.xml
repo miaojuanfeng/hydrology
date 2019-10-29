@@ -6,31 +6,25 @@
 		<result column="ke" property="ke"/>
 		<result column="xe" property="xe"/>
 		<result column="dt" property="dt"/>
+		<result column="plan_id" property="planId"/>
 	</resultMap>
-	<select id="selectWarning" resultMap="BaseResultMap">
-		select top 10 w.*, s.stname as stname from warning w
-		left join station s on w.stcd = s.stcd
+	<select id="selectByPlan" resultMap="BaseResultMap">
+		select ps.* from plan_station ps
+		left join station s on ps.stcd = s.stcd
 		where 1=1
-		<if test="stcd != null and stcd != ''" >
-			and w.stcd = #{stcd}
+		<if test="planId != null and planId != ''" >
+			and ps.plan_id = #{planId}
 		</if>
-		order by w.tm desc
 	</select>
-    <select id="selectNotice" resultType="java.lang.Integer">
-        select count(1) from warning w
-        left join station s on w.stcd = s.stcd
-        where 1=1
-        <if test="stcd != null and stcd != ''" >
-            and w.stcd = #{stcd}
-        </if>
-    </select>
+	<delete id="deleteByPlan" parameterType="java.lang.Integer">
+        delete from plan_station where plan_id = #{planId}
+    </delete>
 	<insert id="insertBatch" parameterType="java.util.List">
-		<foreach collection="list" item="item" index="index">
-			if not exists (select 1 from warning where stcd = #{item.stcd} and tm = #{item.tm} and type = #{item.type})
-				insert into warning
-				(stcd,tm,z,type)
-				values
-				(#{item.stcd},#{item.tm},#{item.z},#{item.type})
+		insert into plan_station
+		(stcd, ke, xe, dt, plan_id)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.stcd},#{item.ke},#{item.xe},#{item.dt},#{item.planId})
 		</foreach>
 	</insert>
 </mapper>

@@ -55,7 +55,7 @@
 															</select>
 														</div>
 														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-															<select name="stcd" id="sName">
+															<select name="stcd" id="sName" lay-filter="sName">
 																<c:forEach items="${stationList}" var="station" varStatus="id">
 																	<option value="${station.station.stcd}">${station.station.stname}</option>
 																</c:forEach>
@@ -68,7 +68,7 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 										            <label class="layui-form-label">方案名称 </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="name" id="name" class="layui-input">
+										                <input type="text" name="name" class="layui-input">
 										            </div>
 										        </div>
 										    </div>
@@ -230,33 +230,33 @@
 														    <tbody>
 														      <tr>
 														        <td>贤心</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="1" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="1" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="1" class="layui-input" value="${para.DT}"></td>
 														      </tr>
 														      <tr>
 														        <td>张爱玲</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="2" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="2" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="2" class="layui-input" value="${para.DT}"></td>
 														      </tr>
 														      <tr>
 														        <td>Helen Keller</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="3" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="3" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="3" class="layui-input" value="${para.DT}"></td>
 														      </tr>
 														      <tr>
 														        <td>岳飞</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="4" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="4" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="4" class="layui-input" value="${para.DT}"></td>
 														      </tr>
 														      <tr>
 														        <td>孟子</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="5" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="5" class="layui-input" value="${para.DT}"></td>
+														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="5" class="layui-input" value="${para.DT}"></td>
 														      </tr>
 															</tbody>
 														</table>
@@ -296,18 +296,10 @@
 											            <label class="layui-form-label">预报站 </label>
 											            <div class="layui-input-block">
 											            	<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-												            	<select name="quiz1">
-													                <option value="站名1">站名1</option>
-													                <option value="站名2">站名2</option>
-													                <option value="站名3">站名3</option>
-													            </select>
+																<input type="text" class="layui-input" value="基本站" readonly>
 													        </div>
 													        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-												            	<select name="quiz1">
-													                <option value="站类1">站类1</option>
-													                <option value="站类2">站类2</option>
-													                <option value="站类3">站类3</option>
-													            </select>
+																<input type="text" id="stcd" class="layui-input" value="宁都" readonly>
 													        </div>
 											            </div>
 											        </div>
@@ -316,7 +308,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md12">
 											            <label class="layui-form-label">方案名称 </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="name" id="name" lay-verify="date"  class="layui-input">
+											                <input type="text" id="name" class="layui-input" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -324,11 +316,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md12">
 											            <label class="layui-form-label">预报模型 </label>
 											            <div class="layui-input-block">
-											                <select name="quiz1">
-												                <option value="站名1">站名1</option>
-												                <option value="站名2">站名2</option>
-												                <option value="站名3">站名3</option>
-												            </select>
+															<input type="text" class="layui-input" value="新安江模型" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -341,13 +329,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">E = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${stepCommon.PE}" >
+											                <input type="text" id="e" class="layui-input" value="${stepCommon.PE}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${stepCommon.Ek}" >
+											                <input type="text" id="wm" class="layui-input" value="${stepCommon.Ek}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -355,13 +343,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WUM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.IM}" >
+											                <input type="text" id="wum" class="layui-input" value="${para.IM}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WLM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.XE}" >
+											                <input type="text" id="wlm" class="layui-input" value="${para.XE}" readonly>
 											            </div>
 											        </div>
 											   	</div>
@@ -369,13 +357,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">K = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.KE}" >
+											                <input type="text" id="k" class="layui-input" value="${para.KE}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">C = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="c" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -383,13 +371,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">B = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="b" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">IM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="im" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -397,13 +385,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">SM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.KE}" >
+											                <input type="text" id="sm" class="layui-input" value="${para.KE}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">EX = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="ex" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -411,13 +399,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">KI = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="ki" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">KG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="kg" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -425,13 +413,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CI = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.KE}" >
+											                <input type="text" id="ci" class="layui-input" value="${para.KE}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="cg" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -439,13 +427,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CS = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="cs" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">LAG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" name="number"  class="layui-input" value="${para.DT}" >
+											                <input type="text" id="lag" class="layui-input" value="${para.DT}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -487,33 +475,33 @@
 														    <tbody>
 														      <tr>
 														        <td>贤心</td>
-														       <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														       <td style="padding:0;"><input style="border:0;" type="text" id="ke-1"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-1"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-1"  class="layui-input" value="${para.DT}" readonly></td>
 														      </tr>
 														      <tr>
 														        <td>张爱玲</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-2"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-2"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-2"  class="layui-input" value="${para.DT}" readonly></td>
 														      </tr>
 														      <tr>
 														        <td>Helen Keller</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-3"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-3"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-3"  class="layui-input" value="${para.DT}" readonly></td>
 														      </tr>
 														      <tr>
 														        <td>岳飞</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-4"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-4"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-4"  class="layui-input" value="${para.DT}" readonly></td>
 														      </tr>
 														      <tr>
 														        <td>孟子</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" name="number"  class="layui-input" value="${para.DT}" placeholder="请输入" ></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-5"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-5"  class="layui-input" value="${para.DT}" readonly></td>
+														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-5"  class="layui-input" value="${para.DT}" readonly></td>
 														      </tr>
 															</tbody>
 														</table>
@@ -554,7 +542,7 @@
     
     table.render({
         elem: '#table'
-        ,url:'<c:url value="/cms/result/data"></c:url>'
+        ,url:'<c:url value="/cms/forecast/plan/insert"></c:url>'
         ,height: 'full-350'
         ,cols: [[
           {field:'id', width:80, title: '序号', sort: true, align: 'center'}
@@ -566,7 +554,7 @@
           ,{fixed:'right', title:'操作', width:150, toolbar: '#barDemo', align: 'center'}
         ]]
         ,page: true
-   });
+   	});
 
     table.on('tool(table)', function(obj){
         var data = obj.data;
@@ -610,6 +598,17 @@
 	});
 	form.on('select(sType)');
 
+	form.on('select(sName)', function(data){
+		var value = data.value;
+		if( value == 62303350 ){
+            $("#stcd").val("宁都");
+		}else if( value == 62303500 ){
+            $("#stcd").val("汾坑");
+		}else if( value == 62303650 ){
+            $("#stcd").val("石城");
+        }
+	});
+
     $(document).ready(function(){
     	var contentHeight = $(window).height() - 60 - 22;
        	var viewHeight = contentHeight;
@@ -627,22 +626,43 @@
     	});
 
     	$("#save").click(function () {
-            $.ajax({
-                type: "post",
-                cache: false,
-                async: false,
-                contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                dataType: "json",
-                url: "<c:url value="/cms/user/setting/xx"></c:url>",
-                data: $("#form-plan").serialize(),
-                success: function (data) {
-                    layer.msg("保存成功", {icon: 1});
-                },
-                error: function (xhr, ts, et) {
-                    layer.msg('保存失败', {icon: 2});
-                }
+    	    var ok = true;
+    	    $("input").each(function () {
+				if( $(this).val() == "" ){
+				    ok = false;
+				}
             });
+    	    if( ok ) {
+                $.ajax({
+                    type: "post",
+                    cache: false,
+                    async: false,
+                    contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                    dataType: "json",
+                    url: "<c:url value="/cms/forecast/plan/insert"></c:url>",
+                    data: $("#form-plan").serialize(),
+                    success: function (data) {
+                        layer.msg("保存成功", {icon: 1});
+                    },
+                    error: function (xhr, ts, et) {
+                        layer.msg('保存失败', {icon: 2});
+                    }
+                });
+            }else{
+                layer.msg('请填妥所有信息', {icon: 2});
+			}
         });
+
+    	$("input, select").on("change", function () {
+			var value = $(this).val();
+			var id = $(this).attr("name");
+			var index = $(this).attr("index");
+			if( index != undefined ){
+                $("#"+id+"-"+index).val(value);
+            }else {
+                $("#"+id).val(value);
+            }
+		});
     });
 
 });
