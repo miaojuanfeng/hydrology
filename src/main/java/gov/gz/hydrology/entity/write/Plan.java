@@ -26,6 +26,8 @@ public class Plan {
 	private BigDecimal lag;
 	private String userId;
 	private Date createTime;
+	private String stname;
+	private String userName;
 
 	public Integer getId() {
 		return id;
@@ -201,5 +203,22 @@ public class Plan {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getStname() {
+		return stname;
+	}
+
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

@@ -24,10 +24,18 @@
         <result column="lag" property="lag"/>
         <result column="user_id" property="userId"/>
         <result column="create_time" property="createTime"/>
+        <result column="stname" property="stname"/>
+        <result column="user_name" property="userName"/>
 	</resultMap>
+    <select id="selectById" resultMap="BaseResultMap">
+        select p.* from [plan] p
+        where p.id = #{id}
+    </select>
 	<select id="selectPlan" resultMap="BaseResultMap">
-		select p.* from [plan] p
-		where 1=1
+		select p.*, s.stname, u.user_name from [plan] p
+        inner join station s on p.stcd = s.stcd
+        inner join [user] u on p.user_id = u.user_id
+		where s.type = '基本站'
 		<if test="stcd != null and stcd != ''" >
 			and p.stcd = #{stcd}
 		</if>
@@ -199,4 +207,7 @@
         </set>
         where id = #{id}
     </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from [plan] where id = #{id}
+    </delete>
 </mapper>

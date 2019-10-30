@@ -9,8 +9,10 @@ import java.util.List;
 
 @Mapper
 public interface PlanDao {
+	Plan selectById(@Param("id") Integer id);
 	List<Plan> selectPlan(@Param("stcd") String stcd);
 	int insertSelective(Plan plan);
 	int insertBatch(List<Plan> plans);
 	int updateSelective(Plan plan);
+	int deleteById(@Param("id") Integer id);
 }

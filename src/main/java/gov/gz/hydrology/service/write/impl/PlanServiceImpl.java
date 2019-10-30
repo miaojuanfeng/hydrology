@@ -19,6 +19,11 @@ public class PlanServiceImpl implements PlanService {
 
 
 	@Override
+	public Plan selectById(Integer id) {
+		return planDao.selectById(id);
+	}
+
+	@Override
 	public List<Plan> selectPlan(String stcd) {
 		return planDao.selectPlan(stcd);
 	}
@@ -36,5 +41,10 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public int updateSelective(Plan plan) {
 		return planDao.updateSelective(plan);
+	}
+
+	@Override
+	public int deleteById(Integer id) {
+		return planDao.deleteById(id);
 	}
 }

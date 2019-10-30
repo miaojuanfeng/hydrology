@@ -18,9 +18,11 @@ import gov.gz.hydrology.utils.DateUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("cms/forecast")
@@ -108,8 +110,8 @@ public class ForecastController {
 		return "PlanView";
 	}
 
-	@RequestMapping("plan/{stcd}")
-	public String stcdPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
+	@GetMapping("plan/{stcd}")
+	public String getPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
 		map.put("stcd", stcd);
 		Station station = stationService.selectByPrimaryKey(stcd);
 		map.put("station", station);
@@ -120,21 +122,24 @@ public class ForecastController {
 		return "PlanView";
 	}
 
-	@GetMapping(value="plan/{stcd}",produces="text/plain;charset=UTF-8")
+	@PostMapping(value="plan/{stcd}",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String dataPlan(@PathVariable("stcd") String stcd) {
+	public String postPlan(@PathVariable("stcd") String stcd) {
 		JSONObject retval = new JSONObject();
 		JSONArray temp = new JSONArray();
-		int count = 100;
-		planService.selectPlan(stcd)
-		for(int i=1;i<=count;i++) {
+		List<Plan> plans = planService.selectPlan(stcd);
+        int count = plans.size();
+        int number = 0;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for(Plan plan : plans) {
 			JSONObject t = new JSONObject();
-			t.put("id", i);
-			t.put("name", "宁都站");
-			t.put("planName", "方案"+i);
-			t.put("planModel", "模型"+i);
-			t.put("username", "陈济天");
-			t.put("time", "2019-08-19 20:12:22");
+			t.put("number", ++number);
+            t.put("id", plan.getId());
+			t.put("stname", plan.getStname());
+			t.put("name", plan.getName());
+			t.put("planModel", "新安江模型");
+			t.put("username", plan.getUserName());
+			t.put("time", format.format(plan.getCreateTime()));
 			temp.add(t);
 		}
 		retval.put("code", 0);
@@ -143,12 +148,16 @@ public class ForecastController {
 		return retval.toString();
 	}
 
-	@GetMapping("plan/insert")
-	public String getInsertPlan(HttpServletRequest request, ModelMap map) {
+	@GetMapping("plan/insert/{stcd}")
+	public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
 	    HttpSession session = request.getSession();
 		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
 		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
 		map.put("stationList", stationList);
+
+		List<Map> childStationList = stationService.selectChildStationByStcd(stcd);
+        map.put("childStationList", childStationList);
+
 		return "PlanInsertView";
 	}
 
@@ -177,6 +186,34 @@ public class ForecastController {
         if( planStationList.size() > 0 ){
             planStationService.insertBatch(planStationList);
         }
+
+        return retval.toString();
+    }
+
+    @GetMapping("plan/update/{id}")
+    public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("id") Integer id) {
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+        List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+        map.put("stationList", stationList);
+
+        Plan plan = planService.selectById(id);
+        map.put("plan", plan);
+
+        return "PlanInsertView";
+    }
+
+    @PostMapping("plan/delete")
+    @ResponseBody
+    public String postDeletePlan(HttpServletRequest request, ModelMap map, @RequestParam("id") Integer id) {
+        JSONObject retval = new JSONObject();
+
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+        planStationService.deleteByPlan(id);
+        planService.deleteById(id);
 
         return retval.toString();
     }

@@ -57,7 +57,7 @@
 														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
 															<select name="stcd" id="sName" lay-filter="sName">
 																<c:forEach items="${stationList}" var="station" varStatus="id">
-																	<option value="${station.station.stcd}">${station.station.stname}</option>
+																	<option value="${station.station.stcd}" <c:if test="${station.station.stcd == plan.stcd}">selected</c:if>>${station.station.stname}</option>
 																</c:forEach>
 															</select>
 														</div>
@@ -68,7 +68,7 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 										            <label class="layui-form-label">方案名称 </label>
 										            <div class="layui-input-block">
-										                <input type="text" name="name" class="layui-input">
+										                <input type="text" name="name" class="layui-input" value="${plan.name}">
 										            </div>
 										        </div>
 										    </div>
@@ -96,25 +96,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">E = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="e" class="layui-input" value="${stepCommon.PE}" >
+										                <input type="number" name="e" class="layui-input" value="${plan.e}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="wm" class="layui-input" value="${stepCommon.Ek}" >
+										                <input type="number" name="wm" class="layui-input" value="${plan.wm}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WUM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="wum"  class="layui-input" value="${para.IM}" >
+										                <input type="number" name="wum"  class="layui-input" value="${plan.wum}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WLM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="wlm"  class="layui-input" value="${para.XE}" >
+										                <input type="number" name="wlm"  class="layui-input" value="${plan.wlm}" >
 										            </div>
 										        </div>
 										   	</div>
@@ -122,25 +122,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">K = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="k"  class="layui-input" value="${para.KE}" >
+										                <input type="number" name="k"  class="layui-input" value="${plan.k}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">C = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="c"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="c"  class="layui-input" value="${plan.c}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">B = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="b"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="b"  class="layui-input" value="${plan.b}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">IM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="im"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="im"  class="layui-input" value="${plan.im}" >
 										            </div>
 										        </div>
 										    </div>
@@ -148,25 +148,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">SM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="sm"  class="layui-input" value="${para.KE}" >
+										                <input type="number" name="sm"  class="layui-input" value="${plan.sm}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">EX = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="ex"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="ex"  class="layui-input" value="${plan.ex}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">KI = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="ki"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="ki"  class="layui-input" value="${plan.ki}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">KG = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="kg"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="kg"  class="layui-input" value="${plan.kg}" >
 										            </div>
 										        </div>
 										    </div>
@@ -174,25 +174,25 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">CI = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="ci"  class="layui-input" value="${para.KE}" >
+										                <input type="number" name="ci"  class="layui-input" value="${plan.ci}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">CG = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="cg"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="cg"  class="layui-input" value="${plan.cg}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">CS = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="cs"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="cs"  class="layui-input" value="${plan.cs}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">LAG = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="lag"  class="layui-input" value="${para.DT}" >
+										                <input type="number" name="lag"  class="layui-input" value="${plan.lag}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
@@ -228,36 +228,14 @@
 														      </tr> 
 														    </thead>
 														    <tbody>
-														      <tr>
-														        <td>贤心</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="1" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="1" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="1" class="layui-input" value="${para.DT}"></td>
-														      </tr>
-														      <tr>
-														        <td>张爱玲</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="2" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="2" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="2" class="layui-input" value="${para.DT}"></td>
-														      </tr>
-														      <tr>
-														        <td>Helen Keller</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="3" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="3" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="3" class="layui-input" value="${para.DT}"></td>
-														      </tr>
-														      <tr>
-														        <td>岳飞</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="4" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="4" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="4" class="layui-input" value="${para.DT}"></td>
-														      </tr>
-														      <tr>
-														        <td>孟子</td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="ke" index="5" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="xe" index="5" class="layui-input" value="${para.DT}"></td>
-														        <td style="padding:0;"><input style="border:0;" type="number" name="dt" index="5" class="layui-input" value="${para.DT}"></td>
-														      </tr>
+															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
+																<tr>
+																	<td>${childStation.stname}</td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="dt" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
+																</tr>
+															  </c:forEach>
 															</tbody>
 														</table>
 									            	</div>
@@ -473,36 +451,14 @@
 														      </tr> 
 														    </thead>
 														    <tbody>
-														      <tr>
-														        <td>贤心</td>
-														       <td style="padding:0;"><input style="border:0;" type="text" id="ke-1"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-1"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-1"  class="layui-input" value="${para.DT}" readonly></td>
-														      </tr>
-														      <tr>
-														        <td>张爱玲</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-2"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-2"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-2"  class="layui-input" value="${para.DT}" readonly></td>
-														      </tr>
-														      <tr>
-														        <td>Helen Keller</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-3"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-3"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-3"  class="layui-input" value="${para.DT}" readonly></td>
-														      </tr>
-														      <tr>
-														        <td>岳飞</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-4"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-4"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-4"  class="layui-input" value="${para.DT}" readonly></td>
-														      </tr>
-														      <tr>
-														        <td>孟子</td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="ke-5"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="xe-5"  class="layui-input" value="${para.DT}" readonly></td>
-														        <td style="padding:0;"><input style="border:0;" type="text" id="dt-5"  class="layui-input" value="${para.DT}" readonly></td>
-														      </tr>
+															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
+																  <tr>
+																	  <td>${childStation.stname}</td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${para.DT}" readonly></td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${para.DT}" readonly></td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="dt-${vs.index+1}"  class="layui-input" value="${para.DT}" readonly></td>
+																  </tr>
+															  </c:forEach>
 															</tbody>
 														</table>
 									            	</div>

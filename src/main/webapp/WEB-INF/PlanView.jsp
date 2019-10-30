@@ -44,13 +44,13 @@
 								                <a class="layui-btn layui-btn-primary layui-btn-radius">查询方案</a>
 								            </div>
 								            <div class="layui-inline">
-								                <a href="<c:url value="/cms/forecast/plan/insert"></c:url>" class="layui-btn layui-btn-primary layui-btn-radius">新建方案</a>
+								                <a href="<c:url value="/cms/forecast/plan/insert/${stcd}"></c:url>" class="layui-btn layui-btn-primary layui-btn-radius">新建方案</a>
 								            </div>
 								    	</form>
 						            </div>
 					            	
 					            	<div style="margin:10px;">
-					            		<table class="layui-hide" id="table"></table>
+					            		<table class="layui-hide" id="table" lay-filter="table"></table>
 					            	</div>
 					            </div>
 					        </div>
@@ -64,7 +64,7 @@
 </div>
 
 <script type="text/html" id="barDemo">
-  <a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="edit">查看</a>
+  <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="edit">查看</a>
   <a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="del">删除</a>
 </script>
 
@@ -89,12 +89,14 @@
 
     table.render({
         elem: '#table'
-        ,url:'<c:url value="/cms/forecast/plan/data"></c:url>'
+        ,url:'<c:url value="/cms/forecast/plan/${stcd}"></c:url>'
         ,height: 'full-198'
+        ,method: 'post'
         ,cols: [[
-          {field:'id', width:'10%', title: '序号', sort: true, align: 'center'}
-          ,{field:'name', width:'15%', title: '站名', align: 'center'}
-          ,{field:'planName', width:'15%', title: '方案名', align: 'center'}
+          {field:'number', width:'10%', title: '序号', sort: true, align: 'center'}
+          ,{field:'id', width:'10%', title: '序号', hide:true}
+          ,{field:'stname', width:'15%', title: '站名', align: 'center'}
+          ,{field:'name', width:'15%', title: '方案名', align: 'center'}
           ,{field:'planModel', width:'15%', title: '预报模型', align: 'center'}
           ,{field:'username', width:'15%', title: '构建人', align: 'center'}
           ,{field:'time', title: '构建时间', align: 'center'}
@@ -107,20 +109,28 @@
         var data = obj.data;
         //console.log(obj)
         if(obj.event === 'del'){
-          layer.confirm('真的删除行么', function(index){
-            obj.del();
-            layer.close(index);
+          layer.confirm('真的删除方案《'+data.name+'》么', function(index){
+              $.ajax({
+                  type: "post",
+                  cache: false,
+                  async: false,
+                  contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                  dataType: "json",
+                  url: "<c:url value="/cms/forecast/plan/delete"></c:url>",
+                  data: {
+                      id: data.id
+                  },
+                  success: function (data) {
+                      obj.del();
+                      layer.close(index);
+                  },
+                  error: function (xhr, ts, et) {
+                      layer.msg('操作失败', {icon: 2});
+                  }
+              });
           });
         } else if(obj.event === 'edit'){
-          layer.prompt({
-            formType: 2
-            ,value: data.email
-          }, function(value, index){
-            obj.update({
-              email: value
-            });
-            layer.close(index);
-          });
+          self.location.href = '<c:url value="/cms/forecast/plan/update/'+data.id+'"></c:url>';
         }
       });
 
