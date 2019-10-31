@@ -12,7 +12,7 @@
     <!-- header -->
     <%@ include file="common/HeaderCommon.jsp" %>
     <!-- side -->
-	<%@ include file="common/SideCommon.jsp" %>
+	<%@ include file="common/ResultSideCommon.jsp" %>
     <!-- body -->
     <div class="layui-body my-body my-body-left">
         <div class="layui-tab my-tab" lay-filter="card" lay-allowClose="true">

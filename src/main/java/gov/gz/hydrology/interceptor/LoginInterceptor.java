@@ -20,7 +20,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             response.sendRedirect("/XAJ/cms/user/login");
             return false;
         }
-        String urlClass = request.getRequestURI().split("/")[3];
+        String[] segUrl = request.getRequestURI().split("/");
+        String urlClass = segUrl[3];
         if(
             "station".equals(urlClass) ||
             "forecast".equals(urlClass) ||

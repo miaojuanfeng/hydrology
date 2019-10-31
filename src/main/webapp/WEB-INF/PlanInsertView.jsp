@@ -230,6 +230,7 @@
 														    <tbody>
 															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
 																<tr>
+                                                                    <input type="hidden" name="stcd" value="${childStation.stcd}">
 																	<td>${childStation.stname}</td>
 																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
 																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
