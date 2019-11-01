@@ -288,7 +288,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md12">
 											            <label class="layui-form-label">方案名称 </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="name" class="layui-input" readonly>
+											                <input type="text" id="name" class="layui-input" value="${plan.name}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -309,13 +309,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">E = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="e" class="layui-input" value="${stepCommon.PE}" readonly>
+											                <input type="text" id="e" class="layui-input" value="${plan.e}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="wm" class="layui-input" value="${stepCommon.Ek}" readonly>
+											                <input type="text" id="wm" class="layui-input" value="${plan.wm}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -323,13 +323,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WUM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="wum" class="layui-input" value="${para.IM}" readonly>
+											                <input type="text" id="wum" class="layui-input" value="${plan.wum}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">WLM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="wlm" class="layui-input" value="${para.XE}" readonly>
+											                <input type="text" id="wlm" class="layui-input" value="${plan.wlm}" readonly>
 											            </div>
 											        </div>
 											   	</div>
@@ -337,13 +337,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">K = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="k" class="layui-input" value="${para.KE}" readonly>
+											                <input type="text" id="k" class="layui-input" value="${plan.k}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">C = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="c" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="c" class="layui-input" value="${plan.c}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -351,13 +351,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">B = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="b" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="b" class="layui-input" value="${plan.b}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">IM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="im" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="im" class="layui-input" value="${plan.im}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -365,13 +365,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">SM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="sm" class="layui-input" value="${para.KE}" readonly>
+											                <input type="text" id="sm" class="layui-input" value="${plan.sm}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">EX = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="ex" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="ex" class="layui-input" value="${plan.ex}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -379,13 +379,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">KI = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="ki" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="ki" class="layui-input" value="${plan.ki}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">KG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="kg" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="kg" class="layui-input" value="${plan.kg}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -393,13 +393,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CI = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="ci" class="layui-input" value="${para.KE}" readonly>
+											                <input type="text" id="ci" class="layui-input" value="${plan.ci}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="cg" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="cg" class="layui-input" value="${plan.cg}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -407,13 +407,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">CS = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="cs" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="cs" class="layui-input" value="${plan.cs}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">LAG = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="lag" class="layui-input" value="${para.DT}" readonly>
+											                <input type="text" id="lag" class="layui-input" value="${plan.lag}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -456,9 +456,9 @@
 															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
 																  <tr>
 																	  <td>${childStation.stname}</td>
-																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${para.DT}" readonly></td>
-																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${para.DT}" readonly></td>
-																	  <td style="padding:0;"><input style="border:0;" type="number" id="dt-${vs.index+1}"  class="layui-input" value="${para.DT}" readonly></td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${childStation.ke}" readonly></td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${childStation.xe}" readonly></td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="dt-${vs.index+1}"  class="layui-input" value="${childStation.dt}" readonly></td>
 																  </tr>
 															  </c:forEach>
 															</tbody>
