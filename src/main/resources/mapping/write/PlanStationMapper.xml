@@ -10,7 +10,7 @@
 	</resultMap>
 	<select id="selectByPlan" resultMap="BaseResultMap">
 		select ps.* from plan_station ps
-		left join station s on ps.stcd = s.stcd
+-- 		left join station s on ps.stcd = s.stcd
 		where 1=1
 		<if test="planId != null and planId != ''" >
 			and ps.plan_id = #{planId}

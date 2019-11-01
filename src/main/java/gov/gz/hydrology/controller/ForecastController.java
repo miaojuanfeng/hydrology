@@ -163,7 +163,7 @@ public class ForecastController {
 
     @PostMapping("plan/insert")
     @ResponseBody
-    public String postInsertPlan(HttpServletRequest request, ModelMap map, Plan plan, String[] stcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
+    public String postInsertPlan(HttpServletRequest request, ModelMap map, Plan plan, String[] childStcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
         JSONObject retval = new JSONObject();
 
 	    HttpSession session = request.getSession();
@@ -176,7 +176,7 @@ public class ForecastController {
         List<PlanStation> planStationList = new ArrayList<>();
         for(int i=0; i<ke.length; i++){
             PlanStation planStation = new PlanStation();
-            planStation.setStcd(stcd[i]);
+            planStation.setStcd(childStcd[i]);
             planStation.setKe(ke[i]);
             planStation.setXe(xe[i]);
             planStation.setDt(dt[i]);
@@ -210,12 +210,41 @@ public class ForecastController {
                     childStation.put("ke", planStation.getKe());
                     childStation.put("xe", planStation.getXe());
                     childStation.put("dt", planStation.getDt());
+                    break;
                 }
             }
         }
         map.put("childStationList", childStationList);
 
         return "PlanInsertView";
+    }
+
+    @PostMapping("plan/update")
+    @ResponseBody
+    public String postUpdatePlan(HttpServletRequest request, ModelMap map, Plan plan, String[] childStcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
+        JSONObject retval = new JSONObject();
+
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+        planService.updateSelective(plan);
+
+        List<PlanStation> planStationList = new ArrayList<>();
+        for(int i=0; i<ke.length; i++){
+            PlanStation planStation = new PlanStation();
+            planStation.setStcd(childStcd[i]);
+            planStation.setKe(ke[i]);
+            planStation.setXe(xe[i]);
+            planStation.setDt(dt[i]);
+            planStation.setPlanId(plan.getId());
+            planStationList.add(planStation);
+        }
+        planStationService.deleteByPlan(plan.getId());
+        if( planStationList.size() > 0 ){
+            planStationService.insertBatch(planStationList);
+        }
+
+        return retval.toString();
     }
 
     @PostMapping("plan/delete")

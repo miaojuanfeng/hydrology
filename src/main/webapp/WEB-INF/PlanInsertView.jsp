@@ -40,6 +40,7 @@
 										</div>
 									</div>
 					            	<form id="form-plan" class="layui-form" style="margin:10px;">
+										<input type="hidden" id="id" name="id" value="${plan.id}"/>
 					            		<div id="step1" class="box-step">
 											<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;border:none;">
 											    <legend>方案基本信息</legend>
@@ -230,11 +231,11 @@
 														    <tbody>
 															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
 																<tr>
-                                                                    <input type="hidden" name="stcd" value="${childStation.stcd}">
+                                                                    <input type="hidden" name="childStcd" value="${childStation.stcd}">
 																	<td>${childStation.stname}</td>
-																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
-																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
-																	<td style="padding:0;"><input style="border:0;" type="number" name="dt" index="${vs.index+1}"  class="layui-input" value="${para.DT}"></td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${childStation.ke}"></td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${childStation.xe}"></td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="dt" index="${vs.index+1}"  class="layui-input" value="${childStation.dt}"></td>
 																</tr>
 															  </c:forEach>
 															</tbody>
@@ -590,13 +591,18 @@
 				}
             });
     	    if( ok ) {
+    	        var id = $("#id").val();
+    	        var url = "<c:url value="/cms/forecast/plan/insert"></c:url>";
+    	        if( id != '' ){
+					url = "<c:url value="/cms/forecast/plan/update"></c:url>";
+				}
                 $.ajax({
                     type: "post",
                     cache: false,
                     async: false,
                     contentType: "application/x-www-form-urlencoded;charset=utf-8",
                     dataType: "json",
-                    url: "<c:url value="/cms/forecast/plan/insert"></c:url>",
+                    url: url,
                     data: $("#form-plan").serialize(),
                     success: function (data) {
                         layer.msg("保存成功", {icon: 1});
