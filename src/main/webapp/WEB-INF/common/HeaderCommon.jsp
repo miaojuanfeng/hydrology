@@ -3,7 +3,7 @@
 <div class="layui-header my-header">
         <a class="my-header-link" href="index.html">
             <!--<img class="my-header-logo" src="" alt="logo">-->
-            <div class="my-header-logo">IOT云端后台管理系统</div>
+            <div class="my-header-logo">赣州洪水预报系统青年版</div>
         </a>
         <!-- div class="my-header-btn">
             <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
