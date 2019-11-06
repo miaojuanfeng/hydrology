@@ -184,8 +184,8 @@ public class StepTwoUtil {
 	 * @return
 	 */
 	public static BigDecimal getWUx2() {
-		// WUx = WUup + EKx
-		return WUup.add(getEKx());
+		// WUx = WUup + PE
+		return WUup.add(StepCommonUtil.getPE());
 	}
 	
 	/**
