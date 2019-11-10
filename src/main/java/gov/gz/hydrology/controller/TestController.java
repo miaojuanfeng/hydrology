@@ -3,6 +3,7 @@ package gov.gz.hydrology.controller;
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.utils.StepCommonUtil;
 import gov.gz.hydrology.utils.StepOneUtil;
+import gov.gz.hydrology.utils.StepThreeUtil;
 import gov.gz.hydrology.utils.StepTwoUtil;
 
 public class TestController {
@@ -24,6 +25,7 @@ public class TestController {
 //            System.out.println(StepTwoUtil.getWLx2());
 //            System.out.println(StepTwoUtil.getWDx2());
             StepTwoUtil.getResult();
+            StepThreeUtil.getResult();
 
 
 

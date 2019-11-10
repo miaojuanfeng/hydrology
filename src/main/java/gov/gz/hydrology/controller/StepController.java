@@ -108,11 +108,11 @@ public class StepController {
 		data.put("FR", StepThreeUtil.getFR());
 		data.put("SMMF", StepThreeUtil.getSMMF());
 		data.put("AU", StepThreeUtil.getAU());
-		data.put("Rs", StepThreeUtil.Rs);
+		data.put("Rs", StepThreeUtil.RSS);
 		
 		StepThreeUtil.getResult();
-		data.put("Rss", StepThreeUtil.Rss);
-		data.put("Rg", StepThreeUtil.Rg);
+		data.put("Rss", StepThreeUtil.RSS);
+		data.put("Rg", StepThreeUtil.RG);
 		data.put("S", StepThreeUtil.S);
 		data.put("Sup", StepThreeUtil.Sup);
 		return data;

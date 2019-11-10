@@ -14,9 +14,9 @@ public class NumberConfig {
 		testP.add(new BigDecimal("5"));
 //		testP.add(new BigDecimal("30"));
 		testP.add(new BigDecimal("0"));
-		testP.add(new BigDecimal("3"));
-		testP.add(new BigDecimal("2"));
-		testP.add(new BigDecimal("10"));
+//		testP.add(new BigDecimal("3"));
+//		testP.add(new BigDecimal("2"));
+//		testP.add(new BigDecimal("10"));
 	}
 	public static BigDecimal getTextP(){
 		return testP.get(indexP);
@@ -182,6 +182,7 @@ public class NumberConfig {
 	 * Ft 流域面积
 	 */
 	public static BigDecimal Ft = new BigDecimal(911);
-	
-	
+
+	public static BigDecimal S0 = new BigDecimal(6);
+	public static BigDecimal FR0 = new BigDecimal("0.7");
 }

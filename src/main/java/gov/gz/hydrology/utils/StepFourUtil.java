@@ -40,7 +40,7 @@ public class StepFourUtil {
 	 */
 	public static BigDecimal getQs() {
 		// Qs=(Rs*F+Rd*Ft*IMP)/(3.6*DT)
-		return (StepThreeUtil.Rs.multiply(getF()).add(StepOneUtil.Rd.multiply(NumberConfig.Ft).multiply(NumberConfig.IM))).divide(NumberConfig.DT.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE);
+		return (StepThreeUtil.RS.multiply(getF()).add(StepOneUtil.Rd.multiply(NumberConfig.Ft).multiply(NumberConfig.IM))).divide(NumberConfig.DT.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class StepFourUtil {
 	 */
 	public static BigDecimal getQss() {
 		// Qss=Cs*Qssup+(1-Cs)*Rss*F/(3.6*Dt)
-		Qssup = NumberConfig.CS.multiply(Qssup).add(NumberConst.ONE.subtract(NumberConfig.CS).multiply(StepThreeUtil.Rss).multiply(getF()).divide(NumberConfig.DT.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
+		Qssup = NumberConfig.CS.multiply(Qssup).add(NumberConst.ONE.subtract(NumberConfig.CS).multiply(StepThreeUtil.RSS).multiply(getF()).divide(NumberConfig.DT.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
 		return Qssup;
 	}
 	
@@ -59,7 +59,7 @@ public class StepFourUtil {
 	 */
 	public static BigDecimal getQg() {
 		// Qg=Cg*Qgup+(1-Cg)*Rg*F/(3.6*Dt)
-		Qgup = NumberConfig.CG.multiply(Qgup).add(NumberConst.ONE.subtract(NumberConfig.CG).multiply(StepThreeUtil.Rg).multiply(getF()).divide(NumberConfig.DT.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
+		Qgup = NumberConfig.CG.multiply(Qgup).add(NumberConst.ONE.subtract(NumberConfig.CG).multiply(StepThreeUtil.RG).multiply(getF()).divide(NumberConfig.DT.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
 		return Qgup;
 	}
 	
