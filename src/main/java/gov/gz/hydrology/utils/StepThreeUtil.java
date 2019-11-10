@@ -98,6 +98,8 @@ public class StepThreeUtil {
 			Q = Q.divide(new BigDecimal(N), NumberConst.DIGIT, NumberConst.MODE);
 			System.out.println("Q="+Q);
 
+			BigDecimal a = getKGD();
+			BigDecimal  b = getKSSD();
 			tempBase = NumberConst.ONE.subtract(getKGD().add(getKSSD()));
 			tempPower = NumberConst.ONE.divide(new BigDecimal(N), NumberConst.DIGIT, NumberConst.MODE);
 			BigDecimal KSSDD = (NumberConst.ONE.subtract(NumberUtil.pow(tempBase, tempPower))).divide(NumberConst.ONE.add(getKGD().divide(getKSSD(), NumberConst.DIGIT, NumberConst.MODE)), NumberConst.DIGIT, NumberConst.MODE);
@@ -122,31 +124,33 @@ public class StepThreeUtil {
 
 					if (NumberUtil.gt(S, SMF)) {
 						S = SMF;
-					} else {
-						tempBase = NumberConst.ONE.subtract(S.divide(SMF, NumberConst.DIGIT, NumberConst.MODE));
-						tempPower = NumberConst.ONE.divide(NumberConst.ONE.add(NumberConfig.EX), NumberConst.DIGIT, NumberConst.MODE);
-						BigDecimal AU = SMMF.multiply(NumberConst.ONE.subtract(NumberUtil.pow(tempBase, tempPower)));
+					}
+					tempBase = NumberConst.ONE.subtract(S.divide(SMF, NumberConst.DIGIT, NumberConst.MODE));
+					tempPower = NumberConst.ONE.divide(NumberConst.ONE.add(NumberConfig.EX), NumberConst.DIGIT, NumberConst.MODE);
+					BigDecimal AU = SMMF.multiply(NumberConst.ONE.subtract(NumberUtil.pow(tempBase, tempPower)));
 
-						if (NumberUtil.gt(Q.add(AU), NumberConst.ZERO)) {
-							if (NumberUtil.lt(Q.add(AU), SMMF)) {
-								tempBase = NumberConst.ONE.subtract((Q.add(AU)).divide(SMMF, NumberConst.DIGIT, NumberConst.MODE));
-								tempPower = NumberConst.ONE.add(NumberConfig.EX);
-								RSD = (Q.subtract(SMF).add(S).add(SMF.multiply(NumberUtil.pow(tempBase, tempPower)))).multiply(FR);
-								RSSD = (S.add(Q).subtract(RSD.divide(FR, NumberConst.DIGIT, NumberConst.MODE))).multiply(KSSDD).multiply(FR);
-								RGD = (S.add(Q).subtract(RSD.divide(FR, NumberConst.DIGIT, NumberConst.MODE))).multiply(KGDD).multiply(FR);
-								S = S.add(Q).subtract((RSD.add(RSSD).add(RGD)).divide(FR, NumberConst.DIGIT, NumberConst.MODE));
-							} else {
-								RSD = (Q.add(S).subtract(SMF)).multiply(FR);
-								RSSD = SMF.multiply(KSSDD).multiply(FR);
-								RGD = SMF.multiply(FR).multiply(KGDD);
-								S = SMF.subtract((RSSD.add(RGD)).divide(FR, NumberConst.DIGIT, NumberConst.MODE));
-							}
+					if (NumberUtil.gt(Q.add(AU), NumberConst.ZERO)) {
+						if (NumberUtil.lt(Q.add(AU), SMMF)) {
+							tempBase = NumberConst.ONE.subtract((Q.add(AU)).divide(SMMF, NumberConst.DIGIT, NumberConst.MODE));
+							tempPower = NumberConst.ONE.add(NumberConfig.EX);
+							RSD = (Q.subtract(SMF).add(S).add(SMF.multiply(NumberUtil.pow(tempBase, tempPower)))).multiply(FR);
+							RSSD = (S.add(Q).subtract(RSD.divide(FR, NumberConst.DIGIT, NumberConst.MODE))).multiply(KSSDD).multiply(FR);
+							System.out.println("Iup="+i+" RSSD="+RSSD);
+							RGD = (S.add(Q).subtract(RSD.divide(FR, NumberConst.DIGIT, NumberConst.MODE))).multiply(KGDD).multiply(FR);
+							S = S.add(Q).subtract((RSD.add(RSSD).add(RGD)).divide(FR, NumberConst.DIGIT, NumberConst.MODE));
 						} else {
-							RSD = NumberConst.ZERO;
-							RSSD = NumberConst.ZERO;
-							RGD = NumberConst.ZERO;
-							S = NumberConst.ZERO;
+							RSD = (Q.add(S).subtract(SMF)).multiply(FR);
+							RSSD = SMF.multiply(KSSDD).multiply(FR);
+							System.out.println("Idown="+i+" RSSD="+RSSD);
+							RGD = SMF.multiply(FR).multiply(KGDD);
+							S = SMF.subtract((RSSD.add(RGD)).divide(FR, NumberConst.DIGIT, NumberConst.MODE));
 						}
+					} else {
+						RSD = NumberConst.ZERO;
+						RSSD = NumberConst.ZERO;
+						System.out.println("<0="+i+" RSSD="+RSSD);
+						RGD = NumberConst.ZERO;
+						S = NumberConst.ZERO;
 					}
 					RS = RS.add(RSD);
 					RSS = RSS.add(RSSD);
@@ -241,12 +245,12 @@ public class StepThreeUtil {
 
 	public static BigDecimal getKSSD(){
 		BigDecimal base = NumberConst.ONE.subtract(NumberConfig.KG.add(NumberConfig.KSS));
-		BigDecimal power = NumberConfig.T.subtract(new BigDecimal(24));
+		BigDecimal power = NumberConfig.T.divide(new BigDecimal(24), NumberConst.DIGIT, NumberConst.MODE);
 		BigDecimal KSS = (NumberConst.ONE.subtract(NumberUtil.pow(base, power))).divide(NumberConst.ONE.add(NumberConfig.KG.divide(NumberConfig.KSS, NumberConst.DIGIT, NumberConst.MODE)), NumberConst.DIGIT, NumberConst.MODE);
 		return KSS;
 	}
 
 	public static BigDecimal getKGD(){
-		return getKSSD().multiply(NumberConfig.KG.divide(NumberConfig.KSS, NumberConst.DIGIT, NumberConst.MODE));
+		return getKSSD().multiply(NumberConfig.KG).divide(NumberConfig.KSS, NumberConst.DIGIT, NumberConst.MODE);
 	}
 }

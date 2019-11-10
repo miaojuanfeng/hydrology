@@ -10,12 +10,12 @@ public class NumberConfig {
 	public static int indexP = 0;
 	static {
 		testP.add(new BigDecimal("10"));
-//		testP.add(new BigDecimal("5"));
 		testP.add(new BigDecimal("5"));
-//		testP.add(new BigDecimal("30"));
+		testP.add(new BigDecimal("20"));
+		testP.add(new BigDecimal("26"));
+		testP.add(new BigDecimal("50"));
 		testP.add(new BigDecimal("0"));
-//		testP.add(new BigDecimal("3"));
-//		testP.add(new BigDecimal("2"));
+		testP.add(new BigDecimal("3"));
 //		testP.add(new BigDecimal("10"));
 	}
 	public static BigDecimal getTextP(){
@@ -136,7 +136,7 @@ public class NumberConfig {
 	/**
 	 * IM  不透水面积比例
 	 */
-	public static BigDecimal IM = new BigDecimal("0.041");
+	public static BigDecimal IM = new BigDecimal("0.044");
 	
 	/**
 	 * XE  流量比重因子
@@ -144,14 +144,9 @@ public class NumberConfig {
 	public static BigDecimal XE = new BigDecimal("0.335");
 			
 	/**
-	 * KE  蓄量常数
+	 * KE  蓄量常数(传播时间)
 	 */
 	public static BigDecimal KE = new BigDecimal(11);
-	
-	/**
-	 * DT  滞时
-	 */
-	public static BigDecimal DT = new BigDecimal(1);
 	
 	/**
 	 * CS 河网蓄水消退系数
@@ -171,7 +166,7 @@ public class NumberConfig {
 	/**
 	 * L 滞时
 	 */
-	public static BigDecimal L = new BigDecimal(4);
+	public static Integer L = 4;
 
 	/**
 	 * T 时段长, 变量
@@ -179,10 +174,14 @@ public class NumberConfig {
 	public static BigDecimal T = new BigDecimal(1);
 	
 	/**
-	 * Ft 流域面积
+	 * F 流域面积
 	 */
-	public static BigDecimal Ft = new BigDecimal(911);
+	public static BigDecimal F = new BigDecimal(911);
 
 	public static BigDecimal S0 = new BigDecimal(6);
 	public static BigDecimal FR0 = new BigDecimal("0.7");
+
+	public static BigDecimal QRs0 = new BigDecimal("3");
+	public static BigDecimal QRss0 = new BigDecimal("38");
+	public static BigDecimal QRg0 = new BigDecimal("7");
 }

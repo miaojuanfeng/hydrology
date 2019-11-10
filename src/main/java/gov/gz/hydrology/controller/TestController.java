@@ -1,10 +1,11 @@
 package gov.gz.hydrology.controller;
 
 import gov.gz.hydrology.constant.NumberConfig;
-import gov.gz.hydrology.utils.StepCommonUtil;
-import gov.gz.hydrology.utils.StepOneUtil;
-import gov.gz.hydrology.utils.StepThreeUtil;
-import gov.gz.hydrology.utils.StepTwoUtil;
+import gov.gz.hydrology.utils.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestController {
 
@@ -12,6 +13,17 @@ public class TestController {
 //        System.out.println(StepCommonUtil.getPE());
 //        System.out.println(StepCommonUtil.getPE());
 //        System.out.println(StepCommonUtil.getPE());
+        List<BigDecimal> QTR_List = new ArrayList<>();
+        Integer len = NumberConfig.testP.size();
+        if( NumberUtil.gt(new BigDecimal(NumberConfig.L), NumberConfig.KE) ){
+            len += NumberConfig.L;
+        }else{
+            len += NumberConfig.KE.intValue();
+        }
+        for (int i = 0; i<len; i++){
+            QTR_List.add(new BigDecimal(0));
+        }
+        BigDecimal initQTR = null;
         for (int i=0; i<NumberConfig.testP.size();i++) {
             NumberConfig.indexP = i;
 
@@ -26,11 +38,18 @@ public class TestController {
 //            System.out.println(StepTwoUtil.getWDx2());
             StepTwoUtil.getResult();
             StepThreeUtil.getResult();
+            StepFourUtil.getResult();
 
-
-
+            if( initQTR == null ){
+                initQTR = StepFourUtil.QTR;
+            }
+            if( i<NumberConfig.L ){
+                QTR_List.set(i, initQTR);
+            }
+            QTR_List.set(NumberConfig.L+i, StepFourUtil.QTR);
             System.out.println("======================"+(i+1)+"======================");
         }
+        StepFiveUtil.getQt(QTR_List);
 
         //System.out.println(StepTwoUtil.getWUx1());
         //System.out.println(StepTwoUtil.getWLx1());

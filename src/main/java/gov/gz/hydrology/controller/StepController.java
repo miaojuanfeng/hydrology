@@ -56,7 +56,7 @@ public class StepController {
 		para.put("IM", NumberConfig.IM);
 		para.put("XE", NumberConfig.XE);
 		para.put("KE", NumberConfig.KE);
-		para.put("DT", NumberConfig.DT);
+		para.put("DT", NumberConfig.T);
 		return para;
 	}
 	
@@ -120,16 +120,16 @@ public class StepController {
 	
 	private Map<String, Object> getStepFour(){
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("F", StepFourUtil.getF());
-		data.put("Qs", StepFourUtil.getQs());
-		data.put("Qss", StepFourUtil.getQss());
-		data.put("Qg", StepFourUtil.getQg());
+		data.put("F", StepFourUtil.getFt());
+		data.put("Qs", StepFourUtil.getQRs());
+		data.put("Qss", StepFourUtil.getQRss());
+		data.put("Qg", StepFourUtil.getQRg());
 		
 		StepFourUtil.getResult();
-		data.put("Qe", StepFourUtil.Qe);
-		data.put("Qeup", StepFourUtil.Qeup);
-		data.put("Qssup", StepFourUtil.Qssup);
-		data.put("Qgup", StepFourUtil.Qgup);
+		data.put("QTR", StepFourUtil.QTR);
+		data.put("QTRup", StepFourUtil.QTRup);
+		data.put("QRssup", StepFourUtil.QRssup);
+		data.put("QRgup", StepFourUtil.QRgup);
 		return data;
 	}
 	
@@ -138,7 +138,7 @@ public class StepController {
 		data.put("C0", StepFiveUtil.getC0());
 		data.put("C1", StepFiveUtil.getC1());
 		data.put("C2", StepFiveUtil.getC2());
-		data.put("Qt", StepFiveUtil.getQt());
+//		data.put("Qt", StepFiveUtil.getQt());
 		return data;
 	}
 }

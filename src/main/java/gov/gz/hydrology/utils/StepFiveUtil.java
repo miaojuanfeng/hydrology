@@ -1,20 +1,33 @@
 package gov.gz.hydrology.utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
 
 public class StepFiveUtil {
-	
+
+	/**
+	 * DT 时段长, 变量
+	 */
+	public static BigDecimal DT;
+
+	private static List<BigDecimal> QT_List = new ArrayList<>();
+
+	static {
+		DT = NumberConfig.KE;
+	}
+
 	/**
 	 * C0   参数
 	 * @return
 	 */
 	public static BigDecimal getC0() {
 		// C0=(0.5*DT-KE*XE)/(0.5*DT+KE-KE*XE)
-		BigDecimal base = NumberConfig.DT.multiply(new BigDecimal("0.5")).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
-		BigDecimal divisor = NumberConfig.DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
+		BigDecimal base = DT.multiply(new BigDecimal("0.5")).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
+		BigDecimal divisor = DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
 		return base.divide(divisor, NumberConst.DIGIT, NumberConst.MODE);
 	}
 	
@@ -24,8 +37,8 @@ public class StepFiveUtil {
 	 */
 	public static BigDecimal getC1() {
 		// C1=(0.5*DT+KE*XE)/(0.5*DT+KE-KE*XE)
-		BigDecimal base = NumberConfig.DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE.multiply(NumberConfig.XE));
-		BigDecimal divisor = NumberConfig.DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
+		BigDecimal base = DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE.multiply(NumberConfig.XE));
+		BigDecimal divisor = DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
 		return base.divide(divisor, NumberConst.DIGIT, NumberConst.MODE);
 	}
 	
@@ -35,8 +48,8 @@ public class StepFiveUtil {
 	 */
 	public static BigDecimal getC2() {
 		// C2=(-0.5*DT+KE-KE*XE)/(0.5*DT+KE-KE*XE)
-		BigDecimal base = NumberConfig.DT.multiply(new BigDecimal("-0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
-		BigDecimal divisor = NumberConfig.DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
+		BigDecimal base = DT.multiply(new BigDecimal("-0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
+		BigDecimal divisor = DT.multiply(new BigDecimal("0.5")).add(NumberConfig.KE).subtract(NumberConfig.KE.multiply(NumberConfig.XE));
 		return base.divide(divisor, NumberConst.DIGIT, NumberConst.MODE);
 	}
 	
@@ -44,8 +57,30 @@ public class StepFiveUtil {
 	 * Qt 预报站（断面）流量
 	 * @return
 	 */
-	public static BigDecimal getQt() {
+	public static void getQt(List<BigDecimal> QTR_List) {
 		// Qt=C0*Qe+C1*Qeup+C2*Qeup
-		return getC0().multiply(StepFourUtil.Qe).add(getC1().multiply(StepFourUtil.Qeup)).add(getC2().multiply(StepFourUtil.Qeup));
+
+//		for (int i=0; i<QTR_List; i++){
+//			QT_List.add(NumberConst.ZERO);
+//		}
+
+		BigDecimal C0 = getC0();
+		BigDecimal C1 = getC1();
+		BigDecimal C2 = getC2();
+		BigDecimal initQT = null;
+		for( int i=0; i<QTR_List.size(); i++) {
+			BigDecimal QTR = QTR_List.get(i);
+			BigDecimal QT = C0.multiply(QTR).add(C1.multiply(QTR)).add(C2.multiply(QTR));
+			if( initQT == null ){
+				initQT = QTR;
+			}
+			if( i<NumberConfig.KE.intValue() ){
+				QT_List.add(initQT);
+			}else{
+				QT_List.add(QT);
+			}
+		}
+int a = QT_List.size();
+		System.out.println(QT_List.size());
 	}
 }
