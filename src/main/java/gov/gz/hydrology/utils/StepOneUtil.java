@@ -16,10 +16,13 @@ public class StepOneUtil {
 	 * Rd 直接径流
 	 */
 	public static BigDecimal Rd;
+
+	public static BigDecimal Wup;
 	
 	static {
 		R = NumberConst.ZERO;
 		Rd = NumberConst.ZERO;
+		Wup = NumberConfig.WU0.add(NumberConfig.WL0).add(NumberConfig.WD0);
 	}
 	
 	/**
@@ -53,8 +56,8 @@ public class StepOneUtil {
 	 * A
 	 */
 	public static BigDecimal getA() {
-		// A = Wmm*[1-(1-W0/Wm)^(1/(B+1))]
-		BigDecimal base = NumberConst.ONE.subtract(getW0().divide(getWm(), NumberConst.DIGIT, NumberConst.MODE));
+		// A = Wmm*[1-(1-Wup/Wm)^(1/(B+1))]
+		BigDecimal base = NumberConst.ONE.subtract(Wup.divide(getWm(), NumberConst.DIGIT, NumberConst.MODE));
 		BigDecimal power = NumberConst.ONE.divide(NumberConfig.B.add(NumberConst.ONE), NumberConst.DIGIT, NumberConst.MODE);
 		return getWmm().multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
 	}
@@ -64,6 +67,11 @@ public class StepOneUtil {
 	 * Rd 直接径流
 	 */
 	public static void getResult() {
+
+		System.out.println("A="+StepOneUtil.getA());
+//		System.out.println("----------------One算前----------------");
+
+
 		BigDecimal PE = StepCommonUtil.getPE();
 		// PE > 0
 		if( NumberUtil.gt(PE, NumberConst.ZERO) ) {
@@ -73,11 +81,11 @@ public class StepOneUtil {
 			if( temp_PE_A.compareTo(temp_Wmm) == -1 ) {
 				BigDecimal base = NumberConst.ONE.subtract(temp_PE_A.divide(temp_Wmm, NumberConst.DIGIT, NumberConst.MODE));
 				BigDecimal power = NumberConst.ONE.add(NumberConfig.B);
-				R = PE.add(getW0()).subtract(getWm()).add(getWm().multiply(NumberUtil.pow(base, power)));
+				R = PE.add(Wup).subtract(getWm()).add(getWm().multiply(NumberUtil.pow(base, power)));
 			// PE+A>=Wmm
 			}else {
-				// R=PE-(Wm-W0)
-				R = PE.subtract(getWm().subtract(getW0()));
+				// R=PE-(Wm-Wup)
+				R = PE.subtract(getWm().subtract(Wup));
 			}
 		// PE <= 0 ? R = 0
 		}else {
@@ -90,8 +98,16 @@ public class StepOneUtil {
 			Rd = PE;
 		}
 
-		StepTwoUtil.WUup = NumberConfig.WU0;
-		StepTwoUtil.WLup = NumberConfig.WL0;
-		StepTwoUtil.WDup = NumberConfig.WD0;
+//		StepTwoUtil.WUup = NumberConfig.WU0;
+//		StepTwoUtil.WLup = NumberConfig.WL0;
+//		StepTwoUtil.WDup = NumberConfig.WD0;
+
+
+
+
+		System.out.println("R="+StepOneUtil.R);
+		System.out.println("Rd="+StepOneUtil.Rd);
+		System.out.println("-----------------");
+//		System.out.println("----------------One算后----------------");
 	}
 }

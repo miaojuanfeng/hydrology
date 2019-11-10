@@ -37,14 +37,26 @@ public class StepTwoUtil {
 	* WDup 上次计算深层蓄水量
 	*/
 	public static BigDecimal WDup;
+
+	public static BigDecimal W;
+	public static BigDecimal ES;
+	public static BigDecimal EU;
+	public static BigDecimal EL;
+	public static BigDecimal ED;
 	
 	static {
 		WU = NumberConst.ZERO;
 		WL = NumberConst.ZERO;
 		WD = NumberConst.ZERO;
-		WUup = NumberConst.ZERO;
-		WLup = NumberConst.ZERO;
-		WDup = NumberConst.ZERO;
+		WUup = NumberConfig.WU0;
+		WLup = NumberConfig.WL0;
+		WDup = NumberConfig.WD0;
+
+		W = NumberConst.ZERO;
+		ES = NumberConst.ZERO;
+		EU = NumberConst.ZERO;
+		EL = NumberConst.ZERO;
+		ED = NumberConst.ZERO;
 	}
 	
 	/**
@@ -52,6 +64,18 @@ public class StepTwoUtil {
 	 * @return
 	 */
 	public static void getResult() {
+
+
+//		System.out.println("PEx="+StepTwoUtil.getPEx());
+//		System.out.println("WUx1="+StepTwoUtil.getWUx1()+" WUx2="+StepTwoUtil.getWUx2());
+//		System.out.println("WLx1="+StepTwoUtil.getWLx1()+" WLx2="+StepTwoUtil.getWLx2());
+//		System.out.println("WDx1="+StepTwoUtil.getWDx1()+" WDx2="+StepTwoUtil.getWDx2());
+//		System.out.println("PEy="+StepTwoUtil.getPEy());
+//		System.out.println("PEz="+StepTwoUtil.getPEz());
+//		System.out.println("----------------Two算前----------------");
+
+
+
 		BigDecimal PE = StepCommonUtil.getPE();
 		// PE > 0  上分支
 		if( NumberUtil.gt(PE, NumberConst.ZERO) ) {
@@ -84,15 +108,30 @@ public class StepTwoUtil {
 				WL = WLup;
 				WD = WDup;
 			}
+
+
+
+			EU = StepCommonUtil.getEk();
+			ED = NumberConst.ZERO;
+			EL = NumberConst.ZERO;
+
+
 		// PE <= 0 下分支
 		}else {
-			// WUx = WUup + EKx
-			BigDecimal WUx = WUup.add(getEKx());
+			// WUx = WUup + PE
+			BigDecimal WUx = WUup.add(StepCommonUtil.getPE());
 			// WUx > 0
 			if( NumberUtil.gt(WUx, NumberConst.ZERO) ) {
 				WU = WUx;
 				WL = WLup;
 				WD = WDup;
+
+
+				EU = StepCommonUtil.getEk();
+				EL = NumberConst.ZERO;
+				ED = NumberConst.ZERO;
+
+
 			// WUx <= 0
 			}else {
 				BigDecimal WLx = getWLx2();
@@ -116,11 +155,64 @@ public class StepTwoUtil {
 						WD = NumberConst.ZERO;
 					}
 				}
+
+
+				EU = WUup.add(NumberConfig.getTextP());
+				WU = NumberConst.ZERO;
+				if (NumberUtil.gt(WLup, NumberConfig.C.multiply(NumberConfig.WLM))) {
+					EL = (StepCommonUtil.getEk().subtract(EU)).multiply(WLup).divide(NumberConfig.WLM, NumberConst.DIGIT, NumberConst.MODE);
+					WL = WLup.subtract(EL);
+					ED = NumberConst.ZERO;
+					WD = WDup.subtract(ED);
+				}else{
+					BigDecimal temp = (StepCommonUtil.getEk().subtract(EU)).multiply(NumberConfig.C);
+					if( NumberUtil.gt(WLup, temp) ){
+						EL = temp;
+						WL = WLup.subtract(EL);
+						ED = NumberConst.ZERO;
+						WD = WDup.subtract(ED);
+					}else{
+						EL = WLup;
+						WL = NumberConst.ZERO;
+						ED = temp.subtract(EL);
+						WD = WDup.subtract(ED);
+					}
+				}
+
+
 			}
+		}
+		if( NumberUtil.gt(WU, NumberConfig.WUM) ){
+			WU = NumberConfig.WUM;
+		}
+		if( NumberUtil.gt(WL, NumberConfig.WLM) ){
+			WL = NumberConfig.WLM;
+		}
+		if( NumberUtil.gt(WD, NumberConfig.WDM) ){
+			WD = NumberConfig.WDM;
 		}
 		WUup = WU;
 		WLup = WL;
 		WDup = WD;
+		StepOneUtil.Wup = WUup.add(WLup).add(WDup);
+
+
+		ES = EU.add(EL).add(ED);
+		W = WU.add(WL).add(WD);
+
+
+		System.out.println("WUup="+StepTwoUtil.WUup);
+		System.out.println("PE="+StepCommonUtil.getPE());
+		System.out.println("WU="+StepTwoUtil.WU);
+		System.out.println("WL="+StepTwoUtil.WL);
+		System.out.println("WD="+StepTwoUtil.WD);
+		System.out.println("W="+StepTwoUtil.W);
+		System.out.println("EU="+StepTwoUtil.EU);
+		System.out.println("EL="+StepTwoUtil.EL);
+		System.out.println("ED="+StepTwoUtil.ED);
+		System.out.println("ES="+StepTwoUtil.ES);
+		System.out.println("StepOneUtil.Wup="+StepOneUtil.Wup);
+//		System.out.println("----------------Two算后----------------");
 	}
 	
 	/**
@@ -231,5 +323,14 @@ public class StepTwoUtil {
 	public static BigDecimal getEKz() {
 		// EKz = WLx
 		return getWLx2();
+	}
+
+
+	/**
+	 * new
+	 */
+	public static BigDecimal getEU(){
+		// EU = WUup + P
+		return WUup.add(NumberConfig.getTextP());
 	}
 }

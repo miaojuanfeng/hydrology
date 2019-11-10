@@ -24,8 +24,9 @@ public class StepCommonUtil {
 		/*
 			月分取P的月份/天数/小时
 		 */
-		BigDecimal E = NumberConfig.E.get(9).divide(new BigDecimal(31), NumberConst.DIGIT, NumberConst.MODE).divide(new BigDecimal(24), NumberConst.DIGIT, NumberConst.MODE);
-		return E;
+//		BigDecimal E = NumberConfig.E.get(9).divide(new BigDecimal(31), NumberConst.DIGIT, NumberConst.MODE).divide(new BigDecimal(24), NumberConst.DIGIT, NumberConst.MODE);
+//		return E;
+		return new BigDecimal("0.14");
 	}
 	
 	/**
