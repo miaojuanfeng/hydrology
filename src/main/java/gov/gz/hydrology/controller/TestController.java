@@ -1,6 +1,7 @@
 package gov.gz.hydrology.controller;
 
 import gov.gz.hydrology.constant.NumberConfig;
+import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.utils.*;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class TestController {
             QTR_List.add(new BigDecimal(0));
         }
         BigDecimal initQTR = null;
+        BigDecimal lastQTR = NumberConst.ZERO;
         for (int i=0; i<NumberConfig.testP.size();i++) {
             NumberConfig.indexP = i;
 
@@ -46,8 +48,14 @@ public class TestController {
             if( i<NumberConfig.L ){
                 QTR_List.set(i, initQTR);
             }
-            QTR_List.set(NumberConfig.L+i, StepFourUtil.QTR);
+            QTR_List.set(NumberConfig.L + i, StepFourUtil.QTR);
+            lastQTR = StepFourUtil.QTR;
             System.out.println("======================"+(i+1)+"======================");
+        }
+        for(int i=0;i<QTR_List.size();i++){
+            if( QTR_List.get(i).intValue() == 0 ){
+                QTR_List.set(i, lastQTR);
+            }
         }
         StepFiveUtil.getQt(QTR_List);
 

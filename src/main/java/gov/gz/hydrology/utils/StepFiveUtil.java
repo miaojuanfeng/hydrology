@@ -69,10 +69,17 @@ public class StepFiveUtil {
 		BigDecimal C2 = getC2();
 		BigDecimal initQT = null;
 		for( int i=0; i<QTR_List.size(); i++) {
-			BigDecimal QTR = QTR_List.get(i);
-			BigDecimal QT = C0.multiply(QTR).add(C1.multiply(QTR)).add(C2.multiply(QTR));
+			BigDecimal QT = NumberConst.ZERO;
+			if( i<NumberConfig.KE.intValue() ){
+				QT = QTR_List.get(0);
+			}else{
+//				System.out.println("C0.multiply(QTR_List.get(i))="+C0.multiply(QTR_List.get(i)));
+//				System.out.println("C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))="+C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue())));
+				System.out.println("C2.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))="+C2.multiply(QT_List.get(i-NumberConfig.KE.intValue())));
+				QT = C0.multiply(QTR_List.get(i)).add(C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))).add(C2.multiply(QT_List.get(i-NumberConfig.KE.intValue())));
+			}
 			if( initQT == null ){
-				initQT = QTR;
+				initQT = QT;
 			}
 			if( i<NumberConfig.KE.intValue() ){
 				QT_List.add(initQT);

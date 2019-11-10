@@ -16,7 +16,17 @@ public class NumberConfig {
 		testP.add(new BigDecimal("50"));
 		testP.add(new BigDecimal("0"));
 		testP.add(new BigDecimal("3"));
-//		testP.add(new BigDecimal("10"));
+
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
+		testP.add(new BigDecimal("0"));
 	}
 	public static BigDecimal getTextP(){
 		return testP.get(indexP);
