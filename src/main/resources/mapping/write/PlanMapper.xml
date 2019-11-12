@@ -6,22 +6,33 @@
 		<result column="stcd" property="stcd"/>
 		<result column="name" property="name"/>
 		<result column="model" property="model"/>
-        <result column="e" property="e"/>
-        <result column="wm" property="wm"/>
-        <result column="wum" property="wum"/>
-        <result column="wlm" property="wlm"/>
-        <result column="k" property="k"/>
-        <result column="c" property="c"/>
-        <result column="b" property="b"/>
-        <result column="im" property="im"/>
-        <result column="sm" property="sm"/>
-        <result column="ex" property="ex"/>
-        <result column="ki" property="ki"/>
-        <result column="kg" property="kg"/>
-        <result column="ci" property="ci"/>
-        <result column="cg" property="cg"/>
-        <result column="cs" property="cs"/>
-        <result column="lag" property="lag"/>
+        <result column="WU0" property="WU0"/>
+        <result column="WL0" property="WL0"/>
+        <result column="WD0" property="WD0"/>
+        <result column="WUM" property="WUM"/>
+        <result column="WLM" property="WLM"/>
+        <result column="WDM" property="WDM"/>
+        <result column="B" property="B"/>
+        <result column="K" property="K"/>
+        <result column="C" property="C"/>
+        <result column="SM" property="SM"/>
+        <result column="EX" property="EX"/>
+        <result column="KSS" property="KSS"/>
+        <result column="KG" property="KG"/>
+        <result column="IM" property="IM"/>
+        <result column="XE" property="XE"/>
+        <result column="KE" property="KE"/>
+        <result column="CS" property="CS"/>
+        <result column="CI" property="CI"/>
+        <result column="CG" property="CG"/>
+        <result column="L" property="L"/>
+        <result column="T" property="T"/>
+        <result column="F" property="F"/>
+        <result column="S0" property="S0"/>
+        <result column="FR0" property="FR0"/>
+        <result column="QRs0" property="QRs0"/>
+        <result column="QRss0" property="QRss0"/>
+        <result column="QRg0" property="QRg0"/>
         <result column="user_id" property="userId"/>
         <result column="create_time" property="createTime"/>
         <result column="stname" property="stname"/>
@@ -43,10 +54,10 @@
 	</select>
 	<insert id="insertBatch" parameterType="java.util.List">
         insert into [plan]
-        (stcd, name, model, e, wm, wum, wlm, k, c, b, im, sm, ex, ki, kg, ci, cg, cs, lag, user_id, create_time)
+        (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, XE, KE, CI, CG, L, T, F, S0, FR0, QRs0, QRss0, QRg0, CS, user_id, create_time)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.stcd},#{item.name},#{item.model},#{item.e},#{item.wm},#{item.wum},#{item.wlm},#{item.k},#{item.c},#{item.b},#{item.im},#{item.sm},#{item.ex},#{item.ki},#{item.kg},#{item.ci},#{item.cg},#{item.cs},#{item.lag},#{item.user_id},#{item.create_time})
+            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.B},#{item.K},#{item.C},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.XE},#{item.KE},#{item.CI},#{item.CG},#{item.L},#{item.T},#{item.F},#{item.S0},#{item.FR0},#{item.QRs0},#{item.QRss0},#{item.QRg0},#{item.CS},#{item.user_id},#{item.create_time})
         </foreach>
 	</insert>
     <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -61,53 +72,86 @@
             <if test="model != null" >
                 model,
             </if>
-            <if test="e != null" >
-                e,
+            <if test="WU0 != null" >
+                WU0,
             </if>
-            <if test="wm != null" >
-                wm,
+            <if test="WL0 != null" >
+                WL0,
             </if>
-            <if test="wum != null" >
-                wum,
+            <if test="WD0 != null" >
+                WD0,
             </if>
-            <if test="wlm != null" >
-                wlm,
+            <if test="WUM != null" >
+                WUM,
             </if>
-            <if test="k != null" >
-                k,
+            <if test="WLM != null" >
+                WLM,
             </if>
-            <if test="c != null" >
-                c,
+            <if test="WDM != null" >
+                WDM,
             </if>
-            <if test="b != null" >
-                b,
+            <if test="B != null" >
+                B,
             </if>
-            <if test="im != null" >
-                im,
+            <if test="K != null" >
+                K,
             </if>
-            <if test="sm != null" >
-                sm,
+            <if test="C != null" >
+                C,
             </if>
-            <if test="ex != null" >
-                ex,
+            <if test="SM != null" >
+                SM,
             </if>
-            <if test="ki != null" >
-                ki,
+            <if test="EX != null" >
+                EX,
             </if>
-            <if test="kg != null" >
-                kg,
+            <if test="KSS != null" >
+                KSS,
             </if>
-            <if test="ci != null" >
-                ci,
+            <if test="KG != null" >
+                KG,
             </if>
-            <if test="cg != null" >
-                cg,
+            <if test="IM != null" >
+                IM,
             </if>
-            <if test="cs != null" >
-                cs,
+            <if test="XE != null" >
+                XE,
             </if>
-            <if test="lag != null" >
-                lag,
+            <if test="KE != null" >
+                KE,
+            </if>
+            <if test="CI != null" >
+                CI,
+            </if>
+            <if test="CG != null" >
+                CG,
+            </if>
+            <if test="L != null" >
+                L,
+            </if>
+            <if test="T != null" >
+                T,
+            </if>
+            <if test="F != null" >
+                F,
+            </if>
+            <if test="S0 != null" >
+                S0,
+            </if>
+            <if test="FR0 != null" >
+                FR0,
+            </if>
+            <if test="QRs0 != null" >
+                QRs0,
+            </if>
+            <if test="QRss0 != null" >
+                QRss0,
+            </if>
+            <if test="QRg0 != null" >
+                QRg0,
+            </if>
+            <if test="CS != null" >
+                CS,
             </if>
             <if test="userId != null" >
                 user_id,
@@ -126,53 +170,86 @@
             <if test="model != null" >
                 #{model},
             </if>
-            <if test="e != null" >
-                #{e},
+            <if test="WU0 != null" >
+                #{WU0},
             </if>
-            <if test="wm != null" >
-                #{wm},
+            <if test="WL0 != null" >
+                #{WL0},
             </if>
-            <if test="wum != null" >
-                #{wum},
+            <if test="WD0 != null" >
+                #{WD0},
             </if>
-            <if test="wlm != null" >
-                #{wlm},
+            <if test="WUM != null" >
+                #{WUM},
             </if>
-            <if test="k != null" >
-                #{k},
+            <if test="WLM != null" >
+                #{WLM},
             </if>
-            <if test="c != null" >
-                #{c},
+            <if test="WDM != null" >
+                #{WDM},
             </if>
-            <if test="b != null" >
-                #{b},
+            <if test="B != null" >
+                #{B},
             </if>
-            <if test="im != null" >
-                #{im},
+            <if test="K != null" >
+                #{K},
             </if>
-            <if test="sm != null" >
-                #{sm},
+            <if test="C != null" >
+                #{C},
             </if>
-            <if test="ex != null" >
-                #{ex},
+            <if test="SM != null" >
+                #{SM},
             </if>
-            <if test="ki != null" >
-                #{ki},
+            <if test="EX != null" >
+                #{EX},
             </if>
-            <if test="kg != null" >
-                #{kg},
+            <if test="KSS != null" >
+                #{KSS},
             </if>
-            <if test="ci != null" >
-                #{ci},
+            <if test="KG != null" >
+                #{KG},
             </if>
-            <if test="cg != null" >
-                #{cg},
+            <if test="IM != null" >
+                #{IM},
             </if>
-            <if test="cs != null" >
-                #{cs},
+            <if test="XE != null" >
+                #{XE},
             </if>
-            <if test="lag != null" >
-                #{lag},
+            <if test="KE != null" >
+                #{KE},
+            </if>
+            <if test="CI != null" >
+                #{CI},
+            </if>
+            <if test="CG != null" >
+                #{CG},
+            </if>
+            <if test="L != null" >
+                #{L},
+            </if>
+            <if test="T != null" >
+                #{T},
+            </if>
+            <if test="F != null" >
+                #{F},
+            </if>
+            <if test="S0 != null" >
+                #{S0},
+            </if>
+            <if test="FR0 != null" >
+                #{FR0},
+            </if>
+            <if test="QRs0 != null" >
+                #{QRs0},
+            </if>
+            <if test="QRss0 != null" >
+                #{QRss0},
+            </if>
+            <if test="QRg0 != null" >
+                #{QRg0},
+            </if>
+            <if test="CS != null" >
+                #{CS},
             </if>
             <if test="userId != null" >
                 #{userId},
@@ -188,22 +265,87 @@
             <if test="stcd != null" > stcd = #{stcd},</if>
             <if test="name != null" > name = #{name},</if>
             <if test="model != null" > model = #{model},</if>
-            <if test="e != null" > e = #{e},</if>
-            <if test="wm != null" > wm = #{wm},</if>
-            <if test="wum != null" > wum = #{wum},</if>
-            <if test="wlm != null" > wlm = #{wlm},</if>
-            <if test="k != null" > k = #{k},</if>
-            <if test="c != null" > c = #{c},</if>
-            <if test="b != null" > b = #{b},</if>
-            <if test="im != null" > im = #{im},</if>
-            <if test="sm != null" > sm = #{sm},</if>
-            <if test="ex != null" > ex = #{ex},</if>
-            <if test="ki != null" > ki = #{ki},</if>
-            <if test="kg != null" > kg = #{kg},</if>
-            <if test="ci != null" > ci = #{ci},</if>
-            <if test="cg != null" > cg = #{cg},</if>
-            <if test="cs != null" > cs = #{cs},</if>
-            <if test="lag != null" > lag = #{lag},</if>
+            <if test="WU0 != null" >
+                WU0 = #{WU0},
+            </if>
+            <if test="WL0 != null" >
+                WL0 = #{WL0},
+            </if>
+            <if test="WD0 != null" >
+                WD0 = #{WD0},
+            </if>
+            <if test="WUM != null" >
+                WUM = #{WUM},
+            </if>
+            <if test="WLM != null" >
+                WLM = #{WLM},
+            </if>
+            <if test="WDM != null" >
+                WDM = #{WDM},
+            </if>
+            <if test="B != null" >
+                B = #{B},
+            </if>
+            <if test="K != null" >
+                K = #{K},
+            </if>
+            <if test="C != null" >
+                C = #{C},
+            </if>
+            <if test="SM != null" >
+                SM = #{SM},
+            </if>
+            <if test="EX != null" >
+                EX = #{EX},
+            </if>
+            <if test="KSS != null" >
+                KSS = #{KSS},
+            </if>
+            <if test="KG != null" >
+                KG = #{KG},
+            </if>
+            <if test="IM != null" >
+                IM = #{IM},
+            </if>
+            <if test="XE != null" >
+                XE = #{XE},
+            </if>
+            <if test="KE != null" >
+                KE = #{KE},
+            </if>
+            <if test="CI != null" >
+                CI = #{CI},
+            </if>
+            <if test="CG != null" >
+                CG = #{CG},
+            </if>
+            <if test="L != null" >
+                L = #{L},
+            </if>
+            <if test="T != null" >
+                T = #{T},
+            </if>
+            <if test="F != null" >
+                F = #{F},
+            </if>
+            <if test="S0 != null" >
+                S0 = #{S0},
+            </if>
+            <if test="FR0 != null" >
+                FR0 = #{FR0},
+            </if>
+            <if test="QRs0 != null" >
+                QRs0 = #{QRs0},
+            </if>
+            <if test="QRss0 != null" >
+                QRss0 = #{QRss0},
+            </if>
+            <if test="QRg0 != null" >
+                QRg0 = #{QRg0},
+            </if>
+            <if test="CS != null" >
+                CS = #{CS},
+            </if>
         </set>
         where id = #{id}
     </update>

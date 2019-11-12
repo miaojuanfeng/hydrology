@@ -32,8 +32,6 @@ public class NumberConfig {
 		return testP.get(indexP);
 	}
 
-
-	
 	/**
 	 * WU0  上层土壤蓄水容量初始含水量
 	 */
@@ -48,16 +46,31 @@ public class NumberConfig {
 	 * WD0  深层土壤蓄水容量初始含水量
 	 */
 	public static BigDecimal WD0 = new BigDecimal("0.1");
+
+	/**
+	 * WUM  上层土壤蓄水容量
+	 */
+	public static BigDecimal WUM = new BigDecimal("10.562");
+
+	/**
+	 * WLM  下层土壤蓄水容量
+	 */
+	public static BigDecimal WLM = new BigDecimal("68.412");
+
+	/**
+	 * WDM  深层土壤蓄水容量
+	 */
+	public static BigDecimal WDM = new BigDecimal("1.04");
 	
 	/**
 	 * QRSS  壤中流初值
 	 */
-	public static BigDecimal QRSS = new BigDecimal(5);
+//	public static BigDecimal QRSS = new BigDecimal(5);
 	
 	/**
 	 * QRG  地下径流初值
 	 */
-	public static BigDecimal QRG = new BigDecimal(3);
+//	public static BigDecimal QRG = new BigDecimal(3);
 	
 	/**
 	 * E  每小时蒸发量
@@ -92,21 +105,6 @@ public class NumberConfig {
 //		return monthE.divide(hourTotal, NumberConst.DIGIT, NumberConst.MODE);
 		return monthE;
 	}
-	
-	/**
-	 * WUM  上层土壤蓄水容量
-	 */
-	public static BigDecimal WUM = new BigDecimal("10.562");
-	
-	/**
-	 * WLM  下层土壤蓄水容量
-	 */
-	public static BigDecimal WLM = new BigDecimal("68.412");
-	
-	/**
-	 * WDM  深层土壤蓄水容量
-	 */
-	public static BigDecimal WDM = new BigDecimal("1.04");
 	
 	/**
 	 * B  蓄水容量曲线抛物线指数

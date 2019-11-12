@@ -8,22 +8,100 @@ public class Plan {
 	private String stcd;
 	private String name;
 	private Integer model;
-	private BigDecimal e;
-	private BigDecimal wm;
-	private BigDecimal wum;
-	private BigDecimal wlm;
-	private BigDecimal k;
-	private BigDecimal c;
-	private BigDecimal b;
-	private BigDecimal im;
-	private BigDecimal sm;
-	private BigDecimal ex;
-	private BigDecimal ki;
-	private BigDecimal kg;
-	private BigDecimal ci;
-	private BigDecimal cg;
-	private BigDecimal cs;
-	private BigDecimal lag;
+	/**
+	 * WU0  上层土壤蓄水容量初始含水量
+	 */
+	private BigDecimal WU0;
+	/**
+	 * WL0  下层土壤蓄水容量初始含水量
+	 */
+	private BigDecimal WL0;
+	/**
+	 * WD0  深层土壤蓄水容量初始含水量
+	 */
+	private BigDecimal WD0;
+	/**
+	 * WUM  上层土壤蓄水容量
+	 */
+	private BigDecimal WUM;
+	/**
+	 * WLM  下层土壤蓄水容量
+	 */
+	private BigDecimal WLM;
+	/**
+	 * WDM  深层土壤蓄水容量
+	 */
+	private BigDecimal WDM;
+	/**
+	 * B  蓄水容量曲线抛物线指数
+	 */
+	private BigDecimal B;
+	/**
+	 * K  蒸散发折算系数
+	 */
+	private BigDecimal K;
+	/**
+	 * C  深层蒸散发系数
+	 */
+	private BigDecimal C;
+	/**
+	 * SM  自由水平均蓄水容量
+	 */
+	private BigDecimal SM;
+	/**
+	 * EX  自由水蓄水容量曲线指数
+	 */
+	private BigDecimal EX;
+	/**
+	 * KSS  壤中流出流系数
+	 */
+	private BigDecimal KSS;
+	/**
+	 * KG  地下径流出流系数
+	 */
+	private BigDecimal KG;
+	/**
+	 * IM  不透水面积比例
+	 */
+	private BigDecimal IM;
+	/**
+	 * XE  流量比重因子
+	 */
+	private BigDecimal XE;
+	/**
+	 * KE  蓄量常数(传播时间)
+	 */
+	private BigDecimal KE;
+	/**
+	 * CS 河网蓄水消退系数
+	 */
+	private BigDecimal CS;
+	/**
+	 * CI 壤中流消退系数
+	 */
+	private BigDecimal CI;
+	/**
+	 * CG 地下径流消退系数
+	 */
+	private BigDecimal CG;
+	/**
+	 * L 滞时
+	 */
+	private Integer L;
+	/**
+	 * T 时段长, 变量
+	 */
+	private BigDecimal T;
+	/**
+	 * F 流域面积
+	 */
+	private BigDecimal F;
+
+	private BigDecimal S0;
+	private BigDecimal FR0;
+	private BigDecimal QRs0;
+	private BigDecimal QRss0;
+	private BigDecimal QRg0;
 	private String userId;
 	private Date createTime;
 	private String stname;
@@ -61,132 +139,220 @@ public class Plan {
 		this.model = model;
 	}
 
-	public BigDecimal getE() {
-		return e;
+	public BigDecimal getWU0() {
+		return WU0;
 	}
 
-	public void setE(BigDecimal e) {
-		this.e = e;
+	public void setWU0(BigDecimal WU0) {
+		this.WU0 = WU0;
 	}
 
-	public BigDecimal getWm() {
-		return wm;
+	public BigDecimal getWL0() {
+		return WL0;
 	}
 
-	public void setWm(BigDecimal wm) {
-		this.wm = wm;
+	public void setWL0(BigDecimal WL0) {
+		this.WL0 = WL0;
 	}
 
-	public BigDecimal getWum() {
-		return wum;
+	public BigDecimal getWD0() {
+		return WD0;
 	}
 
-	public void setWum(BigDecimal wum) {
-		this.wum = wum;
+	public void setWD0(BigDecimal WD0) {
+		this.WD0 = WD0;
 	}
 
-	public BigDecimal getWlm() {
-		return wlm;
+	public BigDecimal getWUM() {
+		return WUM;
 	}
 
-	public void setWlm(BigDecimal wlm) {
-		this.wlm = wlm;
+	public void setWUM(BigDecimal WUM) {
+		this.WUM = WUM;
 	}
 
-	public BigDecimal getK() {
-		return k;
+	public BigDecimal getWLM() {
+		return WLM;
 	}
 
-	public void setK(BigDecimal k) {
-		this.k = k;
+	public void setWLM(BigDecimal WLM) {
+		this.WLM = WLM;
 	}
 
-	public BigDecimal getC() {
-		return c;
+	public BigDecimal getWDM() {
+		return WDM;
 	}
 
-	public void setC(BigDecimal c) {
-		this.c = c;
+	public void setWDM(BigDecimal WDM) {
+		this.WDM = WDM;
 	}
 
 	public BigDecimal getB() {
-		return b;
+		return B;
 	}
 
 	public void setB(BigDecimal b) {
-		this.b = b;
+		B = b;
 	}
 
-	public BigDecimal getIm() {
-		return im;
+	public BigDecimal getK() {
+		return K;
 	}
 
-	public void setIm(BigDecimal im) {
-		this.im = im;
+	public void setK(BigDecimal k) {
+		K = k;
 	}
 
-	public BigDecimal getSm() {
-		return sm;
+	public BigDecimal getC() {
+		return C;
 	}
 
-	public void setSm(BigDecimal sm) {
-		this.sm = sm;
+	public void setC(BigDecimal c) {
+		C = c;
 	}
 
-	public BigDecimal getEx() {
-		return ex;
+	public BigDecimal getSM() {
+		return SM;
 	}
 
-	public void setEx(BigDecimal ex) {
-		this.ex = ex;
+	public void setSM(BigDecimal SM) {
+		this.SM = SM;
 	}
 
-	public BigDecimal getKi() {
-		return ki;
+	public BigDecimal getEX() {
+		return EX;
 	}
 
-	public void setKi(BigDecimal ki) {
-		this.ki = ki;
+	public void setEX(BigDecimal EX) {
+		this.EX = EX;
 	}
 
-	public BigDecimal getKg() {
-		return kg;
+	public BigDecimal getKSS() {
+		return KSS;
 	}
 
-	public void setKg(BigDecimal kg) {
-		this.kg = kg;
+	public void setKSS(BigDecimal KSS) {
+		this.KSS = KSS;
 	}
 
-	public BigDecimal getCi() {
-		return ci;
+	public BigDecimal getKG() {
+		return KG;
 	}
 
-	public void setCi(BigDecimal ci) {
-		this.ci = ci;
+	public void setKG(BigDecimal KG) {
+		this.KG = KG;
 	}
 
-	public BigDecimal getCg() {
-		return cg;
+	public BigDecimal getIM() {
+		return IM;
 	}
 
-	public void setCg(BigDecimal cg) {
-		this.cg = cg;
+	public void setIM(BigDecimal IM) {
+		this.IM = IM;
 	}
 
-	public BigDecimal getCs() {
-		return cs;
+	public BigDecimal getXE() {
+		return XE;
 	}
 
-	public void setCs(BigDecimal cs) {
-		this.cs = cs;
+	public void setXE(BigDecimal XE) {
+		this.XE = XE;
 	}
 
-	public BigDecimal getLag() {
-		return lag;
+	public BigDecimal getKE() {
+		return KE;
 	}
 
-	public void setLag(BigDecimal lag) {
-		this.lag = lag;
+	public void setKE(BigDecimal KE) {
+		this.KE = KE;
+	}
+
+	public BigDecimal getCS() {
+		return CS;
+	}
+
+	public void setCS(BigDecimal CS) {
+		this.CS = CS;
+	}
+
+	public BigDecimal getCI() {
+		return CI;
+	}
+
+	public void setCI(BigDecimal CI) {
+		this.CI = CI;
+	}
+
+	public BigDecimal getCG() {
+		return CG;
+	}
+
+	public void setCG(BigDecimal CG) {
+		this.CG = CG;
+	}
+
+	public Integer getL() {
+		return L;
+	}
+
+	public void setL(Integer l) {
+		L = l;
+	}
+
+	public BigDecimal getT() {
+		return T;
+	}
+
+	public void setT(BigDecimal t) {
+		T = t;
+	}
+
+	public BigDecimal getF() {
+		return F;
+	}
+
+	public void setF(BigDecimal f) {
+		F = f;
+	}
+
+	public BigDecimal getS0() {
+		return S0;
+	}
+
+	public void setS0(BigDecimal s0) {
+		S0 = s0;
+	}
+
+	public BigDecimal getFR0() {
+		return FR0;
+	}
+
+	public void setFR0(BigDecimal FR0) {
+		this.FR0 = FR0;
+	}
+
+	public BigDecimal getQRs0() {
+		return QRs0;
+	}
+
+	public void setQRs0(BigDecimal QRs0) {
+		this.QRs0 = QRs0;
+	}
+
+	public BigDecimal getQRss0() {
+		return QRss0;
+	}
+
+	public void setQRss0(BigDecimal QRss0) {
+		this.QRss0 = QRss0;
+	}
+
+	public BigDecimal getQRg0() {
+		return QRg0;
+	}
+
+	public void setQRg0(BigDecimal QRg0) {
+		this.QRg0 = QRg0;
 	}
 
 	public String getUserId() {
@@ -212,7 +378,6 @@ public class Plan {
 	public void setStname(String stname) {
 		this.stname = stname;
 	}
-
 
 	public String getUserName() {
 		return userName;

@@ -105,13 +105,13 @@
 									</div>
 									<div class="layui-form-item">
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-						               		<label class="layui-form-label"><b>SM</b></label>
+						               		<label class="layui-form-label"><b>WU0</b></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
 							                <input type="text" name="startTime" class="layui-input">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							            	<label class="layui-form-label"><b>CI</b></label>
+							            	<label class="layui-form-label"><b>WL0</b></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
 							                <input type="text" name="endTime" class="layui-input">
@@ -119,7 +119,7 @@
 								    </div>
 								    <div class="layui-form-item">
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-						               		<label class="layui-form-label"><b>LAG</b></label>
+						               		<label class="layui-form-label"><b>WD0</b></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
 							                <input type="text" name="startTime" class="layui-input">

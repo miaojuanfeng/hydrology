@@ -95,107 +95,185 @@
 											</fieldset>
 											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">E = </label>
+										            <label class="layui-form-label">WU0 = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="e" class="layui-input" value="${plan.e}" >
+										                <input type="number" name="WU0" class="layui-input" value="${plan.WU0}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">WM = </label>
+										            <label class="layui-form-label">WL0 = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="wm" class="layui-input" value="${plan.wm}" >
+										                <input type="number" name="WL0" class="layui-input" value="${plan.WL0}" >
+										            </div>
+										        </div>
+										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+										            <label class="layui-form-label">WD0 = </label>
+										            <div class="layui-input-block">
+										                <input type="number" name="WD0"  class="layui-input" value="${plan.WD0}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">WUM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="wum"  class="layui-input" value="${plan.wum}" >
-										            </div>
-										        </div>
-										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">WLM = </label>
-										            <div class="layui-input-block">
-										                <input type="number" name="wlm"  class="layui-input" value="${plan.wlm}" >
+										                <input type="number" name="WUM"  class="layui-input" value="${plan.WUM}" >
 										            </div>
 										        </div>
 										   	</div>
 										   	<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">K = </label>
+										            <label class="layui-form-label">WLM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="k"  class="layui-input" value="${plan.k}" >
+										                <input type="number" name="WLM"  class="layui-input" value="${plan.WLM}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">C = </label>
+										            <label class="layui-form-label">WDM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="c"  class="layui-input" value="${plan.c}" >
+										                <input type="number" name="WDM"  class="layui-input" value="${plan.WDM}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">B = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="b"  class="layui-input" value="${plan.b}" >
+										                <input type="number" name="B"  class="layui-input" value="${plan.B}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">IM = </label>
+										            <label class="layui-form-label">K = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="im"  class="layui-input" value="${plan.im}" >
+										                <input type="number" name="K"  class="layui-input" value="${plan.K}" >
 										            </div>
 										        </div>
 										    </div>
 										    <div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+										            <label class="layui-form-label">C = </label>
+										            <div class="layui-input-block">
+										                <input type="number" name="C"  class="layui-input" value="${plan.C}" >
+										            </div>
+										        </div>
+										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">SM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="sm"  class="layui-input" value="${plan.sm}" >
+										                <input type="number" name="SM"  class="layui-input" value="${plan.SM}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">EX = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="ex"  class="layui-input" value="${plan.ex}" >
+										                <input type="number" name="EX"  class="layui-input" value="${plan.EX}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">KI = </label>
+										            <label class="layui-form-label">KSS = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="ki"  class="layui-input" value="${plan.ki}" >
-										            </div>
-										        </div>
-										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">KG = </label>
-										            <div class="layui-input-block">
-										                <input type="number" name="kg"  class="layui-input" value="${plan.kg}" >
+										                <input type="number" name="KSS"  class="layui-input" value="${plan.KSS}" >
 										            </div>
 										        </div>
 										    </div>
 										    <div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">CI = </label>
+										            <label class="layui-form-label">KG = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="ci"  class="layui-input" value="${plan.ci}" >
+										                <input type="number" name="KG"  class="layui-input" value="${plan.KG}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">CG = </label>
+										            <label class="layui-form-label">IM = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="cg"  class="layui-input" value="${plan.cg}" >
+										                <input type="number" name="IM"  class="layui-input" value="${plan.IM}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">CS = </label>
+										            <label class="layui-form-label">XE = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="cs"  class="layui-input" value="${plan.cs}" >
+										                <input type="number" name="XE"  class="layui-input" value="${plan.XE}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">LAG = </label>
+										            <label class="layui-form-label">KE = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="lag"  class="layui-input" value="${plan.lag}" >
+										                <input type="number" name="KE"  class="layui-input" value="${plan.KE}" >
 										            </div>
 										        </div>
+											</div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">CS = </label>
+													<div class="layui-input-block">
+														<input type="number" name="CS"  class="layui-input" value="${plan.CS}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">CI = </label>
+													<div class="layui-input-block">
+														<input type="number" name="CI"  class="layui-input" value="${plan.CI}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">CG = </label>
+													<div class="layui-input-block">
+														<input type="number" name="CG"  class="layui-input" value="${plan.CG}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">L = </label>
+													<div class="layui-input-block">
+														<input type="number" name="L"  class="layui-input" value="${plan.L}" >
+													</div>
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">T = </label>
+													<div class="layui-input-block">
+														<input type="number" name="T"  class="layui-input" value="${plan.T}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">F = </label>
+													<div class="layui-input-block">
+														<input type="number" name="F"  class="layui-input" value="${plan.F}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">S0 = </label>
+													<div class="layui-input-block">
+														<input type="number" name="S0"  class="layui-input" value="${plan.S0}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">FR0 = </label>
+													<div class="layui-input-block">
+														<input type="number" name="FR0"  class="layui-input" value="${plan.FR0}" >
+													</div>
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">QRs0 = </label>
+													<div class="layui-input-block">
+														<input type="number" name="QRs0"  class="layui-input" value="${plan.QRs0}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">QRss0 = </label>
+													<div class="layui-input-block">
+														<input type="number" name="QRss0"  class="layui-input" value="${plan.QRss0}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label">QRg0 = </label>
+													<div class="layui-input-block">
+														<input type="number" name="QRg0"  class="layui-input" value="${plan.QRg0}" >
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+													<label class="layui-form-label"></label>
+													<div class="layui-input-block">
+
+													</div>
+												</div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<div style="margin-left:80px;float:left;">
 														<a step="1" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
@@ -307,43 +385,43 @@
 												</fieldset>
 												<div class="layui-form-item">
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">E = </label>
+											            <label class="layui-form-label">WU0 = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="e" class="layui-input" value="${plan.e}" readonly>
+											                <input type="text" id="WU0" class="layui-input" value="${plan.WU0}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">WM = </label>
+											            <label class="layui-form-label">WL0 = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="wm" class="layui-input" value="${plan.wm}" readonly>
+											                <input type="text" id="WL0" class="layui-input" value="${plan.WL0}" readonly>
 											            </div>
 											        </div>
 											    </div>
 											    <div class="layui-form-item">
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">WUM = </label>
+											            <label class="layui-form-label">WD0 = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="wum" class="layui-input" value="${plan.wum}" readonly>
+											                <input type="text" id="WD0" class="layui-input" value="${plan.WD0}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">WLM = </label>
+											            <label class="layui-form-label">WUM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="wlm" class="layui-input" value="${plan.wlm}" readonly>
+											                <input type="text" id="WUM" class="layui-input" value="${plan.WUM}" readonly>
 											            </div>
 											        </div>
 											   	</div>
 											   	<div class="layui-form-item">
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">K = </label>
+											            <label class="layui-form-label">WLM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="k" class="layui-input" value="${plan.k}" readonly>
+											                <input type="text" id="WLM" class="layui-input" value="${plan.WLM}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">C = </label>
+											            <label class="layui-form-label">WDM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="c" class="layui-input" value="${plan.c}" readonly>
+											                <input type="text" id="WDM" class="layui-input" value="${plan.WDM}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -351,72 +429,156 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">B = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="b" class="layui-input" value="${plan.b}" readonly>
+											                <input type="text" id="B" class="layui-input" value="${plan.B}" readonly>
+											            </div>
+											        </div>
+											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">K = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="K" class="layui-input" value="${plan.K}" readonly>
+											            </div>
+											        </div>
+											    </div>
+											    <div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">C = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="C" class="layui-input" value="${plan.C}" readonly>
+											            </div>
+											        </div>
+											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">SM = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="SM" class="layui-input" value="${plan.SM}" readonly>
+											            </div>
+											        </div>
+											    </div>
+											    <div class="layui-form-item">
+											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">EX = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="EX" class="layui-input" value="${plan.EX}" readonly>
+											            </div>
+											        </div>
+											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">KSS = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="KSS" class="layui-input" value="${plan.KSS}" readonly>
+											            </div>
+											        </div>
+											    </div>
+											    <div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">KG = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="KG" class="layui-input" value="${plan.KG}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">IM = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="im" class="layui-input" value="${plan.im}" readonly>
+											                <input type="text" id="IM" class="layui-input" value="${plan.IM}" readonly>
 											            </div>
 											        </div>
 											    </div>
 											    <div class="layui-form-item">
+											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">XE = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="XE" class="layui-input" value="${plan.XE}" readonly>
+											            </div>
+											        </div>
+											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+											            <label class="layui-form-label">KE = </label>
+											            <div class="layui-input-block">
+											                <input type="text" id="KE" class="layui-input" value="${plan.KE}" readonly>
+											            </div>
+											        </div>
+											    </div>
+												<div class="layui-form-item">
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">SM = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="sm" class="layui-input" value="${plan.sm}" readonly>
-											            </div>
-											        </div>
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">EX = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="ex" class="layui-input" value="${plan.ex}" readonly>
-											            </div>
-											        </div>
-											    </div>
-											    <div class="layui-form-item">
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">KI = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="ki" class="layui-input" value="${plan.ki}" readonly>
-											            </div>
-											        </div>
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">KG = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="kg" class="layui-input" value="${plan.kg}" readonly>
-											            </div>
-											        </div>
-											    </div>
-											    <div class="layui-form-item">
+														<label class="layui-form-label">CS = </label>
+														<div class="layui-input-block">
+															<input type="text" id="CS" class="layui-input" value="${plan.CS}" readonly>
+														</div>
+													</div>
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">CI = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="ci" class="layui-input" value="${plan.ci}" readonly>
-											            </div>
-											        </div>
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">CG = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="cg" class="layui-input" value="${plan.cg}" readonly>
-											            </div>
-											        </div>
-											    </div>
-											    <div class="layui-form-item">
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">CS = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="cs" class="layui-input" value="${plan.cs}" readonly>
-											            </div>
-											        </div>
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">LAG = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="lag" class="layui-input" value="${plan.lag}" readonly>
-											            </div>
-											        </div>
-											    </div>
+														<label class="layui-form-label">CI = </label>
+														<div class="layui-input-block">
+															<input type="text" id="CI" class="layui-input" value="${plan.CI}" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">CG = </label>
+														<div class="layui-input-block">
+															<input type="text" id="CG" class="layui-input" value="${plan.CG}" readonly>
+														</div>
+													</div>
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">L = </label>
+														<div class="layui-input-block">
+															<input type="text" id="L" class="layui-input" value="${plan.L}" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">T = </label>
+														<div class="layui-input-block">
+															<input type="text" id="T" class="layui-input" value="${plan.T}" readonly>
+														</div>
+													</div>
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">F = </label>
+														<div class="layui-input-block">
+															<input type="text" id="F" class="layui-input" value="${plan.F}" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">S0 = </label>
+														<div class="layui-input-block">
+															<input type="text" id="S0" class="layui-input" value="${plan.S0}" readonly>
+														</div>
+													</div>
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">FR0 = </label>
+														<div class="layui-input-block">
+															<input type="text" id="FR0" class="layui-input" value="${plan.FR0}" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">QRs0 = </label>
+														<div class="layui-input-block">
+															<input type="text" id="QRs0" class="layui-input" value="${plan.QRs0}" readonly>
+														</div>
+													</div>
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">QRss0 = </label>
+														<div class="layui-input-block">
+															<input type="text" id="QRss0" class="layui-input" value="${plan.QRss0}" readonly>
+														</div>
+													</div>
+												</div>
+												<div class="layui-form-item">
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label">QRg0 = </label>
+														<div class="layui-input-block">
+															<input type="text" id="QRg0" class="layui-input" value="${plan.QRg0}" readonly>
+														</div>
+													</div>
+													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+														<label class="layui-form-label"></label>
+														<div class="layui-input-block">
+
+														</div>
+													</div>
+												</div>
 											    <div class="layui-form-item">
 											    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="height:1px;">
 											    	
@@ -585,9 +747,11 @@
 
     	$("#save").click(function () {
     	    var ok = true;
+    	    var name  = "";
     	    $("input").each(function () {
 				if( $(this).val() == "" ){
 				    ok = false;
+				    name = $(this).attr("name");
 				}
             });
     	    if( ok ) {
@@ -612,7 +776,7 @@
                     }
                 });
             }else{
-                layer.msg('请填妥所有信息', {icon: 2});
+                layer.msg('请填写'+name, {icon: 2});
 			}
         });
 
