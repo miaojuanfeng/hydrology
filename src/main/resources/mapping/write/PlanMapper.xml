@@ -12,9 +12,9 @@
         <result column="WUM" property="WUM"/>
         <result column="WLM" property="WLM"/>
         <result column="WDM" property="WDM"/>
-        <result column="B" property="B"/>
-        <result column="K" property="K"/>
-        <result column="C" property="C"/>
+        <result column="B" property="b"/>
+        <result column="K" property="k"/>
+        <result column="C" property="c"/>
         <result column="SM" property="SM"/>
         <result column="EX" property="EX"/>
         <result column="KSS" property="KSS"/>
@@ -25,10 +25,10 @@
         <result column="CS" property="CS"/>
         <result column="CI" property="CI"/>
         <result column="CG" property="CG"/>
-        <result column="L" property="L"/>
-        <result column="T" property="T"/>
-        <result column="F" property="F"/>
-        <result column="S0" property="S0"/>
+        <result column="L" property="l"/>
+        <result column="T" property="t"/>
+        <result column="F" property="f"/>
+        <result column="S0" property="s0"/>
         <result column="FR0" property="FR0"/>
         <result column="QRs0" property="QRs0"/>
         <result column="QRss0" property="QRss0"/>
@@ -57,7 +57,7 @@
         (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, XE, KE, CI, CG, L, T, F, S0, FR0, QRs0, QRss0, QRg0, CS, user_id, create_time)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.B},#{item.K},#{item.C},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.XE},#{item.KE},#{item.CI},#{item.CG},#{item.L},#{item.T},#{item.F},#{item.S0},#{item.FR0},#{item.QRs0},#{item.QRss0},#{item.QRg0},#{item.CS},#{item.user_id},#{item.create_time})
+            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.b},#{item.k},#{item.c},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.XE},#{item.KE},#{item.CI},#{item.CG},#{item.l},#{item.t},#{item.f},#{item.s0},#{item.FR0},#{item.QRs0},#{item.QRss0},#{item.QRg0},#{item.CS},#{item.user_id},#{item.create_time})
         </foreach>
 	</insert>
     <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -90,13 +90,13 @@
             <if test="WDM != null" >
                 WDM,
             </if>
-            <if test="B != null" >
+            <if test="b != null" >
                 B,
             </if>
-            <if test="K != null" >
+            <if test="k != null" >
                 K,
             </if>
-            <if test="C != null" >
+            <if test="c != null" >
                 C,
             </if>
             <if test="SM != null" >
@@ -126,16 +126,16 @@
             <if test="CG != null" >
                 CG,
             </if>
-            <if test="L != null" >
+            <if test="l != null" >
                 L,
             </if>
-            <if test="T != null" >
+            <if test="t != null" >
                 T,
             </if>
-            <if test="F != null" >
+            <if test="f != null" >
                 F,
             </if>
-            <if test="S0 != null" >
+            <if test="s0 != null" >
                 S0,
             </if>
             <if test="FR0 != null" >
@@ -188,14 +188,14 @@
             <if test="WDM != null" >
                 #{WDM},
             </if>
-            <if test="B != null" >
-                #{B},
+            <if test="b != null" >
+                #{b},
             </if>
-            <if test="K != null" >
-                #{K},
+            <if test="k != null" >
+                #{k},
             </if>
-            <if test="C != null" >
-                #{C},
+            <if test="c != null" >
+                #{c},
             </if>
             <if test="SM != null" >
                 #{SM},
@@ -224,17 +224,17 @@
             <if test="CG != null" >
                 #{CG},
             </if>
-            <if test="L != null" >
-                #{L},
+            <if test="l != null" >
+                #{l},
             </if>
-            <if test="T != null" >
-                #{T},
+            <if test="t != null" >
+                #{t},
             </if>
-            <if test="F != null" >
-                #{F},
+            <if test="f != null" >
+                #{f},
             </if>
-            <if test="S0 != null" >
-                #{S0},
+            <if test="s0 != null" >
+                #{s0},
             </if>
             <if test="FR0 != null" >
                 #{FR0},
@@ -283,14 +283,14 @@
             <if test="WDM != null" >
                 WDM = #{WDM},
             </if>
-            <if test="B != null" >
-                B = #{B},
+            <if test="b != null" >
+                B = #{b},
             </if>
-            <if test="K != null" >
-                K = #{K},
+            <if test="k != null" >
+                K = #{k},
             </if>
-            <if test="C != null" >
-                C = #{C},
+            <if test="c != null" >
+                C = #{c},
             </if>
             <if test="SM != null" >
                 SM = #{SM},
@@ -319,17 +319,17 @@
             <if test="CG != null" >
                 CG = #{CG},
             </if>
-            <if test="L != null" >
-                L = #{L},
+            <if test="l != null" >
+                L = #{l},
             </if>
-            <if test="T != null" >
-                T = #{T},
+            <if test="t != null" >
+                T = #{t},
             </if>
-            <if test="F != null" >
-                F = #{F},
+            <if test="f != null" >
+                F = #{f},
             </if>
-            <if test="S0 != null" >
-                S0 = #{S0},
+            <if test="s0 != null" >
+                S0 = #{s0},
             </if>
             <if test="FR0 != null" >
                 FR0 = #{FR0},

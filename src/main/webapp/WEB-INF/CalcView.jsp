@@ -105,31 +105,43 @@
 									</div>
 									<div class="layui-form-item">
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-						               		<label class="layui-form-label"><b>WU0</b></label>
+						               		<label class="layui-form-label"><b>SM</b></label>
 						               	</div>
-						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							                <input type="text" name="startTime" class="layui-input">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							            	<label class="layui-form-label"><b>WL0</b></label>
+							            	<label class="layui-form-label"><b>CI</b></label>
 							            </div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							                <input type="text" name="endTime" class="layui-input">
 							            </div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>CS</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
 								    </div>
 								    <div class="layui-form-item">
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-						               		<label class="layui-form-label"><b>WD0</b></label>
+						               		<label class="layui-form-label"><b>LAG</b></label>
 						               	</div>
-						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							                <input type="text" name="startTime" class="layui-input">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							            	<label class="layui-form-label"><b>CS</b></label>
+							            	<label class="layui-form-label"><b>KE</b></label>
 							            </div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							                <input type="text" name="endTime" class="layui-input">
 							            </div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>XE</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
 								    </div>
 									<!-- div class="layui-form-item">
 								        <table class="layui-table" lay-skin="line">
@@ -194,29 +206,63 @@
 								    </div>
 								    <div class="layui-form-item" style="margin-top:25px;">
 									    <div class="layui-calc-title">
-										    <span>预报结果</span>
+										    <span>初始状态调整</span>
 										</div>
 									</div>
-								    <div class="layui-form-item">
-								        <table class="layui-table">
-								        	<colgroup>
-										    	<col width="50">
-										        <col width="50">
-										    </colgroup>
-										    <tr>
-										        <td>洪峰时间：</td>
-										        <td>2019-08-20 10:20</td>
-										    </tr>
-										    <tr>
-										        <td>洪峰水位：</td>
-										        <td>132米</td>
-										    </tr>
-										    <tr>
-										        <td>洪峰流量：</td>
-										        <td>123立方米/秒</td>
-										    </tr>
-										</table>
-								    </div>
+									<div class="layui-form-item">
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>WU0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="startTime" class="layui-input">
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>WL0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>WD0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>S0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="startTime" class="layui-input">
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>FR0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>QRS0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>QRSS0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="startTime" class="layui-input">
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<label class="layui-form-label"><b>QRG0</b></label>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+											<input type="text" name="endTime" class="layui-input">
+										</div>
+									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
 								    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">导出预报单</a>

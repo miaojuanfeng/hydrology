@@ -58,7 +58,7 @@
 														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
 															<select name="stcd" id="sName" lay-filter="sName">
 																<c:forEach items="${stationList}" var="station" varStatus="id">
-																	<option value="${station.station.stcd}" <c:if test="${station.station.stcd == plan.stcd}">selected</c:if>>${station.station.stname}</option>
+																	<option value="${station.station.stcd}" <c:if test="${station.station.stcd == plan.stcd || station.station.stcd == stcd}">selected</c:if>>${station.station.stname}</option>
 																</c:forEach>
 															</select>
 														</div>
@@ -135,13 +135,13 @@
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">B = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="B"  class="layui-input" value="${plan.B}" >
+										                <input type="number" name="b"  class="layui-input" value="${plan.b}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">K = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="K"  class="layui-input" value="${plan.K}" >
+										                <input type="number" name="k"  class="layui-input" value="${plan.k}" >
 										            </div>
 										        </div>
 										    </div>
@@ -149,7 +149,7 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 										            <label class="layui-form-label">C = </label>
 										            <div class="layui-input-block">
-										                <input type="number" name="C"  class="layui-input" value="${plan.C}" >
+										                <input type="number" name="c"  class="layui-input" value="${plan.c}" >
 										            </div>
 										        </div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
@@ -219,7 +219,7 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">L = </label>
 													<div class="layui-input-block">
-														<input type="number" name="L"  class="layui-input" value="${plan.L}" >
+														<input type="number" name="l"  class="layui-input" value="${plan.l}" >
 													</div>
 												</div>
 											</div>
@@ -227,19 +227,19 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">T = </label>
 													<div class="layui-input-block">
-														<input type="number" name="T"  class="layui-input" value="${plan.T}" >
+														<input type="number" name="t"  class="layui-input" value="${plan.t}" >
 													</div>
 												</div>
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">F = </label>
 													<div class="layui-input-block">
-														<input type="number" name="F"  class="layui-input" value="${plan.F}" >
+														<input type="number" name="f"  class="layui-input" value="${plan.f}" >
 													</div>
 												</div>
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">S0 = </label>
 													<div class="layui-input-block">
-														<input type="number" name="S0"  class="layui-input" value="${plan.S0}" >
+														<input type="number" name="s0"  class="layui-input" value="${plan.s0}" >
 													</div>
 												</div>
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
@@ -357,7 +357,7 @@
 																<input type="text" class="layui-input" value="基本站" readonly>
 													        </div>
 													        <div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-																<input type="text" id="stcd" class="layui-input" value="宁都" readonly>
+																<input type="text" id="stcd" class="layui-input" value="${station.stname}" readonly>
 													        </div>
 											            </div>
 											        </div>
@@ -429,13 +429,13 @@
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">B = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="B" class="layui-input" value="${plan.B}" readonly>
+											                <input type="text" id="b" class="layui-input" value="${plan.b}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">K = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="K" class="layui-input" value="${plan.K}" readonly>
+											                <input type="text" id="k" class="layui-input" value="${plan.k}" readonly>
 											            </div>
 											        </div>
 											    </div>
@@ -443,7 +443,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 											            <label class="layui-form-label">C = </label>
 											            <div class="layui-input-block">
-											                <input type="text" id="C" class="layui-input" value="${plan.C}" readonly>
+											                <input type="text" id="c" class="layui-input" value="${plan.c}" readonly>
 											            </div>
 											        </div>
 											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
@@ -519,7 +519,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 														<label class="layui-form-label">L = </label>
 														<div class="layui-input-block">
-															<input type="text" id="L" class="layui-input" value="${plan.L}" readonly>
+															<input type="text" id="l" class="layui-input" value="${plan.l}" readonly>
 														</div>
 													</div>
 												</div>
@@ -527,13 +527,13 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 														<label class="layui-form-label">T = </label>
 														<div class="layui-input-block">
-															<input type="text" id="T" class="layui-input" value="${plan.T}" readonly>
+															<input type="text" id="t" class="layui-input" value="${plan.t}" readonly>
 														</div>
 													</div>
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 														<label class="layui-form-label">F = </label>
 														<div class="layui-input-block">
-															<input type="text" id="F" class="layui-input" value="${plan.F}" readonly>
+															<input type="text" id="f" class="layui-input" value="${plan.f}" readonly>
 														</div>
 													</div>
 												</div>
@@ -541,7 +541,7 @@
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 														<label class="layui-form-label">S0 = </label>
 														<div class="layui-input-block">
-															<input type="text" id="S0" class="layui-input" value="${plan.S0}" readonly>
+															<input type="text" id="s0" class="layui-input" value="${plan.s0}" readonly>
 														</div>
 													</div>
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
@@ -749,7 +749,7 @@
     	    var ok = true;
     	    var name  = "";
     	    $("input").each(function () {
-				if( $(this).val() == "" ){
+				if( $(this).attr("name") != "id" && $(this).val() == "" ){
 				    ok = false;
 				    name = $(this).attr("name");
 				}
@@ -769,7 +769,9 @@
                     url: url,
                     data: $("#form-plan").serialize(),
                     success: function (data) {
-                        layer.msg("保存成功", {icon: 1});
+                        layer.msg("保存成功", {icon: 1}, function(){
+                            window.location.href="<c:url value="/cms/forecast/plan/${stcd}"></c:url>";
+						});
                     },
                     error: function (xhr, ts, et) {
                         layer.msg('保存失败', {icon: 2});

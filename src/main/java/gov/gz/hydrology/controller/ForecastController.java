@@ -152,6 +152,10 @@ public class ForecastController {
 	public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
 	    HttpSession session = request.getSession();
 		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+
+		Station station = stationService.selectByPrimaryKey(stcd);
+		map.put("station", station);
+
 		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
 		map.put("stationList", stationList);
 

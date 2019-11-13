@@ -35,15 +35,15 @@ public class Plan {
 	/**
 	 * B  蓄水容量曲线抛物线指数
 	 */
-	private BigDecimal B;
+	private BigDecimal b;
 	/**
 	 * K  蒸散发折算系数
 	 */
-	private BigDecimal K;
+	private BigDecimal k;
 	/**
 	 * C  深层蒸散发系数
 	 */
-	private BigDecimal C;
+	private BigDecimal c;
 	/**
 	 * SM  自由水平均蓄水容量
 	 */
@@ -87,17 +87,17 @@ public class Plan {
 	/**
 	 * L 滞时
 	 */
-	private Integer L;
+	private Integer l;
 	/**
 	 * T 时段长, 变量
 	 */
-	private BigDecimal T;
+	private BigDecimal t;
 	/**
 	 * F 流域面积
 	 */
-	private BigDecimal F;
+	private BigDecimal f;
 
-	private BigDecimal S0;
+	private BigDecimal s0;
 	private BigDecimal FR0;
 	private BigDecimal QRs0;
 	private BigDecimal QRss0;
@@ -188,27 +188,27 @@ public class Plan {
 	}
 
 	public BigDecimal getB() {
-		return B;
+		return b;
 	}
 
 	public void setB(BigDecimal b) {
-		B = b;
+		this.b = b;
 	}
 
 	public BigDecimal getK() {
-		return K;
+		return k;
 	}
 
 	public void setK(BigDecimal k) {
-		K = k;
+		this.k = k;
 	}
 
 	public BigDecimal getC() {
-		return C;
+		return c;
 	}
 
 	public void setC(BigDecimal c) {
-		C = c;
+		this.c = c;
 	}
 
 	public BigDecimal getSM() {
@@ -292,35 +292,35 @@ public class Plan {
 	}
 
 	public Integer getL() {
-		return L;
+		return l;
 	}
 
 	public void setL(Integer l) {
-		L = l;
+		this.l = l;
 	}
 
 	public BigDecimal getT() {
-		return T;
+		return t;
 	}
 
 	public void setT(BigDecimal t) {
-		T = t;
+		this.t = t;
 	}
 
 	public BigDecimal getF() {
-		return F;
+		return f;
 	}
 
 	public void setF(BigDecimal f) {
-		F = f;
+		this.f = f;
 	}
 
 	public BigDecimal getS0() {
-		return S0;
+		return s0;
 	}
 
 	public void setS0(BigDecimal s0) {
-		S0 = s0;
+		this.s0 = s0;
 	}
 
 	public BigDecimal getFR0() {
