@@ -40,10 +40,10 @@
 								            </select>
 								        </div>
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
-											<select id="sName">
-                                                <c:forEach items="${stationList}" var="station" varStatus="id">
-                                                    <option value="${station.userStcd}">${station.stname}</option>
-                                                </c:forEach>
+											<select lay-filter="sName" id="sName">
+												<c:forEach items="${stationList}" var="station" varStatus="id">
+													<option value="${station.userStcd}">${station.stname}</option>
+												</c:forEach>
 											</select>
 										</div>
 								    </div>
@@ -52,10 +52,10 @@
 							            	<label class="layui-form-label"><span>预报方案</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							            	<select name="quiz1" lay-verify="required" lay-search="">
-								                <option value="方案1">方案1</option>
-								                <option value="方案2">方案2</option>
-								                <option value="方案3">方案3</option>
+							            	<select id="plan" name="plan" lay-filter="plan">
+												<c:forEach items="${planList}" var="plan" varStatus="id">
+													<option value="${plan.id}">${plan.name}</option>
+												</c:forEach>
 								            </select>
 								        </div>
 								    </div>
@@ -108,101 +108,40 @@
 						               		<label class="layui-form-label"><b>SM</b></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" name="startTime" class="layui-input">
+							                <input type="text" id="SM" name="SM" class="layui-input plan-var" value="${plan.SM}">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							            	<label class="layui-form-label"><b>CI</b></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" name="endTime" class="layui-input">
+							                <input type="text" id="CI" name="CI" class="layui-input plan-var" value="${plan.CI}">
 							            </div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>CS</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="CS" name="CS" class="layui-input plan-var" value="${plan.CS}">
 										</div>
 								    </div>
 								    <div class="layui-form-item">
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-						               		<label class="layui-form-label"><b>LAG</b></label>
+						               		<label class="layui-form-label"><b>L</b></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" name="startTime" class="layui-input">
+							                <input type="text" id="L" name="L" class="layui-input plan-var" value="${plan.l}">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							            	<label class="layui-form-label"><b>KE</b></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" name="endTime" class="layui-input">
+							                <input type="text" id="KE" name="KE" class="layui-input plan-var" value="${plan.KE}">
 							            </div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>XE</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="XE" name="XE" class="layui-input plan-var" value="${plan.XE}">
 										</div>
-								    </div>
-									<!-- div class="layui-form-item">
-								        <table class="layui-table" lay-skin="line">
-										    <colgroup>
-										    	<col width="10">
-										        <col width="100">
-										        <col width="100">
-										        <col>
-										    </colgroup>
-										    <thead>
-										    <tr>
-										    	<th></th>
-										        <th>方案名</th>
-										        <th>构建人</th>
-										        <th>构建时间</th>
-										    </tr>
-										    </thead>
-										    <tbody>
-										    <tr>
-										    	<td><input type="radio" name="sex" value="男" checked=""></td>
-										        <td>贤心</td>
-										        <td>汉族</td>
-										        <td>1989-10-14</td>
-										    </tr>
-										    <tr>
-										    	<td><input type="radio" name="sex" value="男" checked=""></td>
-										        <td>张爱玲</td>
-										        <td>汉族</td>
-										        <td>1920-09-30</td>
-										    </tr>
-										    <tr>
-										    	<td><input type="radio" name="sex" value="男" checked=""></td>
-										        <td>Helen Keller</td>
-										        <td>拉丁美裔</td>
-										        <td>1880-06-27</td>
-										    </tr>
-										    <tr>
-										    	<td><input type="radio" name="sex" value="男" checked=""></td>
-										        <td>岳飞</td>
-										        <td>汉族</td>
-										        <td>1103-北宋崇宁二年</td>
-										    </tr>
-										    <tr>
-										    	<td><input type="radio" name="sex" value="男" checked=""></td>
-										        <td>孟子</td>
-										        <td>华夏族（汉族）</td>
-										        <td>公元前-372年</td>
-										    </tr>
-										    </tbody>
-										</table>
-								    </div-->
-									<div class="layui-form-item" style="margin-top:15px;">
-						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md4 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">重置参数</a>
-							            </div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">开始预报</a>
-							            </div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md4 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
-							            </div>
 								    </div>
 								    <div class="layui-form-item" style="margin-top:25px;">
 									    <div class="layui-calc-title">
@@ -214,19 +153,19 @@
 											<label class="layui-form-label"><b>WU0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="startTime" class="layui-input">
+											<input type="text" id="WU0" name="WU0" class="layui-input plan-var" value="${plan.WU0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>WL0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="WL0" name="WL0" class="layui-input plan-var" value="${plan.WL0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>WD0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="WD0" name="WD0" class="layui-input plan-var" value="${plan.WD0}">
 										</div>
 									</div>
 									<div class="layui-form-item">
@@ -234,85 +173,49 @@
 											<label class="layui-form-label"><b>S0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="startTime" class="layui-input">
+											<input type="text" id="S0" name="S0" class="layui-input plan-var" value="${plan.s0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>FR0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="FR0" name="FR0" class="layui-input plan-var" value="${plan.FR0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<label class="layui-form-label"><b>QRS0</b></label>
+											<label class="layui-form-label"><b>QRs0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="QRs0" name="QRs0" class="layui-input plan-var" value="${plan.QRs0}">
 										</div>
 									</div>
 									<div class="layui-form-item">
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<label class="layui-form-label"><b>QRSS0</b></label>
+											<label class="layui-form-label"><b>QRss0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="startTime" class="layui-input">
+											<input type="text" id="QRss0" name="QRss0" class="layui-input plan-var" value="${plan.QRss0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<label class="layui-form-label"><b>QRG0</b></label>
+											<label class="layui-form-label"><b>QRg0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" name="endTime" class="layui-input">
+											<input type="text" id="QRg0" name="QRg0" class="layui-input plan-var" value="${plan.QRg0}">
 										</div>
 									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
-								    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">导出预报单</a>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
+											<a class="layui-btn layui-btn-primary layui-btn-radius">重置</a>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
+											<a class="layui-btn layui-btn-primary layui-btn-radius">导出</a>
+										</div>
+							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
+							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存</a>
 							            </div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">&nbsp;&nbsp;保存入库&nbsp;&nbsp;</a>
-							            </div>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
+											<a class="layui-btn layui-btn-normal layui-btn-radius">预报</a>
+										</div>
 							        </div>
-									<!--div class="layui-form-item">
-								        <label class="layui-form-label">单选框</label>
-								        <div class="layui-input-block">
-								            <input type="radio" name="sex" value="男" title="男男男男男男男" checked="">
-								            <input type="radio" name="sex" value="女" title="女女女女女女女">
-								        </div>
-								    </div>
-								    <div class="layui-form-item">
-								        <label class="layui-form-label">请选择省</label>
-								        <div class="layui-input-inline">
-								            <select name="quiz1">
-								                <option value="">请选择省</option>
-								                <option value="浙江" selected="">浙江省</option>
-								                <option value="你的工号">江西省</option>
-								                <option value="你最喜欢的老师">福建省</option>
-								            </select>
-								        </div>
-								    </div>
-								    <div class="layui-form-item">
-								    	<label class="layui-form-label">请选择市</label>
-								        <div class="layui-input-inline">
-								            <select name="quiz2">
-								                <option value="">请选择市</option>
-								                <option value="杭州">杭州</option>
-								                <option value="宁波" disabled="">宁波</option>
-								                <option value="温州">温州</option>
-								                <option value="温州">台州</option>
-								                <option value="温州">绍兴</option>
-								            </select>
-								        </div>
-								   	</div>
-								   	<div class="layui-form-item">
-								   		<label class="layui-form-label">请选择县/区</label>
-								        <div class="layui-input-inline">
-								            <select name="quiz3">
-								                <option value="">请选择县/区</option>
-								                <option value="西湖区">西湖区</option>
-								                <option value="余杭区">余杭区</option>
-								                <option value="拱墅区">临安市</option>
-								            </select>
-								        </div>
-								    </div-->
 								</form>
 					            </div>
 					        </div>
@@ -321,19 +224,19 @@
 					    <div class="layui-col-xs12 layui-col-sm6 layui-col-md9">
 					        <div class="layui-collapse">
 					            <div class="layui-colla-item">
-						            <!-- div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
+						            <div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
 									    <div style="padding:10px;">
-											<a href="javascript:;">
-    											<span>asdsaa</span>
-    										</a>
-    										<a class="selected" href="javascript:;">
-    											<span>xcvxcv</span>
+											<a class="selected" href="javascript:;">
+    											<span>宁都</span>
     										</a>
     										<a href="javascript:;">
-    											<span>675675</span>
+    											<span>石城</span>
+    										</a>
+    										<a href="javascript:;">
+    											<span>汾坑</span>
     										</a>
 										</div>
-									</div -->
+									</div>
 									<div id="div-iframe">
 					             		<iframe id="iframe7" width="100%" frameborder="0" scrolling="no"></iframe>
 					             	</div>
@@ -397,14 +300,63 @@
             );
         });
         form.on('select(sType)');
-        
+
+        form.on('select(sName)', function (data) {
+            $("#plan").html('');
+            $.post(
+                "<c:url value="/cms/common/plan"></c:url>",
+                {
+                    stcd: data.value
+                },
+                function(data){
+                    var obj = $.parseJSON(data);
+                    var arr = obj.data;
+                    var html = '';
+                    for(var i=0;i<arr.length;i++){
+                        html += '<option value="'+arr[i].id+'">'+arr[i].name+'</option>';
+                    }
+                    $("#plan").html(html);
+                    layui.form.render('select');
+                }
+            );
+        });
+        form.on('select(sName)');
+
+        form.on('select(plan)', function (data) {
+            $(".plan-var").val('');
+            $.post(
+                "<c:url value="/cms/common/plan/detail"></c:url>",
+                {
+                    id: data.value
+                },
+                function(data){
+                    var obj = $.parseJSON(data);
+                    var data = obj.data;
+                    $("#SM").val(data.SM);
+                    $("#CI").val(data.CI);
+                    $("#CS").val(data.CS);
+                    $("#L").val(data.L);
+                    $("#KE").val(data.KE);
+                    $("#XE").val(data.XE);
+					$("#WU0").val(data.WU0);
+                    $("#WL0").val(data.WL0);
+                    $("#WD0").val(data.WD0);
+                    $("#S0").val(data.S0);
+                    $("#FR0").val(data.FR0);
+                    $("#QRs0").val(data.QRs0);
+                    $("#QRss0").val(data.QRss0);
+                    $("#QRg0").val(data.QRg0);
+                }
+            );
+        });
+        form.on('select(sName)');
 
         $(document).ready(function(){
         	var contentHeight = $(window).height() - 60 - 22;
            	var viewHeight = contentHeight;
            	$(".layui-colla-item").css("height", viewHeight);
-           	$("#div-iframe").css("height", viewHeight);
-           	//$("#div-iframe").css("height", viewHeight-59);
+           	// $("#div-iframe").css("height", viewHeight);
+           	$("#div-iframe").css("height", viewHeight-59);
         	
            	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
            	

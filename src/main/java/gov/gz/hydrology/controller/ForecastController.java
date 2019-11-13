@@ -45,6 +45,12 @@ public class ForecastController {
 		map.put("date", DateUtil.getDate());
 		List<Station> stationList = stationService.selectStationByType("基本站");
 		map.put("stationList", stationList);
+		List<Plan> planList = planService.selectPlan(CommonConst.STCD_STATION[0]);
+		map.put("planList", planList);
+		if( planList.size() > 0 ){
+			Plan plan = planService.selectById(planList.get(0).getId());
+			map.put("plan", plan);
+		}
 		return "CalcView";
 	}
 
