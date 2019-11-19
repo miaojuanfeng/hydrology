@@ -23,7 +23,7 @@
 	                    <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 					        <div class="layui-collapse">
 					            <div class="layui-colla-item" style="overflow-y:auto">
-					            <form class="layui-form" action="">
+					            <form id="form-forecast" class="layui-form">
 					            	<div class="layui-form-item">
 										<div class="layui-calc-title">
 										    <span>基本设置</span>
@@ -64,7 +64,7 @@
 						               		<label class="layui-form-label"><span>预报时间</span></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							                <input type="text" name="startTime" id="startTime" lay-verify="date" autocomplete="off" class="layui-input">
+							                <input type="text" name="forecastTime" id="forecastTime" lay-verify="date" autocomplete="off" class="layui-input">
 							            </div>
 							        </div>
 							        <div class="layui-form-item">
@@ -72,7 +72,7 @@
 							            	<label class="layui-form-label"><span>影响时间</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							            	<input type="text" name="endTime" id="endTime" lay-verify="date" autocomplete="off" class="layui-input">
+							            	<input type="text" name="affectTime" id="affectTime" lay-verify="date" autocomplete="off" class="layui-input">
 							            </div>
 								    </div>
 								    <div class="layui-form-item">
@@ -80,7 +80,7 @@
 							            	<label class="layui-form-label"><span>预报天数</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							            	<select name="quiz1">
+							            	<select name="day">
 								                <option value="3">3天</option>
 								                <option value="5">5天</option>
 								            </select>
@@ -91,10 +91,10 @@
 								        	<label class="layui-form-label"><span>预报雨量</span></label>
 								        </div>
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							            	<select name="quiz1">
-								                <option value="实测雨量">实测雨量</option>
-								                <option value="欧洲台">欧洲台</option>
-								                <option value="日本台">日本台</option>
+							            	<select name="rainfall">
+								                <option value="1">实测雨量</option>
+								                <option value="2">欧洲台</option>
+								                <option value="3">日本台</option>
 								            </select>
 								        </div>
 								    </div>
@@ -213,7 +213,7 @@
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存</a>
 							            </div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
-											<a class="layui-btn layui-btn-normal layui-btn-radius">预报</a>
+											<a id="forecast" class="layui-btn layui-btn-normal layui-btn-radius">预报</a>
 										</div>
 							        </div>
 								</form>
@@ -271,12 +271,12 @@
         
       	//日期
         laydate.render({
-            elem: '#startTime',
+            elem: '#forecastTime',
             type: 'datetime'
         });
-      //日期
+        //日期
         laydate.render({
-            elem: '#endTime',
+            elem: '#affectTime',
             type: 'datetime'
         });
 
@@ -361,6 +361,39 @@
            	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
            	
         	$(".layui-collapse").fadeIn();
+
+            $("#forecast").click(function () {
+                var ok = true;
+                var name  = "";
+                $("input").each(function () {
+                    if( $(this).attr("name") != "id" && $(this).val() == "" ){
+                        ok = false;
+                        name = $(this).attr("name");
+                    }
+                });
+                if( ok ) {
+                    var url = "<c:url value="/cms/forecast/plan/insert"></c:url>";
+                    $.ajax({
+                        type: "post",
+                        cache: false,
+                        async: false,
+                        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                        dataType: "json",
+                        url: url,
+                        data: $("#form-forecast").serialize(),
+                        success: function (data) {
+                            layer.msg("保存成功", {icon: 1}, function(){
+                                window.location.href="<c:url value="/cms/forecast/plan/${stcd}"></c:url>";
+                            });
+                        },
+                        error: function (xhr, ts, et) {
+                            layer.msg('保存失败', {icon: 2});
+                        }
+                    });
+                }else{
+                    layer.msg('请填妥相关信息', {icon: 2});
+                }
+            });
         });
     });
     
