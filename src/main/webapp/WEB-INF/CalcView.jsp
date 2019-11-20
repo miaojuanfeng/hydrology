@@ -101,6 +101,7 @@
 								    <div class="layui-form-item">
 										<div class="layui-calc-title">
 										    <span>参数调整</span>
+											<span style="float:right;margin-top:-4px;"><a id="reset-parameter" style="display:block;width:30px;height:30px;background: url(<c:url value="/assets/static/image/reset.png"></c:url>);background-size: cover;" title="重置"></a></span>
 										</div>
 									</div>
 									<div class="layui-form-item">
@@ -146,6 +147,7 @@
 								    <div class="layui-form-item" style="margin-top:25px;">
 									    <div class="layui-calc-title">
 										    <span>初始状态调整</span>
+											<span style="float:right;margin-top:-4px;"><a id="reset-status" style="display:block;width:30px;height:30px;background: url(<c:url value="/assets/static/image/reset.png"></c:url>);background-size: cover;" title="重置"></a></span>
 										</div>
 									</div>
 									<div class="layui-form-item">
@@ -203,18 +205,15 @@
 										</div>
 									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
-										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
-											<a class="layui-btn layui-btn-primary layui-btn-radius">重置</a>
-										</div>
-										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a class="layui-btn layui-btn-primary layui-btn-radius">导出</a>
 										</div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存</a>
-							            </div>
-										<div class="layui-col-xs12 layui-col-sm6 layui-col-md3 xaj-col-button">
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="forecast" class="layui-btn layui-btn-normal layui-btn-radius">预报</a>
 										</div>
+							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
+							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存</a>
+							            </div>
 							        </div>
 								</form>
 					            </div>
