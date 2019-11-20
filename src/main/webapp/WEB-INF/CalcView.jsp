@@ -109,19 +109,19 @@
 						               		<label class="layui-form-label"><b>SM</b></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" id="SM" name="SM" class="layui-input plan-var" value="${plan.SM}">
+							                <input type="number" id="SM" name="SM" class="layui-input plan-var reset-parameter" value="${plan.SM}" default="${plan.SM}">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							            	<label class="layui-form-label"><b>CI</b></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" id="CI" name="CI" class="layui-input plan-var" value="${plan.CI}">
+							                <input type="number" id="CI" name="CI" class="layui-input plan-var reset-parameter" value="${plan.CI}" default="${plan.CI}">
 							            </div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>CS</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="CS" name="CS" class="layui-input plan-var" value="${plan.CS}">
+											<input type="number" id="CS" name="CS" class="layui-input plan-var reset-parameter" value="${plan.CS}" default="${plan.CS}">
 										</div>
 								    </div>
 								    <div class="layui-form-item">
@@ -129,19 +129,19 @@
 						               		<label class="layui-form-label"><b>L</b></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" id="L" name="L" class="layui-input plan-var" value="${plan.l}">
+							                <input type="number" id="L" name="L" class="layui-input plan-var reset-parameter" value="${plan.l}" default="${plan.l}">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 							            	<label class="layui-form-label"><b>KE</b></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="text" id="KE" name="KE" class="layui-input plan-var" value="${plan.KE}">
+							                <input type="number" id="KE" name="KE" class="layui-input plan-var reset-parameter" value="${plan.KE}" default="${plan.KE}">
 							            </div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>XE</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="XE" name="XE" class="layui-input plan-var" value="${plan.XE}">
+											<input type="number" id="XE" name="XE" class="layui-input plan-var reset-parameter" value="${plan.XE}" default="${plan.XE}">
 										</div>
 								    </div>
 								    <div class="layui-form-item" style="margin-top:25px;">
@@ -155,19 +155,19 @@
 											<label class="layui-form-label"><b>WU0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="WU0" name="WU0" class="layui-input plan-var" value="${plan.WU0}">
+											<input type="number" id="WU0" name="WU0" class="layui-input plan-var reset-status" value="${plan.WU0}" default="${plan.WU0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>WL0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="WL0" name="WL0" class="layui-input plan-var" value="${plan.WL0}">
+											<input type="number" id="WL0" name="WL0" class="layui-input plan-var reset-status" value="${plan.WL0}" default="${plan.WL0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>WD0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="WD0" name="WD0" class="layui-input plan-var" value="${plan.WD0}">
+											<input type="number" id="WD0" name="WD0" class="layui-input plan-var reset-status" value="${plan.WD0}" default="${plan.WD0}">
 										</div>
 									</div>
 									<div class="layui-form-item">
@@ -175,19 +175,19 @@
 											<label class="layui-form-label"><b>S0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="S0" name="S0" class="layui-input plan-var" value="${plan.s0}">
+											<input type="number" id="S0" name="S0" class="layui-input plan-var reset-status" value="${plan.s0}" default="${plan.s0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>FR0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="FR0" name="FR0" class="layui-input plan-var" value="${plan.FR0}">
+											<input type="number" id="FR0" name="FR0" class="layui-input plan-var reset-status" value="${plan.FR0}" default="${plan.FR0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>QRs0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="QRs0" name="QRs0" class="layui-input plan-var" value="${plan.QRs0}">
+											<input type="number" id="QRs0" name="QRs0" class="layui-input plan-var reset-status" value="${plan.QRs0}" default="${plan.QRs0}">
 										</div>
 									</div>
 									<div class="layui-form-item">
@@ -195,24 +195,32 @@
 											<label class="layui-form-label"><b>QRss0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="QRss0" name="QRss0" class="layui-input plan-var" value="${plan.QRss0}">
+											<input type="number" id="QRss0" name="QRss0" class="layui-input plan-var reset-status" value="${plan.QRss0}" default="${plan.QRss0}">
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>QRg0</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="text" id="QRg0" name="QRg0" class="layui-input plan-var" value="${plan.QRg0}">
+											<input type="number" id="QRg0" name="QRg0" class="layui-input plan-var reset-status" value="${plan.QRg0}" default="${plan.QRg0}">
+										</div>
+									</div>
+									<div class="layui-form-item" style="margin-bottom:20px;">
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
+											<a id="forecast" class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
+											<a style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">&nbsp;&nbsp;预报&nbsp;&nbsp;</a>
+										</div>
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
+											<a class="layui-btn layui-btn-primary layui-btn-radius">下一步</a>
 										</div>
 									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
-										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a class="layui-btn layui-btn-primary layui-btn-radius">导出</a>
+										<div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
+											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
 										</div>
-										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a id="forecast" class="layui-btn layui-btn-normal layui-btn-radius">预报</a>
-										</div>
-							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存</a>
+							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
+							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>
 							            </div>
 							        </div>
 								</form>
@@ -331,20 +339,20 @@
                 function(data){
                     var obj = $.parseJSON(data);
                     var data = obj.data;
-                    $("#SM").val(data.SM);
-                    $("#CI").val(data.CI);
-                    $("#CS").val(data.CS);
-                    $("#L").val(data.L);
-                    $("#KE").val(data.KE);
-                    $("#XE").val(data.XE);
-					$("#WU0").val(data.WU0);
-                    $("#WL0").val(data.WL0);
-                    $("#WD0").val(data.WD0);
-                    $("#S0").val(data.S0);
-                    $("#FR0").val(data.FR0);
-                    $("#QRs0").val(data.QRs0);
-                    $("#QRss0").val(data.QRss0);
-                    $("#QRg0").val(data.QRg0);
+                    $("#SM").val(data.SM).attr("detail", data.SM);
+                    $("#CI").val(data.CI).attr("detail", data.CI);
+                    $("#CS").val(data.CS).attr("detail", data.CS);
+                    $("#L").val(data.L).attr("detail", data.L);
+                    $("#KE").val(data.KE).attr("detail", data.KE);
+                    $("#XE").val(data.XE).attr("detail", data.XE);
+					$("#WU0").val(data.WU0).attr("detail", data.WU0);
+                    $("#WL0").val(data.WL0).attr("detail", data.WL0);
+                    $("#WD0").val(data.WD0).attr("detail", data.WD0);
+                    $("#S0").val(data.S0).attr("detail", data.S0);
+                    $("#FR0").val(data.FR0).attr("detail", data.FR0);
+                    $("#QRs0").val(data.QRs0).attr("detail", data.QRs0);
+                    $("#QRss0").val(data.QRss0).attr("detail", data.QRss0);
+                    $("#QRg0").val(data.QRg0).attr("detail", data.QRg0);
                 }
             );
         });
@@ -360,6 +368,18 @@
            	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
            	
         	$(".layui-collapse").fadeIn();
+
+        	$('#reset-parameter').click(function () {
+				$('.reset-parameter').each(function () {
+                	$(this).val($(this).attr('default'));
+                });
+            });
+
+            $('#reset-status').click(function () {
+                $('.reset-status').each(function () {
+                    $(this).val($(this).attr('default'));
+                });
+            });
 
             $("#forecast").click(function () {
                 var ok = true;
