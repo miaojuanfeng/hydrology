@@ -206,10 +206,10 @@
 									</div>
 									<div class="layui-form-item" style="margin-bottom:20px;">
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a id="forecast" class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+											<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">&nbsp;&nbsp;预报&nbsp;&nbsp;</a>
+											<a id="forecast" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">&nbsp;&nbsp;预报&nbsp;&nbsp;</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a class="layui-btn layui-btn-primary layui-btn-radius">下一步</a>
@@ -382,36 +382,36 @@
             });
 
             $("#forecast").click(function () {
-                var ok = true;
-                var name  = "";
-                $("input").each(function () {
-                    if( $(this).attr("name") != "id" && $(this).val() == "" ){
-                        ok = false;
-                        name = $(this).attr("name");
-                    }
-                });
-                if( ok ) {
-                    var url = "<c:url value="/cms/forecast/plan/insert"></c:url>";
-                    $.ajax({
-                        type: "post",
-                        cache: false,
-                        async: false,
-                        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                        dataType: "json",
-                        url: url,
-                        data: $("#form-forecast").serialize(),
-                        success: function (data) {
-                            layer.msg("保存成功", {icon: 1}, function(){
-                                window.location.href="<c:url value="/cms/forecast/plan/${stcd}"></c:url>";
-                            });
-                        },
-                        error: function (xhr, ts, et) {
-                            layer.msg('保存失败', {icon: 2});
-                        }
-                    });
-                }else{
-                    layer.msg('请填妥相关信息', {icon: 2});
-                }
+                $('#iframe7').attr('src', '<c:url value="/cms/iframe/calc?id=1"></c:url>');
+
+                <%--var ok = true;--%>
+                <%--var name  = "";--%>
+                <%--$("input").each(function () {--%>
+                    <%--if( $(this).attr("name") != "id" && $(this).val() == "" ){--%>
+                        <%--ok = false;--%>
+                        <%--name = $(this).attr("name");--%>
+                    <%--}--%>
+                <%--});--%>
+                <%--if( ok ) {--%>
+                    <%--var url = "<c:url value="/cms/iframe/calc"></c:url>";--%>
+                    <%--$.ajax({--%>
+                        <%--type: "post",--%>
+                        <%--cache: false,--%>
+                        <%--async: false,--%>
+                        <%--contentType: "application/x-www-form-urlencoded;charset=utf-8",--%>
+                        <%--dataType: "json",--%>
+                        <%--url: url,--%>
+                        <%--data: $("#form-forecast").serialize(),--%>
+                        <%--success: function (data) {--%>
+                            <%--$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');--%>
+                        <%--},--%>
+                        <%--error: function (xhr, ts, et) {--%>
+                            <%--layer.msg('计算失败', {icon: 2});--%>
+                        <%--}--%>
+                    <%--});--%>
+                <%--}else{--%>
+                    <%--layer.msg('请填妥相关信息', {icon: 2});--%>
+                <%--}--%>
             });
         });
     });

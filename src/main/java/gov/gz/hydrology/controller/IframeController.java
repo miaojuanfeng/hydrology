@@ -1,9 +1,11 @@
 package gov.gz.hydrology.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
+import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
@@ -14,9 +16,7 @@ import gov.gz.hydrology.service.write.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -221,6 +221,22 @@ public class IframeController {
 		}
 		return "Iframe"+id;
 	}
+
+	@GetMapping("calc")
+	public String postCalc(Plan plan) {
+		JSONObject retval = new JSONObject();
+//        map.put("date", DateUtil.getDate());
+//        List<Station> stationList = stationService.selectStationByType("基本站");
+//        map.put("stationList", stationList);
+//        List<Plan> planList = planService.selectPlan(CommonConst.STCD_STATION[0]);
+//        map.put("planList", planList);
+//        if( planList.size() > 0 ){
+//            Plan plan = planService.selectById(planList.get(0).getId());
+//            map.put("plan", plan);
+//        }
+		return "Iframe7";
+	}
+
 
 //	private BigDecimal getMaxValue(BigDecimal maxValue){
 //		switch ( maxValue.subtract(new BigDecimal(maxValue.intValue())).compareTo(new BigDecimal(0.5)) ){
