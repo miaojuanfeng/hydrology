@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Plan;
 
 public class StepOneUtil {
+
+	private static Plan plan;
 	
 	/**
 	 * R 时刻产流量
@@ -19,10 +22,11 @@ public class StepOneUtil {
 
 	public static BigDecimal Wup;
 	
-	static {
+	public static void init(Plan plan) {
+		plan = plan;
 		R = NumberConst.ZERO;
 		Rd = NumberConst.ZERO;
-		Wup = NumberConfig.WU0.add(NumberConfig.WL0).add(NumberConfig.WD0);
+		Wup = plan.getWU0().add(plan.getWL0()).add(plan.getWD0());
 	}
 	
 	/**
@@ -31,7 +35,7 @@ public class StepOneUtil {
 	 */
 	public static BigDecimal getW0() {
 		// W0 = WU0 + WL0 + WD0
-		return NumberConfig.WU0.add(NumberConfig.WL0).add(NumberConfig.WD0);
+		return plan.getWU0().add(plan.getWL0()).add(plan.getWD0());
 	}
 	
 	/**
@@ -40,7 +44,7 @@ public class StepOneUtil {
 	 */
 	public static BigDecimal getWm() {
 		// Wm = WUM + WLM + WDM
-		return NumberConfig.WUM.add(NumberConfig.WLM).add(NumberConfig.WDM);
+		return plan.getWUM().add(plan.getWLM()).add(plan.getWDM());
 	}
 	
 	/**
@@ -49,7 +53,7 @@ public class StepOneUtil {
 	 */
 	public static BigDecimal getWmm() {
 		// Wmm = Wm*(1+B)
-		return getWm().multiply(NumberConst.ONE.add(NumberConfig.B));
+		return getWm().multiply(NumberConst.ONE.add(plan.getB()));
 	}
 	
 	/**
@@ -58,7 +62,7 @@ public class StepOneUtil {
 	public static BigDecimal getA() {
 		// A = Wmm*[1-(1-Wup/Wm)^(1/(B+1))]
 		BigDecimal base = NumberConst.ONE.subtract(Wup.divide(getWm(), NumberConst.DIGIT, NumberConst.MODE));
-		BigDecimal power = NumberConst.ONE.divide(NumberConfig.B.add(NumberConst.ONE), NumberConst.DIGIT, NumberConst.MODE);
+		BigDecimal power = NumberConst.ONE.divide(plan.getB().add(NumberConst.ONE), NumberConst.DIGIT, NumberConst.MODE);
 		return getWmm().multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
 	}
 	
@@ -80,7 +84,7 @@ public class StepOneUtil {
 			// PE+A<Wmm
 			if( temp_PE_A.compareTo(temp_Wmm) == -1 ) {
 				BigDecimal base = NumberConst.ONE.subtract(temp_PE_A.divide(temp_Wmm, NumberConst.DIGIT, NumberConst.MODE));
-				BigDecimal power = NumberConst.ONE.add(NumberConfig.B);
+				BigDecimal power = NumberConst.ONE.add(plan.getB());
 				R = PE.add(Wup).subtract(getWm()).add(getWm().multiply(NumberUtil.pow(base, power)));
 			// PE+A>=Wmm
 			}else {

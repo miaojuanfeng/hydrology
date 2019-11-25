@@ -4,8 +4,15 @@ import java.math.BigDecimal;
 
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Plan;
 
 public class StepCommonUtil {
+
+	private static Plan plan;
+
+	public static void init(Plan plan){
+		plan = plan;
+	}
 	
 	/**
 	 * P 时刻雨量，从数据库中读取
@@ -35,7 +42,7 @@ public class StepCommonUtil {
 	 */
 	public static BigDecimal getEk() {
 		// Ek = K * E
-		return NumberConfig.K.multiply(getE());
+		return plan.getK().multiply(getE());
 	}
 	
 	/**

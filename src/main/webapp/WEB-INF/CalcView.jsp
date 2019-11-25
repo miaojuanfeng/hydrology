@@ -52,7 +52,7 @@
 							            	<label class="layui-form-label"><span>预报方案</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							            	<select id="plan" name="plan" lay-filter="plan">
+							            	<select id="plan" name="id" lay-filter="plan">
 												<c:forEach items="${planList}" var="plan" varStatus="id">
 													<option value="${plan.id}">${plan.name}</option>
 												</c:forEach>
@@ -382,7 +382,8 @@
             });
 
             $("#forecast").click(function () {
-                $('#iframe7').attr('src', '<c:url value="/cms/iframe/calc?id=1"></c:url>');
+                var url = "<c:url value="/cms/iframe/calc?"></c:url>" + $("#form-forecast").serialize();
+                $('#iframe7').attr('src', url);
 
                 <%--var ok = true;--%>
                 <%--var name  = "";--%>

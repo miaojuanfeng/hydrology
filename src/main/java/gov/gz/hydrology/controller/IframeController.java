@@ -2,6 +2,7 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
+import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
@@ -9,10 +10,8 @@ import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
-import gov.gz.hydrology.service.write.CacheRainfallDailyService;
-import gov.gz.hydrology.service.write.CacheRainfallTotalService;
-import gov.gz.hydrology.service.write.CacheRiverTimeService;
-import gov.gz.hydrology.service.write.StationService;
+import gov.gz.hydrology.service.write.*;
+import gov.gz.hydrology.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,6 +36,9 @@ public class IframeController {
 
 	@Autowired
 	private RiverService riverService;
+
+	@Autowired
+    private PlanService planService;
 
 	@Autowired
 	private CacheRiverTimeService cacheRiverTimeService;
@@ -223,7 +225,7 @@ public class IframeController {
 	}
 
 	@GetMapping("calc")
-	public String postCalc(Plan plan) {
+	public String postCalc(Plan p) {
 		JSONObject retval = new JSONObject();
 //        map.put("date", DateUtil.getDate());
 //        List<Station> stationList = stationService.selectStationByType("基本站");
@@ -234,8 +236,86 @@ public class IframeController {
 //            Plan plan = planService.selectById(planList.get(0).getId());
 //            map.put("plan", plan);
 //        }
+        Plan plan = planService.selectById(p.getId());
+        if( plan != null ){
+            plan.setSM(p.getSM());
+            plan.setCI(p.getCI());
+            plan.setCS(p.getCS());
+            plan.setL(p.getL());
+            plan.setKE(p.getKE());
+            plan.setXE(p.getXE());
+
+            plan.setWU0(p.getWU0());
+            plan.setWL0(p.getWL0());
+            plan.setWD0(p.getWD0());
+            plan.setS0(p.getS0());
+            plan.setFR0(p.getFR0());
+            plan.setQRs0(p.getQRs0());
+            plan.setQRss0(p.getQRss0());
+            plan.setQRg0(p.getQRg0());
+
+            doCalc(plan);
+        }
 		return "Iframe7";
 	}
+
+	private void doCalc(Plan plan){
+	    StepCommonUtil.init(plan);
+	    StepOneUtil.init(plan);
+	    StepTwoUtil.init(plan);
+	    StepThreeUtil.init(plan);
+	    StepFourUtil.init(plan);
+	    StepFiveUtil.init(plan);
+
+	    List<BigDecimal> QTR_List = new ArrayList<>();
+        Integer len = NumberConfig.testP.size();
+        if( NumberUtil.gt(new BigDecimal(plan.getL()), plan.getKE()) ){
+            len += plan.getL();
+        }else{
+            len += plan.getKE().intValue();
+        }
+        for (int i = 0; i<len; i++){
+            QTR_List.add(new BigDecimal(0));
+        }
+        BigDecimal initQTR = null;
+        BigDecimal lastQTR = NumberConst.ZERO;
+        for (int i=0; i<NumberConfig.testP.size();i++) {
+            NumberConfig.indexP = i;
+
+
+            StepOneUtil.getResult();
+//            System.out.println(StepTwoUtil.getEKx());
+//            System.out.println(StepTwoUtil.getEKy());
+//            System.out.println(StepTwoUtil.getEKz());
+//            System.out.println("------");
+//            System.out.println(StepTwoUtil.getWUx2());
+//            System.out.println(StepTwoUtil.getWLx2());
+//            System.out.println(StepTwoUtil.getWDx2());
+            StepTwoUtil.getResult();
+            StepThreeUtil.getResult();
+            StepFourUtil.getResult();
+
+            if( initQTR == null ){
+                initQTR = StepFourUtil.QTR;
+            }
+            if( i<plan.getL() ){
+                QTR_List.set(i, initQTR);
+            }
+            QTR_List.set(plan.getL() + i, StepFourUtil.QTR);
+            lastQTR = StepFourUtil.QTR;
+            System.out.println("======================"+(i+1)+"======================");
+        }
+        for(int i=0;i<QTR_List.size();i++){
+            if( QTR_List.get(i).intValue() == 0 ){
+                QTR_List.set(i, lastQTR);
+            }
+        }
+        StepFiveUtil.getQt(QTR_List);
+
+        //System.out.println(StepTwoUtil.getWUx1());
+        //System.out.println(StepTwoUtil.getWLx1());
+        //System.out.println(StepTwoUtil.getWDx1());
+    }
 
 
 //	private BigDecimal getMaxValue(BigDecimal maxValue){

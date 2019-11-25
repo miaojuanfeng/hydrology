@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Plan;
 
 public class StepTwoUtil {
+
+	private static Plan plan;
 	
 	/**
 	 * 上层蓄水量最终结果
@@ -44,13 +47,14 @@ public class StepTwoUtil {
 	public static BigDecimal EL;
 	public static BigDecimal ED;
 	
-	static {
+	public static void init(Plan plan) {
+		plan = plan;
 		WU = NumberConst.ZERO;
 		WL = NumberConst.ZERO;
 		WD = NumberConst.ZERO;
-		WUup = NumberConfig.WU0;
-		WLup = NumberConfig.WL0;
-		WDup = NumberConfig.WD0;
+		WUup = plan.getWU0();
+		WLup = plan.getWL0();
+		WDup = plan.getWD0();
 
 		W = NumberConst.ZERO;
 		ES = NumberConst.ZERO;
@@ -82,17 +86,17 @@ public class StepTwoUtil {
 			// WUx = WUup + PEx
 			BigDecimal WUx = WUup.add(getPEx());
 			// WUx > WUM
-			if( NumberUtil.gt(WUx, NumberConfig.WUM) ) {
+			if( NumberUtil.gt(WUx, plan.getWUM()) ) {
 				// WU = WUM
-				WU = NumberConfig.WUM;
+				WU = plan.getWUM();
 				BigDecimal WLx = getWLx1();
 				// WLx > WLM
-				if( NumberUtil.gt(WLx, NumberConfig.WLM) ) {
-					WL = NumberConfig.WLM;
+				if( NumberUtil.gt(WLx, plan.getWLM()) ) {
+					WL = plan.getWLM();
 					BigDecimal WDx = getWDx1();
 					// WDx > WDM
-					if( NumberUtil.gt(WDx, NumberConfig.WDM) ) {
-						WD = NumberConfig.WDM;
+					if( NumberUtil.gt(WDx, plan.getWDM()) ) {
+						WD = plan.getWDM();
 					// WDx <= WDM
 					}else {
 						WD = WDx;
@@ -159,13 +163,13 @@ public class StepTwoUtil {
 
 				EU = WUup.add(NumberConfig.getTextP());
 				WU = NumberConst.ZERO;
-				if (NumberUtil.gt(WLup, NumberConfig.C.multiply(NumberConfig.WLM))) {
-					EL = (StepCommonUtil.getEk().subtract(EU)).multiply(WLup).divide(NumberConfig.WLM, NumberConst.DIGIT, NumberConst.MODE);
+				if (NumberUtil.gt(WLup, plan.getC().multiply(plan.getWLM()))) {
+					EL = (StepCommonUtil.getEk().subtract(EU)).multiply(WLup).divide(plan.getWLM(), NumberConst.DIGIT, NumberConst.MODE);
 					WL = WLup.subtract(EL);
 					ED = NumberConst.ZERO;
 					WD = WDup.subtract(ED);
 				}else{
-					BigDecimal temp = (StepCommonUtil.getEk().subtract(EU)).multiply(NumberConfig.C);
+					BigDecimal temp = (StepCommonUtil.getEk().subtract(EU)).multiply(plan.getC());
 					if( NumberUtil.gt(WLup, temp) ){
 						EL = temp;
 						WL = WLup.subtract(EL);
@@ -182,14 +186,14 @@ public class StepTwoUtil {
 
 			}
 		}
-		if( NumberUtil.gt(WU, NumberConfig.WUM) ){
-			WU = NumberConfig.WUM;
+		if( NumberUtil.gt(WU, plan.getWUM()) ){
+			WU = plan.getWUM();
 		}
-		if( NumberUtil.gt(WL, NumberConfig.WLM) ){
-			WL = NumberConfig.WLM;
+		if( NumberUtil.gt(WL, plan.getWLM()) ){
+			WL = plan.getWLM();
 		}
-		if( NumberUtil.gt(WD, NumberConfig.WDM) ){
-			WD = NumberConfig.WDM;
+		if( NumberUtil.gt(WD, plan.getWDM()) ){
+			WD = plan.getWDM();
 		}
 		WUup = WU;
 		WLup = WL;
@@ -257,7 +261,7 @@ public class StepTwoUtil {
 	 */
 	public static BigDecimal getPEy() {
 		// PEy = WUx - WUM
-		return getWUx1().subtract(NumberConfig.WUM);
+		return getWUx1().subtract(plan.getWUM());
 	}
 	
 	/**
@@ -266,7 +270,7 @@ public class StepTwoUtil {
 	 */
 	public static BigDecimal getPEz() {
 		// PEz = WLx - WLM
-		return getWLx1().subtract(NumberConfig.WLM);
+		return getWLx1().subtract(plan.getWLM());
 	}
 	
 	///////////////////下分支代码//////////////////////////
@@ -286,7 +290,7 @@ public class StepTwoUtil {
 	 */
 	public static BigDecimal getWLx2() {
 		// WLx = WLup + WLup/WLM*EKy
-		return WLup.add(WLup.divide(NumberConfig.WLM, NumberConst.DIGIT, NumberConst.MODE).multiply(getEKy()));
+		return WLup.add(WLup.divide(plan.getWLM(), NumberConst.DIGIT, NumberConst.MODE).multiply(getEKy()));
 	}
 	
 	/**
@@ -295,7 +299,7 @@ public class StepTwoUtil {
 	 */
 	public static BigDecimal getWDx2() {
 		// WDx = WDup + C * EKz
-		return WDup.add(NumberConfig.C.multiply(getEKz()));
+		return WDup.add(plan.getC().multiply(getEKz()));
 	}
 	
 	/**

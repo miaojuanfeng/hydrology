@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Plan;
 
 public class StepFourUtil {
+
+	private static Plan plan;
 	
 	/**
 	 * Qe 单元流域流量
@@ -20,11 +23,12 @@ public class StepFourUtil {
 	
 	public static BigDecimal QRgup;
 	
-	static {
+	public static void init(Plan plan) {
+		plan = plan;
 		QTR = NumberConst.ZERO;
-		QRSup = NumberConfig.QRs0;
-		QRssup = NumberConfig.QRss0;
-		QRgup = NumberConfig.QRg0;
+		QRSup = plan.getQRs0();
+		QRssup = plan.getQRss0();
+		QRgup = plan.getQRg0();
 		QTRup = QRSup.add(QRssup).add(QRgup);
 	}
 	
@@ -34,7 +38,7 @@ public class StepFourUtil {
 	 */
 	public static BigDecimal getFt() {
 		// Ft=F*(1-IMP)
-		return NumberConfig.F.multiply(NumberConst.ONE.subtract(NumberConfig.IM));
+		return plan.getF().multiply(NumberConst.ONE.subtract(plan.getIM()));
 	}
 	
 	/**
@@ -48,7 +52,7 @@ public class StepFourUtil {
 //		BigDecimal c = a.multiply(b);
 //		BigDecimal d = StepOneUtil.Rd.multiply(NumberConfig.F).multiply(NumberConfig.IM);
 //		BigDecimal e = StepOneUtil.Rd;
-		return (StepThreeUtil.RS.multiply(getFt()).add(StepOneUtil.Rd.multiply(NumberConfig.F).multiply(NumberConfig.IM))).divide(NumberConfig.T.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE);
+		return (StepThreeUtil.RS.multiply(getFt()).add(StepOneUtil.Rd.multiply(plan.getF()).multiply(plan.getIM()))).divide(plan.getT().multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE);
 	}
 	
 	/**
@@ -57,7 +61,7 @@ public class StepFourUtil {
 	 */
 	public static BigDecimal getQRss() {
 		// QRss=CI*Qssup+(1-CI)*Rss*F/(3.6*Dt)
-		return NumberConfig.CI.multiply(QRssup).add(NumberConst.ONE.subtract(NumberConfig.CI).multiply(StepThreeUtil.RSS).multiply(NumberConfig.F).divide(NumberConfig.T.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
+		return plan.getCI().multiply(QRssup).add(NumberConst.ONE.subtract(plan.getCI()).multiply(StepThreeUtil.RSS).multiply(plan.getF()).divide(plan.getT().multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
 	}
 	
 	/**
@@ -66,7 +70,7 @@ public class StepFourUtil {
 	 */
 	public static BigDecimal getQRg() {
 		// Qg=Cg*Qgup+(1-Cg)*Rg*F/(3.6*Dt)
-		return NumberConfig.CG.multiply(QRgup).add(NumberConst.ONE.subtract(NumberConfig.CG).multiply(StepThreeUtil.RG).multiply(NumberConfig.F).divide(NumberConfig.T.multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
+		return plan.getCG().multiply(QRgup).add(NumberConst.ONE.subtract(plan.getCG()).multiply(StepThreeUtil.RG).multiply(plan.getF()).divide(plan.getT().multiply(new BigDecimal("3.6")), NumberConst.DIGIT, NumberConst.MODE));
 	}
 	
 	public static void getResult() {
@@ -75,7 +79,7 @@ public class StepFourUtil {
 		BigDecimal QRss = getQRss();
 		BigDecimal QRg = getQRg();
 		QTR = QRs.add(QRss).add(QRg);
-		QTR = QTRup.multiply(NumberConfig.CS).add(QTR.multiply(NumberConst.ONE.subtract(NumberConfig.CS)));
+		QTR = QTRup.multiply(plan.getCS()).add(QTR.multiply(NumberConst.ONE.subtract(plan.getCS())));
 		QTRup = QTR;
 		QRSup = QRs;
 		QRssup = QRss;
