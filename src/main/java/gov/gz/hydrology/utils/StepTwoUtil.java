@@ -47,8 +47,8 @@ public class StepTwoUtil {
 	public static BigDecimal EL;
 	public static BigDecimal ED;
 	
-	public static void init(Plan plan) {
-		plan = plan;
+	public static void init(Plan p) {
+		plan = p;
 		WU = NumberConst.ZERO;
 		WL = NumberConst.ZERO;
 		WD = NumberConst.ZERO;

@@ -22,8 +22,8 @@ public class StepOneUtil {
 
 	public static BigDecimal Wup;
 	
-	public static void init(Plan plan) {
-		plan = plan;
+	public static void init(Plan p) {
+		plan = p;
 		R = NumberConst.ZERO;
 		Rd = NumberConst.ZERO;
 		Wup = plan.getWU0().add(plan.getWL0()).add(plan.getWD0());

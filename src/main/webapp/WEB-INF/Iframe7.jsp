@@ -130,8 +130,10 @@
    	            },
    	           
    	            data:[
-   	                0.81,0.81,2.81,5.42,1.42,1.42,1.42,8.42,12.42,12.42,12.42,27.42,36.43,56.43,120.43,120.43,120.43,96.43,30.44,0.44,0.44,0.44
-   	            ],
+                    <c:forEach items="${forcastArr}" var="forcast" varStatus="id">
+                    '${forcast}',
+                    </c:forEach>
+                ],
    	            markLine: {
    	               itemStyle: {
    	                   normal: { lineStyle: { color:'#CD2626' },

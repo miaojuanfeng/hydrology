@@ -19,8 +19,8 @@ public class StepFiveUtil {
 
 	private static List<BigDecimal> QT_List = new ArrayList<>();
 
-	public static void init(Plan plan) {
-		plan = plan;
+	public static void init(Plan p) {
+		plan = p;
 		DT = plan.getKE();
 	}
 
@@ -61,7 +61,8 @@ public class StepFiveUtil {
 	 * Qt 预报站（断面）流量
 	 * @return
 	 */
-	public static void getQt(List<BigDecimal> QTR_List) {
+	public static List<BigDecimal> getQt(List<BigDecimal> QTR_List) {
+		QT_List.clear();
 		// Qt=C0*Qe+C1*Qeup+C2*Qeup
 
 //		for (int i=0; i<QTR_List; i++){
@@ -91,7 +92,6 @@ public class StepFiveUtil {
 				QT_List.add(QT);
 			}
 		}
-int a = QT_List.size();
-		System.out.println(QT_List.size());
+		return QT_List;
 	}
 }

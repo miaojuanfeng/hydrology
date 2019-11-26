@@ -279,12 +279,14 @@
       	//日期
         laydate.render({
             elem: '#forecastTime',
-            type: 'datetime'
+            type: 'datetime',
+			format: 'yyyy-MM-dd HH:00:00'
         });
         //日期
         laydate.render({
             elem: '#affectTime',
-            type: 'datetime'
+            type: 'datetime',
+            format: 'yyyy-MM-dd HH:00:00'
         });
 
         form.on('select(sType)', function (data) {
@@ -382,8 +384,18 @@
             });
 
             $("#forecast").click(function () {
-                var url = "<c:url value="/cms/iframe/calc?"></c:url>" + $("#form-forecast").serialize();
-                $('#iframe7').attr('src', url);
+                var ok = true;
+                $("input").each(function () {
+                    if( $(this).val() == "" ){
+                        ok = false;
+                    }
+                });
+                if( ok ) {
+					var url = "<c:url value="/cms/iframe/calc?"></c:url>" + $("#form-forecast").serialize();
+					$('#iframe7').attr('src', url);
+                }else{
+                    layer.msg('请填妥相关信息', {icon: 2});
+                }
 
                 <%--var ok = true;--%>
                 <%--var name  = "";--%>

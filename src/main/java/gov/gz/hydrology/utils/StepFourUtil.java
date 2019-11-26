@@ -23,8 +23,8 @@ public class StepFourUtil {
 	
 	public static BigDecimal QRgup;
 	
-	public static void init(Plan plan) {
-		plan = plan;
+	public static void init(Plan p) {
+		plan = p;
 		QTR = NumberConst.ZERO;
 		QRSup = plan.getQRs0();
 		QRssup = plan.getQRss0();
@@ -79,7 +79,7 @@ public class StepFourUtil {
 		BigDecimal QRss = getQRss();
 		BigDecimal QRg = getQRg();
 		QTR = QRs.add(QRss).add(QRg);
-		QTR = QTRup.multiply(plan.getCS()).add(QTR.multiply(NumberConst.ONE.subtract(plan.getCS())));
+		QTR = QTRup.multiply(plan.getCS()).add(QTR.multiply(NumberConst.ONE.subtract(plan.getCS()))).setScale(2, NumberConst.MODE);
 		QTRup = QTR;
 		QRSup = QRs;
 		QRssup = QRss;

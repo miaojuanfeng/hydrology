@@ -8,4 +8,5 @@ import java.util.List;
 public interface RainfallService {
 	List<Rainfall> selectRainfallTotal(List<String> list);
 	List<Rainfall> selectRainfallDaily(List<String> list);
+	List<Rainfall> selectRainfallRange(List<String> list);
 }

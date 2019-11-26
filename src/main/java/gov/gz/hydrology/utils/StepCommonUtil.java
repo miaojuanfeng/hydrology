@@ -10,8 +10,8 @@ public class StepCommonUtil {
 
 	private static Plan plan;
 
-	public static void init(Plan plan){
-		plan = plan;
+	public static void init(Plan p){
+		plan = p;
 	}
 	
 	/**

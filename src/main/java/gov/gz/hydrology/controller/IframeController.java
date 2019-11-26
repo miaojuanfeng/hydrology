@@ -220,12 +220,19 @@ public class IframeController {
 			map.put("min", min);
 			map.put("jbLine", station.getJbLine());
 			map.put("jjLine", station.getJjLine());
-		}
+		}else if( id == 7 ){
+            List<BigDecimal> forcastArr = new ArrayList<>();
+            forcastArr.add(new BigDecimal("0.1"));
+            forcastArr.add(new BigDecimal("0.2"));
+            forcastArr.add(new BigDecimal("0.3"));
+            forcastArr.add(new BigDecimal("0.4"));
+            map.put("forcastArr", forcastArr);
+        }
 		return "Iframe"+id;
 	}
 
 	@GetMapping("calc")
-	public String postCalc(Plan p) {
+	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, String day) {
 		JSONObject retval = new JSONObject();
 //        map.put("date", DateUtil.getDate());
 //        List<Station> stationList = stationService.selectStationByType("基本站");
@@ -254,12 +261,17 @@ public class IframeController {
             plan.setQRss0(p.getQRss0());
             plan.setQRg0(p.getQRg0());
 
-            doCalc(plan);
+            List<BigDecimal> forcastArr = doCalc(plan, false);
+            forcastArr.add(new BigDecimal("0.1"));
+            forcastArr.add(new BigDecimal("0.2"));
+            forcastArr.add(new BigDecimal("0.3"));
+            forcastArr.add(new BigDecimal("0.4"));
+            map.put("forcastArr", forcastArr);
         }
 		return "Iframe7";
 	}
 
-	private void doCalc(Plan plan){
+	private List<BigDecimal> doCalc(Plan plan, boolean needQt){
 	    StepCommonUtil.init(plan);
 	    StepOneUtil.init(plan);
 	    StepTwoUtil.init(plan);
@@ -310,7 +322,10 @@ public class IframeController {
                 QTR_List.set(i, lastQTR);
             }
         }
-        StepFiveUtil.getQt(QTR_List);
+        if( !needQt ){
+            return QTR_List;
+        }
+        return StepFiveUtil.getQt(QTR_List);
 
         //System.out.println(StepTwoUtil.getWUx1());
         //System.out.println(StepTwoUtil.getWLx1());

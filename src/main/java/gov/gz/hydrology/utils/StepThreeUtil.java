@@ -37,8 +37,8 @@ public class StepThreeUtil {
 	public static BigDecimal Sup;
 	public static BigDecimal FRup;
 	
-	public static void init(Plan plan) {
-		plan = plan;
+	public static void init(Plan p) {
+		plan = p;
 		RS = NumberConst.ZERO;
 		RSS = NumberConst.ZERO;
 		RG = NumberConst.ZERO;
