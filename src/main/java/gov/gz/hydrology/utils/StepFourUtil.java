@@ -79,7 +79,7 @@ public class StepFourUtil {
 		BigDecimal QRss = getQRss();
 		BigDecimal QRg = getQRg();
 		QTR = QRs.add(QRss).add(QRg);
-		QTR = QTRup.multiply(plan.getCS()).add(QTR.multiply(NumberConst.ONE.subtract(plan.getCS()))).setScale(2, NumberConst.MODE);
+		QTR = QTRup.multiply(plan.getCS()).add(QTR.multiply(NumberConst.ONE.subtract(plan.getCS())));
 		QTRup = QTR;
 		QRSup = QRs;
 		QRssup = QRss;

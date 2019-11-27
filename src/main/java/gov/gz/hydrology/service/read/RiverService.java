@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RiverService {
 	List<River> selectRiverTime(String stcd);
+	List<River> selectRiverRange(String stcd);
 }

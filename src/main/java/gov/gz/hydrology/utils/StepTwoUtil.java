@@ -161,7 +161,7 @@ public class StepTwoUtil {
 				}
 
 
-				EU = WUup.add(NumberConfig.getTextP());
+				EU = WUup.add(StepCommonUtil.getP());
 				WU = NumberConst.ZERO;
 				if (NumberUtil.gt(WLup, plan.getC().multiply(plan.getWLM()))) {
 					EL = (StepCommonUtil.getEk().subtract(EU)).multiply(WLup).divide(plan.getWLM(), NumberConst.DIGIT, NumberConst.MODE);
@@ -335,6 +335,6 @@ public class StepTwoUtil {
 	 */
 	public static BigDecimal getEU(){
 		// EU = WUup + P
-		return WUup.add(NumberConfig.getTextP());
+		return WUup.add(StepCommonUtil.getP());
 	}
 }

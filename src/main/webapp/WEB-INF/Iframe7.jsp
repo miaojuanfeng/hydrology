@@ -70,12 +70,12 @@
    	        {
    	            name: '预报水位(m)',
    	            type: 'value',
-   	            max: 500
+   	            max: ${riverMax}
    	        },
    	        {
    	            name: '降雨量(mm)',
    	            nameLocation: 'start',
-   	            max: 5,
+   	            max: ${rainfallMax},
    	            type: 'value',
    	            inverse: true
    	        }
@@ -84,8 +84,7 @@
    	        {
    	            name:'实测水位',
    	            type:'line',
-   	            animation: false,
-   	           
+   	            animation: true,
    	             smooth: true,
    	        itemStyle:{
    	                                    normal:{
@@ -104,14 +103,15 @@
    	            },
    	           
    	            data:[
-   	                0.41,0.41,2.41,4.42,0.42,0.42,0.42,5.42,10.42,10.42,10.42,22.42,30.43,50.43,100.43,100.43
-   	            ]
+                    <c:forEach items="${riverArr}" var="river" varStatus="id">
+                    '${river}',
+                    </c:forEach>
+                ]
    	        },
    	        {
    	            name:'预报水位',
    	            type:'line',
-   	            animation: false,
-   	           
+   	            animation: true,
    	             smooth: true,
    	        itemStyle:{
    	                                    normal:{
@@ -168,13 +168,15 @@
    	                                },
    	               barWidth: '40%',
    	            yAxisIndex:1,
-   	            animation: false,
+   	            animation: true,
    	           
    	           
    	           
    	            data: [
-   	                0.571,0.814,1.153,0.774,0.202,0.086,0.075,0.071,0.032,0.019,0.003,0.004,0.004,0.004,0.004,0.004,0.004,0.007,0.072,0.153,0.256,0.306
-   	            ]
+                    <c:forEach items="${rainfallArr}" var="rainfall" varStatus="id">
+                    '${rainfall}',
+                    </c:forEach>
+                ]
    	        }
    	    ]
    	};

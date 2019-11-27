@@ -21,4 +21,9 @@ public class RiverServiceImpl implements RiverService {
     public List<River> selectRiverTime(String stcd) {
         return riverDao.selectRiverTime(stcd);
     }
+
+    @Override
+    public List<River> selectRiverRange(String stcd) {
+        return riverDao.selectRiverRange(stcd);
+    }
 }

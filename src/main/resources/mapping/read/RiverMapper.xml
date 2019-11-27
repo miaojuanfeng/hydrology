@@ -16,4 +16,13 @@
         and datediff(dd,tm,'2018-06-18')>=0
         order by tm asc
     </select>
+
+    <select id="selectRiverRange" resultMap="BaseResultMap">
+        select z
+        from ST_RIVER_R
+        <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
+        where stcd = #{stcd}
+        and tm >= '2018-06-20 08:00:00' and '2018-06-21 08:00:00' >= tm
+        order by tm asc
+    </select>
 </mapper>

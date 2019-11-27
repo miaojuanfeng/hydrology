@@ -10,6 +10,8 @@ public class StepCommonUtil {
 
 	private static Plan plan;
 
+	private static BigDecimal P;
+
 	public static void init(Plan p){
 		plan = p;
 	}
@@ -18,9 +20,13 @@ public class StepCommonUtil {
 	 * P 时刻雨量，从数据库中读取
 	 * @return
 	 */
-	private static BigDecimal getP() {
+	public static BigDecimal getP() {
 //		return new BigDecimal("0.01");
-		return NumberConfig.getTextP();
+		return P;
+	}
+
+	public static void setP(BigDecimal p){
+		P = p;
 	}
 
 	/**

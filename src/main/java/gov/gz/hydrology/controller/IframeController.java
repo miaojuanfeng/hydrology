@@ -261,17 +261,51 @@ public class IframeController {
             plan.setQRss0(p.getQRss0());
             plan.setQRg0(p.getQRg0());
 
-            List<BigDecimal> forcastArr = doCalc(plan, false);
-            forcastArr.add(new BigDecimal("0.1"));
-            forcastArr.add(new BigDecimal("0.2"));
-            forcastArr.add(new BigDecimal("0.3"));
-            forcastArr.add(new BigDecimal("0.4"));
+            List<Map> stations = stationService.selectChildStationByStcd(plan.getStcd());
+            List<String> stcdId = new ArrayList<>();
+            for (int i = 0; i < stations.size(); i++) {
+                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
+            }
+            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId);
+            List<BigDecimal> rainfallArr = new ArrayList<>();
+            BigDecimal rainfallMax = NumberConst.ZERO;
+            for (int i = 0; i < rainfalls.size(); i++) {
+                BigDecimal r = rainfalls.get(i).getRainfall().setScale(2, NumberConst.MODE);
+                rainfallArr.add(r);
+                if( NumberUtil.gt(r, rainfallMax) ){
+                    rainfallMax = r;
+                }
+            }
+            map.put("rainfallMax", rainfallMax.multiply(new BigDecimal(2)).intValue()+1);
+            map.put("rainfallArr", rainfallArr);
+            //
+            List<River> rivers = riverService.selectRiverRange(plan.getStcd());
+            List<BigDecimal> riverArr = new ArrayList<>();
+            BigDecimal riverMax = NumberConst.ZERO;
+            for (int i = 0; i < rivers.size(); i++) {
+                BigDecimal r = rivers.get(i).getZ().setScale(2, NumberConst.MODE);
+                riverArr.add(r);
+                if( NumberUtil.gt(r, riverMax) ){
+                    riverMax = r;
+                }
+            }
+            map.put("riverArr", riverArr);
+
+            List<BigDecimal> forcastArr = doCalc(plan, rainfallArr, false);
+            for (int i = 0; i < forcastArr.size(); i++) {
+                BigDecimal r = forcastArr.get(i).setScale(2, NumberConst.MODE);
+                forcastArr.set(i, r);
+                if( NumberUtil.gt(r, riverMax) ){
+                    riverMax = r;
+                }
+            }
             map.put("forcastArr", forcastArr);
+            map.put("riverMax", riverMax.multiply(new BigDecimal(2)).intValue()+1);
         }
 		return "Iframe7";
 	}
 
-	private List<BigDecimal> doCalc(Plan plan, boolean needQt){
+	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, boolean needQt){
 	    StepCommonUtil.init(plan);
 	    StepOneUtil.init(plan);
 	    StepTwoUtil.init(plan);
@@ -280,7 +314,7 @@ public class IframeController {
 	    StepFiveUtil.init(plan);
 
 	    List<BigDecimal> QTR_List = new ArrayList<>();
-        Integer len = NumberConfig.testP.size();
+        Integer len = rainfallP.size();
         if( NumberUtil.gt(new BigDecimal(plan.getL()), plan.getKE()) ){
             len += plan.getL();
         }else{
@@ -291,9 +325,9 @@ public class IframeController {
         }
         BigDecimal initQTR = null;
         BigDecimal lastQTR = NumberConst.ZERO;
-        for (int i=0; i<NumberConfig.testP.size();i++) {
-            NumberConfig.indexP = i;
+        for (int i=0; i<rainfallP.size();i++) {
 
+            StepCommonUtil.setP(rainfallP.get(i));
 
             StepOneUtil.getResult();
 //            System.out.println(StepTwoUtil.getEKx());
