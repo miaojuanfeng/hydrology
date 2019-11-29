@@ -268,15 +268,19 @@ public class IframeController {
             }
             List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, forecastTime, affectTime);
             List<BigDecimal> rainfallArr = new ArrayList<>();
+            List<String> timeArr = new ArrayList<>();
             BigDecimal rainfallMax = NumberConst.ZERO;
             for (int i = 0; i < rainfalls.size(); i++) {
                 BigDecimal r = rainfalls.get(i).getRainfall().setScale(2, NumberConst.MODE);
+                String t = rainfalls.get(i).getDate().substring(0, 16);
                 rainfallArr.add(r);
+                timeArr.add(t);
                 if( NumberUtil.gt(r, rainfallMax) ){
                     rainfallMax = r;
                 }
             }
             map.put("rainfallMax", rainfallMax.multiply(new BigDecimal(2)).intValue()+1);
+            map.put("timeArr", timeArr);
             map.put("rainfallArr", rainfallArr);
             //
             List<River> rivers = riverService.selectRiverRange(plan.getStcd(), forecastTime, affectTime);

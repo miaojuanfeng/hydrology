@@ -391,8 +391,10 @@
                     }
                 });
                 if( ok ) {
+                    $('#div-iframe').hide();
 					var url = "<c:url value="/cms/iframe/calc?"></c:url>" + $("#form-forecast").serialize();
 					$('#iframe7').attr('src', url);
+                    $('#div-iframe').show();
                 }else{
                     layer.msg('请填妥相关信息', {icon: 2});
                 }
