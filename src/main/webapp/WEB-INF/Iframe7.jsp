@@ -9,7 +9,7 @@
     option = {
    	    title : {
    	        text: '洪水过程',
-   	        subtext: '宁都站',
+   	        subtext: '${station.stname}',
    	        x: 'center',
    	        align: 'right'
    	    },
@@ -145,7 +145,7 @@
    	                   
    	                    {
    	                        name: '警戒水位',
-   	                        yAxis: 300
+   	                        yAxis: ${jjLine}
    	                    }
    	                    ]
    	            },

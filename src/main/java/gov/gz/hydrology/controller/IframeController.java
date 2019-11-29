@@ -245,6 +245,10 @@ public class IframeController {
 //        }
         Plan plan = planService.selectById(p.getId());
         if( plan != null ){
+            Station station = stationService.selectByPrimaryKey(plan.getStcd());
+            map.put("station", station);
+            map.put("jjLine", station.getJjLine());
+
             plan.setSM(p.getSM());
             plan.setCI(p.getCI());
             plan.setCS(p.getCS());
