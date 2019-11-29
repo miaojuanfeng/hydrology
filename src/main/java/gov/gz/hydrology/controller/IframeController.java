@@ -266,7 +266,7 @@ public class IframeController {
             for (int i = 0; i < stations.size(); i++) {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
             }
-            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId);
+            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, forecastTime, affectTime);
             List<BigDecimal> rainfallArr = new ArrayList<>();
             BigDecimal rainfallMax = NumberConst.ZERO;
             for (int i = 0; i < rainfalls.size(); i++) {
@@ -279,7 +279,7 @@ public class IframeController {
             map.put("rainfallMax", rainfallMax.multiply(new BigDecimal(2)).intValue()+1);
             map.put("rainfallArr", rainfallArr);
             //
-            List<River> rivers = riverService.selectRiverRange(plan.getStcd());
+            List<River> rivers = riverService.selectRiverRange(plan.getStcd(), forecastTime, affectTime);
             List<BigDecimal> riverArr = new ArrayList<>();
             BigDecimal riverMax = NumberConst.ZERO;
             for (int i = 0; i < rivers.size(); i++) {

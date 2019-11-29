@@ -10,5 +10,5 @@ import java.util.List;
 @Mapper
 public interface RiverDao {
     List<River> selectRiverTime(@Param("stcd") String stcd);
-    List<River> selectRiverRange(@Param("stcd") String stcd);
+    List<River> selectRiverRange(@Param("stcd") String stcd, @Param("forecastTime") String forecastTime, @Param("affectTime") String affectTime);
 }

@@ -26,7 +26,7 @@ public class RainfallServiceImpl implements RainfallService {
     }
 
     @Override
-    public List<Rainfall> selectRainfallRange(List<String> list) {
-        return rainfallDao.selectRainfallRange(list);
+    public List<Rainfall> selectRainfallRange(List<String> list, String forecastTime, String affectTime) {
+        return rainfallDao.selectRainfallRange(list, forecastTime, affectTime);
     }
 }

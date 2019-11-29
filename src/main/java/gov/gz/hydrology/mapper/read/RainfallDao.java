@@ -12,5 +12,5 @@ import java.util.List;
 public interface RainfallDao {
     List<Rainfall> selectRainfallTotal(@Param("list") List list);
     List<Rainfall> selectRainfallDaily(@Param("list") List list);
-    List<Rainfall> selectRainfallRange(@Param("list") List list);
+    List<Rainfall> selectRainfallRange(@Param("list") List list, @Param("forecastTime") String forecastTime, @Param("affectTime") String affectTime);
 }

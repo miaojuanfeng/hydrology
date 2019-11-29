@@ -33,7 +33,7 @@
 
     <select id="selectRainfallRange" resultMap="BaseResultMap">
         select tm as date, avg(drp) as rainfall from st_pptn_r
-        where tm >= '2018-06-20 08:00:00' and '2018-06-21 08:00:00' >= tm
+        where tm >= #{affectTime} and #{forecastTime} >= tm
         and stcd in
         <foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
             #{stcd}
