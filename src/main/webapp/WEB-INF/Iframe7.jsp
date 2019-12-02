@@ -87,6 +87,8 @@
    	            type:'line',
    	            animation: true,
    	             smooth: true,
+                symbol: 'circle',
+                symbolSize: 1,
    	        itemStyle:{
    	                                    normal:{
    	                                         color:'#26d0ce',
@@ -114,6 +116,8 @@
    	            type:'line',
    	            animation: true,
    	             smooth: true,
+                symbol: 'circle',
+                symbolSize: 1,
    	        itemStyle:{
    	                                    normal:{
    	                                         color:'#FF3E96',
@@ -151,7 +155,7 @@
    	            },
 
    	             markPoint: {
-   	                 	 symbolSize: 80,
+   	                 	 symbolSize: 65,
    	                data: [
    	                    {type: 'max', name: '最大值'}
    	                   
