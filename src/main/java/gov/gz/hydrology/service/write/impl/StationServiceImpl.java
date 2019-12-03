@@ -31,4 +31,9 @@ public class StationServiceImpl implements StationService{
 		return stationDao.selectChildStationByStcd(stcd);
 	}
 
+	@Override
+	public List<Map> selectQtStation(String stcd) {
+		return stationDao.selectQtStation(stcd);
+	}
+
 }

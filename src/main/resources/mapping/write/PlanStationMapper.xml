@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="gov.gz.hydrology.mapper.write.PlanStationDao" >
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.PlanStation" >
-		<id column="stcd" property="stcd"/>
+		<result column="plan_id" property="planId"/>
+		<result column="po_stcd" property="poStcd"/>
 		<result column="ke" property="ke"/>
 		<result column="xe" property="xe"/>
-		<result column="dt" property="dt"/>
-		<result column="plan_id" property="planId"/>
 	</resultMap>
 	<select id="selectByPlan" resultMap="BaseResultMap">
 		select ps.* from plan_station ps
@@ -21,10 +20,10 @@
     </delete>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert into plan_station
-		(stcd, ke, xe, dt, plan_id)
+		(plan_id, po_stcd, ke, xe)
 		values
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.stcd},#{item.ke},#{item.xe},#{item.dt},#{item.planId})
+			(#{item.planId},#{item.poStcd},#{item.ke},#{item.xe})
 		</foreach>
 	</insert>
 </mapper>

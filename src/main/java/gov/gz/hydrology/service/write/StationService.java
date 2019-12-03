@@ -10,4 +10,5 @@ public interface StationService {
 	Station selectByPrimaryKey(String stcd);
 	List<Station> selectStationByType(String type);
 	List<Map> selectChildStationByStcd(String stcd);
+	List<Map> selectQtStation(String stcd);
 }

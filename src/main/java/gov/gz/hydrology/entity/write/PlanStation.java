@@ -4,18 +4,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class PlanStation {
-	private String stcd;
+	private Integer planId;
+	private String poStcd;
 	private BigDecimal ke;
 	private BigDecimal xe;
-	private BigDecimal dt;
-	private Integer planId;
 
-	public String getStcd() {
-		return stcd;
+	public Integer getPlanId() {
+		return planId;
 	}
 
-	public void setStcd(String stcd) {
-		this.stcd = stcd;
+	public void setPlanId(Integer planId) {
+		this.planId = planId;
+	}
+
+	public String getPoStcd() {
+		return poStcd;
+	}
+
+	public void setPoStcd(String poStcd) {
+		this.poStcd = poStcd;
 	}
 
 	public BigDecimal getKe() {
@@ -32,21 +39,5 @@ public class PlanStation {
 
 	public void setXe(BigDecimal xe) {
 		this.xe = xe;
-	}
-
-	public BigDecimal getDt() {
-		return dt;
-	}
-
-	public void setDt(BigDecimal dt) {
-		this.dt = dt;
-	}
-
-	public Integer getPlanId() {
-		return planId;
-	}
-
-	public void setPlanId(Integer planId) {
-		this.planId = planId;
 	}
 }

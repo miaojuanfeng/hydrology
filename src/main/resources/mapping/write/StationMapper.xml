@@ -23,4 +23,10 @@
 	<select id="selectChildStationByStcd" resultType="java.util.Map">
 		select stcd, stname from station where user_stcd = #{stcd}
 	</select>
+	<select id="selectQtStation" resultType="java.util.Map">
+		select structure.*, station.stname
+		from structure
+		left join station on structure.po_stcd = station.stcd
+		where station.type = '基本站' and structure.user_stcd = #{stcd} and structure.po > 0 order by structure.po asc
+	</select>
 </mapper>

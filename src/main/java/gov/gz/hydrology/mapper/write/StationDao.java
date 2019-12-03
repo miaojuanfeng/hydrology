@@ -13,4 +13,5 @@ public interface StationDao {
 	Station selectByPrimaryKey(@Param("stcd") String stcd);
 	List<Station> selectStationByType(@Param("type") String type);
 	List<Map> selectChildStationByStcd(@Param("stcd") String stcd);
+	List<Map> selectQtStation(@Param("stcd") String stcd);
 }

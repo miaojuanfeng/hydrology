@@ -165,6 +165,9 @@ public class ForecastController {
 		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
 		map.put("stationList", stationList);
 
+        List<Map> qtStationList = stationService.selectQtStation(stcd);
+        map.put("qtStationList", qtStationList);
+
 		List<Map> childStationList = stationService.selectChildStationByStcd(stcd);
         map.put("childStationList", childStationList);
 
@@ -173,7 +176,7 @@ public class ForecastController {
 
     @PostMapping("plan/insert")
     @ResponseBody
-    public String postInsertPlan(HttpServletRequest request, ModelMap map, Plan plan, String[] childStcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
+    public String postInsertPlan(HttpServletRequest request, ModelMap map, Plan plan, String[] qtStcd, BigDecimal[] ke, BigDecimal[] xe) {
         JSONObject retval = new JSONObject();
 
 	    HttpSession session = request.getSession();
@@ -184,14 +187,15 @@ public class ForecastController {
         planService.insertSelective(plan);
 
         List<PlanStation> planStationList = new ArrayList<>();
-        for(int i=0; i<ke.length; i++){
-            PlanStation planStation = new PlanStation();
-            planStation.setStcd(childStcd[i]);
-            planStation.setKe(ke[i]);
-            planStation.setXe(xe[i]);
-            planStation.setDt(dt[i]);
-            planStation.setPlanId(plan.getId());
-            planStationList.add(planStation);
+        if( qtStcd != null ) {
+            for (int i = 0; i < qtStcd.length; i++) {
+                PlanStation planStation = new PlanStation();
+                planStation.setPoStcd(qtStcd[i]);
+                planStation.setKe(ke[i]);
+                planStation.setXe(xe[i]);
+                planStation.setPlanId(plan.getId());
+                planStationList.add(planStation);
+            }
         }
         if( planStationList.size() > 0 ){
             planStationService.insertBatch(planStationList);
@@ -211,15 +215,17 @@ public class ForecastController {
         Plan plan = planService.selectById(id);
         map.put("plan", plan);
 
+        Station station = stationService.selectByPrimaryKey(plan.getStcd());
+        map.put("station", station);
+
         List<PlanStation> planStationList = planStationService.selectByPlan(plan.getId());
 
         List<Map> childStationList = stationService.selectChildStationByStcd(plan.getStcd());
         for(Map childStation : childStationList){
             for(PlanStation planStation : planStationList){
-                if( String.valueOf(childStation.get("stcd")).equals(planStation.getStcd()) ){
+                if( String.valueOf(childStation.get("stcd")).equals(planStation.getPoStcd()) ){
                     childStation.put("ke", planStation.getKe());
                     childStation.put("xe", planStation.getXe());
-                    childStation.put("dt", planStation.getDt());
                     break;
                 }
             }
@@ -231,7 +237,7 @@ public class ForecastController {
 
     @PostMapping("plan/update")
     @ResponseBody
-    public String postUpdatePlan(HttpServletRequest request, ModelMap map, Plan plan, String[] childStcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
+    public String postUpdatePlan(HttpServletRequest request, ModelMap map, Plan plan, String[] qtStcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
         JSONObject retval = new JSONObject();
 
         HttpSession session = request.getSession();
@@ -240,14 +246,15 @@ public class ForecastController {
         planService.updateSelective(plan);
 
         List<PlanStation> planStationList = new ArrayList<>();
-        for(int i=0; i<ke.length; i++){
-            PlanStation planStation = new PlanStation();
-            planStation.setStcd(childStcd[i]);
-            planStation.setKe(ke[i]);
-            planStation.setXe(xe[i]);
-            planStation.setDt(dt[i]);
-            planStation.setPlanId(plan.getId());
-            planStationList.add(planStation);
+        if( qtStcd != null ) {
+            for (int i = 0; i < qtStcd.length; i++) {
+                PlanStation planStation = new PlanStation();
+                planStation.setPoStcd(qtStcd[i]);
+                planStation.setKe(ke[i]);
+                planStation.setXe(xe[i]);
+                planStation.setPlanId(plan.getId());
+                planStationList.add(planStation);
+            }
         }
         planStationService.deleteByPlan(plan.getId());
         if( planStationList.size() > 0 ){

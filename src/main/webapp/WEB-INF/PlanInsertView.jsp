@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,17 +51,20 @@
 										            <label class="layui-form-label">预报站 </label>
 										            <div class="layui-input-block">
 														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-															<select lay-filter="sType">
-																<option value="基本站">基本站</option>
-																<option value="水库站">水库站</option>
-															</select>
+															<%--<select lay-filter="sType">--%>
+																<%--<option value="基本站">基本站</option>--%>
+																<%--<option value="水库站">水库站</option>--%>
+															<%--</select>--%>
+															<input type="text" class="layui-input" value="基本站" readonly>
 														</div>
 														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
-															<select name="stcd" id="sName" lay-filter="sName">
-																<c:forEach items="${stationList}" var="station" varStatus="id">
-																	<option value="${station.station.stcd}" <c:if test="${station.station.stcd == plan.stcd || station.station.stcd == stcd}">selected</c:if>>${station.station.stname}</option>
-																</c:forEach>
-															</select>
+															<%--<select name="stcd" id="sName" lay-filter="sName">--%>
+																<%--<c:forEach items="${stationList}" var="station" varStatus="id">--%>
+																	<%--<option value="${station.station.stcd}" <c:if test="${station.station.stcd == plan.stcd || station.station.stcd == stcd}">selected</c:if>>${station.station.stname}</option>--%>
+																<%--</c:forEach>--%>
+															<%--</select>--%>
+															<input type="hidden" name="stcd" value="${station.stcd}">
+															<input type="text" class="layui-input" value="${station.stname}" readonly>
 														</div>
 										            </div>
 										        </div>
@@ -77,9 +81,10 @@
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
 										            <label class="layui-form-label">预报模型 </label>
 										            <div class="layui-input-block">
-										                <select>
-											                <option value="新安江模型">新安江模型</option>
-											            </select>
+										                <%--<select>--%>
+											                <%--<option value="新安江模型">新安江模型</option>--%>
+											            <%--</select>--%>
+														<input type="text" class="layui-input" value="新安江模型" readonly>
 										            </div>
 										        </div>
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
@@ -303,19 +308,22 @@
 														        <th>输入站</th>
 														        <th>KE</th>
 														        <th>XE</th>
-														        <th>DT</th>
 														      </tr> 
 														    </thead>
 														    <tbody>
-															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
+															  <c:forEach items="${qtStationList}" var="qtStation" varStatus="vs">
 																<tr>
-                                                                    <input type="hidden" name="childStcd" value="${childStation.stcd}">
-																	<td>${childStation.stname}</td>
-																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${childStation.ke}"></td>
-																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${childStation.xe}"></td>
-																	<td style="padding:0;"><input style="border:0;" type="number" name="dt" index="${vs.index+1}"  class="layui-input" value="${childStation.dt}"></td>
+                                                                    <input type="hidden" name="qtStcd" value="${qtStation.stcd}">
+																	<td>${qtStation.stname}</td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${qtStation.ke}"></td>
+																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${qtStation.xe}"></td>
 																</tr>
 															  </c:forEach>
+															  <c:if test="${fn:length(qtStationList) == 0}">
+																  <tr>
+																	<td style="text-align: center" colspan="3">无</td>
+																  </tr>
+															  </c:if>
 															</tbody>
 														</table>
 									            	</div>
@@ -611,18 +619,21 @@
 														        <th>输入站</th>
 														        <th>KE</th>
 														        <th>XE</th>
-														        <th>DT</th>
 														      </tr> 
 														    </thead>
 														    <tbody>
-															  <c:forEach items="${childStationList}" var="childStation" varStatus="vs">
+															  <c:forEach items="${qtStationList}" var="qtStation" varStatus="vs">
 																  <tr>
-																	  <td>${childStation.stname}</td>
-																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${childStation.ke}" readonly></td>
-																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${childStation.xe}" readonly></td>
-																	  <td style="padding:0;"><input style="border:0;" type="number" id="dt-${vs.index+1}"  class="layui-input" value="${childStation.dt}" readonly></td>
+																	  <td>${qtStation.stname}</td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${qtStation.ke}" readonly></td>
+																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${qtStation.xe}" readonly></td>
 																  </tr>
 															  </c:forEach>
+															  <c:if test="${fn:length(qtStationList) == 0}">
+																  <tr>
+																	  <td style="text-align: center" colspan="3">无</td>
+																  </tr>
+															  </c:if>
 															</tbody>
 														</table>
 									            	</div>
