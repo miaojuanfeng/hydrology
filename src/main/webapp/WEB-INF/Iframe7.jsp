@@ -2,6 +2,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript" src="<c:url value="/assets/echarts/echarts.min.js"></c:url>"></script>
 <script type="text/javascript" src="<c:url value="/assets/echarts/macarons.js"></c:url>"></script>
+<link rel="stylesheet" href="<c:url value="/assets/static/css/xaj.css"></c:url>">
+<style>
+    #div-nav a{
+        text-decoration: none;
+    }
+</style>
+<div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
+    <div style="padding:10px;">
+        <a class="selected" href="javascript:;">
+            <span>宁都</span>
+        </a>
+        <a href="javascript:;">
+            <span>石城</span>
+        </a>
+        <a href="javascript:;">
+            <span>汾坑</span>
+        </a>
+    </div>
+</div>
 <div id="main" style="width:100%;height:100%;"></div>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例

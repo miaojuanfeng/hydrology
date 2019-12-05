@@ -220,13 +220,13 @@ public class IframeController {
 			map.put("min", min);
 			map.put("jbLine", station.getJbLine());
 			map.put("jjLine", station.getJjLine());
-		}else if( id == 7 ){
-            List<BigDecimal> forcastArr = new ArrayList<>();
-            forcastArr.add(new BigDecimal("0.1"));
-            forcastArr.add(new BigDecimal("0.2"));
-            forcastArr.add(new BigDecimal("0.3"));
-            forcastArr.add(new BigDecimal("0.4"));
-            map.put("forcastArr", forcastArr);
+//		}else if( id == 7 ){
+//            List<BigDecimal> forcastArr = new ArrayList<>();
+//            forcastArr.add(new BigDecimal("0.1"));
+//            forcastArr.add(new BigDecimal("0.2"));
+//            forcastArr.add(new BigDecimal("0.3"));
+//            forcastArr.add(new BigDecimal("0.4"));
+//            map.put("forcastArr", forcastArr);
         }
 		return "Iframe"+id;
 	}

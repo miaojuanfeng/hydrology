@@ -206,13 +206,13 @@
 									</div>
 									<div class="layui-form-item" style="margin-bottom:20px;">
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a class="layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+											<a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="forecast" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">&nbsp;&nbsp;预报&nbsp;&nbsp;</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a class="layui-btn layui-btn-primary layui-btn-radius">下一步</a>
+											<a id="step-next" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">下一步</a>
 										</div>
 									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
@@ -231,19 +231,6 @@
 					    <div class="layui-col-xs12 layui-col-sm6 layui-col-md9">
 					        <div class="layui-collapse">
 					            <div class="layui-colla-item">
-						            <div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
-									    <div style="padding:10px;">
-											<a class="selected" href="javascript:;">
-    											<span>宁都</span>
-    										</a>
-    										<a href="javascript:;">
-    											<span>石城</span>
-    										</a>
-    										<a href="javascript:;">
-    											<span>汾坑</span>
-    										</a>
-										</div>
-									</div>
 									<div id="div-iframe">
 					             		<iframe id="iframe7" width="100%" frameborder="0" scrolling="no"></iframe>
 					             	</div>
@@ -367,7 +354,7 @@
            	// $("#div-iframe").css("height", viewHeight);
            	$("#div-iframe").css("height", viewHeight-59);
         	
-           	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
+           	<%--$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');--%>
            	
         	$(".layui-collapse").fadeIn();
 
@@ -427,6 +414,30 @@
                 <%--}else{--%>
                     <%--layer.msg('请填妥相关信息', {icon: 2});--%>
                 <%--}--%>
+            });
+            
+            $("#step-prev").click(function () {
+                console.log(data.value);
+                if( data.value == 62303350 || data.value == 62303650 ){
+                    console.log("aaa");
+                    $("#step-prev").addClass("layui-btn-disabled");
+                    $("#step-next").addClass("layui-btn-disabled");
+                }else if( data.value == 62303500){
+                    $("#step-prev").removeClass("layui-btn-disabled");
+                    $("#step-next").removeClass("layui-btn-disabled");
+                }
+            });
+
+            $("#step-next").click(function () {
+                console.log(data.value);
+                if( data.value == 62303350 || data.value == 62303650 ){
+                    console.log("aaa");
+                    $("#step-prev").addClass("layui-btn-disabled");
+                    $("#step-next").addClass("layui-btn-disabled");
+                }else if( data.value == 62303500){
+                    $("#step-prev").removeClass("layui-btn-disabled");
+                    $("#step-next").removeClass("layui-btn-disabled");
+                }
             });
         });
     });
