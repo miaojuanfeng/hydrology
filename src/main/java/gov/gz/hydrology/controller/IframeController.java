@@ -8,6 +8,7 @@ import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
+import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
 import gov.gz.hydrology.service.write.*;
@@ -28,6 +29,9 @@ import java.util.Map;
 @RequestMapping("cms/iframe")
 public class IframeController {
 
+    public static List<BigDecimal> FORECAST_STEP_ONE = new ArrayList<>();
+    public static List<BigDecimal> FORECAST_STEP_TWO = new ArrayList<>();
+
 	@Autowired
 	private StationService stationService;
 
@@ -39,6 +43,9 @@ public class IframeController {
 
 	@Autowired
     private PlanService planService;
+
+	@Autowired
+    private CommonService commonService;
 
 	@Autowired
 	private CacheRiverTimeService cacheRiverTimeService;
@@ -220,19 +227,21 @@ public class IframeController {
 			map.put("min", min);
 			map.put("jbLine", station.getJbLine());
 			map.put("jjLine", station.getJjLine());
-//		}else if( id == 7 ){
+		}else if( id == 7 ){
 //            List<BigDecimal> forcastArr = new ArrayList<>();
 //            forcastArr.add(new BigDecimal("0.1"));
 //            forcastArr.add(new BigDecimal("0.2"));
 //            forcastArr.add(new BigDecimal("0.3"));
 //            forcastArr.add(new BigDecimal("0.4"));
 //            map.put("forcastArr", forcastArr);
+            map.put("stationProgress", commonService.stationProgress(stcd));
         }
 		return "Iframe"+id;
 	}
 
 	@GetMapping("calc")
-	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, String day) {
+	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, String day,
+                           @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
 		JSONObject retval = new JSONObject();
 //        map.put("date", DateUtil.getDate());
 //        List<Station> stationList = stationService.selectStationByType("基本站");
@@ -245,7 +254,18 @@ public class IframeController {
 //        }
         Plan plan = planService.selectById(p.getId());
         if( plan != null ){
-            Station station = stationService.selectByPrimaryKey(plan.getStcd());
+            String stcd = plan.getStcd();
+            if( CommonConst.STCD_FENKENG.equals(stcd) ){
+                if( step == 1 ){
+                    stcd = CommonConst.STCD_NINGDU;
+                }else if( step == 2 ){
+                    stcd = CommonConst.STCD_SHICHENG;
+                }else if( step == 3 ){
+                    stcd = CommonConst.STCD_FENKENG;
+                }
+            }
+
+            Station station = stationService.selectByPrimaryKey(stcd);
             map.put("station", station);
             map.put("jjLine", station.getJjLine());
 
@@ -265,7 +285,7 @@ public class IframeController {
             plan.setQRss0(p.getQRss0());
             plan.setQRg0(p.getQRg0());
 
-            List<Map> stations = stationService.selectChildStationByStcd(plan.getStcd());
+            List<Map> stations = stationService.selectChildStationByStcd(stcd);
             List<String> stcdId = new ArrayList<>();
             for (int i = 0; i < stations.size(); i++) {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
@@ -303,7 +323,7 @@ public class IframeController {
             map.put("timeArr", timeArr);
             map.put("rainfallArr", rainfallArr);
             //
-            List<River> rivers = riverService.selectRiverRange(plan.getStcd(), forecastTime, affectTime);
+            List<River> rivers = riverService.selectRiverRange(stcd, forecastTime, affectTime);
             List<BigDecimal> riverArr = new ArrayList<>();
             BigDecimal riverMax = NumberConst.ZERO;
             for (int i = 0; i < rivers.size(); i++) {
@@ -315,16 +335,35 @@ public class IframeController {
             }
             map.put("riverArr", riverArr);
 
-            List<BigDecimal> forcastArr = doCalc(plan, rainfallArr, false);
-            for (int i = 0; i < forcastArr.size(); i++) {
-                BigDecimal r = forcastArr.get(i).setScale(2, NumberConst.MODE);
-                forcastArr.set(i, r);
+            List<BigDecimal> forecastArr = new ArrayList<>();
+            if( !CommonConst.STCD_FENKENG.equals(stcd) ) {
+                forecastArr = doCalc(plan, rainfallArr, false);
+            }else{
+                if( step == 1 ){
+                    forecastArr = doCalc(plan, rainfallArr, true);
+                    FORECAST_STEP_ONE = forecastArr;
+                }else if( step == 2 ){
+                    forecastArr = doCalc(plan, rainfallArr, true);
+                    FORECAST_STEP_TWO = forecastArr;
+                }else{
+                    forecastArr = doCalc(plan, rainfallArr, false);
+                    //
+                    for (int i=0; i<forecastArr.size(); i++){
+                        BigDecimal v = FORECAST_STEP_ONE.get(i).add(FORECAST_STEP_TWO.get(i).add(forecastArr.get(i)));
+                        forecastArr.set(i, v);
+                    }
+                }
+            }
+            for (int i = 0; i < forecastArr.size(); i++) {
+                BigDecimal r = forecastArr.get(i).setScale(2, NumberConst.MODE);
+                forecastArr.set(i, r);
                 if( NumberUtil.gt(r, riverMax) ){
                     riverMax = r;
                 }
             }
-            map.put("forcastArr", forcastArr);
+            map.put("forecastArr", forecastArr);
             map.put("riverMax", riverMax.intValue()+500);
+            map.put("stationProgress", commonService.stationProgress(stcd));
         }
 		return "Iframe7";
 	}

@@ -10,15 +10,7 @@
 </style>
 <div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
     <div style="padding:10px;">
-        <a class="selected" href="javascript:;">
-            <span>宁都</span>
-        </a>
-        <a href="javascript:;">
-            <span>石城</span>
-        </a>
-        <a href="javascript:;">
-            <span>汾坑</span>
-        </a>
+        ${stationProgress}
     </div>
 </div>
 <div id="main" style="width:100%;height:100%;"></div>
@@ -154,7 +146,7 @@
    	            },
    	           
    	            data:[
-                    <c:forEach items="${forcastArr}" var="forcast" varStatus="id">
+                    <c:forEach items="${forecastArr}" var="forcast" varStatus="id">
                     '${forcast}',
                     </c:forEach>
                 ],
