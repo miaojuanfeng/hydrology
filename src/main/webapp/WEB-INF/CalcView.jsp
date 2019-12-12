@@ -298,6 +298,14 @@
         form.on('select(sType)');
 
         form.on('select(sName)', function (data) {
+            if( data.value == 62303350 || data.value == 62303650 ){
+                $("#step-prev").addClass("layui-btn-disabled");
+                $("#step-next").addClass("layui-btn-disabled");
+            }else if( data.value == 62303500){
+                // $("#step-prev").removeClass("layui-btn-disabled");
+                $("#step-next").removeClass("layui-btn-disabled");
+            }
+            //
             $("#plan").html('');
             $.post(
                 "<c:url value="/cms/common/plan"></c:url>",
@@ -308,11 +316,17 @@
                     var obj = $.parseJSON(data);
                     var arr = obj.data;
                     var html = '';
+                    var defaultPlanId = 0;
                     for(var i=0;i<arr.length;i++){
+                        if( defaultPlanId == 0 ){
+                            defaultPlanId = arr[i].id;
+                        }
                         html += '<option value="'+arr[i].id+'">'+arr[i].name+'</option>';
                     }
                     $("#plan").html(html);
                     layui.form.render('select');
+                    //
+                    getPlanDetail(defaultPlanId);
                 }
             );
         });
@@ -320,10 +334,15 @@
 
         form.on('select(plan)', function (data) {
             $(".plan-var").val('');
+            getPlanDetail(data.value);
+        });
+        form.on('select(plan)');
+        
+        function getPlanDetail(id) {
             $.post(
                 "<c:url value="/cms/common/plan/detail"></c:url>",
                 {
-                    id: data.value
+                    id: id
                 },
                 function(data){
                     var obj = $.parseJSON(data);
@@ -334,7 +353,7 @@
                     $("#L").val(data.L).attr("detail", data.L);
                     $("#KE").val(data.KE).attr("detail", data.KE);
                     $("#XE").val(data.XE).attr("detail", data.XE);
-					$("#WU0").val(data.WU0).attr("detail", data.WU0);
+                    $("#WU0").val(data.WU0).attr("detail", data.WU0);
                     $("#WL0").val(data.WL0).attr("detail", data.WL0);
                     $("#WD0").val(data.WD0).attr("detail", data.WD0);
                     $("#S0").val(data.S0).attr("detail", data.S0);
@@ -344,9 +363,9 @@
                     $("#QRg0").val(data.QRg0).attr("detail", data.QRg0);
                 }
             );
-        });
-        form.on('select(sName)');
+        }
 
+        var step = 1;
         $(document).ready(function(){
         	var contentHeight = $(window).height() - 60 - 22;
            	var viewHeight = contentHeight;
@@ -378,67 +397,55 @@
                     }
                 });
                 if( ok ) {
-                    $('#div-iframe').hide();
-					var url = "<c:url value="/cms/iframe/calc?"></c:url>" + $("#form-forecast").serialize();
-					$('#iframe7').attr('src', url);
-                    $('#div-iframe').show();
+                    step = 1;
+                    forecast();
                 }else{
                     layer.msg('请填妥相关信息', {icon: 2});
                 }
-
-                <%--var ok = true;--%>
-                <%--var name  = "";--%>
-                <%--$("input").each(function () {--%>
-                    <%--if( $(this).attr("name") != "id" && $(this).val() == "" ){--%>
-                        <%--ok = false;--%>
-                        <%--name = $(this).attr("name");--%>
-                    <%--}--%>
-                <%--});--%>
-                <%--if( ok ) {--%>
-                    <%--var url = "<c:url value="/cms/iframe/calc"></c:url>";--%>
-                    <%--$.ajax({--%>
-                        <%--type: "post",--%>
-                        <%--cache: false,--%>
-                        <%--async: false,--%>
-                        <%--contentType: "application/x-www-form-urlencoded;charset=utf-8",--%>
-                        <%--dataType: "json",--%>
-                        <%--url: url,--%>
-                        <%--data: $("#form-forecast").serialize(),--%>
-                        <%--success: function (data) {--%>
-                            <%--$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');--%>
-                        <%--},--%>
-                        <%--error: function (xhr, ts, et) {--%>
-                            <%--layer.msg('计算失败', {icon: 2});--%>
-                        <%--}--%>
-                    <%--});--%>
-                <%--}else{--%>
-                    <%--layer.msg('请填妥相关信息', {icon: 2});--%>
-                <%--}--%>
             });
             
             $("#step-prev").click(function () {
-                console.log(data.value);
-                if( data.value == 62303350 || data.value == 62303650 ){
-                    console.log("aaa");
+                if( step == 1 ){
+                    return;
+                }
+                step--;
+                forecast();
+                $("#step-next").removeClass("layui-btn-disabled");
+                if( step == 1 ){
                     $("#step-prev").addClass("layui-btn-disabled");
-                    $("#step-next").addClass("layui-btn-disabled");
-                }else if( data.value == 62303500){
-                    $("#step-prev").removeClass("layui-btn-disabled");
-                    $("#step-next").removeClass("layui-btn-disabled");
                 }
             });
 
             $("#step-next").click(function () {
-                console.log(data.value);
-                if( data.value == 62303350 || data.value == 62303650 ){
-                    console.log("aaa");
-                    $("#step-prev").addClass("layui-btn-disabled");
+                if( step == 3 ){
+                    return;
+                }
+                step++;
+                forecast();
+                $("#step-prev").removeClass("layui-btn-disabled");
+                if( step == 3 ){
                     $("#step-next").addClass("layui-btn-disabled");
-                }else if( data.value == 62303500){
-                    $("#step-prev").removeClass("layui-btn-disabled");
-                    $("#step-next").removeClass("layui-btn-disabled");
                 }
             });
+            
+            function forecast() {
+                layer.load();
+                $('#div-iframe').hide();
+                var url = "<c:url value="/cms/iframe/calc"></c:url>" + "?step=" + step + "&" + $("#form-forecast").serialize();
+                $('#iframe7').attr('src', url);
+                $('#div-iframe').show();
+            }
+
+            var iframe = document.getElementById("iframe7");
+            if (iframe.attachEvent) {
+                iframe.attachEvent("onload", function() {
+                    layer.closeAll('loading');
+                });
+            } else {
+                iframe.onload = function() {
+                    layer.closeAll('loading');
+                };
+            }
         });
     });
     

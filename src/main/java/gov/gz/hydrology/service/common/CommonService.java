@@ -6,5 +6,5 @@ public interface CommonService {
 
     String levelProgress(Integer level);
 
-    String stationProgress(String stcd);
+    String stationProgress(String stcd, Integer step);
 }

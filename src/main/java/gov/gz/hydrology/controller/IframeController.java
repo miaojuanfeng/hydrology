@@ -234,7 +234,7 @@ public class IframeController {
 //            forcastArr.add(new BigDecimal("0.3"));
 //            forcastArr.add(new BigDecimal("0.4"));
 //            map.put("forcastArr", forcastArr);
-            map.put("stationProgress", commonService.stationProgress(stcd));
+//            map.put("stationProgress", commonService.stationProgress(stcd, step));
         }
 		return "Iframe"+id;
 	}
@@ -336,7 +336,7 @@ public class IframeController {
             map.put("riverArr", riverArr);
 
             List<BigDecimal> forecastArr = new ArrayList<>();
-            if( !CommonConst.STCD_FENKENG.equals(stcd) ) {
+            if( !CommonConst.STCD_FENKENG.equals(plan.getStcd()) ) {
                 forecastArr = doCalc(plan, rainfallArr, false);
             }else{
                 if( step == 1 ){
@@ -345,7 +345,7 @@ public class IframeController {
                 }else if( step == 2 ){
                     forecastArr = doCalc(plan, rainfallArr, true);
                     FORECAST_STEP_TWO = forecastArr;
-                }else{
+                }else if( step == 3 ){
                     forecastArr = doCalc(plan, rainfallArr, false);
                     //
                     for (int i=0; i<forecastArr.size(); i++){
@@ -363,7 +363,7 @@ public class IframeController {
             }
             map.put("forecastArr", forecastArr);
             map.put("riverMax", riverMax.intValue()+500);
-            map.put("stationProgress", commonService.stationProgress(stcd));
+            map.put("stationProgress", commonService.stationProgress(plan.getStcd(), step));
         }
 		return "Iframe7";
 	}

@@ -33,19 +33,34 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public String stationProgress(String stcd) {
+    public String stationProgress(String stcd, Integer step) {
         String retval = "";
         if( CommonConst.STCD_NINGDU.equals(stcd) ) {
             retval += "<a class='selected' href='javascript:;'><span>宁都</span></a>";
         }
         if( CommonConst.STCD_SHICHENG.equals(stcd) ) {
-            retval += "<a href='javascript:;'><span>宁都</span></a>";
             retval += "<a class='selected' href='javascript:;'><span>石城</span></a>";
         }
         if( CommonConst.STCD_FENKENG.equals(stcd) ) {
-            retval += "<a href='javascript:;'><span>宁都</span></a>";
-            retval += "<a href='javascript:;'><span>石城</span></a>";
-            retval += "<a class='selected' href='javascript:;'><span>汾坑</span></a>";
+            String selected = "";
+            if( step == 1 ){
+                selected = "class='selected'";
+            }else{
+                selected = "";
+            }
+            retval += "<a " + selected + " href='javascript:;'><span>宁都</span></a>";
+            if( step == 2 ){
+                selected = "class='selected'";
+            }else{
+                selected = "";
+            }
+            retval += "<a " + selected + " href='javascript:;'><span>石城</span></a>";
+            if( step == 3 ){
+                selected = "class='selected'";
+            }else{
+                selected = "";
+            }
+            retval += "<a " + selected + " href='javascript:;'><span>汾坑</span></a>";
         }
         return retval;
     }
