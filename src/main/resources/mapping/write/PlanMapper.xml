@@ -20,8 +20,6 @@
         <result column="KSS" property="KSS"/>
         <result column="KG" property="KG"/>
         <result column="IM" property="IM"/>
-        <result column="XE" property="XE"/>
-        <result column="KE" property="KE"/>
         <result column="CS" property="CS"/>
         <result column="CI" property="CI"/>
         <result column="CG" property="CG"/>
@@ -54,10 +52,10 @@
 	</select>
 	<insert id="insertBatch" parameterType="java.util.List">
         insert into [plan]
-        (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, XE, KE, CI, CG, L, T, F, S0, FR0, QRs0, QRss0, QRg0, CS, user_id, create_time)
+        (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, CI, CG, L, T, F, S0, FR0, QRs0, QRss0, QRg0, CS, user_id, create_time)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.b},#{item.k},#{item.c},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.XE},#{item.KE},#{item.CI},#{item.CG},#{item.l},#{item.t},#{item.f},#{item.s0},#{item.FR0},#{item.QRs0},#{item.QRss0},#{item.QRg0},#{item.CS},#{item.user_id},#{item.create_time})
+            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.b},#{item.k},#{item.c},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.CI},#{item.CG},#{item.l},#{item.t},#{item.f},#{item.s0},#{item.FR0},#{item.QRs0},#{item.QRss0},#{item.QRg0},#{item.CS},#{item.user_id},#{item.create_time})
         </foreach>
 	</insert>
     <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -113,12 +111,6 @@
             </if>
             <if test="IM != null" >
                 IM,
-            </if>
-            <if test="XE != null" >
-                XE,
-            </if>
-            <if test="KE != null" >
-                KE,
             </if>
             <if test="CI != null" >
                 CI,
@@ -212,12 +204,6 @@
             <if test="IM != null" >
                 #{IM},
             </if>
-            <if test="XE != null" >
-                #{XE},
-            </if>
-            <if test="KE != null" >
-                #{KE},
-            </if>
             <if test="CI != null" >
                 #{CI},
             </if>
@@ -306,12 +292,6 @@
             </if>
             <if test="IM != null" >
                 IM = #{IM},
-            </if>
-            <if test="XE != null" >
-                XE = #{XE},
-            </if>
-            <if test="KE != null" >
-                KE = #{KE},
             </if>
             <if test="CI != null" >
                 CI = #{CI},

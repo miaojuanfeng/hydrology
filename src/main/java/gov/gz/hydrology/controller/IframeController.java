@@ -20,11 +20,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("cms/iframe")
@@ -240,8 +238,25 @@ public class IframeController {
 		return "Iframe"+id;
 	}
 
+    public String plusDay(int num,String newDate){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date  currdate = null;
+        try {
+            currdate = format.parse(newDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println("现在的日期是：" + currdate);
+        Calendar ca = Calendar.getInstance();
+        ca.add(Calendar.DATE, num);// num为增加的天数，可以改变的
+        currdate = ca.getTime();
+        String enddate = format.format(currdate);
+        System.out.println("增加天数以后的日期：" + enddate);
+        return enddate;
+    }
+
 	@GetMapping("calc")
-	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, String day,
+	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, Integer day,
                            @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
 		JSONObject retval = new JSONObject();
 //        map.put("date", DateUtil.getDate());
@@ -286,28 +301,28 @@ public class IframeController {
             plan.setQRss0(p.getQRss0());
             plan.setQRg0(p.getQRg0());
 
-//            List<Map> stations = stationService.selectChildStationByStcd(stcd);
-//            List<String> stcdId = new ArrayList<>();
-//            for (int i = 0; i < stations.size(); i++) {
-//                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
-//            }
-
+            List<Map> stations = stationService.selectChildStationByStcd(stcd);
             List<String> stcdId = new ArrayList<>();
-            stcdId.add("62302350");
-            stcdId.add("62321000");
-            stcdId.add("62321010");
-            stcdId.add("62321020");
-            stcdId.add("62321030");
-            stcdId.add("62321045");
-            stcdId.add("62321050");
-            stcdId.add("62321055");
-            stcdId.add("62321065");
-            stcdId.add("62321070");
-            stcdId.add("62321085");
-            stcdId.add("62321100");
-            stcdId.add("62323620");
+            for (int i = 0; i < stations.size(); i++) {
+                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
+            }
 
-            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, forecastTime, affectTime);
+//            List<String> stcdId = new ArrayList<>();
+//            stcdId.add("62302350");
+//            stcdId.add("62321000");
+//            stcdId.add("62321010");
+//            stcdId.add("62321020");
+//            stcdId.add("62321030");
+//            stcdId.add("62321045");
+//            stcdId.add("62321050");
+//            stcdId.add("62321055");
+//            stcdId.add("62321065");
+//            stcdId.add("62321070");
+//            stcdId.add("62321085");
+//            stcdId.add("62321100");
+//            stcdId.add("62323620");
+
+            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, plusDay(day, forecastTime), affectTime);
             List<BigDecimal> rainfallArr = new ArrayList<>();
             List<String> timeArr = new ArrayList<>();
             BigDecimal rainfallMax = NumberConst.ZERO;
@@ -333,7 +348,7 @@ public class IframeController {
 
 
             //
-            List<River> rivers = riverService.selectRiverRange(stcd, forecastTime, affectTime);
+            List<River> rivers = riverService.selectRiverRange(stcd, plusDay(day, forecastTime), affectTime);
             List<BigDecimal> riverArr = new ArrayList<>();
             BigDecimal riverMax = NumberConst.ZERO;
             for (int i = 0; i < rivers.size(); i++) {

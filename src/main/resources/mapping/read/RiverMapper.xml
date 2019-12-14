@@ -5,6 +5,7 @@
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
         <result column="tm" property="tm"/>
         <result column="z" property="z"/>
+        <result column="q" property="q"/>
 	</resultMap>
 
     <select id="selectRiverTime" resultMap="BaseResultMap">
@@ -18,7 +19,7 @@
     </select>
 
     <select id="selectRiverRange" resultMap="BaseResultMap">
-        select tm, z
+        select tm, q as z
         from ST_RIVER_R
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where stcd = #{stcd}

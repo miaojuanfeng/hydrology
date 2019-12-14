@@ -189,18 +189,18 @@
 										                <input type="number" name="IM"  class="layui-input" value="${plan.IM}" >
 										            </div>
 										        </div>
-										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">XE = </label>
-										            <div class="layui-input-block">
-										                <input type="number" name="XE"  class="layui-input" value="${plan.XE}" >
-										            </div>
-										        </div>
-										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-										            <label class="layui-form-label">KE = </label>
-										            <div class="layui-input-block">
-										                <input type="number" name="KE"  class="layui-input" value="${plan.KE}" >
-										            </div>
-										        </div>
+										        <%--<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">--%>
+										            <%--<label class="layui-form-label">XE = </label>--%>
+										            <%--<div class="layui-input-block">--%>
+										                <%--<input type="number" name="XE"  class="layui-input" value="${plan.XE}" >--%>
+										            <%--</div>--%>
+										        <%--</div>--%>
+										        <%--<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">--%>
+										            <%--<label class="layui-form-label">KE = </label>--%>
+										            <%--<div class="layui-input-block">--%>
+										                <%--<input type="number" name="KE"  class="layui-input" value="${plan.KE}" >--%>
+										            <%--</div>--%>
+										        <%--</div>--%>
 											</div>
 											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
@@ -489,20 +489,20 @@
 											            </div>
 											        </div>
 											    </div>
-											    <div class="layui-form-item">
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">XE = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="XE" class="layui-input" value="${plan.XE}" readonly>
-											            </div>
-											        </div>
-											        <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-											            <label class="layui-form-label">KE = </label>
-											            <div class="layui-input-block">
-											                <input type="text" id="KE" class="layui-input" value="${plan.KE}" readonly>
-											            </div>
-											        </div>
-											    </div>
+											    <%--<div class="layui-form-item">--%>
+											        <%--<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">--%>
+											            <%--<label class="layui-form-label">XE = </label>--%>
+											            <%--<div class="layui-input-block">--%>
+											                <%--<input type="text" id="XE" class="layui-input" value="${plan.XE}" readonly>--%>
+											            <%--</div>--%>
+											        <%--</div>--%>
+											        <%--<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">--%>
+											            <%--<label class="layui-form-label">KE = </label>--%>
+											            <%--<div class="layui-input-block">--%>
+											                <%--<input type="text" id="KE" class="layui-input" value="${plan.KE}" readonly>--%>
+											            <%--</div>--%>
+											        <%--</div>--%>
+											    <%--</div>--%>
 												<div class="layui-form-item">
 													<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 														<label class="layui-form-label">CS = </label>

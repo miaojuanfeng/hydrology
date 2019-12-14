@@ -10,6 +10,8 @@ public class River {
 
     private BigDecimal z;
 
+    private BigDecimal q;
+
     public String getStcd() {
         return stcd;
     }
@@ -32,5 +34,13 @@ public class River {
 
     public void setZ(BigDecimal z) {
         this.z = z;
+    }
+
+    public BigDecimal getQ() {
+        return q;
+    }
+
+    public void setQ(BigDecimal q) {
+        this.q = q;
     }
 }

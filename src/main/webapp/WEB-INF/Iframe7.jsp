@@ -47,7 +47,7 @@
    	        }
    	    },
    	    legend: {
-   	        data:['实测水位','预报水位','降雨量'],
+   	        data:['实测流量','预报流量','降雨量'],
    	        x: 'left'
    	    },
    	    dataZoom: [
@@ -94,7 +94,7 @@
    	    ],
    	    series: [
    	        {
-   	            name:'实测水位',
+   	            name:'实测流量',
    	            type:'line',
    	            animation: true,
    	             smooth: true,
@@ -123,7 +123,7 @@
                 ]
    	        },
    	        {
-   	            name:'预报水位',
+   	            name:'预报流量',
    	            type:'line',
    	            animation: true,
    	             smooth: true,
