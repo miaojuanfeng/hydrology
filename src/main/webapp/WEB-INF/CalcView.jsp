@@ -373,7 +373,7 @@
            	// $("#div-iframe").css("height", viewHeight);
            	$("#div-iframe").css("height", viewHeight-59);
         	
-           	<%--$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');--%>
+           	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
            	
         	$(".layui-collapse").fadeIn();
 

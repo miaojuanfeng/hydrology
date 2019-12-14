@@ -13,6 +13,7 @@ import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
 import gov.gz.hydrology.service.write.*;
 import gov.gz.hydrology.utils.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -285,26 +286,26 @@ public class IframeController {
             plan.setQRss0(p.getQRss0());
             plan.setQRg0(p.getQRg0());
 
-            List<Map> stations = stationService.selectChildStationByStcd(stcd);
-            List<String> stcdId = new ArrayList<>();
-            for (int i = 0; i < stations.size(); i++) {
-                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
-            }
-
+//            List<Map> stations = stationService.selectChildStationByStcd(stcd);
 //            List<String> stcdId = new ArrayList<>();
-//            stcdId.add("62302350");
-//            stcdId.add("62321000");
-//            stcdId.add("62321010");
-//            stcdId.add("62321020");
-//            stcdId.add("62321030");
-//            stcdId.add("62321045");
-//            stcdId.add("62321050");
-//            stcdId.add("62321055");
-//            stcdId.add("62321065");
-//            stcdId.add("62321070");
-//            stcdId.add("62321085");
-//            stcdId.add("62321100");
-//            stcdId.add("62323620");
+//            for (int i = 0; i < stations.size(); i++) {
+//                stcdId.add(String.valueOf(stations.get(i).get("stcd")));
+//            }
+
+            List<String> stcdId = new ArrayList<>();
+            stcdId.add("62302350");
+            stcdId.add("62321000");
+            stcdId.add("62321010");
+            stcdId.add("62321020");
+            stcdId.add("62321030");
+            stcdId.add("62321045");
+            stcdId.add("62321050");
+            stcdId.add("62321055");
+            stcdId.add("62321065");
+            stcdId.add("62321070");
+            stcdId.add("62321085");
+            stcdId.add("62321100");
+            stcdId.add("62323620");
 
             List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, forecastTime, affectTime);
             List<BigDecimal> rainfallArr = new ArrayList<>();
@@ -322,6 +323,15 @@ public class IframeController {
             map.put("rainfallMax", rainfallMax.intValue()+50);
             map.put("timeArr", timeArr);
             map.put("rainfallArr", rainfallArr);
+
+
+
+//            for(BigDecimal r : rainfallArr){
+//                System.out.println(r);
+//            }
+
+
+
             //
             List<River> rivers = riverService.selectRiverRange(stcd, forecastTime, affectTime);
             List<BigDecimal> riverArr = new ArrayList<>();
@@ -340,7 +350,7 @@ public class IframeController {
                 forecastArr = doCalc(plan, rainfallArr, false);
             }else{
                 if( step == 1 ){
-                    forecastArr = doCalc(plan, rainfallArr, true);
+                    forecastArr = doCalc(plan, rainfallArr, false);
                     FORECAST_STEP_ONE = forecastArr;
                 }else if( step == 2 ){
                     forecastArr = doCalc(plan, rainfallArr, true);

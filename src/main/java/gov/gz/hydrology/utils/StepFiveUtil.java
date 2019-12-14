@@ -65,32 +65,54 @@ public class StepFiveUtil {
 		QT_List.clear();
 		// Qt=C0*Qe+C1*Qeup+C2*Qeup
 
-//		for (int i=0; i<QTR_List; i++){
-//			QT_List.add(NumberConst.ZERO);
-//		}
+		for (int i=0; i<QTR_List.size()+plan.getKE().intValue(); i++){
+			QT_List.add(NumberConst.ZERO);
+		}
+
+		BigDecimal QS1 = NumberConst.ZERO;
+		BigDecimal QS2 = NumberConst.ZERO;
+		BigDecimal QX1 = NumberConst.ZERO;
+		BigDecimal QX2 = NumberConst.ZERO;
 
 		BigDecimal C0 = getC0();
 		BigDecimal C1 = getC1();
 		BigDecimal C2 = getC2();
 		BigDecimal initQT = null;
-		for( int i=0; i<QTR_List.size(); i++) {
-			BigDecimal QT = NumberConst.ZERO;
-			if( i<plan.getKE().intValue() ){
-				QT = QTR_List.get(0);
-			}else{
-//				System.out.println("C0.multiply(QTR_List.get(i))="+C0.multiply(QTR_List.get(i)));
-//				System.out.println("C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))="+C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue())));
-				System.out.println("C2.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))="+C2.multiply(QT_List.get(i-plan.getKE().intValue())));
-				QT = C0.multiply(QTR_List.get(i)).add(C1.multiply(QTR_List.get(i-plan.getKE().intValue()))).add(C2.multiply(QT_List.get(i-plan.getKE().intValue())));
+
+		QX1 = QTR_List.get(0);
+
+		for( int i=0; i<QTR_List.size()-1; i++) {
+//			BigDecimal QT = NumberConst.ZERO;
+//			if( i<plan.getKE().intValue() ){
+//				QT = QTR_List.get(0);
+//			}else{
+////				System.out.println("C0.multiply(QTR_List.get(i))="+C0.multiply(QTR_List.get(i)));
+////				System.out.println("C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))="+C1.multiply(QTR_List.get(i-NumberConfig.KE.intValue())));
+//				System.out.println("C2.multiply(QTR_List.get(i-NumberConfig.KE.intValue()))="+C2.multiply(QT_List.get(i-plan.getKE().intValue())));
+//				QT = C0.multiply(QTR_List.get(i)).add(C1.multiply(QTR_List.get(i-plan.getKE().intValue()))).add(C2.multiply(QT_List.get(i-plan.getKE().intValue())));
+//			}
+//			if( initQT == null ){
+//				initQT = QT;
+//			}
+//			if( i<plan.getKE().intValue() ){
+//				QT_List.add(initQT);
+//			}else{
+//				QT_List.add(QT);
+//			}
+
+
+			QS1 = QTR_List.get(i);
+			QS2 = QTR_List.get(i+1);
+			for( int j = 1; j<=plan.getKE().intValue(); j++){
+				QX2 = C0.multiply(QS2).add(C1.multiply(QS1)).add(C2.multiply(QX1));
+				QS1 = QX1;
+				QS2 = QX2;
+				QX1 = QX2;
 			}
-			if( initQT == null ){
-				initQT = QT;
-			}
-			if( i<plan.getKE().intValue() ){
-				QT_List.add(initQT);
-			}else{
-				QT_List.add(QT);
-			}
+			QT_List.set(i+plan.getKE().intValue(), QX2);
+		}
+		for( int i=0; i<plan.getKE().intValue()-1; i++){
+			QT_List.set(i, plan.getKE());
 		}
 		return QT_List;
 	}
