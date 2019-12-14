@@ -64,7 +64,7 @@
 						               		<label class="layui-form-label"><span>预报时间</span></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							                <input type="text" name="forecastTime" id="forecastTime" lay-verify="date" autocomplete="off" class="layui-input">
+							                <input type="text" name="forecastTime" id="forecastTime" lay-verify="date" autocomplete="off" class="layui-input" value="2018-06-13 17:00:00">
 							            </div>
 							        </div>
 							        <div class="layui-form-item">
@@ -72,7 +72,7 @@
 							            	<label class="layui-form-label"><span>影响时间</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
-							            	<input type="text" name="affectTime" id="affectTime" lay-verify="date" autocomplete="off" class="layui-input">
+							            	<input type="text" name="affectTime" id="affectTime" lay-verify="date" autocomplete="off" class="layui-input" value="2018-06-03 17:00:00">
 							            </div>
 								    </div>
 								    <div class="layui-form-item">

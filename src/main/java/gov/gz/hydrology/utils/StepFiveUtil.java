@@ -111,8 +111,8 @@ public class StepFiveUtil {
 			}
 			QT_List.set(i+plan.getKE().intValue(), QX2);
 		}
-		for( int i=0; i<plan.getKE().intValue()-1; i++){
-			QT_List.set(i, plan.getKE());
+		for( int i=0; i<=plan.getKE().intValue()-1; i++){
+			QT_List.set(i, QT_List.get(plan.getKE().intValue()));
 		}
 		return QT_List;
 	}

@@ -350,7 +350,7 @@ public class IframeController {
                 forecastArr = doCalc(plan, rainfallArr, false);
             }else{
                 if( step == 1 ){
-                    forecastArr = doCalc(plan, rainfallArr, false);
+                    forecastArr = doCalc(plan, rainfallArr, true);
                     FORECAST_STEP_ONE = forecastArr;
                 }else if( step == 2 ){
                     forecastArr = doCalc(plan, rainfallArr, true);
