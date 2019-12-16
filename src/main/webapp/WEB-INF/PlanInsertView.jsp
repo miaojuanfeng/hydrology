@@ -6,6 +6,11 @@
 <head>
 	<%@ include file="common/LinkCommon.jsp" %>
 </head>
+<style>
+	.plan .layui-input{
+		border:none;
+	}
+</style>
 <body>
 
 <!-- layout admin -->
@@ -299,22 +304,30 @@
 									            		<table class="layui-table" style="margin:0;">
 														    <colgroup>
 														      <col width="150">
-														      <col width="150">
+														      <col width="350">
 														      <col width="150">
 														      <col width="150">
 														    </colgroup>
 														    <thead>
 														      <tr>
-														        <th>输入站</th>
-														        <th>KE</th>
-														        <th>XE</th>
-														      </tr> 
+																  <th>输入站</th>
+																  <th>方案</th>
+																  <th>KE</th>
+																  <th>XE</th>
+														      </tr>
 														    </thead>
 														    <tbody>
 															  <c:forEach items="${qtStationList}" var="qtStation" varStatus="vs">
 																<tr>
                                                                     <input type="hidden" name="qtStcd" value="${qtStation.stcd}">
 																	<td>${qtStation.stname}</td>
+																	<td class="plan" style="padding:0;">
+																		<select lay-verify="required" lay-search="">
+																			<c:forEach items="${qtStation.plan}" var="qtPlan">
+																				<option value="${qtPlan.id}">${qtPlan.name}</option>
+																			</c:forEach>
+																		</select>
+																	</td>
 																	<td style="padding:0;"><input style="border:0;" type="number" name="ke" index="${vs.index+1}"  class="layui-input" value="${qtStation.ke}"></td>
 																	<td style="padding:0;"><input style="border:0;" type="number" name="xe" index="${vs.index+1}"  class="layui-input" value="${qtStation.xe}"></td>
 																</tr>

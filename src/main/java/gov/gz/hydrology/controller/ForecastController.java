@@ -166,6 +166,11 @@ public class ForecastController {
 		map.put("stationList", stationList);
 
         List<Map> qtStationList = stationService.selectQtStation(stcd);
+        for(Map qtStation : qtStationList){
+            String qtStcd = String.valueOf(qtStation.get("PO_STCD"));
+            List<Plan> qtPlan = planService.selectPlan(qtStcd);
+            qtStation.put("plan", qtPlan);
+        }
         map.put("qtStationList", qtStationList);
 
 		List<Map> childStationList = stationService.selectChildStationByStcd(stcd);
