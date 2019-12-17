@@ -322,7 +322,7 @@
                                                                     <input type="hidden" name="qtStcd" value="${qtStation.stcd}">
 																	<td>${qtStation.stname}</td>
 																	<td class="plan" style="padding:0;">
-																		<select lay-verify="required" lay-search="">
+																		<select lay-verify="required" lay-filter="plan">
 																			<c:forEach items="${qtStation.plan}" var="qtPlan">
 																				<option value="${qtPlan.id}">${qtPlan.name}</option>
 																			</c:forEach>
@@ -630,6 +630,7 @@
 														    <thead>
 														      <tr>
 														        <th>输入站</th>
+                                                                <th>方案</th>
 														        <th>KE</th>
 														        <th>XE</th>
 														      </tr> 
@@ -638,6 +639,7 @@
 															  <c:forEach items="${qtStationList}" var="qtStation" varStatus="vs">
 																  <tr>
 																	  <td>${qtStation.stname}</td>
+                                                                      <td style="padding:0;"><input style="border:0;" type="number" id="plan-${vs.index+1}"  class="layui-input" value="${qtStation.ke}" readonly></td>
 																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${qtStation.ke}" readonly></td>
 																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${qtStation.xe}" readonly></td>
 																  </tr>
@@ -751,6 +753,11 @@
 		}else if( value == 62303650 ){
             $("#stcd").val("石城");
         }
+	});
+
+	form.on('select(plan)', function(data){
+		var value = data.value;
+		console.log(value);
 	});
 
     $(document).ready(function(){
