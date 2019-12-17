@@ -6,6 +6,7 @@ import java.util.Date;
 public class PlanStation {
 	private Integer planId;
 	private String poStcd;
+	private Integer childPlanId;
 	private BigDecimal ke;
 	private BigDecimal xe;
 
@@ -23,6 +24,14 @@ public class PlanStation {
 
 	public void setPoStcd(String poStcd) {
 		this.poStcd = poStcd;
+	}
+
+	public Integer getChildPlanId() {
+		return childPlanId;
+	}
+
+	public void setChildPlanId(Integer childPlanId) {
+		this.childPlanId = childPlanId;
 	}
 
 	public BigDecimal getKe() {

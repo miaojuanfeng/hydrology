@@ -4,26 +4,29 @@
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.PlanStation" >
 		<result column="plan_id" property="planId"/>
 		<result column="po_stcd" property="poStcd"/>
+		<result column="child_plan_id" property="childPlanId"/>
 		<result column="ke" property="ke"/>
 		<result column="xe" property="xe"/>
 	</resultMap>
 	<select id="selectByPlan" resultMap="BaseResultMap">
 		select ps.* from plan_station ps
 -- 		left join station s on ps.stcd = s.stcd
-		where 1=1
+		left join structure s on ps.po_stcd = s.po_stcd
+		where s.po > 0
 		<if test="planId != null and planId != ''" >
 			and ps.plan_id = #{planId}
 		</if>
+		order by s.po asc
 	</select>
 	<delete id="deleteByPlan" parameterType="java.lang.Integer">
         delete from plan_station where plan_id = #{planId}
     </delete>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert into plan_station
-		(plan_id, po_stcd, ke, xe)
+		(plan_id, po_stcd, child_plan_id, ke, xe)
 		values
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.planId},#{item.poStcd},#{item.ke},#{item.xe})
+			(#{item.planId},#{item.poStcd},#{item.childPlanId},#{item.ke},#{item.xe})
 		</foreach>
 	</insert>
 </mapper>

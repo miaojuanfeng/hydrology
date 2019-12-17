@@ -99,6 +99,7 @@ public class UserController {
 					userService.insertSelective(newUser);
 
 					HttpSession session = request.getSession();
+					newUser.setUserLevelName(commonService.userLevel(newUser.getUserLevel()));
 					session.setAttribute(CommonConst.SESSION_KEY_USER, newUser);
 
 					return "redirect:/cms/user/init";

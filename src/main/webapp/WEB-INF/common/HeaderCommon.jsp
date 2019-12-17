@@ -29,9 +29,6 @@
                     <dd><a href="<c:url value="/cms/user/setting"></c:url>">我的预报站</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item">
-                <a href="<c:url value="/cms/step/index"></c:url>" <c:if test="${sessionScope.urlClass == 'step'}">class="selected"</c:if>><span class="tname">数据分步计算</span></a>
-            </li>
         </ul>
 
         <!-- 顶部右侧添加选项卡监听 -->

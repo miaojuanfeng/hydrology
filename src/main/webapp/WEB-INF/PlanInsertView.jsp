@@ -206,8 +206,6 @@
 										                <%--<input type="number" name="KE"  class="layui-input" value="${plan.KE}" >--%>
 										            <%--</div>--%>
 										        <%--</div>--%>
-											</div>
-											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">CS = </label>
 													<div class="layui-input-block">
@@ -220,6 +218,8 @@
 														<input type="number" name="CI"  class="layui-input" value="${plan.CI}" >
 													</div>
 												</div>
+											</div>
+											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">CG = </label>
 													<div class="layui-input-block">
@@ -232,8 +232,6 @@
 														<input type="number" name="l"  class="layui-input" value="${plan.l}" >
 													</div>
 												</div>
-											</div>
-											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">T = </label>
 													<div class="layui-input-block">
@@ -246,6 +244,8 @@
 														<input type="number" name="f"  class="layui-input" value="${plan.f}" >
 													</div>
 												</div>
+											</div>
+											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">S0 = </label>
 													<div class="layui-input-block">
@@ -258,8 +258,6 @@
 														<input type="number" name="FR0"  class="layui-input" value="${plan.FR0}" >
 													</div>
 												</div>
-											</div>
-											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">QRs0 = </label>
 													<div class="layui-input-block">
@@ -272,6 +270,8 @@
 														<input type="number" name="QRss0"  class="layui-input" value="${plan.QRss0}" >
 													</div>
 												</div>
+											</div>
+											<div class="layui-form-item">
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<label class="layui-form-label">QRg0 = </label>
 													<div class="layui-input-block">
@@ -283,6 +283,12 @@
 													<div class="layui-input-block">
 
 													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+
+												</div>
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
+
 												</div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 													<div style="margin-left:80px;float:left;">
@@ -319,12 +325,13 @@
 														    <tbody>
 															  <c:forEach items="${qtStationList}" var="qtStation" varStatus="vs">
 																<tr>
-                                                                    <input type="hidden" name="qtStcd" value="${qtStation.stcd}">
+                                                                    <input type="hidden" name="qtStcd" value="${qtStation.PO_STCD}">
 																	<td>${qtStation.stname}</td>
 																	<td class="plan" style="padding:0;">
-																		<select lay-verify="required" lay-filter="plan">
+																		<select name="childPlanId" title="plan-${vs.index+1}" lay-verify="required" lay-filter="plan">
+																			<option value></option>
 																			<c:forEach items="${qtStation.plan}" var="qtPlan">
-																				<option value="${qtPlan.id}">${qtPlan.name}</option>
+																				<option value="${qtPlan.id}" <c:if test="${qtStation.childPlanId == qtPlan.id}">selected</c:if>>${qtPlan.name}</option>
 																			</c:forEach>
 																		</select>
 																	</td>
@@ -334,7 +341,7 @@
 															  </c:forEach>
 															  <c:if test="${fn:length(qtStationList) == 0}">
 																  <tr>
-																	<td style="text-align: center" colspan="3">无</td>
+																	<td style="text-align: center" colspan="4">无</td>
 																  </tr>
 															  </c:if>
 															</tbody>
@@ -623,7 +630,7 @@
 									            		<table class="layui-table" style="margin:0;">
 														    <colgroup>
 														      <col width="150">
-														      <col width="150">
+														      <col width="350">
 														      <col width="150">
 														      <col width="150">
 														    </colgroup>
@@ -639,14 +646,14 @@
 															  <c:forEach items="${qtStationList}" var="qtStation" varStatus="vs">
 																  <tr>
 																	  <td>${qtStation.stname}</td>
-                                                                      <td style="padding:0;"><input style="border:0;" type="number" id="plan-${vs.index+1}"  class="layui-input" value="${qtStation.ke}" readonly></td>
+                                                                      <td style="padding:0;"><input style="border:0;" type="text" id="plan-${vs.index+1}"  class="layui-input" value="${qtStation.planName}" readonly></td>
 																	  <td style="padding:0;"><input style="border:0;" type="number" id="ke-${vs.index+1}"  class="layui-input" value="${qtStation.ke}" readonly></td>
 																	  <td style="padding:0;"><input style="border:0;" type="number" id="xe-${vs.index+1}"  class="layui-input" value="${qtStation.xe}" readonly></td>
 																  </tr>
 															  </c:forEach>
 															  <c:if test="${fn:length(qtStationList) == 0}">
 																  <tr>
-																	  <td style="text-align: center" colspan="3">无</td>
+																	  <td style="text-align: center" colspan="4">无</td>
 																  </tr>
 															  </c:if>
 															</tbody>
@@ -756,8 +763,9 @@
 	});
 
 	form.on('select(plan)', function(data){
-		var value = data.value;
-		console.log(value);
+        var title = data.elem.title;
+		var text = data.elem[data.elem.selectedIndex].text;
+        $("#"+title).val(text);
 	});
 
     $(document).ready(function(){

@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("cms/forecast")
@@ -173,15 +170,15 @@ public class ForecastController {
         }
         map.put("qtStationList", qtStationList);
 
-		List<Map> childStationList = stationService.selectChildStationByStcd(stcd);
-        map.put("childStationList", childStationList);
+//		List<Map> childStationList = stationService.selectChildStationByStcd(stcd);
+//        map.put("childStationList", childStationList);
 
 		return "PlanInsertView";
 	}
 
     @PostMapping("plan/insert")
     @ResponseBody
-    public String postInsertPlan(HttpServletRequest request, ModelMap map, Plan plan, String[] qtStcd, BigDecimal[] ke, BigDecimal[] xe) {
+    public String postInsertPlan(HttpServletRequest request, ModelMap map, Plan plan, String[] qtStcd, Integer[] childPlanId, BigDecimal[] ke, BigDecimal[] xe) {
         JSONObject retval = new JSONObject();
 
 	    HttpSession session = request.getSession();
@@ -196,6 +193,7 @@ public class ForecastController {
             for (int i = 0; i < qtStcd.length; i++) {
                 PlanStation planStation = new PlanStation();
                 planStation.setPoStcd(qtStcd[i]);
+                planStation.setChildPlanId(childPlanId[i]);
                 planStation.setKe(ke[i]);
                 planStation.setXe(xe[i]);
                 planStation.setPlanId(plan.getId());
@@ -225,24 +223,53 @@ public class ForecastController {
 
         List<PlanStation> planStationList = planStationService.selectByPlan(plan.getId());
 
-        List<Map> childStationList = stationService.selectChildStationByStcd(plan.getStcd());
-        for(Map childStation : childStationList){
-            for(PlanStation planStation : planStationList){
-                if( String.valueOf(childStation.get("stcd")).equals(planStation.getPoStcd()) ){
-                    childStation.put("ke", planStation.getKe());
-                    childStation.put("xe", planStation.getXe());
-                    break;
-                }
-            }
-        }
-        map.put("childStationList", childStationList);
+//		List<Map> qtStationList = stationService.selectQtStation(plan.getStcd());
+//        for(Map qtStation : qtStationList){
+//            for(PlanStation planStation : planStationList){
+//                if( String.valueOf(qtStation.get("PO_STCD")).equals(planStation.getPoStcd()) ){
+//					qtStation.put("ke", planStation.getKe());
+//					qtStation.put("xe", planStation.getXe());
+//
+//					String qtStcd = String.valueOf(qtStation.get("PO_STCD"));
+//					List<Plan> qtPlan = planService.selectPlan(qtStcd);
+//					qtStation.put("plan", qtPlan);
+//
+//                    break;
+//                }
+//            }
+//        }
+//        map.put("qtStationList", qtStationList);
 
-        return "PlanInsertView";
+		List<Map> qtStationList = new ArrayList<>();
+		for(PlanStation planStation : planStationList){
+			Map qtStation = new HashMap();
+			qtStation.put("PO_STCD", planStation.getPoStcd());
+			qtStation.put("childPlanId", planStation.getChildPlanId());
+			qtStation.put("ke", planStation.getKe());
+			qtStation.put("xe", planStation.getXe());
+			//
+			Station s = stationService.selectByPrimaryKey(planStation.getPoStcd());
+			qtStation.put("stname", s.getStname());
+			//
+			List<Plan> planList = planService.selectPlan(planStation.getPoStcd());
+			qtStation.put("plan", planList);
+			for( Plan p : planList ){
+				if( p.getId().equals(planStation.getChildPlanId()) ){
+					qtStation.put("planName", p.getName());
+					break;
+				}
+			}
+			//
+			qtStationList.add(qtStation);
+		}
+		map.put("qtStationList", qtStationList);
+
+		return "PlanInsertView";
     }
 
     @PostMapping("plan/update")
     @ResponseBody
-    public String postUpdatePlan(HttpServletRequest request, ModelMap map, Plan plan, String[] qtStcd, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
+    public String postUpdatePlan(HttpServletRequest request, ModelMap map, Plan plan, String[] qtStcd, Integer[] childPlanId, BigDecimal[] ke, BigDecimal[] xe, BigDecimal[] dt) {
         JSONObject retval = new JSONObject();
 
         HttpSession session = request.getSession();
@@ -255,6 +282,7 @@ public class ForecastController {
             for (int i = 0; i < qtStcd.length; i++) {
                 PlanStation planStation = new PlanStation();
                 planStation.setPoStcd(qtStcd[i]);
+                planStation.setChildPlanId(childPlanId[i]);
                 planStation.setKe(ke[i]);
                 planStation.setXe(xe[i]);
                 planStation.setPlanId(plan.getId());
