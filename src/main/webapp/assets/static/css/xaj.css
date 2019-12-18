@@ -157,7 +157,7 @@ body{
 .layui-nav * {
     font-size: 16px;
 }
-#div-nav a{
+#div-nav #nav a{
 	position:relative;
 	line-height:38px;
 	display:block;
@@ -167,7 +167,7 @@ body{
 	margin-right:30px;
 	background:#ccc;
 }
-#div-nav a:before{
+#div-nav #nav a:before{
     position:absolute;
     content:"";
     width:0;
@@ -177,10 +177,10 @@ body{
     top:0;
     right:-37px;
 }
-#div-nav a.selected:before{
+#div-nav #nav a.selected:before{
 	border-left-color:#26d0ce;
 }
-#div-nav a:last-child:before{
+#div-nav #nav a:last-child:before{
     border:none;
 }
 

@@ -17,6 +17,9 @@
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'), 'macarons');
+    myChart.showLoading({
+        text : '正在加载数据'
+    });
     option = {
    	    title : {
    	        text: '洪水过程',

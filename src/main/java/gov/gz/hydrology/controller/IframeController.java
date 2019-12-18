@@ -234,6 +234,7 @@ public class IframeController {
 //            forcastArr.add(new BigDecimal("0.4"));
 //            map.put("forcastArr", forcastArr);
 //            map.put("stationProgress", commonService.stationProgress(stcd, step));
+            map.put("rainfallMax", 0);
         }
 		return "Iframe"+id;
 	}

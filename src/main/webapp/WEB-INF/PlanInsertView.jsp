@@ -30,7 +30,7 @@
 					        <div class="layui-collapse">
 					            <div class="layui-colla-item" style="overflow-y:auto">
 					            	<div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
-									    <div style="padding:10px;">
+									    <div id="nav" style="padding:10px;float:left;">
 											<a id="div-nav-a-1" step="1" class="selected" href="javascript:;">
     											<span>1.基本信息</span>
     										</a>
@@ -44,6 +44,15 @@
     											<span>4.预览</span>
     										</a>
 										</div>
+                                        <div style="float:right;margin-top:10px;">
+                                            <div style="margin-left:80px;float:left;">
+                                                <a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius" style="display: none;">上一步</a>
+                                            </div>
+                                            <div style="margin-left:10px;float:right;">
+                                                <a id="step-next" class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+                                                <a id="step-save" class="layui-btn layui-btn-normal layui-btn-radius" style="display: none;">保存</a>
+                                            </div>
+                                        </div>
 									</div>
 					            	<form id="form-plan" class="layui-form" style="margin:10px;">
 										<input type="hidden" id="id" name="id" value="${plan.id}"/>
@@ -93,9 +102,7 @@
 										            </div>
 										        </div>
 												<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-													<div style="margin-left:80px;float:left;">
-														<a step="2" class="div-button layui-btn layui-btn-normal layui-btn-radius">下一步</a>
-													</div>
+
 												</div>
 										    </div>
 										</div>
@@ -291,12 +298,7 @@
 
 												</div>
 										        <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-													<div style="margin-left:80px;float:left;">
-														<a step="1" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
-													</div>
-											        <div style="margin-left:10px;float:right;">
-											        	<a step="3" class="div-button layui-btn layui-btn-normal layui-btn-radius">下一步</a>
-											        </div>
+
 										        </div>
 										    </div>
 										</div>
@@ -349,12 +351,7 @@
 									            	</div>
 								            	</div>
 								            	<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-													<div style="margin-left:80px;float:left;">
-														<a step="2" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
-													</div>
-													<div style="margin-left:10px;float:right;">
-														<a step="4" class="div-button layui-btn layui-btn-normal layui-btn-radius">下一步</a>
-													</div>
+
 										        </div>
 										    </div>
 									    </div>
@@ -612,12 +609,7 @@
 											    	
 											    	</div>
 											    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="text-align:center;padding-top:50px;">
-														<div style="margin-left:0px;float:left;">
-															<a step="3" class="div-button layui-btn layui-btn-primary layui-btn-radius">上一步</a>
-														</div>
-														<div style="margin-left:10px;float:right;">
-															<a id="save" class="layui-btn layui-btn-normal layui-btn-radius">保存</a>
-														</div>
+
 											        </div>
 											    </div>
 											</div>
@@ -774,17 +766,46 @@
        	$(".layui-colla-item").css("height", viewHeight);
     	
     	$(".layui-collapse").fadeIn();
-    	
-    	
-    	$("#div-nav a, .div-button").click(function(){
-    		var step = $(this).attr("step");
-    		$("#div-nav a").removeClass("selected");
-    		$("#div-nav-a-"+step).addClass("selected");
-    		$(".box-step").hide();
-    		$("#step"+step).show();
+
+        var step = 1;
+        function togglePage(){
+            $("#div-nav a").removeClass("selected");
+            $("#div-nav-a-"+step).addClass("selected");
+            console.log(step);
+            $(".box-step").hide();
+            $("#step"+step).show();
+        }
+
+        $("#div-nav #nav a").click(function(){
+            // step = $(this).attr("step");
+            // togglePage();
     	});
 
-    	$("#save").click(function () {
+        $("#step-prev").click(function(){
+            step--;
+            togglePage();
+            if( step == 1 ){
+                $(this).hide();
+            }
+            if( step == 3 ){
+                $("#step-next").show();
+                $("#step-save").hide();
+            }
+        });
+
+        $("#step-next").click(function(){
+            step++;
+            togglePage();
+            if( step == 2 ){
+                $("#step-prev").show();
+            }
+            if( step == 4 ) {
+                $(this).hide();
+                $("#step-save").show();
+            }
+        });
+
+    	$("#step-save").click(function () {
     	    var ok = true;
     	    var name  = "";
     	    $("input").each(function () {
