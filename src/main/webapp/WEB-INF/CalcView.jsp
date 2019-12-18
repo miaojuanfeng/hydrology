@@ -371,7 +371,7 @@
            	var viewHeight = contentHeight;
            	$(".layui-colla-item").css("height", viewHeight);
            	// $("#div-iframe").css("height", viewHeight);
-           	$("#div-iframe").css("height", viewHeight-59);
+           	$("#div-iframe").css("height", viewHeight-9);
         	
            	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
            	
