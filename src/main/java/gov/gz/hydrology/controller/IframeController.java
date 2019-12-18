@@ -336,7 +336,7 @@ public class IframeController {
                     rainfallMax = r;
                 }
             }
-            map.put("rainfallMax", rainfallMax.intValue()+50);
+            map.put("rainfallMax", rainfallMax.multiply(new BigDecimal("3")).intValue());
             map.put("timeArr", timeArr);
             map.put("rainfallArr", rainfallArr);
 
@@ -388,7 +388,7 @@ public class IframeController {
                 }
             }
             map.put("forecastArr", forecastArr);
-            map.put("riverMax", riverMax.intValue()+500);
+            map.put("riverMax", riverMax.multiply(new BigDecimal("1.5")).intValue());
             map.put("stationProgress", commonService.stationProgress(plan.getStcd(), step));
         }
 		return "Iframe7";

@@ -18,7 +18,7 @@
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'), 'macarons');
     myChart.showLoading({
-        text : '正在加载数据'
+        text : '正在计算结果'
     });
     option = {
    	    title : {
@@ -83,7 +83,7 @@
    	    ],
    	    yAxis: [
    	        {
-   	            name: '预报水位(m)',
+   	            name: '水位(m)',
    	            type: 'value',
    	            max: ${riverMax}
    	        },
@@ -200,4 +200,5 @@
    	    ]
    	};
     myChart.setOption(option);
+    myChart.hideLoading();
 </script>
