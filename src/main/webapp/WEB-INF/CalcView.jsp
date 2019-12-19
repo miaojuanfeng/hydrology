@@ -63,15 +63,13 @@
 						               	<div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 						               		<label class="layui-form-label"><span>预报时间</span></label>
 						               	</div>
-						               	<div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
+						               	<div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							                <input type="text" name="forecastTime" id="forecastTime" lay-verify="date" autocomplete="off" class="layui-input" value="2018-06-13 17:00:00">
 							            </div>
-							        </div>
-							        <div class="layui-form-item">
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							            	<label class="layui-form-label"><span>影响时间</span></label>
 							            </div>
-							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
+							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							            	<input type="text" name="affectTime" id="affectTime" lay-verify="date" autocomplete="off" class="layui-input" value="2018-06-03 17:00:00">
 							            </div>
 								    </div>
@@ -79,18 +77,16 @@
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							            	<label class="layui-form-label"><span>预报天数</span></label>
 							            </div>
-							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
+							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							            	<select name="day">
 								                <option value="3">3天</option>
 								                <option value="5">5天</option>
 								            </select>
 								        </div>
-								   	</div>
-								    <div class="layui-form-item">
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 								        	<label class="layui-form-label"><span>预报雨量</span></label>
 								        </div>
-								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
+								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							            	<select name="rainfall">
 								                <option value="1">实测雨量</option>
 								                <option value="2">欧洲台</option>
@@ -209,17 +205,20 @@
 											<a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a id="forecast" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">&nbsp;&nbsp;预报&nbsp;&nbsp;</a>
+											<a id="forecastWater" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="step-next" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">下一步</a>
 										</div>
 									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
-										<div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
 										</div>
-							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md6 xaj-col-button">
+										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
+											<a id="forecastFlow" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">预报流量</a>
+										</div>
+							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>
 							            </div>
 							        </div>
@@ -298,12 +297,9 @@
         form.on('select(sType)');
 
         form.on('select(sName)', function (data) {
-            if( data.value == 62303350 || data.value == 62303650 ){
+            if( data.value != 62303500){
                 $("#step-prev").addClass("layui-btn-disabled");
                 $("#step-next").addClass("layui-btn-disabled");
-            }else if( data.value == 62303500){
-                // $("#step-prev").removeClass("layui-btn-disabled");
-                $("#step-next").removeClass("layui-btn-disabled");
             }
             //
             $("#plan").html('');
@@ -389,7 +385,7 @@
                 });
             });
 
-            $("#forecast").click(function () {
+            $("#forecastWater").click(function () {
                 var ok = true;
                 $("input").each(function () {
                     if( $(this).val() == "" ){
@@ -399,16 +395,21 @@
                 if( ok ) {
                     step = 1;
                     forecast();
+                    if( $("#sName").val() == 62303500 ){
+						$("#step-next").removeClass("layui-btn-disabled");
+                    }
                 }else{
                     layer.msg('请填妥相关信息', {icon: 2});
                 }
             });
             
             $("#step-prev").click(function () {
-                if( step == 1 ){
+                var stcd = $("#sName").val();
+                if( stcd != 62303500 || step == 1 ){
                     return;
                 }
                 step--;
+                $("#KE,#XE").removeAttr("disabled");
                 forecast();
                 $("#step-next").removeClass("layui-btn-disabled");
                 if( step == 1 ){
@@ -417,10 +418,14 @@
             });
 
             $("#step-next").click(function () {
-                if( step == 3 ){
+                var stcd = $("#sName").val();
+                if( stcd != 62303500 || step == 3 ){
                     return;
                 }
                 step++;
+                if( step == 3 ){
+                    $("#KE,#XE").attr("disabled", "disabled");
+				}
                 forecast();
                 $("#step-prev").removeClass("layui-btn-disabled");
                 if( step == 3 ){
