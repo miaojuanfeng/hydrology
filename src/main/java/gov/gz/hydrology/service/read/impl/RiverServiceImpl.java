@@ -23,7 +23,17 @@ public class RiverServiceImpl implements RiverService {
     }
 
     @Override
-    public List<River> selectRiverRange(String stcd, String forecastTime, String affectTime) {
-        return riverDao.selectRiverRange(stcd, forecastTime, affectTime);
+    public List<River> selectRiverQRange(String stcd, String forecastTime, String affectTime) {
+        return riverDao.selectRiverQRange(stcd, forecastTime, affectTime);
+    }
+
+    @Override
+    public List<River> selectRiverZRange(String stcd, String forecastTime, String affectTime) {
+        return riverDao.selectRiverZRange(stcd, forecastTime, affectTime);
+    }
+
+    @Override
+    public River selectRiverLast(String stcd) {
+        return riverDao.selectRiverLast(stcd);
     }
 }

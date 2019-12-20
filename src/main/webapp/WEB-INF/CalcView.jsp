@@ -205,7 +205,7 @@
 											<a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a id="forecastWater" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
+											<a type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="step-next" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">下一步</a>
@@ -216,7 +216,7 @@
 											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a id="forecastFlow" style="background:#FF44A5;" class="layui-btn layui-btn-normal layui-btn-radius">预报流量</a>
+											<a type="2" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报流量</a>
 										</div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>
@@ -361,13 +361,14 @@
             );
         }
 
+        var type = 1;
         var step = 1;
         $(document).ready(function(){
         	var contentHeight = $(window).height() - 60 - 22;
            	var viewHeight = contentHeight;
            	$(".layui-colla-item").css("height", viewHeight);
            	// $("#div-iframe").css("height", viewHeight);
-           	$("#div-iframe").css("height", viewHeight-9);
+           	$("#div-iframe").css("height", viewHeight);
         	
            	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
            	
@@ -385,7 +386,7 @@
                 });
             });
 
-            $("#forecastWater").click(function () {
+            $(".forecastPost").click(function () {
                 var ok = true;
                 $("input").each(function () {
                     if( $(this).val() == "" ){
@@ -393,6 +394,7 @@
                     }
                 });
                 if( ok ) {
+                    type = $(this).attr("type");
                     step = 1;
                     forecast();
                     if( $("#sName").val() == 62303500 ){
@@ -436,7 +438,7 @@
             function forecast() {
                 layer.load();
                 $('#div-iframe').hide();
-                var url = "<c:url value="/cms/iframe/calc"></c:url>" + "?step=" + step + "&" + $("#form-forecast").serialize();
+                var url = "<c:url value="/cms/iframe/calc"></c:url>" + "?type=" + type + "&step=" + step + "&" + $("#form-forecast").serialize();
                 $('#iframe7').attr('src', url);
                 $('#div-iframe').show();
             }

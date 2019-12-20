@@ -66,29 +66,18 @@ public class IframeController {
             for (int i=0;i<rainfallTotal.size();i++){
                 rainfallSum.add(rainfallTotal.get(i).getRainfall());
             }
+            River river = riverService.selectRiverLast(stcd);
+            BigDecimal z = river.getZ();
             Integer ava = 0;
             if( rainfallTotal.size() > 0 ) {
-                Integer rainfallAva = rainfallSum.divide(new BigDecimal(rainfallTotal.size()), NumberConst.DIGIT, NumberConst.MODE).intValue();
-                if (rainfallAva < 50) {
-                    ava = 10;
-                } else if (rainfallAva < 70) {
-                    ava = 20;
-                } else if (rainfallAva < 90) {
-                    ava = 30;
-                } else if (rainfallAva < 110) {
-                    ava = 40;
-                } else if (rainfallAva < 130) {
-                    ava = 50;
-                } else if (rainfallAva < 150) {
-                    ava = 60;
-                } else if (rainfallAva < 170) {
-                    ava = 70;
-                } else if (rainfallAva < 190) {
+                BigDecimal rainfallAva = rainfallSum.divide(new BigDecimal(rainfallTotal.size()), NumberConst.DIGIT, NumberConst.MODE);
+                Integer floodDiff = z.add(rainfallAva.divide(new BigDecimal(50), NumberConst.DIGIT, NumberConst.MODE)).subtract(new BigDecimal(station.getJjLine())).intValue();
+                if( floodDiff < 1 ){
                     ava = 80;
-                } else if (rainfallAva < 210) {
-                    ava = 90;
+                } else if (floodDiff < 2) {
+                    ava = 60;
                 } else {
-                    ava = 100;
+                    ava = 10;
                 }
             }
             map.put("ava", ava);
@@ -257,7 +246,7 @@ public class IframeController {
     }
 
 	@GetMapping("calc")
-	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, Integer day,
+	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, Integer day, Integer type,
                            @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
 		JSONObject retval = new JSONObject();
 //        map.put("date", DateUtil.getDate());
@@ -349,14 +338,26 @@ public class IframeController {
 
 
             //
-            List<River> rivers = riverService.selectRiverRange(stcd, plusDay(day, forecastTime), affectTime);
+            List<River> rivers = new ArrayList<>();
             List<BigDecimal> riverArr = new ArrayList<>();
             BigDecimal riverMax = NumberConst.ZERO;
-            for (int i = 0; i < rivers.size(); i++) {
-                BigDecimal r = rivers.get(i).getZ().setScale(2, NumberConst.MODE);
-                riverArr.add(r);
-                if( NumberUtil.gt(r, riverMax) ){
-                    riverMax = r;
+            if( type == 1 ) {
+                rivers = riverService.selectRiverQRange(stcd, plusDay(day, forecastTime), affectTime);
+                for (int i = 0; i < rivers.size(); i++) {
+                    BigDecimal r = rivers.get(i).getQ().setScale(2, NumberConst.MODE);
+                    riverArr.add(r);
+                    if( NumberUtil.gt(r, riverMax) ){
+                        riverMax = r;
+                    }
+                }
+            }else{
+                rivers = riverService.selectRiverZRange(stcd, plusDay(day, forecastTime), affectTime);
+                for (int i = 0; i < rivers.size(); i++) {
+                    BigDecimal r = rivers.get(i).getZ().setScale(2, NumberConst.MODE);
+                    riverArr.add(r);
+                    if( NumberUtil.gt(r, riverMax) ){
+                        riverMax = r;
+                    }
                 }
             }
             map.put("riverArr", riverArr);
