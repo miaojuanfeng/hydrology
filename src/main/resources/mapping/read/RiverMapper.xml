@@ -6,6 +6,8 @@
         <result column="tm" property="tm"/>
         <result column="z" property="z"/>
         <result column="q" property="q"/>
+        <result column="min_z" property="minZ"/>
+        <result column="max_z" property="maxZ"/>
 	</resultMap>
 
     <select id="selectRiverTime" resultMap="BaseResultMap">
@@ -13,8 +15,8 @@
         from ST_RIVER_R
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where stcd = #{stcd}
-        and 3>=datediff(dd,tm,'2018-06-18')
-        and datediff(dd,tm,'2018-06-18')>=0
+        and 3>=datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))
+        and datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))>=0
         order by tm asc
     </select>
 
@@ -30,6 +32,8 @@
 
     <select id="selectRiverZRange" resultMap="BaseResultMap">
         select tm, z
+        (select top 1 z from ST_ZQRL_B where stcd = #{stcd} and ST_RIVER_R.q >= q ORDER BY q desc) as min_z,
+        (select top 1 z from ST_ZQRL_B where stcd = #{stcd} and q >= ST_RIVER_R.q ORDER BY q desc) as max_z
         from ST_RIVER_R
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where stcd = #{stcd}

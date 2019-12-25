@@ -12,6 +12,10 @@ public class River {
 
     private BigDecimal q;
 
+    private BigDecimal minZ;
+
+    private BigDecimal maxZ;
+
     public String getStcd() {
         return stcd;
     }
@@ -42,5 +46,22 @@ public class River {
 
     public void setQ(BigDecimal q) {
         this.q = q;
+    }
+
+
+    public BigDecimal getMinZ() {
+        return minZ;
+    }
+
+    public void setMinZ(BigDecimal minZ) {
+        this.minZ = minZ;
+    }
+
+    public BigDecimal getMaxZ() {
+        return maxZ;
+    }
+
+    public void setMaxZ(BigDecimal maxZ) {
+        this.maxZ = maxZ;
     }
 }

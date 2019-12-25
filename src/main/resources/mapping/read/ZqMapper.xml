@@ -8,22 +8,10 @@
 	</resultMap>
 
     <select id="selectZqMin" resultMap="BaseResultMap">
-        select stcd, tm, z
-        from ST_RIVER_R
-        <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
-        where stcd = #{stcd}
-        and 3>=datediff(dd,tm,'2018-06-18')
-        and datediff(dd,tm,'2018-06-18')>=0
-        order by tm asc
+
     </select>
 
     <select id="selectZqMax" resultMap="BaseResultMap">
-        select stcd, tm, z
-        from ST_RIVER_R
-        <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
-        where stcd = #{stcd}
-        and 3>=datediff(dd,tm,'2018-06-18')
-        and datediff(dd,tm,'2018-06-18')>=0
-        order by tm asc
+
     </select>
 </mapper>

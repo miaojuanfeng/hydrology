@@ -258,6 +258,8 @@ public class IframeController {
 //            Plan plan = planService.selectById(planList.get(0).getId());
 //            map.put("plan", plan);
 //        }
+
+        ///// 这里要查询一下PlanStation中的Plan
         Plan plan = planService.selectById(p.getId());
         if( plan != null ){
             String stcd = plan.getStcd();
@@ -364,16 +366,16 @@ public class IframeController {
 
             List<BigDecimal> forecastArr = new ArrayList<>();
             if( !CommonConst.STCD_FENKENG.equals(plan.getStcd()) ) {
-                forecastArr = doCalc(plan, rainfallArr, false);
+                forecastArr = doCalc(plan, rainfallArr, false, null, null);
             }else{
                 if( step == 1 ){
-                    forecastArr = doCalc(plan, rainfallArr, true);
+                    forecastArr = doCalc(plan, rainfallArr, true, plan.getKE(), plan.getXE());
                     FORECAST_STEP_ONE = forecastArr;
                 }else if( step == 2 ){
-                    forecastArr = doCalc(plan, rainfallArr, true);
+                    forecastArr = doCalc(plan, rainfallArr, true, plan.getKE(), plan.getXE());
                     FORECAST_STEP_TWO = forecastArr;
                 }else if( step == 3 ){
-                    forecastArr = doCalc(plan, rainfallArr, false);
+                    forecastArr = doCalc(plan, rainfallArr, false, null, null);
                     //
                     for (int i=0; i<forecastArr.size(); i++){
                         BigDecimal v = FORECAST_STEP_ONE.get(i).add(FORECAST_STEP_TWO.get(i).add(forecastArr.get(i)));
@@ -395,13 +397,12 @@ public class IframeController {
 		return "Iframe7";
 	}
 
-	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, boolean needQt){
+	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, boolean needQt, BigDecimal KE, BigDecimal XE){
 	    StepCommonUtil.init(plan);
 	    StepOneUtil.init(plan);
 	    StepTwoUtil.init(plan);
 	    StepThreeUtil.init(plan);
 	    StepFourUtil.init(plan);
-	    StepFiveUtil.init(plan);
 
 	    List<BigDecimal> QTR_List = new ArrayList<>();
         Integer len = rainfallP.size();
@@ -449,7 +450,7 @@ public class IframeController {
         if( !needQt ){
             return QTR_List;
         }
-        return StepFiveUtil.getQt(QTR_List);
+        return StepFiveUtil.getQt(QTR_List, KE, XE);
 
         //System.out.println(StepTwoUtil.getWUx1());
         //System.out.println(StepTwoUtil.getWLx1());
