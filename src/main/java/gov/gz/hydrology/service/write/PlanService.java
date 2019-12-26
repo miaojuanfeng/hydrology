@@ -8,6 +8,7 @@ import java.util.List;
 public interface PlanService {
     Plan selectById(Integer id);
     List<Plan> selectPlan(String stcd);
+    Plan selectChildPlan(Integer planId, String stcd);
     int insertSelective(Plan plan);
     int insertBatch(List<Plan> plans);
     int updateSelective(Plan plan);

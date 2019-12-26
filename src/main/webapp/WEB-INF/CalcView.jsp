@@ -40,7 +40,7 @@
 								            </select>
 								        </div>
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md5">
-											<select lay-filter="sName" id="sName">
+											<select id="sName" name="stcd" lay-filter="sName">
 												<c:forEach items="${stationList}" var="station" varStatus="id">
 													<option value="${station.userStcd}">${station.stname}</option>
 												</c:forEach>

@@ -50,6 +50,12 @@
 		</if>
 		order by p.create_time desc
 	</select>
+    <select id="selectChildPlan" resultMap="BaseResultMap">
+        select p.*
+        from [plan] p
+        inner join plan_station ps on ps.child_plan_id = p.id
+        where ps.plan_id = #{planId} and ps.po_stcd = #{stcd}
+    </select>
 	<insert id="insertBatch" parameterType="java.util.List">
         insert into [plan]
         (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, CI, CG, L, T, F, S0, FR0, QRs0, QRss0, QRg0, CS, user_id, create_time)

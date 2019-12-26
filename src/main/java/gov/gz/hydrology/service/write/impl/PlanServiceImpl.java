@@ -29,6 +29,11 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
+	public Plan selectChildPlan(Integer planId, String stcd) {
+		return planDao.selectChildPlan(planId, stcd);
+	}
+
+	@Override
 	public int insertSelective(Plan plan) {
 		return planDao.insertSelective(plan);
 	}

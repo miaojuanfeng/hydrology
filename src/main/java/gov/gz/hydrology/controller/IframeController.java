@@ -249,29 +249,22 @@ public class IframeController {
 	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, Integer day, Integer type,
                            @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
 		JSONObject retval = new JSONObject();
-//        map.put("date", DateUtil.getDate());
-//        List<Station> stationList = stationService.selectStationByType("基本站");
-//        map.put("stationList", stationList);
-//        List<Plan> planList = planService.selectPlan(CommonConst.STCD_STATION[0]);
-//        map.put("planList", planList);
-//        if( planList.size() > 0 ){
-//            Plan plan = planService.selectById(planList.get(0).getId());
-//            map.put("plan", plan);
-//        }
 
         ///// 这里要查询一下PlanStation中的Plan
-        Plan plan = planService.selectById(p.getId());
+        Plan plan = null;
+        if( CommonConst.STCD_FENKENG.equals(p.getStcd()) ){
+            if( step == 1 ){
+                plan = planService.selectChildPlan(p.getId(), CommonConst.STCD_NINGDU);
+            }else if( step == 2 ){
+                plan = planService.selectChildPlan(p.getId(), CommonConst.STCD_SHICHENG);
+            }else{
+                plan = planService.selectById(p.getId());
+            }
+        }else{
+            plan = planService.selectById(p.getId());
+        }
         if( plan != null ){
             String stcd = plan.getStcd();
-            if( CommonConst.STCD_FENKENG.equals(stcd) ){
-                if( step == 1 ){
-                    stcd = CommonConst.STCD_NINGDU;
-                }else if( step == 2 ){
-                    stcd = CommonConst.STCD_SHICHENG;
-                }else if( step == 3 ){
-                    stcd = CommonConst.STCD_FENKENG;
-                }
-            }
 
             Station station = stationService.selectByPrimaryKey(stcd);
             map.put("station", station);
@@ -355,10 +348,12 @@ public class IframeController {
             }else{
                 rivers = riverService.selectRiverZRange(stcd, plusDay(day, forecastTime), affectTime);
                 for (int i = 0; i < rivers.size(); i++) {
-                    BigDecimal r = rivers.get(i).getZ().setScale(2, NumberConst.MODE);
-                    riverArr.add(r);
-                    if( NumberUtil.gt(r, riverMax) ){
-                        riverMax = r;
+                    River r = rivers.get(i);
+                    BigDecimal x = r.getZ();
+                    BigDecimal y = r.getY1().add(x.subtract(r.getX1()).multiply(r.getY2().subtract(r.getY1())).divide(r.getX2().subtract(r.getX1()), NumberConst.DIGIT, NumberConst.MODE));
+                    riverArr.add(y);
+                    if( NumberUtil.gt(y, riverMax) ){
+                        riverMax = y;
                     }
                 }
             }
@@ -468,4 +463,10 @@ public class IframeController {
 //				return new BigDecimal(maxValue.intValue());
 //		}
 //	}
+
+    @GetMapping("test")
+    public void test(){
+        List<River> rivers = riverService.selectRiverZRange("62303350", "2018-06-10", "2018-06-08");
+        rivers.size();
+	}
 }

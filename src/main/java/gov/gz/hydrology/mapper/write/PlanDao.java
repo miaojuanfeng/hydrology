@@ -11,6 +11,7 @@ import java.util.List;
 public interface PlanDao {
 	Plan selectById(@Param("id") Integer id);
 	List<Plan> selectPlan(@Param("stcd") String stcd);
+	Plan selectChildPlan(@Param("planId") Integer planId, @Param("stcd") String stcd);
 	int insertSelective(Plan plan);
 	int insertBatch(List<Plan> plans);
 	int updateSelective(Plan plan);
