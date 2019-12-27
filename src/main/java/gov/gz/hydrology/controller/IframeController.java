@@ -230,18 +230,17 @@ public class IframeController {
 
     public String plusDay(int num,String newDate){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date  currdate = null;
+        Date currdate = null;
         try {
             currdate = format.parse(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println("现在的日期是：" + currdate);
         Calendar ca = Calendar.getInstance();
+        ca.setTime(currdate);
         ca.add(Calendar.DATE, num);// num为增加的天数，可以改变的
         currdate = ca.getTime();
         String enddate = format.format(currdate);
-        System.out.println("增加天数以后的日期：" + enddate);
         return enddate;
     }
 
@@ -252,7 +251,7 @@ public class IframeController {
 
         ///// 这里要查询一下PlanStation中的Plan
         Plan plan = null;
-        if( CommonConst.STCD_FENKENG.equals(p.getStcd()) ){
+        if( CommonConst.STCD_FENKENG.equals(p.getStcd().trim()) ){
             if( step == 1 ){
                 plan = planService.selectChildPlan(p.getId(), CommonConst.STCD_NINGDU);
             }else if( step == 2 ){
@@ -339,10 +338,11 @@ public class IframeController {
             if( type == 1 ) {
                 rivers = riverService.selectRiverQRange(stcd, plusDay(day, forecastTime), affectTime);
                 for (int i = 0; i < rivers.size(); i++) {
-                    BigDecimal r = rivers.get(i).getQ().setScale(2, NumberConst.MODE);
-                    riverArr.add(r);
-                    if( NumberUtil.gt(r, riverMax) ){
-                        riverMax = r;
+                    River r = rivers.get(i);
+                    BigDecimal q = r.getQ() != null ? r.getQ().setScale(2, NumberConst.MODE) : NumberConst.ZERO;
+                    riverArr.add(q);
+                    if( NumberUtil.gt(q, riverMax) ){
+                        riverMax = q;
                     }
                 }
             }else{
@@ -360,7 +360,7 @@ public class IframeController {
             map.put("riverArr", riverArr);
 
             List<BigDecimal> forecastArr = new ArrayList<>();
-            if( !CommonConst.STCD_FENKENG.equals(plan.getStcd()) ) {
+            if( !CommonConst.STCD_FENKENG.equals(p.getStcd().trim()) ) {
                 forecastArr = doCalc(plan, rainfallArr, false, null, null);
             }else{
                 if( step == 1 ){
@@ -387,7 +387,7 @@ public class IframeController {
             }
             map.put("forecastArr", forecastArr);
             map.put("riverMax", riverMax.multiply(new BigDecimal("1.5")).intValue());
-            map.put("stationProgress", commonService.stationProgress(plan.getStcd(), step));
+            map.put("stationProgress", commonService.stationProgress(p.getStcd().trim(), step));
         }
 		return "Iframe7";
 	}
@@ -401,10 +401,17 @@ public class IframeController {
 
 	    List<BigDecimal> QTR_List = new ArrayList<>();
         Integer len = rainfallP.size();
-        if( NumberUtil.gt(new BigDecimal(plan.getL()), plan.getKE()) ){
-            len += plan.getL();
+        /**
+         * 这里要用到ke怎么办
+         */
+        if( KE != null ) {
+            if (NumberUtil.gt(new BigDecimal(plan.getL()), KE)) {
+                len += plan.getL();
+            } else {
+                len += KE.intValue();
+            }
         }else{
-            len += plan.getKE().intValue();
+            len += plan.getL();
         }
         for (int i = 0; i<len; i++){
             QTR_List.add(new BigDecimal(0));

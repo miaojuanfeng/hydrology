@@ -4,6 +4,9 @@
 <script type="text/javascript" src="<c:url value="/assets/echarts/macarons.js"></c:url>"></script>
 <link rel="stylesheet" href="<c:url value="/assets/static/css/xaj.css"></c:url>">
 <style>
+    body{
+        background: #fff;
+    }
     #div-nav a{
         text-decoration: none;
     }
