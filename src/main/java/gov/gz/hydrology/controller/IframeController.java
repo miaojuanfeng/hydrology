@@ -76,7 +76,7 @@ public class IframeController {
             Integer ava = 0;
             if( rainfallTotal.size() > 0 ) {
                 BigDecimal rainfallAva = rainfallSum.divide(new BigDecimal(rainfallTotal.size()), NumberConst.DIGIT, NumberConst.MODE);
-                Integer floodDiff = z.add(rainfallAva.divide(new BigDecimal(50), NumberConst.DIGIT, NumberConst.MODE)).subtract(new BigDecimal(station.getJjLine())).intValue();
+                Integer floodDiff = new BigDecimal(station.getJjLine()).subtract(z).subtract(rainfallAva.divide(new BigDecimal(50), NumberConst.DIGIT, NumberConst.MODE)).intValue();
                 if( floodDiff < 1 ){
                     ava = 80;
                 } else if (floodDiff < 2) {
@@ -191,8 +191,8 @@ public class IframeController {
 			List<String> timeArr = new ArrayList<>();
 			List<BigDecimal> riverArr = new ArrayList<>();
 			SimpleDateFormat format = new SimpleDateFormat("MM/dd HH:mm");
-			Integer max = Integer.MIN_VALUE;
-			Integer min = Integer.MAX_VALUE;
+			BigDecimal max = NumberConst.ZERO;
+            BigDecimal min = NumberConst.ZERO;
 			for (int i=0;i<riverTime.size();i++){
 				String time = format.format(riverTime.get(i).getTm());
 //				if( time.endsWith(":00") ) {
@@ -200,12 +200,13 @@ public class IframeController {
 //				}else{
 //					timeArr.add("");
 //				}
-				riverArr.add(riverTime.get(i).getZ());
-				if( max < riverTime.get(i).getZ().intValue() ){
-					max = riverTime.get(i).getZ().add(new BigDecimal(1)).intValue();
+                BigDecimal z = riverTime.get(i).getZ();
+				riverArr.add(z);
+				if( NumberUtil.lt(max, z) ){
+					max = z;
 				}
-				if( min > riverTime.get(i).getZ().intValue() ){
-					min = riverTime.get(i).getZ().intValue();
+				if( NumberUtil.gt(min, z) || NumberUtil.et(min, NumberConst.ZERO) ){
+					min = z;
 				}
 			}
 //			if( max < station.getJjLine() ){
@@ -214,12 +215,17 @@ public class IframeController {
 //			if( min > station.getJbLine() ){
 //				min = station.getJbLine();
 //			}
+            BigDecimal jbLine = new BigDecimal(station.getJbLine());
+            BigDecimal jjLine = new BigDecimal(station.getJjLine());
+            if( NumberUtil.lt(max, jjLine) ){
+			    max = jjLine;
+            }
 			map.put("timeArr", timeArr);
 			map.put("riverArr", riverArr);
-			map.put("max", max);
-			map.put("min", min);
-			map.put("jbLine", station.getJbLine());
-			map.put("jjLine", station.getJjLine());
+			map.put("max", max.add(NumberConst.ONE).intValue());
+			map.put("min", min.intValue());
+			map.put("jbLine", jbLine);
+			map.put("jjLine", jjLine);
 		}else if( id == 7 ){
 //            List<BigDecimal> forcastArr = new ArrayList<>();
 //            forcastArr.add(new BigDecimal("0.1"));
