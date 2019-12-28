@@ -12,7 +12,7 @@
     }
 </style>
 <div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
-    <div style="padding:10px;">
+    <div id="nav" style="padding:10px;">
         ${stationProgress}
     </div>
 </div>
@@ -50,7 +50,7 @@
    	        }
    	    },
    	    legend: {
-   	        data:['实测流量','预报流量','降雨量'],
+   	        data:['实测${forecastText}','预报${forecastText}','降雨量'],
    	        x: 'left'
    	    },
    	    dataZoom: [
@@ -83,9 +83,10 @@
    	    ],
    	    yAxis: [
    	        {
-   	            name: '水位(m)',
+   	            name: '${forecastUnit}',
    	            type: 'value',
-   	            max: ${riverMax}
+   	            max: ${riverMax},
+                min: ${riverMin}
    	        },
    	        {
    	            name: '降雨量(mm)',
@@ -97,7 +98,7 @@
    	    ],
    	    series: [
    	        {
-   	            name:'实测流量',
+   	            name:'实测${forecastText}',
    	            type:'line',
    	            animation: true,
    	             smooth: true,
@@ -126,7 +127,7 @@
                 ]
    	        },
    	        {
-   	            name:'预报流量',
+   	            name:'预报${forecastText}',
    	            type:'line',
    	            animation: true,
    	             smooth: true,
@@ -135,7 +136,7 @@
    	        itemStyle:{
    	                                    normal:{
    	                                         color:'#FF3E96',
-   	                                        
+
    	                                    }
    	                                },
    	            lineStyle: {
@@ -147,7 +148,7 @@
    	                    shadowOffsetY: 10
    	                }
    	            },
-   	           
+
    	            data:[
                     <c:forEach items="${forecastArr}" var="forcast" varStatus="id">
                     '${forcast}',
@@ -160,9 +161,9 @@
    	                   }
    	               },
    	                data: [
-   	                   
+
    	                    {
-   	                        name: '警戒水位',
+   	                        name: '警戒${forecastText}',
    	                        yAxis: ${jjLine}
    	                    }
    	                    ]
@@ -172,7 +173,7 @@
    	                 	 symbolSize: 65,
    	                data: [
    	                    {type: 'max', name: '最大值'}
-   	                   
+
    	                ]
    	            }
    	        },

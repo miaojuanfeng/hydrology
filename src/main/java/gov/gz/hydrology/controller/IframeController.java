@@ -6,11 +6,13 @@ import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
+import gov.gz.hydrology.entity.read.Zq;
 import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
+import gov.gz.hydrology.service.read.ZqService;
 import gov.gz.hydrology.service.write.*;
 import gov.gz.hydrology.utils.*;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -45,6 +47,9 @@ public class IframeController {
 
 	@Autowired
     private CommonService commonService;
+
+	@Autowired
+    private ZqService zqService;
 
 	@Autowired
 	private CacheRiverTimeService cacheRiverTimeService;
@@ -249,7 +254,6 @@ public class IframeController {
                            @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
 		JSONObject retval = new JSONObject();
 
-        ///// 这里要查询一下PlanStation中的Plan
         Plan plan = null;
         if( CommonConst.STCD_FENKENG.equals(p.getStcd().trim()) ){
             if( step == 1 ){
@@ -331,10 +335,11 @@ public class IframeController {
 
 
 
-            //
+            // 没数据不要显示为0
             List<River> rivers = new ArrayList<>();
             List<BigDecimal> riverArr = new ArrayList<>();
             BigDecimal riverMax = NumberConst.ZERO;
+            BigDecimal riverMin = NumberConst.ZERO;
             if( type == 1 ) {
                 rivers = riverService.selectRiverQRange(stcd, plusDay(day, forecastTime), affectTime);
                 for (int i = 0; i < rivers.size(); i++) {
@@ -344,33 +349,42 @@ public class IframeController {
                     if( NumberUtil.gt(q, riverMax) ){
                         riverMax = q;
                     }
+                    if( NumberUtil.lt(q, riverMin) || NumberUtil.et(riverMin, NumberConst.ZERO) ){
+                        riverMin = q;
+                    }
                 }
+                map.put("forecastText", "流量");
+                map.put("forecastUnit", "流量(m³/s)");
             }else{
                 rivers = riverService.selectRiverZRange(stcd, plusDay(day, forecastTime), affectTime);
                 for (int i = 0; i < rivers.size(); i++) {
                     River r = rivers.get(i);
-                    BigDecimal x = r.getZ();
-                    BigDecimal y = r.getY1().add(x.subtract(r.getX1()).multiply(r.getY2().subtract(r.getY1())).divide(r.getX2().subtract(r.getX1()), NumberConst.DIGIT, NumberConst.MODE));
-                    riverArr.add(y);
-                    if( NumberUtil.gt(y, riverMax) ){
-                        riverMax = y;
+                    BigDecimal z = r.getZ() != null ? r.getZ().setScale(2, NumberConst.MODE) : NumberConst.ZERO;
+                    riverArr.add(z);
+                    if( NumberUtil.gt(z, riverMax) ){
+                        riverMax = z;
+                    }
+                    if( NumberUtil.lt(z, riverMin) || NumberUtil.et(riverMin, NumberConst.ZERO) ){
+                        riverMin = z;
                     }
                 }
+                map.put("forecastText", "水位");
+                map.put("forecastUnit", "水位(m)");
             }
             map.put("riverArr", riverArr);
 
             List<BigDecimal> forecastArr = new ArrayList<>();
             if( !CommonConst.STCD_FENKENG.equals(p.getStcd().trim()) ) {
-                forecastArr = doCalc(plan, rainfallArr, false, null, null);
+                forecastArr = doCalc(plan, rainfallArr, null, null);
             }else{
                 if( step == 1 ){
-                    forecastArr = doCalc(plan, rainfallArr, true, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_ONE = forecastArr;
+                    forecastArr = doCalc(plan, rainfallArr, plan.getKE(), plan.getXE());
+                    FORECAST_STEP_ONE = StepFiveUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 2 ){
-                    forecastArr = doCalc(plan, rainfallArr, true, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_TWO = forecastArr;
+                    forecastArr = doCalc(plan, rainfallArr, plan.getKE(), plan.getXE());
+                    FORECAST_STEP_TWO = StepFiveUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 3 ){
-                    forecastArr = doCalc(plan, rainfallArr, false, null, null);
+                    forecastArr = doCalc(plan, rainfallArr, null, null);
                     //
                     for (int i=0; i<forecastArr.size(); i++){
                         BigDecimal v = FORECAST_STEP_ONE.get(i).add(FORECAST_STEP_TWO.get(i).add(forecastArr.get(i)));
@@ -380,19 +394,45 @@ public class IframeController {
             }
             for (int i = 0; i < forecastArr.size(); i++) {
                 BigDecimal r = forecastArr.get(i).setScale(2, NumberConst.MODE);
+                // 差值法
+                if( type == 2 ){
+                    Zq zqMin = zqService.selectZqMin(plan.getStcd(), r);
+                    Zq zqMax = zqService.selectZqMax(plan.getStcd(), r);
+                    if( zqMin == null && zqMax != null ){
+                        BigDecimal y = zqMax.getY();
+                        r = y;
+                    }else if( zqMin != null && zqMax == null ){
+                        BigDecimal y = zqMin.getY();
+                        r = y;
+                    }else if( zqMin != null && zqMax != null ){
+                        BigDecimal x = r;
+                        BigDecimal x1 = zqMin.getX();
+                        BigDecimal y1 = zqMin.getY();
+                        BigDecimal x2 = zqMax.getX();
+                        BigDecimal y2 = zqMax.getY();
+                        BigDecimal y = y1.add(x.subtract(x1).multiply(y2.subtract(y1)).divide(x2.subtract(x1), NumberConst.DIGIT, NumberConst.MODE)).setScale(2, NumberConst.MODE);
+                        r = y;
+                    }else{
+                        System.out.println("程序错误");
+                    }
+                }
                 forecastArr.set(i, r);
                 if( NumberUtil.gt(r, riverMax) ){
                     riverMax = r;
                 }
+                if( NumberUtil.lt(r, riverMin) || NumberUtil.et(riverMin, NumberConst.ZERO) ){
+                    riverMin = r;
+                }
             }
             map.put("forecastArr", forecastArr);
-            map.put("riverMax", riverMax.multiply(new BigDecimal("1.5")).intValue());
+            map.put("riverMax", riverMax.add(riverMax.subtract(riverMin).multiply(new BigDecimal("0.5"))).intValue());
+            map.put("riverMin", riverMin.intValue());
             map.put("stationProgress", commonService.stationProgress(p.getStcd().trim(), step));
         }
 		return "Iframe7";
 	}
 
-	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, boolean needQt, BigDecimal KE, BigDecimal XE){
+	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, BigDecimal KE, BigDecimal XE){
 	    StepCommonUtil.init(plan);
 	    StepOneUtil.init(plan);
 	    StepTwoUtil.init(plan);
@@ -401,9 +441,7 @@ public class IframeController {
 
 	    List<BigDecimal> QTR_List = new ArrayList<>();
         Integer len = rainfallP.size();
-        /**
-         * 这里要用到ke怎么办
-         */
+
         if( KE != null ) {
             if (NumberUtil.gt(new BigDecimal(plan.getL()), KE)) {
                 len += plan.getL();
@@ -449,10 +487,7 @@ public class IframeController {
                 QTR_List.set(i, lastQTR);
             }
         }
-        if( !needQt ){
-            return QTR_List;
-        }
-        return StepFiveUtil.getQt(QTR_List, KE, XE);
+        return QTR_List;
 
         //System.out.println(StepTwoUtil.getWUx1());
         //System.out.println(StepTwoUtil.getWLx1());
@@ -473,7 +508,7 @@ public class IframeController {
 
     @GetMapping("test")
     public void test(){
-        List<River> rivers = riverService.selectRiverZRange("62303350", "2018-06-10", "2018-06-08");
+        List<River> rivers = riverService.selectRiverQRange("62303350", "2018-06-13", "2018-06-03");
         rivers.size();
 	}
 }

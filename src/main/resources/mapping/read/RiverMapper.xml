@@ -6,10 +6,6 @@
         <result column="tm" property="tm"/>
         <result column="z" property="z"/>
         <result column="q" property="q"/>
-        <result column="x1" property="x1"/>
-        <result column="y1" property="y1"/>
-        <result column="x2" property="x2"/>
-        <result column="y2" property="y2"/>
 	</resultMap>
 
     <select id="selectRiverTime" resultMap="BaseResultMap">
@@ -17,8 +13,10 @@
         from ST_RIVER_R
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where stcd = #{stcd}
-        and 3>=datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))
-        and datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))>=0
+--         and 3>=datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))
+--         and datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))>=0
+        and 3>=datediff(dd,tm,'2018-06-13')
+        and datediff(dd,tm,'2018-06-13')>=0
         order by tm asc
     </select>
 
@@ -33,11 +31,7 @@
     </select>
 
     <select id="selectRiverZRange" resultMap="BaseResultMap">
-        select tm, z, q,
-        (select top 1 z from ST_ZQRL_B where stcd = #{stcd} and ST_RIVER_R.q >= q ORDER BY q desc) as x1,
-        (select top 1 q from ST_ZQRL_B where stcd = #{stcd} and ST_RIVER_R.q >= q ORDER BY q desc) as y1,
-        (select top 1 z from ST_ZQRL_B where stcd = #{stcd} and q >= ST_RIVER_R.q ORDER BY q asc) as x2,
-        (select top 1 q from ST_ZQRL_B where stcd = #{stcd} and q >= ST_RIVER_R.q ORDER BY q asc) as y2
+        select tm, z
         from ST_RIVER_R
         <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where stcd = #{stcd}

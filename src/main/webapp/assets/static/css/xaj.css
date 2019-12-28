@@ -177,6 +177,9 @@ body{
     top:0;
     right:-37px;
 }
+#div-nav #nav a.selected{
+	background-color: #26d0ce;
+}
 #div-nav #nav a.selected:before{
 	border-left-color:#26d0ce;
 }

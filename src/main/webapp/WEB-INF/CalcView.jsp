@@ -205,7 +205,7 @@
 											<a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
+											<a type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报流量</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="step-next" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">下一步</a>
@@ -216,7 +216,7 @@
 											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="2" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报流量</a>
+											<a type="2" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
 										</div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>
@@ -262,18 +262,18 @@
                 , $ = layui.jquery
                 , laydate = layui.laydate;
         
-      	//日期
-        laydate.render({
-            elem: '#forecastTime',
-            type: 'datetime',
-			format: 'yyyy-MM-dd HH:00:00'
-        });
-        //日期
-        laydate.render({
-            elem: '#affectTime',
-            type: 'datetime',
-            format: 'yyyy-MM-dd HH:00:00'
-        });
+      	// //日期
+        // laydate.render({
+        //     elem: '#forecastTime',
+        //     type: 'datetime',
+			// format: 'yyyy-MM-dd HH:00:00'
+        // });
+        // //日期
+        // laydate.render({
+        //     elem: '#affectTime',
+        //     type: 'datetime',
+        //     format: 'yyyy-MM-dd HH:00:00'
+        // });
 
         form.on('select(sType)', function (data) {
             $("#sName").html('');
@@ -396,6 +396,8 @@
                 if( ok ) {
                     type = $(this).attr("type");
                     step = 1;
+                    $("#KE,#XE").removeAttr("disabled");
+                    $("#step-prev").addClass("layui-btn-disabled");
                     forecast();
                     if( $("#sName").val() == 62303500 ){
 						$("#step-next").removeClass("layui-btn-disabled");

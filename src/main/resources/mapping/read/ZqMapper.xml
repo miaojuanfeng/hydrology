@@ -3,15 +3,15 @@
 <mapper namespace="gov.gz.hydrology.mapper.read.ZqDao" >
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.read.Zq" >
 		<id column="stcd" property="stcd" jdbcType="VARCHAR" />
-        <result column="z" property="z"/>
-        <result column="q" property="q"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
 	</resultMap>
 
     <select id="selectZqMin" resultMap="BaseResultMap">
-
+        select top 1 q as x, z as y from ST_ZQRL_B where stcd = #{stcd} and #{q} >= q ORDER BY q desc
     </select>
 
     <select id="selectZqMax" resultMap="BaseResultMap">
-
+        select top 1 q as x, z as y from ST_ZQRL_B where stcd = #{stcd} and q >= #{q} ORDER BY q asc
     </select>
 </mapper>

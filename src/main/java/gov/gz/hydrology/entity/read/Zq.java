@@ -6,9 +6,9 @@ import java.util.Date;
 public class Zq {
     private String stcd;
 
-    private BigDecimal z;
+    private BigDecimal x;
 
-    private BigDecimal q;
+    private BigDecimal y;
 
     public String getStcd() {
         return stcd;
@@ -18,19 +18,20 @@ public class Zq {
         this.stcd = stcd;
     }
 
-    public BigDecimal getZ() {
-        return z;
+
+    public BigDecimal getX() {
+        return x;
     }
 
-    public void setZ(BigDecimal z) {
-        this.z = z;
+    public void setX(BigDecimal x) {
+        this.x = x;
     }
 
-    public BigDecimal getQ() {
-        return q;
+    public BigDecimal getY() {
+        return y;
     }
 
-    public void setQ(BigDecimal q) {
-        this.q = q;
+    public void setY(BigDecimal y) {
+        this.y = y;
     }
 }
