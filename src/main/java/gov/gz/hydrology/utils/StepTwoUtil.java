@@ -205,17 +205,17 @@ public class StepTwoUtil {
 		W = WU.add(WL).add(WD);
 
 
-		System.out.println("WUup="+StepTwoUtil.WUup);
-		System.out.println("PE="+StepCommonUtil.getPE());
-		System.out.println("WU="+StepTwoUtil.WU);
-		System.out.println("WL="+StepTwoUtil.WL);
-		System.out.println("WD="+StepTwoUtil.WD);
-		System.out.println("W="+StepTwoUtil.W);
-		System.out.println("EU="+StepTwoUtil.EU);
-		System.out.println("EL="+StepTwoUtil.EL);
-		System.out.println("ED="+StepTwoUtil.ED);
-		System.out.println("ES="+StepTwoUtil.ES);
-		System.out.println("StepOneUtil.Wup="+StepOneUtil.Wup);
+//		System.out.println("WUup="+StepTwoUtil.WUup);
+//		System.out.println("PE="+StepCommonUtil.getPE());
+//		System.out.println("WU="+StepTwoUtil.WU);
+//		System.out.println("WL="+StepTwoUtil.WL);
+//		System.out.println("WD="+StepTwoUtil.WD);
+//		System.out.println("W="+StepTwoUtil.W);
+//		System.out.println("EU="+StepTwoUtil.EU);
+//		System.out.println("EL="+StepTwoUtil.EL);
+//		System.out.println("ED="+StepTwoUtil.ED);
+//		System.out.println("ES="+StepTwoUtil.ES);
+//		System.out.println("StepOneUtil.Wup="+StepOneUtil.Wup);
 //		System.out.println("----------------Two算后----------------");
 	}
 	

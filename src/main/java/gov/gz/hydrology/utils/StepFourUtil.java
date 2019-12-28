@@ -85,10 +85,10 @@ public class StepFourUtil {
 		QRssup = QRss;
 		QRgup = QRg;
 
-		System.out.println("QRs="+QRs);
-		System.out.println("QRss="+QRss);
-		System.out.println("QRg="+QRg);
-		System.out.println("QTR="+QTR);
+//		System.out.println("QRs="+QRs);
+//		System.out.println("QRss="+QRss);
+//		System.out.println("QRg="+QRg);
+//		System.out.println("QTR="+QTR);
 	}
 	
 }

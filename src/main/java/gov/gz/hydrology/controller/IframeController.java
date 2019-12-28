@@ -233,7 +233,7 @@ public class IframeController {
 		return "Iframe"+id;
 	}
 
-    public String plusDay(int num,String newDate){
+    public String plusDay(Integer num, String newDate){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date currdate = null;
         try {
@@ -271,7 +271,11 @@ public class IframeController {
 
             Station station = stationService.selectByPrimaryKey(stcd);
             map.put("station", station);
-            map.put("jjLine", station.getJjLine());
+            if( type == 2 ) {
+                map.put("jjLine", station.getJjLine());
+            }else{
+                map.put("jjLine", -10);
+            }
 
             plan.setSM(p.getSM());
             plan.setCI(p.getCI());
@@ -314,6 +318,7 @@ public class IframeController {
             List<BigDecimal> rainfallArr = new ArrayList<>();
             List<String> timeArr = new ArrayList<>();
             BigDecimal rainfallMax = NumberConst.ZERO;
+//            System.out.println("start");
             for (int i = 0; i < rainfalls.size(); i++) {
                 BigDecimal r = rainfalls.get(i).getRainfall().setScale(2, NumberConst.MODE);
                 String t = rainfalls.get(i).getDate().substring(0, 16);
@@ -322,8 +327,10 @@ public class IframeController {
                 if( NumberUtil.gt(r, rainfallMax) ){
                     rainfallMax = r;
                 }
+//                System.out.println(r);
             }
-            map.put("rainfallMax", rainfallMax.multiply(new BigDecimal("3")).intValue());
+//            System.out.println("end");
+            map.put("rainfallMax", rainfallMax.multiply(new BigDecimal("3.5")).intValue());
             map.put("timeArr", timeArr);
             map.put("rainfallArr", rainfallArr);
 
@@ -338,7 +345,7 @@ public class IframeController {
             // 没数据不要显示为0
             List<River> rivers = new ArrayList<>();
             List<BigDecimal> riverArr = new ArrayList<>();
-            BigDecimal riverMax = NumberConst.ZERO;
+            BigDecimal riverMax = new BigDecimal(station.getJjLine());
             BigDecimal riverMin = NumberConst.ZERO;
             if( type == 1 ) {
                 rivers = riverService.selectRiverQRange(stcd, plusDay(day, forecastTime), affectTime);
@@ -425,7 +432,7 @@ public class IframeController {
                 }
             }
             map.put("forecastArr", forecastArr);
-            map.put("riverMax", riverMax.add(riverMax.subtract(riverMin).multiply(new BigDecimal("0.5"))).intValue());
+            map.put("riverMax", riverMax.add(riverMax.subtract(riverMin).multiply(new BigDecimal("0.5"))).add(NumberConst.ONE).intValue());
             map.put("riverMin", riverMin.intValue());
             map.put("stationProgress", commonService.stationProgress(p.getStcd().trim(), step));
         }
@@ -452,7 +459,7 @@ public class IframeController {
             len += plan.getL();
         }
         for (int i = 0; i<len; i++){
-            QTR_List.add(new BigDecimal(0));
+            QTR_List.add(new BigDecimal(-999));
         }
         BigDecimal initQTR = null;
         BigDecimal lastQTR = NumberConst.ZERO;
@@ -479,11 +486,12 @@ public class IframeController {
                 QTR_List.set(i, initQTR);
             }
             QTR_List.set(plan.getL() + i, StepFourUtil.QTR);
+
             lastQTR = StepFourUtil.QTR;
-            System.out.println("======================"+(i+1)+"======================");
+//            System.out.println("======================"+(i+1)+"======================");
         }
         for(int i=0;i<QTR_List.size();i++){
-            if( QTR_List.get(i).intValue() == 0 ){
+            if( NumberUtil.et(QTR_List.get(i), new BigDecimal(-999)) ){
                 QTR_List.set(i, lastQTR);
             }
         }

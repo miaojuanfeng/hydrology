@@ -179,11 +179,11 @@ public class StepThreeUtil {
 		Sup = S;
 		FRup = FR;
 
-		System.out.println("RS="+StepThreeUtil.RS);
-		System.out.println("RSS="+StepThreeUtil.RSS);
-		System.out.println("RG="+StepThreeUtil.RG);
-		System.out.println("S="+StepThreeUtil.S);
-		System.out.println("FR="+StepThreeUtil.FR);
+//		System.out.println("RS="+StepThreeUtil.RS);
+//		System.out.println("RSS="+StepThreeUtil.RSS);
+//		System.out.println("RG="+StepThreeUtil.RG);
+//		System.out.println("S="+StepThreeUtil.S);
+//		System.out.println("FR="+StepThreeUtil.FR);
 	}
 
 	/**

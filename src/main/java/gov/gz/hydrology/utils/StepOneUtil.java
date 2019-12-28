@@ -72,7 +72,7 @@ public class StepOneUtil {
 	 */
 	public static void getResult() {
 
-		System.out.println("A="+StepOneUtil.getA());
+//		System.out.println("A="+StepOneUtil.getA());
 //		System.out.println("----------------One算前----------------");
 
 
@@ -109,9 +109,9 @@ public class StepOneUtil {
 
 
 
-		System.out.println("R="+StepOneUtil.R);
-		System.out.println("Rd="+StepOneUtil.Rd);
-		System.out.println("-----------------");
+//		System.out.println("R="+StepOneUtil.R);
+//		System.out.println("Rd="+StepOneUtil.Rd);
+//		System.out.println("-----------------");
 //		System.out.println("----------------One算后----------------");
 	}
 }
