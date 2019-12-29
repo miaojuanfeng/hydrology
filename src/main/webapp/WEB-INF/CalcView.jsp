@@ -216,7 +216,7 @@
 											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="2" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
+											<a type="2" style="background:#26D0CE;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
 										</div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>

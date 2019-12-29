@@ -106,13 +106,13 @@
                 symbolSize: 1,
    	        itemStyle:{
    	                                    normal:{
-   	                                         color:'#26d0ce',
+   	                                         color:'#7EC0EE',
    	                                        
    	                                    }
    	                                },
    	            lineStyle: {
    	                normal: {
-   	                    color:'#26d0ce',
+   	                    color:'#7EC0EE',
    	                    width: 3,
    	                    shadowColor: 'rgba(0,0,0,0.4)',
    	                    shadowBlur: 10,
