@@ -5,6 +5,11 @@
 <head>
 	<%@ include file="common/LinkCommon.jsp" %>
 </head>
+<style>
+.layui-layer-loading{
+	margin-left: 11.5% !important;
+}
+</style>
 <body>
 
 <!-- layout admin -->
@@ -205,7 +210,7 @@
 											<a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报流量</a>
+											<a type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius layui-bg-red">预报流量</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="step-next" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">下一步</a>
@@ -216,7 +221,7 @@
 											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="2" style="background:#26D0CE;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius">预报水位</a>
+											<a type="2" style="background:#26D0CE;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius layui-bg-green">预报水位</a>
 										</div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>
@@ -230,6 +235,11 @@
 					    <div class="layui-col-xs12 layui-col-sm6 layui-col-md9">
 					        <div class="layui-collapse">
 					            <div class="layui-colla-item">
+									<div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
+										<div id="nav" style="padding:10px;">
+											${stationProgress}
+										</div>
+									</div>
 									<div id="div-iframe">
 					             		<iframe id="iframe7" width="100%" frameborder="0" scrolling="no"></iframe>
 					             	</div>
@@ -323,6 +333,17 @@
                     layui.form.render('select');
                     //
                     getPlanDetail(defaultPlanId);
+                }
+            );
+            //
+            $("#nav").html('');
+            $.post(
+                "<c:url value="/cms/common/nav"></c:url>",
+                {
+                    stcd: data.value
+                },
+                function(data){
+                    $("#nav").html(data);
                 }
             );
         });

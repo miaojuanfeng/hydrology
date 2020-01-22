@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.*;
+import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.write.PlanService;
 import gov.gz.hydrology.service.write.PlanStationService;
 import gov.gz.hydrology.service.write.StationService;
@@ -37,6 +38,9 @@ public class ForecastController {
 	@Autowired
     private PlanStationService planStationService;
 
+	@Autowired
+	private CommonService commonService;
+
 	@GetMapping("calc")
 	public String getCalc(ModelMap map) {
 		map.put("date", DateUtil.getDate());
@@ -48,6 +52,7 @@ public class ForecastController {
 			Plan plan = planService.selectById(planList.get(0).getId());
 			map.put("plan", plan);
 		}
+		map.put("stationProgress", commonService.stationProgress(CommonConst.STCD_NINGDU, 1));
 		return "CalcView";
 	}
 

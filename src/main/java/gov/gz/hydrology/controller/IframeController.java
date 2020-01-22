@@ -223,7 +223,7 @@ public class IframeController {
 			map.put("timeArr", timeArr);
 			map.put("riverArr", riverArr);
 			map.put("max", max.add(NumberConst.ONE).intValue());
-			map.put("min", min.intValue());
+			map.put("min", min.intValue()-1);
 			map.put("jbLine", jbLine);
 			map.put("jjLine", jjLine);
 		}else if( id == 7 ){
@@ -439,8 +439,7 @@ public class IframeController {
             }
             map.put("forecastArr", forecastArr);
             map.put("riverMax", riverMax.add(riverMax.subtract(riverMin).multiply(new BigDecimal("0.5"))).add(NumberConst.ONE).intValue());
-            map.put("riverMin", riverMin.intValue());
-            map.put("stationProgress", commonService.stationProgress(p.getStcd().trim(), step));
+            map.put("riverMin", riverMin.intValue()-1);
         }
 		return "Iframe7";
 	}

@@ -48,19 +48,19 @@ public class CommonServiceImpl implements CommonService {
             }else{
                 selected = "";
             }
-            retval += "<a " + selected + " href='javascript:;'><span>宁都</span></a>";
+            retval += "<a id='nav-ningdu'" + selected + " href='javascript:;'><span>宁都</span></a>";
             if( step == 2 ){
                 selected = "class='selected'";
             }else{
                 selected = "";
             }
-            retval += "<a " + selected + " href='javascript:;'><span>石城</span></a>";
+            retval += "<a id='nav-shicheng'" + selected + " href='javascript:;'><span>石城</span></a>";
             if( step == 3 ){
                 selected = "class='selected'";
             }else{
                 selected = "";
             }
-            retval += "<a " + selected + " href='javascript:;'><span>汾坑</span></a>";
+            retval += "<a id='nav-fenkeng'" + selected + " href='javascript:;'><span>汾坑</span></a>";
         }
         return retval;
     }

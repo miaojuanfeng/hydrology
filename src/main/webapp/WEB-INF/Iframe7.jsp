@@ -11,11 +11,6 @@
         text-decoration: none;
     }
 </style>
-<div id="div-nav" style="height:58px;border-bottom:1px solid #eee;">
-    <div id="nav" style="padding:10px;">
-        ${stationProgress}
-    </div>
-</div>
 <div id="main" style="width:100%;height:100%;"></div>
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例

@@ -6,6 +6,7 @@ import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.Warning;
+import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.write.PlanService;
 import gov.gz.hydrology.service.write.StationService;
 import gov.gz.hydrology.service.write.WarningService;
@@ -32,6 +33,9 @@ public class CommonController {
 
     @Autowired
     private PlanService planService;
+
+    @Autowired
+    private CommonService commonService;
 
     @RequestMapping("station")
     @ResponseBody
@@ -130,5 +134,11 @@ public class CommonController {
         retval.put("code", CommonConst.HTTP_OK);
         retval.put("data", temp);
         return retval.toString();
+    }
+
+    @RequestMapping("nav")
+    @ResponseBody
+    public String nav(@RequestParam("stcd") String stcd) {
+        return commonService.stationProgress(stcd.trim(), 1);
     }
 }
