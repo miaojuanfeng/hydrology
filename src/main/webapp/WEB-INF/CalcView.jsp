@@ -364,20 +364,20 @@
                 function(data){
                     var obj = $.parseJSON(data);
                     var data = obj.data;
-                    $("#SM").val(data.SM).attr("detail", data.SM);
-                    $("#CI").val(data.CI).attr("detail", data.CI);
-                    $("#CS").val(data.CS).attr("detail", data.CS);
-                    $("#L").val(data.L).attr("detail", data.L);
-                    $("#KE").val(data.KE).attr("detail", data.KE);
-                    $("#XE").val(data.XE).attr("detail", data.XE);
-                    $("#WU0").val(data.WU0).attr("detail", data.WU0);
-                    $("#WL0").val(data.WL0).attr("detail", data.WL0);
-                    $("#WD0").val(data.WD0).attr("detail", data.WD0);
-                    $("#S0").val(data.S0).attr("detail", data.S0);
-                    $("#FR0").val(data.FR0).attr("detail", data.FR0);
-                    $("#QRs0").val(data.QRs0).attr("detail", data.QRs0);
-                    $("#QRss0").val(data.QRss0).attr("detail", data.QRss0);
-                    $("#QRg0").val(data.QRg0).attr("detail", data.QRg0);
+                    $("#SM").val(data.SM).attr("default", data.SM);
+                    $("#CI").val(data.CI).attr("default", data.CI);
+                    $("#CS").val(data.CS).attr("default", data.CS);
+                    $("#L").val(data.L).attr("default", data.L);
+                    $("#KE").val(data.KE).attr("default", data.KE);
+                    $("#XE").val(data.XE).attr("default", data.XE);
+                    $("#WU0").val(data.WU0).attr("default", data.WU0);
+                    $("#WL0").val(data.WL0).attr("default", data.WL0);
+                    $("#WD0").val(data.WD0).attr("default", data.WD0);
+                    $("#S0").val(data.S0).attr("default", data.S0);
+                    $("#FR0").val(data.FR0).attr("default", data.FR0);
+                    $("#QRs0").val(data.QRs0).attr("default", data.QRs0);
+                    $("#QRss0").val(data.QRss0).attr("default", data.QRss0);
+                    $("#QRg0").val(data.QRg0).attr("default", data.QRg0);
                 }
             );
         }
@@ -439,22 +439,30 @@
                 $("#step-next").removeClass("layui-btn-disabled");
                 if( step == 1 ){
                     $("#step-prev").addClass("layui-btn-disabled");
+                    $("#nav a").removeClass("selected");
+                    $("#nav-ningdu").addClass("selected");
+                }else if( step == 2 ){
+                    $("#nav a").removeClass("selected");
+                    $("#nav-shicheng").addClass("selected");
                 }
             });
 
             $("#step-next").click(function () {
                 var stcd = $("#sName").val();
-                if( stcd != 62303500 || step == 3 ){
+                if (stcd != 62303500 || step == 3) {
                     return;
                 }
                 step++;
-                if( step == 3 ){
-                    $("#KE,#XE").attr("disabled", "disabled");
-				}
                 forecast();
                 $("#step-prev").removeClass("layui-btn-disabled");
-                if( step == 3 ){
+                if( step == 2 ){
+                    $("#nav a").removeClass("selected");
+                    $("#nav-shicheng").addClass("selected");
+                }else if( step == 3 ){
                     $("#step-next").addClass("layui-btn-disabled");
+                    $("#KE,#XE").attr("disabled", "disabled");
+                    $("#nav a").removeClass("selected");
+                    $("#nav-fenkeng").addClass("selected");
                 }
             });
             

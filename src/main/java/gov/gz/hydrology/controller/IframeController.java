@@ -235,6 +235,9 @@ public class IframeController {
 //            map.put("forcastArr", forcastArr);
 //            map.put("stationProgress", commonService.stationProgress(stcd, step));
             map.put("rainfallMax", 0);
+            map.put("riverMax", 0);
+            map.put("riverMin", 0);
+            map.put("jjLine", 0);
         }
 		return "Iframe"+id;
 	}
