@@ -285,7 +285,12 @@
         //     format: 'yyyy-MM-dd HH:00:00'
         // });
 
+		var stcd_ningdu = 62303350;
+		var stcd_shicheng = 62303650;
+		var stcd_fenkeng = 62303500;
+
         form.on('select(sType)', function (data) {
+            postForecast = false;
             $("#sName").html('');
             $.post(
                 "<c:url value="/cms/common/station"></c:url>",
@@ -307,34 +312,13 @@
         form.on('select(sType)');
 
         form.on('select(sName)', function (data) {
-            if( data.value != 62303500){
+            postForecast = false;
+            if( data.value != stcd_fenkeng){
                 $("#step-prev").addClass("layui-btn-disabled");
                 $("#step-next").addClass("layui-btn-disabled");
             }
             //
-            $("#plan").html('');
-            $.post(
-                "<c:url value="/cms/common/plan"></c:url>",
-                {
-                    stcd: data.value
-                },
-                function(data){
-                    var obj = $.parseJSON(data);
-                    var arr = obj.data;
-                    var html = '';
-                    var defaultPlanId = 0;
-                    for(var i=0;i<arr.length;i++){
-                        if( defaultPlanId == 0 ){
-                            defaultPlanId = arr[i].id;
-                        }
-                        html += '<option value="'+arr[i].id+'">'+arr[i].name+'</option>';
-                    }
-                    $("#plan").html(html);
-                    layui.form.render('select');
-                    //
-                    getPlanDetail(defaultPlanId);
-                }
-            );
+            getPlanList(data.value);
             //
             $("#nav").html('');
             $.post(
@@ -350,10 +334,45 @@
         form.on('select(sName)');
 
         form.on('select(plan)', function (data) {
+            postForecast = false;
             $(".plan-var").val('');
-            getPlanDetail(data.value);
+            if( data.value != stcd_fenkeng ) {
+                getPlanDetail(data.value);
+            }else{
+                getPlanChild(data.value, stcd_ningdu);
+            }
         });
         form.on('select(plan)');
+
+        function getPlanList(id) {
+            $("#plan").html('');
+            $.post(
+                "<c:url value="/cms/common/plan"></c:url>",
+                {
+                    stcd: id
+                },
+                function(data){
+                    var obj = $.parseJSON(data);
+                    var arr = obj.data;
+                    var html = '';
+                    var defaultPlanId = 0;
+                    for(var i=0;i<arr.length;i++){
+                        if( defaultPlanId == 0 ){
+                            defaultPlanId = arr[i].id;
+                        }
+                        html += '<option value="'+arr[i].id+'">'+arr[i].name+'</option>';
+                    }
+                    $("#plan").html(html);
+                    layui.form.render('select');
+                    //
+					if( id != stcd_fenkeng ) {
+                        getPlanDetail(defaultPlanId);
+                    }else{
+					    getPlanChild(defaultPlanId, stcd_ningdu);
+					}
+                }
+            );
+		}
         
         function getPlanDetail(id) {
             $.post(
@@ -382,8 +401,37 @@
             );
         }
 
+        function getPlanChild(id, stcd) {
+            $.post(
+                "<c:url value="/cms/common/plan/child"></c:url>",
+                {
+                    id: id,
+					stcd: stcd
+                },
+                function(data){
+                    var obj = $.parseJSON(data);
+                    var data = obj.data;
+                    $("#SM").val(data.SM).attr("default", data.SM);
+                    $("#CI").val(data.CI).attr("default", data.CI);
+                    $("#CS").val(data.CS).attr("default", data.CS);
+                    $("#L").val(data.L).attr("default", data.L);
+                    $("#KE").val(data.KE).attr("default", data.KE);
+                    $("#XE").val(data.XE).attr("default", data.XE);
+                    $("#WU0").val(data.WU0).attr("default", data.WU0);
+                    $("#WL0").val(data.WL0).attr("default", data.WL0);
+                    $("#WD0").val(data.WD0).attr("default", data.WD0);
+                    $("#S0").val(data.S0).attr("default", data.S0);
+                    $("#FR0").val(data.FR0).attr("default", data.FR0);
+                    $("#QRs0").val(data.QRs0).attr("default", data.QRs0);
+                    $("#QRss0").val(data.QRss0).attr("default", data.QRss0);
+                    $("#QRg0").val(data.QRg0).attr("default", data.QRg0);
+                }
+            );
+        }
+
         var type = 1;
         var step = 1;
+        var postForecast = false;
         $(document).ready(function(){
         	var contentHeight = $(window).height() - 60 - 22;
            	var viewHeight = contentHeight;
@@ -420,9 +468,10 @@
                     $("#KE,#XE").removeAttr("disabled");
                     $("#step-prev").addClass("layui-btn-disabled");
                     forecast();
-                    if( $("#sName").val() == 62303500 ){
+                    if( $("#sName").val() == stcd_fenkeng ){
 						$("#step-next").removeClass("layui-btn-disabled");
                     }
+                    postForecast = true;
                 }else{
                     layer.msg('请填妥相关信息', {icon: 2});
                 }
@@ -430,7 +479,8 @@
             
             $("#step-prev").click(function () {
                 var stcd = $("#sName").val();
-                if( stcd != 62303500 || step == 1 ){
+                var planId = $("#plan").val();
+                if (stcd != stcd_fenkeng || step == 1 || !postForecast){
                     return;
                 }
                 step--;
@@ -441,15 +491,26 @@
                     $("#step-prev").addClass("layui-btn-disabled");
                     $("#nav a").removeClass("selected");
                     $("#nav-ningdu").addClass("selected");
+                    if( stcd != stcd_fenkeng ) {
+                        getPlanDetail(planId);
+                    }else{
+                        getPlanChild(planId, stcd_ningdu);
+                    }
                 }else if( step == 2 ){
                     $("#nav a").removeClass("selected");
                     $("#nav-shicheng").addClass("selected");
+                    if( stcd != stcd_fenkeng ) {
+                        getPlanDetail(planId);
+                    }else{
+                        getPlanChild(planId, stcd_shicheng);
+                    }
                 }
             });
 
             $("#step-next").click(function () {
                 var stcd = $("#sName").val();
-                if (stcd != 62303500 || step == 3) {
+                var planId = $("#plan").val();
+                if (stcd != stcd_fenkeng || step == 3 || !postForecast) {
                     return;
                 }
                 step++;
@@ -458,11 +519,17 @@
                 if( step == 2 ){
                     $("#nav a").removeClass("selected");
                     $("#nav-shicheng").addClass("selected");
+                    if( stcd != stcd_fenkeng ) {
+                        getPlanDetail(planId);
+                    }else{
+                        getPlanChild(planId, stcd_shicheng);
+                    }
                 }else if( step == 3 ){
                     $("#step-next").addClass("layui-btn-disabled");
                     $("#KE,#XE").attr("disabled", "disabled");
                     $("#nav a").removeClass("selected");
                     $("#nav-fenkeng").addClass("selected");
+					getPlanDetail(planId);
                 }
             });
             

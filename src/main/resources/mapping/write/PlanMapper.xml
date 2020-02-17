@@ -54,7 +54,7 @@
         select p.*
         from [plan] p
         inner join plan_station ps on ps.child_plan_id = p.id
-        where ps.plan_id = #{planId} and ps.po_stcd = #{stcd}
+        where ps.plan_id = #{planId} and p.stcd = #{stcd}
     </select>
 	<insert id="insertBatch" parameterType="java.util.List">
         insert into [plan]

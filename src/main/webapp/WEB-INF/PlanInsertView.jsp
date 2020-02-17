@@ -44,15 +44,6 @@
     											<span>4.预览</span>
     										</a>
 										</div>
-                                        <div style="float:right;margin-top:10px;">
-                                            <div style="margin-left:80px;float:left;">
-                                                <a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius" style="display: none;">上一步</a>
-                                            </div>
-                                            <div style="margin-left:10px;float:right;">
-                                                <a id="step-next" class="layui-btn layui-btn-normal layui-btn-radius">下一步</a>
-                                                <a id="step-save" class="layui-btn layui-btn-normal layui-btn-radius" style="display: none;">保存</a>
-                                            </div>
-                                        </div>
 									</div>
 					            	<form id="form-plan" class="layui-form" style="margin:10px;">
 										<input type="hidden" id="id" name="id" value="${plan.id}"/>
@@ -61,7 +52,7 @@
 											    <legend>方案基本信息</legend>
 											</fieldset>
 											<div class="layui-form-item">
-												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 										            <label class="layui-form-label">预报站 </label>
 										            <div class="layui-input-block">
 														<div class="layui-col-xs12 layui-col-sm12 layui-col-md6">
@@ -84,7 +75,7 @@
 										        </div>
 										    </div>
 										    <div class="layui-form-item">
-												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 										            <label class="layui-form-label">方案名称 </label>
 										            <div class="layui-input-block">
 										                <input type="text" name="name" class="layui-input" value="${plan.name}">
@@ -92,7 +83,7 @@
 										        </div>
 										    </div>
 										    <div class="layui-form-item">
-												<div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
 										            <label class="layui-form-label">预报模型 </label>
 										            <div class="layui-input-block">
 										                <%--<select>--%>
@@ -105,6 +96,13 @@
 
 												</div>
 										    </div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+													<div style="margin-left:10px;float:right;">
+														<a class="step-next layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+													</div>
+												</div>
+											</div>
 										</div>
 										<div id="step2" class="box-step" style="display:none;">
 											<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;border:none;">
@@ -301,14 +299,24 @@
 
 										        </div>
 										    </div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm8 layui-col-md8">
+													<div style="margin-left:80px;float:left;">
+														<a class="step-prev layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+													</div>
+													<div style="margin-left:10px;float:right;">
+														<a class="step-next layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+													</div>
+												</div>
+											</div>
 										</div>
 									    <div id="step3" class="box-step" style="display:none;">
 										    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;border:none;">
 											    <legend>河道演进参数</legend>
 											</fieldset>
 											<div class="layui-form-item">
-												<div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
-													<div style="margin:10px 50px;">
+												<div class="layui-col-xs12 layui-col-sm6 layui-col-md8">
+													<div style="margin:10px 0 10px 80px;">
 									            		<table class="layui-table" style="margin:0;">
 														    <colgroup>
 														      <col width="150">
@@ -354,6 +362,16 @@
 
 										        </div>
 										    </div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm8 layui-col-md8">
+													<div style="margin-left:80px;float:left;">
+														<a class="step-prev layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+													</div>
+													<div style="margin-left:10px;float:right;">
+														<a class="step-next layui-btn layui-btn-normal layui-btn-radius">下一步</a>
+													</div>
+												</div>
+											</div>
 									    </div>
 									    
 									    
@@ -604,14 +622,6 @@
 														</div>
 													</div>
 												</div>
-											    <div class="layui-form-item">
-											    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="height:1px;">
-											    	
-											    	</div>
-											    	<div class="layui-col-xs12 layui-col-sm6 layui-col-md6" style="text-align:center;padding-top:50px;">
-
-											        </div>
-											    </div>
 											</div>
 											<div class="layui-col-xs12 layui-col-sm12 layui-col-md5" style="padding-left:50px;">
 												<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;border:none;">
@@ -652,6 +662,22 @@
 														</table>
 									            	</div>
 											    </div>
+											</div>
+											<div class="layui-form-item">
+												<div class="layui-col-xs12 layui-col-sm3 layui-col-md3">
+													&nbsp;
+												</div>
+												<div class="layui-col-xs12 layui-col-sm4 layui-col-md4">
+													<div style="margin-left:80px;float:left;">
+														<a class="step-prev layui-btn layui-btn-primary layui-btn-radius">上一步</a>
+													</div>
+													<div style="margin-left:10px;float:right;">
+														<a class="step-save layui-btn layui-btn-normal layui-btn-radius">保存</a>
+													</div>
+												</div>
+												<div class="layui-col-xs12 layui-col-sm5 layui-col-md5">
+													&nbsp;
+												</div>
 											</div>
 									    </div>
 									</form>
@@ -781,31 +807,17 @@
             // togglePage();
     	});
 
-        $("#step-prev").click(function(){
+        $(".step-prev").click(function(){
             step--;
             togglePage();
-            if( step == 1 ){
-                $(this).hide();
-            }
-            if( step == 3 ){
-                $("#step-next").show();
-                $("#step-save").hide();
-            }
         });
 
-        $("#step-next").click(function(){
+        $(".step-next").click(function(){
             step++;
             togglePage();
-            if( step == 2 ){
-                $("#step-prev").show();
-            }
-            if( step == 4 ) {
-                $(this).hide();
-                $("#step-save").show();
-            }
         });
 
-    	$("#step-save").click(function () {
+    	$(".step-save").click(function () {
     	    var ok = true;
     	    var name  = "";
     	    $("input").each(function () {
@@ -838,7 +850,8 @@
                     }
                 });
             }else{
-                layer.msg('请填写'+name, {icon: 2});
+                // layer.msg('请填写'+name, {icon: 2});
+                layer.msg('请填妥相关信息', {icon: 2});
 			}
         });
 
