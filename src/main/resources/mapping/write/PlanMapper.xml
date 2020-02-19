@@ -51,7 +51,7 @@
 		order by p.create_time desc
 	</select>
     <select id="selectChildPlan" resultMap="BaseResultMap">
-        select p.*
+        select ps.KE as KE, ps.XE as XE, p.*
         from [plan] p
         inner join plan_station ps on ps.child_plan_id = p.id
         where ps.plan_id = #{planId} and p.stcd = #{stcd}

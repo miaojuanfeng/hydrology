@@ -459,16 +459,18 @@
                 var ok = true;
                 $("input").each(function () {
                     if( $(this).val() == "" ){
-                        ok = false;
+                        if( step != 3 || ($(this).attr("name") != "KE" && $(this).attr("name") != "XE") ) {
+                            ok = false;
+                        }
                     }
                 });
                 if( ok ) {
                     type = $(this).attr("type");
-                    step = 1;
-                    $("#KE,#XE").removeAttr("disabled");
-                    $("#step-prev").addClass("layui-btn-disabled");
+                    // step = 1;
+                    // $("#KE,#XE").removeAttr("disabled");
+                    // $("#step-prev").addClass("layui-btn-disabled");
                     forecast();
-                    if( $("#sName").val() == stcd_fenkeng ){
+                    if( $("#sName").val() == stcd_fenkeng && step != 3 ){
 						$("#step-next").removeClass("layui-btn-disabled");
                     }
                     postForecast = true;
@@ -485,7 +487,7 @@
                 }
                 step--;
                 $("#KE,#XE").removeAttr("disabled");
-                forecast();
+                // forecast();
                 $("#step-next").removeClass("layui-btn-disabled");
                 if( step == 1 ){
                     $("#step-prev").addClass("layui-btn-disabled");
@@ -514,7 +516,7 @@
                     return;
                 }
                 step++;
-                forecast();
+                // forecast();
                 $("#step-prev").removeClass("layui-btn-disabled");
                 if( step == 2 ){
                     $("#nav a").removeClass("selected");
