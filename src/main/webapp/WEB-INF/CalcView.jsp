@@ -241,8 +241,10 @@
 										</div>
 									</div>
 									<div id="div-iframe">
-					             		<iframe id="iframe7" width="100%" frameborder="0" scrolling="no"></iframe>
-					             	</div>
+										<div id="div-box">
+					             			<iframe id="iframe7" width="100%" frameborder="0" scrolling="no"></iframe>
+										</div>
+									</div>
 					            </div>
 				            </div>
 				        </div>
@@ -308,6 +310,7 @@
                     layui.form.render('select');
                 }
             );
+            forecastGet();
         });
         form.on('select(sType)');
 
@@ -330,6 +333,7 @@
                     $("#nav").html(data);
                 }
             );
+            forecastGet();
         });
         form.on('select(sName)');
 
@@ -341,6 +345,7 @@
             }else{
                 getPlanChild(data.value, stcd_ningdu);
             }
+            forecastGet();
         });
         form.on('select(plan)');
 
@@ -438,8 +443,9 @@
            	$(".layui-colla-item").css("height", viewHeight);
            	// $("#div-iframe").css("height", viewHeight);
            	$("#div-iframe").css("height", viewHeight);
-        	
-           	$('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
+            $("#div-box").css("height", viewHeight-20);
+
+            forecastGet();
            	
         	$(".layui-collapse").fadeIn();
 
@@ -488,6 +494,7 @@
                 step--;
                 $("#KE,#XE").removeAttr("disabled");
                 // forecast();
+                forecastGet();
                 $("#step-next").removeClass("layui-btn-disabled");
                 if( step == 1 ){
                     $("#step-prev").addClass("layui-btn-disabled");
@@ -517,6 +524,7 @@
                 }
                 step++;
                 // forecast();
+                forecastGet();
                 $("#step-prev").removeClass("layui-btn-disabled");
                 if( step == 2 ){
                     $("#nav a").removeClass("selected");
@@ -554,6 +562,10 @@
                 };
             }
         });
+
+        function forecastGet() {
+            $('#iframe7').attr('src', '<c:url value="/cms/iframe/7"></c:url>');
+        }
     });
     
 </script>

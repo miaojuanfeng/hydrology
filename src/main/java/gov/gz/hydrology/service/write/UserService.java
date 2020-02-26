@@ -6,4 +6,5 @@ public interface UserService {
 	User selectByPrimaryKey(String userId);
 	int insertSelective(User user);
 	int updateSelective(User user);
+	int addUserLevel(User user);
 }

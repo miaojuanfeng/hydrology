@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+    .layui-progress-text {
+        min-width: 40px;
+        display: block;
+    }
+</style>
 <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
     <div class="layui-collapse">
         <div class="layui-colla-item">

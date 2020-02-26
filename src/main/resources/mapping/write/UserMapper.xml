@@ -67,4 +67,11 @@
 		</set>
 		where user_id = #{userId}
 	</update>
+	<update id="addUserLevel" parameterType="gov.gz.hydrology.entity.write.User">
+		update [user]
+		<set>
+			<if test="userLevel != null"> user_level = #{userLevel},</if>
+		</set>
+		where user_id = #{userId}
+	</update>
 </mapper>

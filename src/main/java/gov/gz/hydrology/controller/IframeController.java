@@ -9,6 +9,7 @@ import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.read.Zq;
 import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
+import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +35,9 @@ public class IframeController {
 
     public static List<BigDecimal> FORECAST_STEP_ONE = new ArrayList<>();
     public static List<BigDecimal> FORECAST_STEP_TWO = new ArrayList<>();
+
+    @Autowired
+    private UserService userService;
 
 	@Autowired
 	private StationService stationService;
@@ -259,7 +265,7 @@ public class IframeController {
     }
 
 	@GetMapping("calc")
-	public String postCalc(ModelMap map, Plan p, String forecastTime, String affectTime, Integer day, Integer type,
+	public String postCalc(HttpServletRequest request, ModelMap map, Plan p, String forecastTime, String affectTime, Integer day, Integer type,
                            @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
 		JSONObject retval = new JSONObject();
 
@@ -371,6 +377,7 @@ public class IframeController {
                 }
                 map.put("forecastText", "流量");
                 map.put("forecastUnit", "流量(m³/s)");
+                map.put("color", "#FF5722");
             }else{
                 rivers = riverService.selectRiverZRange(stcd, plusDay(day, forecastTime), affectTime);
                 for (int i = 0; i < rivers.size(); i++) {
@@ -386,6 +393,7 @@ public class IframeController {
                 }
                 map.put("forecastText", "水位");
                 map.put("forecastUnit", "水位(m)");
+                map.put("color", "#009688");
             }
             map.put("riverArr", riverArr);
 
@@ -426,7 +434,12 @@ public class IframeController {
                         BigDecimal y1 = zqMin.getY();
                         BigDecimal x2 = zqMax.getX();
                         BigDecimal y2 = zqMax.getY();
-                        BigDecimal y = y1.add(x.subtract(x1).multiply(y2.subtract(y1)).divide(x2.subtract(x1), NumberConst.DIGIT, NumberConst.MODE)).setScale(2, NumberConst.MODE);
+                        BigDecimal y = null;
+                        if( x2.equals(x1) ) {
+                            y = y1;
+                        }else{
+                            y = y1.add(x.subtract(x1).multiply(y2.subtract(y1)).divide(x2.subtract(x1), NumberConst.DIGIT, NumberConst.MODE)).setScale(2, NumberConst.MODE);
+                        }
                         r = y;
                     }else{
                         System.out.println("程序错误");
@@ -444,6 +457,10 @@ public class IframeController {
             map.put("riverMax", riverMax.add(riverMax.subtract(riverMin).multiply(new BigDecimal("0.5"))).add(NumberConst.ONE).intValue());
             map.put("riverMin", riverMin.intValue()-1);
         }
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(CommonConst.SESSION_KEY_USER);
+        user.setUserLevel(user.getUserLevel()+1);
+        userService.addUserLevel(user);
 		return "Iframe7";
 	}
 

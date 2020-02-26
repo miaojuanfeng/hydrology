@@ -130,13 +130,13 @@
                 symbolSize: 1,
    	        itemStyle:{
    	                                    normal:{
-   	                                         color:'#FF3E96',
+   	                                         color:'${color}',
 
    	                                    }
    	                                },
    	            lineStyle: {
    	                normal: {
-   	                    color:'#FF3E96',
+   	                    color:'${color}',
    	                    width: 3,
    	                    shadowColor: 'rgba(0,0,0,0.4)',
    	                    shadowBlur: 10,

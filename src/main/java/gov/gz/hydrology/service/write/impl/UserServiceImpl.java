@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.updateSelective(user);
 	}
 
+	@Override
+	public int addUserLevel(User user) {
+		return userDao.addUserLevel(user);
+	}
+
 }
