@@ -91,7 +91,7 @@ public class IframeController {
             Integer ava = 0;
             if( rainfallTotal.size() > 0 ) {
                 BigDecimal rainfallAva = rainfallSum.divide(new BigDecimal(rainfallTotal.size()), NumberConst.DIGIT, NumberConst.MODE);
-                Integer floodDiff = new BigDecimal(station.getJjLine()).subtract(z).subtract(rainfallAva.divide(new BigDecimal(50), NumberConst.DIGIT, NumberConst.MODE)).intValue();
+                Integer floodDiff = new BigDecimal(station.getJjLine()).subtract(z).subtract(rainfallAva.divide(new BigDecimal(30), NumberConst.DIGIT, NumberConst.MODE)).intValue();
                 if( floodDiff < 1 ){
                     ava = 80;
                 } else if (floodDiff < 2) {

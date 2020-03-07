@@ -136,13 +136,13 @@
 							            	<label class="layui-form-label"><b>KE</b></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-							                <input type="number" id="KE" name="KE" class="layui-input plan-var reset-parameter" value="${plan.KE}" default="${plan.KE}">
+							                <input type="number" id="KE" name="KE" class="layui-input plan-var reset-parameter layui-btn-disabled" value="${plan.KE}" default="${plan.KE}" disabled>
 							            </div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
 											<label class="layui-form-label"><b>XE</b></label>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm6 layui-col-md2">
-											<input type="number" id="XE" name="XE" class="layui-input plan-var reset-parameter" value="${plan.XE}" default="${plan.XE}">
+											<input type="number" id="XE" name="XE" class="layui-input plan-var reset-parameter layui-btn-disabled" value="${plan.XE}" default="${plan.XE}" disabled>
 										</div>
 								    </div>
 								    <div class="layui-form-item" style="margin-top:25px;">
@@ -319,6 +319,16 @@
             if( data.value != stcd_fenkeng){
                 $("#step-prev").addClass("layui-btn-disabled");
                 $("#step-next").addClass("layui-btn-disabled");
+
+                $("#KE").addClass("layui-btn-disabled");
+                $("#KE").attr("disabled", true);
+                $("#XE").addClass("layui-btn-disabled");
+                $("#XE").attr("disabled", true);
+            }else{
+                $("#KE").removeClass("layui-btn-disabled");
+                $("#KE").attr("disabled", false);
+                $("#XE").removeClass("layui-btn-disabled");
+                $("#XE").attr("disabled", false);
             }
             //
             getPlanList(data.value);
@@ -465,7 +475,7 @@
                 var ok = true;
                 $("input").each(function () {
                     if( $(this).val() == "" ){
-                        if( step != 3 || ($(this).attr("name") != "KE" && $(this).attr("name") != "XE") ) {
+                        if( $(this).attr("name") != "KE" && $(this).attr("name") != "XE" ){
                             ok = false;
                         }
                     }

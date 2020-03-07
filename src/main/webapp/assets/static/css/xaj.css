@@ -192,3 +192,9 @@ body{
 	    display: block !important;
 	}
 }
+
+@media (max-width:1580px) {
+	#time-week{
+		display: none;
+	}
+}
