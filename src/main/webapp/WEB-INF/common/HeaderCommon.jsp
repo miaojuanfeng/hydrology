@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="layui-header my-header">
-        <a class="my-header-link" href="index.html">
+        <a class="my-header-link" href="javascript:;">
             <!--<img class="my-header-logo" src="" alt="logo">-->
             <div class="my-header-logo">赣州洪水预报系统青年版</div>
         </a>

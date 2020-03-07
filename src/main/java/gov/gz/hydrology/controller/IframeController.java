@@ -7,6 +7,8 @@ import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.read.Zq;
+import gov.gz.hydrology.entity.read2.Forecast;
+import gov.gz.hydrology.entity.write.Grid;
 import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.User;
@@ -14,6 +16,7 @@ import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
 import gov.gz.hydrology.service.read.ZqService;
+import gov.gz.hydrology.service.read2.ForecastService;
 import gov.gz.hydrology.service.write.*;
 import gov.gz.hydrology.utils.*;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -43,6 +46,9 @@ public class IframeController {
 	private StationService stationService;
 
 	@Autowired
+    private GridService gridService;
+
+	@Autowired
 	private RainfallService rainfallService;
 
 	@Autowired
@@ -56,6 +62,9 @@ public class IframeController {
 
 	@Autowired
     private ZqService zqService;
+
+	@Autowired
+    private ForecastService forecastService;
 
 	@Autowired
 	private CacheRiverTimeService cacheRiverTimeService;
@@ -265,9 +274,9 @@ public class IframeController {
     }
 
 	@GetMapping("calc")
-	public String postCalc(HttpServletRequest request, ModelMap map, Plan p, String forecastTime, String affectTime, Integer day, Integer type,
+	public String postCalc(HttpServletRequest request, ModelMap map, Plan p, String forecastTime, String affectTime, Integer day, Integer type, Integer unitname,
                            @RequestParam(value="step",defaultValue="1",required=false) Integer step) {
-		JSONObject retval = new JSONObject();
+	    JSONObject retval = new JSONObject();
 
         Plan plan = null;
         if( CommonConst.STCD_FENKENG.equals(p.getStcd().trim()) ){
@@ -296,8 +305,12 @@ public class IframeController {
             plan.setCI(p.getCI());
             plan.setCS(p.getCS());
             plan.setL(p.getL());
-            plan.setKE(p.getKE());
-            plan.setXE(p.getXE());
+            if( p.getKE() != null ) {
+                plan.setKE(p.getKE());
+            }
+            if( p.getXE() != null ) {
+                plan.setXE(p.getXE());
+            }
 
             plan.setWU0(p.getWU0());
             plan.setWL0(p.getWL0());
@@ -314,22 +327,87 @@ public class IframeController {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
             }
 
-//            List<String> stcdId = new ArrayList<>();
-//            stcdId.add("62302350");
-//            stcdId.add("62321000");
-//            stcdId.add("62321010");
-//            stcdId.add("62321020");
-//            stcdId.add("62321030");
-//            stcdId.add("62321045");
-//            stcdId.add("62321050");
-//            stcdId.add("62321055");
-//            stcdId.add("62321065");
-//            stcdId.add("62321070");
-//            stcdId.add("62321085");
-//            stcdId.add("62321100");
-//            stcdId.add("62323620");
 
-            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, plusDay(day, forecastTime), affectTime);
+
+
+            /**
+             * 预测雨量数据
+             */
+            Map<String, BigDecimal> forecastMap = new TreeMap<>();
+            String startDay = forecastTime;
+            String endDay = DateUtil.date2str(DateUtil.addDay(DateUtil.str2date(forecastTime, "yyyy-MM-dd HH:mm:ss"), day), "yyyy-MM-dd HH:mm:ss");
+            // 实测雨量
+            if( unitname == 0 ) {
+                List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, endDay, startDay);
+                for (Rainfall rainfall : rainfalls) {
+                    forecastMap.put(rainfall.getDate(), rainfall.getRainfall());
+                }
+
+                Date sDay = DateUtil.str2date(startDay, "yyyy-MM-dd HH:mm:ss");
+                Date eDay = DateUtil.str2date(endDay, "yyyy-MM-dd HH:mm:ss");
+                Date iDay = eDay;
+                while (!iDay.before(sDay)) {
+                    String key = DateUtil.date2str(iDay, "yyyy-MM-dd HH:mm:ss");
+                    if( !forecastMap.containsKey(key) ){
+                        forecastMap.put(key, NumberConst.ZERO);
+                    }
+                    iDay = DateUtil.addHour(iDay, -1);
+                }
+//                int a = 1;
+                // 欧洲台或日本台
+            }else{
+                List<Grid> gridList = gridService.selectByStcd(stcd);
+                List<String> gridId = new ArrayList<>();
+                for (Grid grid : gridList){
+                    gridId.add(grid.getGridId());
+                }
+
+                String fymdh = DateUtil.date2str(DateUtil.addDay(new Date(), -1)) + " 20:00:00";
+                List<Forecast> forecastList = forecastService.selectForecast(gridId, fymdh, unitname, startDay, endDay);
+
+                if( forecastList.size() > 0 ) {
+                    for (Forecast forecast : forecastList) {
+                        forecastMap.put(DateUtil.date2str(forecast.getYmdh(), "yyyy-MM-dd HH:mm:ss"), forecast.getRn());
+                    }
+
+                    Date sDay = DateUtil.str2date(startDay, "yyyy-MM-dd HH:mm:ss");
+                    Date eDay = DateUtil.str2date(endDay, "yyyy-MM-dd HH:mm:ss");
+                    Date iDay = eDay;
+                    BigDecimal n = forecastList.get(forecastList.size()-1).getRn();
+//                    Date d = forecastList.get(forecastList.size()-1).getYmdh();
+                    Integer c = 0;
+                    while (!iDay.before(sDay)) {
+                        String key = DateUtil.date2str(iDay, "yyyy-MM-dd HH:mm:ss");
+                        if( forecastMap.containsKey(key) ){
+                            n = forecastMap.get(key);
+                            c = 0;
+                        }else{
+                            c++;
+                            if( c >= 3 ){
+                                n = NumberConst.ZERO;
+                            }
+                        }
+                        if( iDay.after(forecastList.get(forecastList.size()-1).getYmdh()) ){
+                            n = NumberConst.ZERO;
+                        }
+                        forecastMap.put(key, n);
+                        iDay = DateUtil.addHour(iDay, -1);
+                    }
+//                    Integer a = 1;
+                }
+            }
+
+//            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, plusDay(day, forecastTime), affectTime);
+            List<Rainfall> rainfalls = rainfallService.selectRainfallRange(stcdId, forecastTime, affectTime);
+
+            // 拼接数据
+            for(String key : forecastMap.keySet()){
+                Rainfall r = new Rainfall();
+                r.setDate(key);
+                r.setRainfall(forecastMap.get(key));
+                rainfalls.add(r);
+            }
+
             List<BigDecimal> rainfallArr = new ArrayList<>();
             List<String> timeArr = new ArrayList<>();
             BigDecimal rainfallMax = NumberConst.ZERO;

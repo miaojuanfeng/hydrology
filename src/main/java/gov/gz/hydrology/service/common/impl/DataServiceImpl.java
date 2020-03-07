@@ -1,6 +1,7 @@
 package gov.gz.hydrology.service.common.impl;
 
 import gov.gz.hydrology.constant.CommonConst;
+import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
 import gov.gz.hydrology.entity.write.Station;
@@ -9,13 +10,12 @@ import gov.gz.hydrology.service.common.DataService;
 import gov.gz.hydrology.service.read.RainfallService;
 import gov.gz.hydrology.service.read.RiverService;
 import gov.gz.hydrology.service.write.*;
+import gov.gz.hydrology.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class DataServiceImpl implements DataService {
@@ -43,13 +43,24 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void rainfallTotal() {
+        Date now = new Date();
+        String statDay = null;
+        String endDay = null;
+        Integer hour = Integer.valueOf(DateUtil.date2str(now, "H"));
+        if( hour >= 8 ) {
+            statDay = DateUtil.date2str(now, "yyyy-MM-dd 08:00:00");
+            endDay = DateUtil.date2str(DateUtil.addDay(now, 1), "yyyy-MM-dd 08:00:00");
+        }else{
+            statDay = DateUtil.date2str(DateUtil.addDay(now, -1), "yyyy-MM-dd 08:00:00");
+            endDay = DateUtil.date2str(now, "yyyy-MM-dd 08:00:00");
+        }
         for (String stcd : CommonConst.STCD_STATION) {
             List<Map> stations = stationService.selectChildStationByStcd(stcd);
             List<String> stcdId = new ArrayList<>();
             for (int i = 0; i < stations.size(); i++) {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
             }
-            List<Rainfall> rainfallTotal = rainfallService.selectRainfallTotal(stcdId);
+            List<Rainfall> rainfallTotal = rainfallService.selectRainfallTotal(stcdId, statDay, endDay);
 
             cacheRainfallTotalService.deleteByStcd(stcd);
             List<Rainfall> copyRainfallTotal = new ArrayList<>();
@@ -72,31 +83,66 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void rainfallDaily() {
+        Date now = new Date();
+        String statDay = null;
+        String endDay = null;
+        Integer hour = Integer.valueOf(DateUtil.date2str(now, "H"));
+        if( hour >= 8 ) {
+            statDay = DateUtil.date2str(DateUtil.addDay(now, -5), "yyyy-MM-dd 08:00:00");
+            endDay = DateUtil.date2str(DateUtil.addDay(now, 1), "yyyy-MM-dd 08:00:00");
+        }else{
+            statDay = DateUtil.date2str(DateUtil.addDay(now, -6), "yyyy-MM-dd 08:00:00");
+            endDay = DateUtil.date2str(now, "yyyy-MM-dd 08:00:00");
+        }
         for (String stcd : CommonConst.STCD_STATION) {
             List<Map> stations = stationService.selectChildStationByStcd(stcd);
             List<String> stcdId = new ArrayList<>();
             for (int i = 0; i < stations.size(); i++) {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
             }
-            List<Rainfall> rainfallDaily = rainfallService.selectRainfallDaily(stcdId);
+            List<Rainfall> rainfallDaily = rainfallService.selectRainfallDaily(stcdId, statDay, endDay);
 
             cacheRainfallDailyService.deleteByStcd(stcd);
             List<Rainfall> copyRainfallDaily = new ArrayList<>();
+            Map<String, BigDecimal> rainfallMap = new TreeMap<>();
             for (int i = 0; i < rainfallDaily.size(); i++) {
-                rainfallDaily.get(i).setStcd(stcd);
-                copyRainfallDaily.add(rainfallDaily.get(i));
-                if (copyRainfallDaily.size() >= 500 || i == rainfallDaily.size() - 1) {
-                    cacheRainfallDailyService.insertBatch(copyRainfallDaily);
-                    copyRainfallDaily.clear();
+                Date date = DateUtil.str2date(rainfallDaily.get(i).getDate(), "yyyy-MM-dd HH:mm:ss");
+                Date line = DateUtil.str2date(rainfallDaily.get(i).getDate().substring(0, 10) + " 08:00:00", "yyyy-MM-dd HH:mm:ss");
+                String index = null;
+                if( date.after(line) ){
+                    index = DateUtil.date2str(date, "MM/dd");
+                }else{
+                    index = DateUtil.date2str(DateUtil.addDay(date, -1), "MM/dd");
                 }
+
+                BigDecimal r = rainfallMap.get(index);
+                if( r == null ){
+                    r = NumberConst.ZERO;
+                }
+                r = r.add(rainfallDaily.get(i).getRainfall());
+                rainfallMap.put(index, r);
+            }
+            for(String key : rainfallMap.keySet()){
+                Rainfall rainfall = new Rainfall();
+                rainfall.setStcd(stcd);
+                rainfall.setDate(key);
+                rainfall.setRainfall(rainfallMap.get(key).divide(new BigDecimal(stcdId.size()), NumberConst.DIGIT, NumberConst.MODE));
+                copyRainfallDaily.add(rainfall);
+            }
+            if (copyRainfallDaily.size() >= 0 ) {
+                cacheRainfallDailyService.insertBatch(copyRainfallDaily);
+                copyRainfallDaily.clear();
             }
         }
     }
 
     @Override
     public void riverTime() {
+        Date now = new Date();
+        String statDay = DateUtil.date2str(DateUtil.addDay(now, -3), "yyyy-MM-dd 00:00:00");
+        String endDay = DateUtil.date2str(now, "yyyy-MM-dd HH:mm:ss");
         for (String stcd : CommonConst.STCD_STATION) {
-            List<River> riverTime = riverService.selectRiverTime(stcd);
+            List<River> riverTime = riverService.selectRiverTime(stcd, statDay, endDay);
             Station station = stationService.selectByPrimaryKey(stcd);
 
             cacheRiverTimeService.deleteByStcd(stcd);

@@ -9,8 +9,7 @@
 
 	<select id="selectRainfallTotal" resultMap="BaseResultMap">
 		select top 10 stcd, sum(drp) as rainfall from st_pptn_r
-		where CONVERT(varchar(100), tm, 23) = CONVERT(varchar(100), GETDATE(), 23)
---         where CONVERT(varchar(100), tm, 23) = '2018-06-20'
+		where tm > #{startDay} and #{endDay} >= tm
         and stcd in
 		<foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
 			#{stcd}
@@ -20,15 +19,13 @@
     </select>
 
     <select id="selectRainfallDaily" resultMap="BaseResultMap">
-        select CONVERT(varchar(100), dateadd(day, -1, tm), 101) as date, sum(drp)/count(drp) as rainfall from st_pptn_r
-        where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, GETDATE()), 23)
---         where CONVERT(varchar(100), tm, 23) >= '2018-06-18'
+        select tm as date, sum(drp) as rainfall from st_pptn_r
+        where tm > #{startDay} and #{endDay} >= tm
         and stcd in
         <foreach collection="list" item="stcd" index="index" open="(" close=")" separator=",">
             #{stcd}
         </foreach>
-        group by CONVERT(varchar(100), dateadd(day, -1, tm), 101)
-        order by CONVERT(varchar(100), dateadd(day, -1, tm), 101) asc
+        group by tm
     </select>
 
     <select id="selectRainfallRange" resultMap="BaseResultMap">

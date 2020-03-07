@@ -53,6 +53,9 @@ public class ForecastController {
 			map.put("plan", plan);
 		}
 		map.put("stationProgress", commonService.stationProgress(CommonConst.STCD_NINGDU, 1));
+		Date date = new Date();
+		map.put("forecastTime", DateUtil.date2str(date, "yyyy-MM-dd HH:00:00"));
+		map.put("affectTime", DateUtil.date2str(DateUtil.addMonth(date, -1), "yyyy-MM-dd HH:00:00"));
 		return "CalcView";
 	}
 

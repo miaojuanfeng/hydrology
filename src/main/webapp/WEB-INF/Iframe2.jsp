@@ -80,7 +80,7 @@
 
     option = {
         title : {
-            text: '累计雨量',
+            text: '今日雨量',
             subtext: '${hour}',
             x: 'center',
             align: 'right'

@@ -12,7 +12,7 @@
 	var myChart = echarts.init(document.getElementById('main'), 'macarons');
 	option = {
 	    title : {
-	        text: '降雨趋势',
+	        text: '流域平均降雨',
 	        subtext: '${station.stname}',
 	        x: 'center',
 	        align: 'right'

@@ -18,8 +18,8 @@ public class RiverServiceImpl implements RiverService {
     private RiverDao riverDao;
 
     @Override
-    public List<River> selectRiverTime(String stcd) {
-        return riverDao.selectRiverTime(stcd);
+    public List<River> selectRiverTime(String stcd, String startDay, String endDay) {
+        return riverDao.selectRiverTime(stcd, startDay, endDay);
     }
 
     @Override

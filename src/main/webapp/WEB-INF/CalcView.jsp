@@ -36,7 +36,7 @@
 									</div>
 						            <div class="layui-form-item">
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-							            	<label class="layui-form-label"><span>预报站</span></label>
+							            	<label class="layui-form-label"><span>预报站点</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
 							            	<select lay-filter="sType">
@@ -69,13 +69,13 @@
 						               		<label class="layui-form-label"><span>预报时间</span></label>
 						               	</div>
 						               	<div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-							                <input type="text" name="forecastTime" id="forecastTime" lay-verify="date" autocomplete="off" class="layui-input" value="2018-06-13 17:00:00">
+							                <input type="text" name="forecastTime" id="forecastTime" lay-verify="date" autocomplete="off" class="layui-input" value="${forecastTime}">
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
 							            	<label class="layui-form-label"><span>影响时间</span></label>
 							            </div>
 							            <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-							            	<input type="text" name="affectTime" id="affectTime" lay-verify="date" autocomplete="off" class="layui-input" value="2018-05-13 17:00:00">
+							            	<input type="text" name="affectTime" id="affectTime" lay-verify="date" autocomplete="off" class="layui-input" value="${affectTime}">
 							            </div>
 								    </div>
 								    <div class="layui-form-item">
@@ -89,13 +89,13 @@
 								            </select>
 								        </div>
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-								        	<label class="layui-form-label"><span>预报雨量</span></label>
+								        	<label class="layui-form-label"><span>未来降雨</span></label>
 								        </div>
 								        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
-							            	<select name="rainfall">
-								                <option value="1">实测雨量</option>
-								                <option value="2">欧洲台</option>
-								                <option value="3">日本台</option>
+							            	<select name="unitname">
+								                <option value="0">实测雨量</option>
+								                <option value="2">日本台</option>
+								                <option value="6">欧洲台</option>
 								            </select>
 								        </div>
 								    </div>
@@ -210,7 +210,7 @@
 											<a id="step-prev" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">上一步</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius layui-bg-red">预报流量</a>
+											<a id="liuliang" type="1" style="background:#FF44A5;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius layui-bg-red">预报流量</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
 											<a id="step-next" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">下一步</a>
@@ -218,13 +218,13 @@
 									</div>
 								    <div class="layui-form-item" style="margin-bottom:20px;">
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a class="layui-btn layui-btn-primary layui-btn-radius">导出参数</a>
+											<a id="daochu" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">导出参数</a>
 										</div>
 										<div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-											<a type="2" style="background:#26D0CE;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius layui-bg-green">预报水位</a>
+											<a id="shuiwei" type="2" style="background:#26D0CE;" class="forecastPost layui-btn layui-btn-normal layui-btn-radius layui-bg-green">预报水位</a>
 										</div>
 							            <div class="layui-col-xs12 layui-col-sm4 layui-col-md4 xaj-col-button">
-							                <a class="layui-btn layui-btn-primary layui-btn-radius">保存结果</a>
+							                <a id="baocun" class="layui-btn layui-btn-primary layui-btn-radius layui-btn-disabled">保存结果</a>
 							            </div>
 							        </div>
 								</form>
@@ -480,6 +480,7 @@
 						$("#step-next").removeClass("layui-btn-disabled");
                     }
                     postForecast = true;
+                    $("#shuiwei").removeClass("layui-btn-disabled");
                 }else{
                     layer.msg('请填妥相关信息', {icon: 2});
                 }
@@ -493,8 +494,8 @@
                 }
                 step--;
                 $("#KE,#XE").removeAttr("disabled");
-                // forecast();
-                forecastGet();
+                forecast();
+                // forecastGet();
                 $("#step-next").removeClass("layui-btn-disabled");
                 if( step == 1 ){
                     $("#step-prev").addClass("layui-btn-disabled");
@@ -523,8 +524,8 @@
                     return;
                 }
                 step++;
-                // forecast();
-                forecastGet();
+                forecast();
+                // forecastGet();
                 $("#step-prev").removeClass("layui-btn-disabled");
                 if( step == 2 ){
                     $("#nav a").removeClass("selected");
@@ -539,6 +540,9 @@
                     $("#KE,#XE").attr("disabled", "disabled");
                     $("#nav a").removeClass("selected");
                     $("#nav-fenkeng").addClass("selected");
+
+                    $("#daochu").removeClass("layui-btn-disabled");
+                    $("#baocun").removeClass("layui-btn-disabled");
 					getPlanDetail(planId);
                 }
             });

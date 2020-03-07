@@ -11,12 +11,8 @@
     <select id="selectRiverTime" resultMap="BaseResultMap">
         select stcd, tm, z
         from ST_RIVER_R
-        <!--where CONVERT(varchar(100), tm, 23) >= CONVERT(varchar(100), dateadd(day, -5, getdate()), 23)-->
         where stcd = #{stcd}
-        and 3>=datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))
-        and datediff(dd,tm,CONVERT(varchar(100), GETDATE(), 23))>=0
---         and 3>=datediff(dd,tm,'2018-06-13')
---         and datediff(dd,tm,'2018-06-13')>=0
+        and tm >= #{startDay} and #{endDay} >= tm
         order by tm asc
     </select>
 

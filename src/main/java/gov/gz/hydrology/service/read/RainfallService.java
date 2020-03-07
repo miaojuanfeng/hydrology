@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface RainfallService {
-	List<Rainfall> selectRainfallTotal(List<String> list);
-	List<Rainfall> selectRainfallDaily(List<String> list);
+	List<Rainfall> selectRainfallTotal(List<String> list, String startDay, String endDay);
+	List<Rainfall> selectRainfallDaily(List<String> list, String startDay, String endDay);
 	List<Rainfall> selectRainfallRange(List<String> list, String forecastTime, String affectTime);
 }

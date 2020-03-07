@@ -8,10 +8,10 @@
 	</resultMap>
 
     <select id="selectZqMin" resultMap="BaseResultMap">
-        select top 1 q as x, z as y from ST_ZQRL_B where stcd = #{stcd} and #{q} >= q ORDER BY q desc
+        select top 1 q as x, z as y from ST_ZQRL_B where stcd = #{stcd} and #{q} >= q and bgtm = (select top 1 bgtm from ST_ZQRL_B group by bgtm order by bgtm desc) ORDER BY q desc
     </select>
 
     <select id="selectZqMax" resultMap="BaseResultMap">
-        select top 1 q as x, z as y from ST_ZQRL_B where stcd = #{stcd} and q >= #{q} ORDER BY q asc
+        select top 1 q as x, z as y from ST_ZQRL_B where stcd = #{stcd} and q >= #{q} and bgtm = (select top 1 bgtm from ST_ZQRL_B group by bgtm order by bgtm desc) ORDER BY q asc
     </select>
 </mapper>

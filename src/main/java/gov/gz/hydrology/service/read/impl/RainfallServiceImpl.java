@@ -16,13 +16,13 @@ public class RainfallServiceImpl implements RainfallService {
     private RainfallDao rainfallDao;
 
     @Override
-    public List<Rainfall> selectRainfallTotal(List<String> list) {
-        return rainfallDao.selectRainfallTotal(list);
+    public List<Rainfall> selectRainfallTotal(List<String> list, String startDay, String endDay) {
+        return rainfallDao.selectRainfallTotal(list, startDay, endDay);
     }
 
     @Override
-    public List<Rainfall> selectRainfallDaily(List<String> list) {
-        return rainfallDao.selectRainfallDaily(list);
+    public List<Rainfall> selectRainfallDaily(List<String> list, String startDay, String endDay) {
+        return rainfallDao.selectRainfallDaily(list, startDay, endDay);
     }
 
     @Override
