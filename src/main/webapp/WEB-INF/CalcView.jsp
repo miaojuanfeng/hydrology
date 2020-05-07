@@ -310,6 +310,7 @@
                     layui.form.render('select');
                 }
             );
+            step = 1;
             forecastGet();
         });
         form.on('select(sType)');
@@ -330,6 +331,7 @@
                 $("#XE").removeClass("layui-btn-disabled");
                 $("#XE").attr("disabled", false);
             }
+            step = 1;
             //
             getPlanList(data.value);
             //
@@ -355,6 +357,7 @@
             }else{
                 getPlanChild(data.value, stcd_ningdu);
             }
+            step = 1;
             forecastGet();
         });
         form.on('select(plan)');
@@ -390,6 +393,7 @@
 		}
         
         function getPlanDetail(id) {
+            $.ajaxSettings.async = false;
             $.post(
                 "<c:url value="/cms/common/plan/detail"></c:url>",
                 {
@@ -414,9 +418,11 @@
                     $("#QRg0").val(data.QRg0).attr("default", data.QRg0);
                 }
             );
+            $.ajaxSettings.async = true;
         }
 
         function getPlanChild(id, stcd) {
+            $.ajaxSettings.async = false;
             $.post(
                 "<c:url value="/cms/common/plan/child"></c:url>",
                 {
@@ -442,6 +448,7 @@
                     $("#QRg0").val(data.QRg0).attr("default", data.QRg0);
                 }
             );
+            $.ajaxSettings.async = true;
         }
 
         var type = 1;
@@ -504,8 +511,7 @@
                 }
                 step--;
                 $("#KE,#XE").removeAttr("disabled");
-                forecast();
-                // forecastGet();
+
                 $("#step-next").removeClass("layui-btn-disabled");
                 if( step == 1 ){
                     $("#step-prev").addClass("layui-btn-disabled");
@@ -525,6 +531,9 @@
                         getPlanChild(planId, stcd_shicheng);
                     }
                 }
+                
+                forecast();
+                // forecastGet();
             });
 
             $("#step-next").click(function () {
@@ -534,8 +543,7 @@
                     return;
                 }
                 step++;
-                forecast();
-                // forecastGet();
+
                 $("#step-prev").removeClass("layui-btn-disabled");
                 if( step == 2 ){
                     $("#nav a").removeClass("selected");
@@ -555,6 +563,9 @@
                     $("#baocun").removeClass("layui-btn-disabled");
 					getPlanDetail(planId);
                 }
+
+                forecast();
+                // forecastGet();
             });
             
             function forecast() {
