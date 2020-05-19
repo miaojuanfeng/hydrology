@@ -80,20 +80,33 @@ public class StepTwoUtil {
 
 
 
+
+
+
+
 		BigDecimal PE = StepCommonUtil.getPE();
 		// PE > 0  上分支
 		if( NumberUtil.gt(PE, NumberConst.ZERO) ) {
+			// PEx = PE-R
+			BigDecimal PEx = StepCommonUtil.getPE().subtract(StepOneUtil.R);
 			// WUx = WUup + PEx
-			BigDecimal WUx = WUup.add(getPEx());
+			BigDecimal WUx = WUup.add(PEx);
 			// WUx > WUM
 			if( NumberUtil.gt(WUx, plan.getWUM()) ) {
+				// PEy = WUx - WUM
+				BigDecimal PEy = WUx.subtract(plan.getWUM());
 				// WU = WUM
 				WU = plan.getWUM();
-				BigDecimal WLx = getWLx1();
+				// WLx = WLup + PEy
+				BigDecimal WLx = WLup.add(PEy);
 				// WLx > WLM
 				if( NumberUtil.gt(WLx, plan.getWLM()) ) {
+					// PEz = WLx - WLM
+					BigDecimal PEz = WLx.subtract(plan.getWLM());
+					// WL = WLM
 					WL = plan.getWLM();
-					BigDecimal WDx = getWDx1();
+					// WDx = WDup + PEz
+					BigDecimal WDx = WDup.add(PEz);
 					// WDx > WDM
 					if( NumberUtil.gt(WDx, plan.getWDM()) ) {
 						WD = plan.getWDM();
@@ -138,7 +151,10 @@ public class StepTwoUtil {
 
 			// WUx <= 0
 			}else {
-				BigDecimal WLx = getWLx2();
+				// EKy = WUx
+				BigDecimal EKy = WUx;
+				// WLx = WLup + WLup/WLM*EKy
+				BigDecimal WLx = WLup.add(WLup.divide(plan.getWLM(), NumberConst.DIGIT, NumberConst.MODE).multiply(EKy));
 				// WLx > 0
 				if( NumberUtil.gt(WLx, NumberConst.ZERO) ) {
 					WU = NumberConst.ZERO;
@@ -146,7 +162,10 @@ public class StepTwoUtil {
 					WD = WDup;
 				// WLx <= 0
 				}else {
-					BigDecimal WDx = getWDx2();
+					// EKz = WLx
+					BigDecimal EKz = WLx;
+					// WDx = WDup + C * EKz
+					BigDecimal WDx = WDup.add(plan.getC().multiply(EKz));
 					// WDx > 0
 					if( NumberUtil.gt(WDx, NumberConst.ZERO) ) {
 						WU = NumberConst.ZERO;
@@ -219,122 +238,126 @@ public class StepTwoUtil {
 //		System.out.println("----------------Two算后----------------");
 	}
 	
-	/**
-	 * WUx 上层蓄水量
-	 * @return
-	 */
-	public static BigDecimal getWUx1() {
-		// WUx = WUup + PEx
-		return WUup.add(getPEx());
-	}
+//	/**
+//	 * WUx 上层蓄水量
+//	 * @return
+//	 */
+//	public static BigDecimal getWUx1() {
+//		// WUx = WUup + PEx
+//		return WUup.add(getPEx());
+//	}
 
-	/**
-	 * WLx 下层蓄水量
-	 * @return
-	 */
-	public static BigDecimal getWLx1() {
-		// WLx = WLup + PEy
-		return WLup.add(getPEy());
-	}
+//	/**
+//	 * WLx 下层蓄水量
+//	 * @return
+//	 */
+//	public static BigDecimal getWLx1() {
+//		// WLx = WLup + PEy
+//		return WLup.add(getPEy());
+//	}
+
+//	/**
+//	 * WDx 深层蓄水量
+//	 * @return
+//	 */
+//	public static BigDecimal getWDx1() {
+//		// WDx = WDup + PEz
+//		return WDup.add(getPEz());
+//	}
 	
-	/**
-	 * WDx 深层蓄水量
-	 * @return
-	 */
-	public static BigDecimal getWDx1() {
-		// WDx = WDup + PEz
-		return WDup.add(getPEz());
-	}
+//	/**
+//	 * PEx 产流之后剩下的净雨
+//	 * @return
+//	 */
+//	public static BigDecimal getPEx() {
+//		// PEx = PE-R
+//		return StepCommonUtil.getPE().subtract(StepOneUtil.R);
+//	}
 	
-	/**
-	 * PEx 产流之后剩下的净雨
-	 * @return
-	 */
-	public static BigDecimal getPEx() {
-		// PEx = PE-R
-		return StepCommonUtil.getPE().subtract(StepOneUtil.R);
-	}
+//	/**
+//	 * PEy 上层剩余的净雨
+//	 * @return
+//	 */
+//	public static BigDecimal getPEy() {
+//		// WUx = WUup + PEx
+//		BigDecimal WUx = WUup.add(getPEx());
+//		// PEy = WUx - WUM
+//		return WUx.subtract(plan.getWUM());
+//	}
 	
-	/**
-	 * PEy 上层剩余的净雨
-	 * @return
-	 */
-	public static BigDecimal getPEy() {
-		// PEy = WUx - WUM
-		return getWUx1().subtract(plan.getWUM());
-	}
-	
-	/**
-	 * PEz 下层剩余的净雨
-	 * @return
-	 */
-	public static BigDecimal getPEz() {
-		// PEz = WLx - WLM
-		return getWLx1().subtract(plan.getWLM());
-	}
+//	/**
+//	 * PEz 下层剩余的净雨
+//	 * @return
+//	 */
+//	public static BigDecimal getPEz() {
+//		// WLx = WLup + PEy
+//		BigDecimal WLx = WLup.add(getPEy());
+//		// PEz = WLx - WLM
+//		return WLx.subtract(plan.getWLM());
+//	}
 	
 	///////////////////下分支代码//////////////////////////
 	
-	/**
-	 * WUx 上层蓄水量
-	 * @return
-	 */
-	public static BigDecimal getWUx2() {
-		// WUx = WUup + PE
-		return WUup.add(StepCommonUtil.getPE());
-	}
+//	/**
+//	 * WUx 上层蓄水量
+//	 * @return
+//	 */
+//	public static BigDecimal getWUx2() {
+//		// WUx = WUup + PE
+//		return WUup.add(StepCommonUtil.getPE());
+//	}
 	
-	/**
-	 * WLx 下层蓄水量
-	 * @return
-	 */
-	public static BigDecimal getWLx2() {
-		// WLx = WLup + WLup/WLM*EKy
-		return WLup.add(WLup.divide(plan.getWLM(), NumberConst.DIGIT, NumberConst.MODE).multiply(getEKy()));
-	}
+//	/**
+//	 * WLx 下层蓄水量
+//	 * @return
+//	 */
+//	public static BigDecimal getWLx2() {
+//		// WLx = WLup + WLup/WLM*EKy
+//		return WLup.add(WLup.divide(plan.getWLM(), NumberConst.DIGIT, NumberConst.MODE).multiply(getEKy()));
+//	}
 	
-	/**
-	 * WDx 深层蓄水量
-	 * @return
-	 */
-	public static BigDecimal getWDx2() {
-		// WDx = WDup + C * EKz
-		return WDup.add(plan.getC().multiply(getEKz()));
-	}
+//	/**
+//	 * WDx 深层蓄水量
+//	 * @return
+//	 */
+//	public static BigDecimal getWDx2() {
+//		// WDx = WDup + C * EKz
+//		return WDup.add(plan.getC().multiply(getEKz()));
+//	}
 	
-	/**
-	 * EKx 上层蒸发量
-	 * @return
-	 */
-	public static BigDecimal getEKx() {
-		// EKx = PE
-		return StepCommonUtil.getPE();
-	}
+//	/**
+//	 * EKx 上层蒸发量
+//	 * @return
+//	 */
+//	public static BigDecimal getEKx() {
+//		// EKx = PE
+//		return StepCommonUtil.getPE();
+//	}
 	
-	/**
-	 * EKy 上层蒸发后，需要下层补充的蒸发量
-	 * @return
-	 */
-	public static BigDecimal getEKy() {
-		// EKy = WUx
-		return getWUx2();
-	}
-	
-	/**
-	 * EKz 下层蒸发后，需要补充的蒸发量
-	 * @return
-	 */
-	public static BigDecimal getEKz() {
-		// EKz = WLx
-		return getWLx2();
-	}
+//	/**
+//	 * EKy 上层蒸发后，需要下层补充的蒸发量
+//	 * @return
+//	 */
+//	public static BigDecimal getEKy() {
+//		// EKy = WUx
+//		return getWUx2();
+//	}
+//
+//	/**
+//	 * EKz 下层蒸发后，需要补充的蒸发量
+//	 * @return
+//	 */
+//	public static BigDecimal getEKz() {
+//		// EKz = WLx
+//		return getWLx2();
+//	}
 
 
-	/**
-	 * new
-	 */
-	public static BigDecimal getEU(){
-		// EU = WUup + P
-		return WUup.add(StepCommonUtil.getP());
-	}
+//	/**
+//	 * new
+//	 */
+//	public static BigDecimal getEU(){
+//		// EU = WUup + P
+//		return WUup.add(StepCommonUtil.getP());
+//	}
 }

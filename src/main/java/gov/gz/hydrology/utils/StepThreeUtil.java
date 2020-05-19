@@ -228,25 +228,6 @@ public class StepThreeUtil {
 		return getSMMF().multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public static BigDecimal getKSSD(){
 		BigDecimal base = NumberConst.ONE.subtract(plan.getKG().add(plan.getKSS()));
 		BigDecimal power = plan.getT().divide(new BigDecimal(24), NumberConst.DIGIT, NumberConst.MODE);
