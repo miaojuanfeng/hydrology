@@ -570,6 +570,8 @@ public class IframeController {
 
             StepCommonUtil.setP(rainfallP.get(i));
 
+//            System.out.print("p="+rainfallP.get(i)+" ");
+
             StepOneUtil.getResult();
 //            System.out.println(StepTwoUtil.getEKx());
 //            System.out.println(StepTwoUtil.getEKy());

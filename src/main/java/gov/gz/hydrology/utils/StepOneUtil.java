@@ -124,7 +124,7 @@ public class StepOneUtil {
 
 
 
-//		System.out.println("R="+StepOneUtil.R);
+		System.out.println("R="+StepOneUtil.R);
 //		System.out.println("Rd="+StepOneUtil.Rd);
 //		System.out.println("-----------------");
 //		System.out.println("----------------One算后----------------");

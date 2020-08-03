@@ -54,10 +54,10 @@ public class ForecastController {
 		}
 		map.put("stationProgress", commonService.stationProgress(CommonConst.STCD_NINGDU, 1));
 		Date date = new Date();
-		map.put("forecastTime", DateUtil.date2str(date, "yyyy-MM-dd HH:00:00"));
-		map.put("affectTime", DateUtil.date2str(DateUtil.addMonth(date, -1), "yyyy-MM-dd HH:00:00"));
-//		map.put("forecastTime", "2018-06-11 17:00:00");
-//		map.put("affectTime", "2018-05-11 17:00:00");
+//		map.put("forecastTime", DateUtil.date2str(date, "yyyy-MM-dd HH:00:00"));
+//		map.put("affectTime", DateUtil.date2str(DateUtil.addMonth(date, -1), "yyyy-MM-dd HH:00:00"));
+		map.put("forecastTime", "2020-04-04 08:00:00");
+		map.put("affectTime", "2020-04-01 08:00:00");
 
 		return "CalcView";
 	}
