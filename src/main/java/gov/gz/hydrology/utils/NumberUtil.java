@@ -43,4 +43,25 @@ public class NumberUtil {
 	public static boolean et(BigDecimal A, BigDecimal B) {
 		return A.compareTo(B) == 0;
 	}
+
+	/**
+	 * A大于等于B
+	 * @param A
+	 * @param B
+	 * @return
+	 */
+	public static boolean ge(BigDecimal A, BigDecimal B) {
+		return A.compareTo(B) != -1;
+	}
+
+	/**
+	 * A小于等于B
+	 * @param A
+	 * @param B
+	 * @return
+	 */
+	public static boolean le(BigDecimal A, BigDecimal B) {
+		return A.compareTo(B) != 1;
+	}
+
 }

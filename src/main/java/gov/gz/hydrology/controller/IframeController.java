@@ -481,10 +481,10 @@ public class IframeController {
             }else{
                 if( step == 1 ){
                     forecastArr = doCalc(plan, rainfallArr, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_ONE = StepFiveUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
+                    FORECAST_STEP_ONE = XinanRiverUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 2 ){
                     forecastArr = doCalc(plan, rainfallArr, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_TWO = StepFiveUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
+                    FORECAST_STEP_TWO = XinanRiverUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 3 ){
                     forecastArr = doCalc(plan, rainfallArr, null, null);
                     //

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.utils.DateUtil;
 import gov.gz.hydrology.utils.StepCommonUtil;
-import gov.gz.hydrology.utils.StepFiveUtil;
+import gov.gz.hydrology.utils.XinanRiverUtil;
 import gov.gz.hydrology.utils.StepFourUtil;
 import gov.gz.hydrology.utils.StepOneUtil;
 import gov.gz.hydrology.utils.StepThreeUtil;
@@ -133,12 +133,4 @@ public class StepController {
 //		return data;
 //	}
 //
-//	private Map<String, Object> getStepFive(){
-//		Map<String, Object> data = new HashMap<String, Object>();
-//		data.put("C0", StepFiveUtil.getC0());
-//		data.put("C1", StepFiveUtil.getC1());
-//		data.put("C2", StepFiveUtil.getC2());
-////		data.put("Qt", StepFiveUtil.getQt());
-//		return data;
-//	}
 }
