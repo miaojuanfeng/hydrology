@@ -1,8 +1,10 @@
 package gov.gz.hydrology.utils;
 
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Plan;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +15,12 @@ import java.util.List;
  * @date 2020年08月17日
  */
 public class CommonUtil {
+
+    public static Plan plan = new Plan();
+
+    public static List<BigDecimal> listP = new ArrayList<>();
+
+    public static List<BigDecimal> listR = new ArrayList<>();
 
     public static BigDecimal diffVal(BigDecimal x, List<BigDecimal> X0, List<BigDecimal> Y0){
         BigDecimal tempX = x;

@@ -408,15 +408,15 @@ public class IframeController {
                 rainfalls.add(r);
             }
 
-            List<BigDecimal> rainfallArr = new ArrayList<>();
-            List<String> timeArr = new ArrayList<>();
+            List<BigDecimal> listRainfall = new ArrayList<>();
+            List<String> listTime = new ArrayList<>();
             BigDecimal rainfallMax = NumberConst.ZERO;
 //            System.out.println("start");
-            for (int i = 0; i < rainfalls.size(); i++) {
-                BigDecimal r = rainfalls.get(i).getRainfall().setScale(2, NumberConst.MODE);
-                String t = rainfalls.get(i).getDate().substring(0, 16);
-                rainfallArr.add(r);
-                timeArr.add(t);
+            for (Rainfall rainfall : rainfalls) {
+                BigDecimal r = rainfall.getRainfall().setScale(2, NumberConst.MODE);
+                String t = rainfall.getDate().substring(0, 16);
+                listRainfall.add(r);
+                listTime.add(t);
                 if( NumberUtil.gt(r, rainfallMax) ){
                     rainfallMax = r;
                 }
@@ -424,10 +424,10 @@ public class IframeController {
             }
 //            System.out.println("end");
             map.put("rainfallMax", rainfallMax.multiply(new BigDecimal("3.5")).intValue());
-            map.put("timeArr", timeArr);
-            map.put("rainfallArr", rainfallArr);
+            map.put("timeArr", listTime);
+            map.put("rainfallArr", listRainfall);
 
-
+            CommonUtil.listP = listRainfall;
 
 //            for(BigDecimal r : rainfallArr){
 //                System.out.println(r);
@@ -477,16 +477,16 @@ public class IframeController {
 
             List<BigDecimal> forecastArr = new ArrayList<>();
             if( !CommonConst.STCD_FENKENG.equals(p.getStcd().trim()) ) {
-                forecastArr = doCalc(plan, rainfallArr, null, null);
+                forecastArr = doCalc(plan, listRainfall, null, null);
             }else{
                 if( step == 1 ){
-                    forecastArr = doCalc(plan, rainfallArr, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_ONE = XinanRiverUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
+                    forecastArr = doCalc(plan, listRainfall, plan.getKE(), plan.getXE());
+                    FORECAST_STEP_ONE = StepFiveUtil.getQT(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 2 ){
-                    forecastArr = doCalc(plan, rainfallArr, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_TWO = XinanRiverUtil.getQt(forecastArr, plan.getKE(), plan.getXE());
+                    forecastArr = doCalc(plan, listRainfall, plan.getKE(), plan.getXE());
+                    FORECAST_STEP_TWO = StepFiveUtil.getQT(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 3 ){
-                    forecastArr = doCalc(plan, rainfallArr, null, null);
+                    forecastArr = doCalc(plan, listRainfall, null, null);
                     //
                     for (int i=0; i<forecastArr.size(); i++){
                         BigDecimal v = FORECAST_STEP_ONE.get(i).add(FORECAST_STEP_TWO.get(i).add(forecastArr.get(i)));
@@ -544,10 +544,10 @@ public class IframeController {
 
 	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, BigDecimal KE, BigDecimal XE){
 	    StepCommonUtil.init(plan);
-	    StepOneUtil.init(plan);
-	    StepTwoUtil.init(plan);
-	    StepThreeUtil.init(plan);
-	    StepFourUtil.init(plan);
+//	    StepOneUtil.init(plan);
+//	    StepTwoUtil.init(plan);
+//	    StepThreeUtil.init(plan);
+//	    StepFourUtil.init(plan);
 
 	    List<BigDecimal> QTR_List = new ArrayList<>();
         Integer len = rainfallP.size();
@@ -568,11 +568,11 @@ public class IframeController {
         BigDecimal lastQTR = NumberConst.ZERO;
         for (int i=0; i<rainfallP.size();i++) {
 
-            StepCommonUtil.setP(rainfallP.get(i));
+//            StepCommonUtil.setP(rainfallP.get(i));
 
 //            System.out.print("p="+rainfallP.get(i)+" ");
 
-            StepOneUtil.getResult();
+//            StepOneUtil.getResult();
 //            System.out.println(StepTwoUtil.getEKx());
 //            System.out.println(StepTwoUtil.getEKy());
 //            System.out.println(StepTwoUtil.getEKz());
@@ -580,19 +580,19 @@ public class IframeController {
 //            System.out.println(StepTwoUtil.getWUx2());
 //            System.out.println(StepTwoUtil.getWLx2());
 //            System.out.println(StepTwoUtil.getWDx2());
-            StepTwoUtil.getResult();
-            StepThreeUtil.getResult();
-            StepFourUtil.getResult();
+//            StepTwoUtil.getResult();
+//            StepThreeUtil.getResult();
+//            StepFourUtil.getResult();
 
             if( initQTR == null ){
-                initQTR = StepFourUtil.QTR;
+//                initQTR = StepFourUtil.QTR;
             }
             if( i<plan.getL() ){
                 QTR_List.set(i, initQTR);
             }
-            QTR_List.set(plan.getL() + i, StepFourUtil.QTR);
+//            QTR_List.set(plan.getL() + i, StepFourUtil.QTR);
 
-            lastQTR = StepFourUtil.QTR;
+//            lastQTR = StepFourUtil.QTR;
 //            System.out.println("======================"+(i+1)+"======================");
         }
         for(int i=0;i<QTR_List.size();i++){
