@@ -325,6 +325,11 @@ public class XinanRiverUtil {
         return listQTR;
     }
 
+//    public static List getQTRR(List<BigDecimal> listQTR){
+//        for(int i = 0; i < L)
+//        return null;
+//    }
+
     /**
      * 蒸发量是写死还是动态读取?
      * @return
