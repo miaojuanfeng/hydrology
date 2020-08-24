@@ -89,9 +89,9 @@ public class CommonController {
             temp.put("WD0", plan.getWD0());
             temp.put("S0", plan.getS0());
             temp.put("FR0", plan.getFR0());
-            temp.put("QRs0", plan.getQRs0());
-            temp.put("QRss0", plan.getQRss0());
-            temp.put("QRg0", plan.getQRg0());
+            temp.put("QRs0", plan.getQRS0());
+            temp.put("QRss0", plan.getQRSS0());
+            temp.put("QRg0", plan.getQRG0());
         }
         retval.put("code", CommonConst.HTTP_OK);
         retval.put("data", temp);
@@ -116,9 +116,9 @@ public class CommonController {
             temp.put("WD0", plan.getWD0());
             temp.put("S0", plan.getS0());
             temp.put("FR0", plan.getFR0());
-            temp.put("QRs0", plan.getQRs0());
-            temp.put("QRss0", plan.getQRss0());
-            temp.put("QRg0", plan.getQRg0());
+            temp.put("QRs0", plan.getQRS0());
+            temp.put("QRss0", plan.getQRSS0());
+            temp.put("QRg0", plan.getQRG0());
         }
         retval.put("code", CommonConst.HTTP_OK);
         retval.put("data", temp);

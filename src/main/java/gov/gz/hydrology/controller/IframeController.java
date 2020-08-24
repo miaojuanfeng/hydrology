@@ -317,18 +317,15 @@ public class IframeController {
             plan.setWD0(p.getWD0());
             plan.setS0(p.getS0());
             plan.setFR0(p.getFR0());
-            plan.setQRs0(p.getQRs0());
-            plan.setQRss0(p.getQRss0());
-            plan.setQRg0(p.getQRg0());
+            plan.setQRS0(p.getQRS0());
+            plan.setQRSS0(p.getQRSS0());
+            plan.setQRG0(p.getQRG0());
 
             List<Map> stations = stationService.selectChildStationByStcd(stcd);
             List<String> stcdId = new ArrayList<>();
             for (int i = 0; i < stations.size(); i++) {
                 stcdId.add(String.valueOf(stations.get(i).get("stcd")));
             }
-
-
-
 
             /**
              * 预测雨量数据
@@ -353,7 +350,6 @@ public class IframeController {
                     }
                     iDay = DateUtil.addHour(iDay, -1);
                 }
-//                int a = 1;
                 // 欧洲台或日本台
             }else{
                 List<Grid> gridList = gridService.selectByStcd(stcd);
@@ -481,10 +477,10 @@ public class IframeController {
             }else{
                 if( step == 1 ){
                     forecastArr = doCalc(plan, listRainfall, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_ONE = StepFiveUtil.getQT(forecastArr, plan.getKE(), plan.getXE());
+//                    FORECAST_STEP_ONE = StepFiveUtil.getQT(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 2 ){
                     forecastArr = doCalc(plan, listRainfall, plan.getKE(), plan.getXE());
-                    FORECAST_STEP_TWO = StepFiveUtil.getQT(forecastArr, plan.getKE(), plan.getXE());
+//                    FORECAST_STEP_TWO = StepFiveUtil.getQT(forecastArr, plan.getKE(), plan.getXE());
                 }else if( step == 3 ){
                     forecastArr = doCalc(plan, listRainfall, null, null);
                     //
@@ -543,7 +539,7 @@ public class IframeController {
 	}
 
 	private List<BigDecimal> doCalc(Plan plan, List<BigDecimal> rainfallP, BigDecimal KE, BigDecimal XE){
-	    StepCommonUtil.init(plan);
+//	    StepCommonUtil.init(plan);
 //	    StepOneUtil.init(plan);
 //	    StepTwoUtil.init(plan);
 //	    StepThreeUtil.init(plan);

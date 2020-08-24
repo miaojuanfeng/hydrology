@@ -4,110 +4,49 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Plan {
+	/**
+	 * 业务数据
+	 */
 	private Integer id;
 	private String stcd;
 	private String name;
 	private Integer model;
+	private String userId;
+	private String userName;
+	private String stname;
+	private Date createTime;
 	/**
-	 * WU0  上层土壤蓄水容量初始含水量
+	 * 计算参数
 	 */
 	private BigDecimal WU0;
-	/**
-	 * WL0  下层土壤蓄水容量初始含水量
-	 */
 	private BigDecimal WL0;
-	/**
-	 * WD0  深层土壤蓄水容量初始含水量
-	 */
 	private BigDecimal WD0;
-	/**
-	 * WUM  上层土壤蓄水容量
-	 */
 	private BigDecimal WUM;
-	/**
-	 * WLM  下层土壤蓄水容量
-	 */
 	private BigDecimal WLM;
-	/**
-	 * WDM  深层土壤蓄水容量
-	 */
 	private BigDecimal WDM;
-	/**
-	 * B  蓄水容量曲线抛物线指数
-	 */
 	private BigDecimal b;
-	/**
-	 * K  蒸散发折算系数
-	 */
 	private BigDecimal k;
-	/**
-	 * C  深层蒸散发系数
-	 */
 	private BigDecimal c;
-	/**
-	 * SM  自由水平均蓄水容量
-	 */
 	private BigDecimal SM;
-	/**
-	 * EX  自由水蓄水容量曲线指数
-	 */
 	private BigDecimal EX;
-	/**
-	 * KSS  壤中流出流系数
-	 */
 	private BigDecimal KSS;
-	/**
-	 * KG  地下径流出流系数
-	 */
 	private BigDecimal KG;
-	/**
-	 * IM  不透水面积比例
-	 */
 	private BigDecimal IM;
-	///////////////////////////////////////////////////////////////////从数据库另一张表中读
-	/**
-	 * XE  流量比重因子
-	 */
 	private BigDecimal XE;
-	/**
-	 * KE  蓄量常数(传播时间)
-	 */
 	private BigDecimal KE;
-	//////////////////////////////////////////////////////////////////从数据库另一张表中读
-	/**
-	 * CS 河网蓄水消退系数
-	 */
 	private BigDecimal CS;
-	/**
-	 * CI 壤中流消退系数
-	 */
 	private BigDecimal CI;
-	/**
-	 * CG 地下径流消退系数
-	 */
 	private BigDecimal CG;
-	/**
-	 * L 滞时
-	 */
 	private Integer l;
-	/**
-	 * T 时段长, 变量
-	 */
 	private BigDecimal t;
-	/**
-	 * F 流域面积
-	 */
 	private BigDecimal f;
-
-	private BigDecimal s0;
+	private BigDecimal S0;
 	private BigDecimal FR0;
-	private BigDecimal QRs0;
-	private BigDecimal QRss0;
-	private BigDecimal QRg0;
-	private String userId;
-	private Date createTime;
-	private String stname;
-	private String userName;
+	private BigDecimal QRS0;
+	private BigDecimal QRSS0;
+	private BigDecimal QRG0;
+	private BigDecimal INTV;
+	private BigDecimal Pa;
 
 	public Integer getId() {
 		return id;
@@ -139,6 +78,38 @@ public class Plan {
 
 	public void setModel(Integer model) {
 		this.model = model;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getStname() {
+		return stname;
+	}
+
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public BigDecimal getWU0() {
@@ -318,11 +289,11 @@ public class Plan {
 	}
 
 	public BigDecimal getS0() {
-		return s0;
+		return S0;
 	}
 
 	public void setS0(BigDecimal s0) {
-		this.s0 = s0;
+		S0 = s0;
 	}
 
 	public BigDecimal getFR0() {
@@ -333,59 +304,43 @@ public class Plan {
 		this.FR0 = FR0;
 	}
 
-	public BigDecimal getQRs0() {
-		return QRs0;
+	public BigDecimal getQRS0() {
+		return QRS0;
 	}
 
-	public void setQRs0(BigDecimal QRs0) {
-		this.QRs0 = QRs0;
+	public void setQRS0(BigDecimal QRS0) {
+		this.QRS0 = QRS0;
 	}
 
-	public BigDecimal getQRss0() {
-		return QRss0;
+	public BigDecimal getQRSS0() {
+		return QRSS0;
 	}
 
-	public void setQRss0(BigDecimal QRss0) {
-		this.QRss0 = QRss0;
+	public void setQRSS0(BigDecimal QRSS0) {
+		this.QRSS0 = QRSS0;
 	}
 
-	public BigDecimal getQRg0() {
-		return QRg0;
+	public BigDecimal getQRG0() {
+		return QRG0;
 	}
 
-	public void setQRg0(BigDecimal QRg0) {
-		this.QRg0 = QRg0;
+	public void setQRG0(BigDecimal QRG0) {
+		this.QRG0 = QRG0;
 	}
 
-	public String getUserId() {
-		return userId;
+	public BigDecimal getINTV() {
+		return INTV;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setINTV(BigDecimal INTV) {
+		this.INTV = INTV;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
+	public BigDecimal getPa() {
+		return Pa;
 	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getStname() {
-		return stname;
-	}
-
-	public void setStname(String stname) {
-		this.stname = stname;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setPa(BigDecimal pa) {
+		Pa = pa;
 	}
 }
