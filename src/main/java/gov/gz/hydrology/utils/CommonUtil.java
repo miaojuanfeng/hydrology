@@ -15,18 +15,40 @@ import java.util.List;
  * @date 2020年08月17日
  */
 public class CommonUtil {
-
+    /**
+     * 参数
+     */
     public static Plan plan = new Plan();
-
+    /**
+     * 初始化
+     */
+    private static List<BigDecimal> Z_CUR = new ArrayList<>();
+    private static List<BigDecimal> V_CUR = new ArrayList<>();
+    private static List<BigDecimal> Z0 = new ArrayList<>();
+    private static List<BigDecimal> HCOQ = new ArrayList<>();
+    /**
+     * 结果
+     */
     public static List<BigDecimal> listP = new ArrayList<>();
-
     public static List<BigDecimal> listR = new ArrayList<>();
-
     public static List<BigDecimal> listQTRR = new ArrayList<>();
-
     public static List<BigDecimal> listOQ = new ArrayList<>();
-
     public static List<BigDecimal> listQT = new ArrayList<>();
+
+    /**
+     * 初始化数据
+     */
+    public static void init(Plan plan,
+                            List<BigDecimal> Z_CUR,
+                            List<BigDecimal> V_CUR,
+                            List<BigDecimal> Z0,
+                            List<BigDecimal> HCOQ){
+        plan = plan;
+        Z_CUR = Z_CUR;
+        V_CUR = V_CUR;
+        Z0 = Z0;
+        HCOQ = HCOQ;
+    }
 
     /**
      * 马斯京根演算，河道站直接执行该算法
@@ -138,15 +160,15 @@ public class CommonUtil {
             CommonUtil.listOQ.add(NumberConst.ZERO);
             W.add(NumberConst.ZERO);
         }
-        /**
-         * 取初始数据
-         */
-        List<BigDecimal> Z0 = new ArrayList<>();
-        List<BigDecimal> HCOQ = new ArrayList<>();
-        TempUtil.getXL(Z0, HCOQ);
-        List<BigDecimal> Z_CUR = new ArrayList<>();
-        List<BigDecimal> V_CUR = new ArrayList<>();
-        TempUtil.getKR(Z_CUR, V_CUR);
+//        /**
+//         * 取初始数据
+//         */
+//        List<BigDecimal> Z0 = new ArrayList<>();
+//        List<BigDecimal> HCOQ = new ArrayList<>();
+//        TempUtil.getXL(Z0, HCOQ);
+//        List<BigDecimal> Z_CUR = new ArrayList<>();
+//        List<BigDecimal> V_CUR = new ArrayList<>();
+
         /**
          * 读取起调水位，从实时数据库读取  ST_RSVR_R，预报时间的水位    字段RZ
          */
@@ -221,7 +243,7 @@ public class CommonUtil {
         }
     }
 
-    public static BigDecimal diffVal(BigDecimal x, List<BigDecimal> X0, List<BigDecimal> Y0){
+    private static BigDecimal diffVal(BigDecimal x, List<BigDecimal> X0, List<BigDecimal> Y0){
         BigDecimal tempX = x;
         Integer x_wz = -1;
         if( NumberUtil.le(tempX, X0.get(0)) ){

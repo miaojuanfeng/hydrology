@@ -43,7 +43,8 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void rainfallTotal() {
-        Date now = new Date();
+//        Date now = new Date();
+        Date now = DateUtil.str2date("2019-06-14", "yyyy-MM-dd");
         String statDay = null;
         String endDay = null;
         Integer hour = Integer.valueOf(DateUtil.date2str(now, "H"));
@@ -83,7 +84,8 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void rainfallDaily() {
-        Date now = new Date();
+//        Date now = new Date();
+        Date now = DateUtil.str2date("2019-06-14", "yyyy-MM-dd");
         String statDay = null;
         String endDay = null;
         Integer hour = Integer.valueOf(DateUtil.date2str(now, "H"));
@@ -129,7 +131,7 @@ public class DataServiceImpl implements DataService {
                 rainfall.setRainfall(rainfallMap.get(key).divide(new BigDecimal(stcdId.size()), NumberConst.DIGIT, NumberConst.MODE));
                 copyRainfallDaily.add(rainfall);
             }
-            if (copyRainfallDaily.size() >= 0 ) {
+            if (copyRainfallDaily.size() > 0 ) {
                 cacheRainfallDailyService.insertBatch(copyRainfallDaily);
                 copyRainfallDaily.clear();
             }
@@ -138,7 +140,8 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public void riverTime() {
-        Date now = new Date();
+//        Date now = new Date();
+        Date now = DateUtil.str2date("2019-06-14", "yyyy-MM-dd");
         String statDay = DateUtil.date2str(DateUtil.addDay(now, -3), "yyyy-MM-dd 00:00:00");
         String endDay = DateUtil.date2str(now, "yyyy-MM-dd HH:mm:ss");
         for (String stcd : CommonConst.STCD_STATION) {

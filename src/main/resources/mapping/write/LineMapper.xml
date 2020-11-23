@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gov.gz.hydrology.mapper.write.LineDao" >
+	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.Line" >
+		<id column="stcd" property="stcd" />
+        <result column="f" property="f" />
+	</resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select stcd, f
+        from line
+        where stcd = #{stcd}
+        order by ptno asc
+    </select>
+</mapper>

@@ -32,10 +32,13 @@ public class WebJavaBeanConfiguration {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(loginInterceptor)
-                        .excludePathPatterns("/cms/user/login")
-                        .excludePathPatterns("/cms/user/register")
-                        .excludePathPatterns("/cms/user/logout")
-                        .addPathPatterns("/cms/**");
+//                        .excludePathPatterns("/cms/user/test")
+//                        .excludePathPatterns("/cms/user/login")
+//                        .excludePathPatterns("/cms/user/register")
+//                        .excludePathPatterns("/cms/user/logout")
+//                        .addPathPatterns("/cms/**");
+                        .excludePathPatterns("/view/**")
+                        .excludePathPatterns("/cms/**");
             }
         };
     }

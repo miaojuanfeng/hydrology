@@ -28,9 +28,9 @@
         <result column="F" property="f"/>
         <result column="S0" property="s0"/>
         <result column="FR0" property="FR0"/>
-        <result column="QRs0" property="QRs0"/>
-        <result column="QRss0" property="QRss0"/>
-        <result column="QRg0" property="QRg0"/>
+        <result column="QRS0" property="QRS0"/>
+        <result column="QRSS0" property="QRSS0"/>
+        <result column="QRG0" property="QRG0"/>
         <result column="user_id" property="userId"/>
         <result column="create_time" property="createTime"/>
         <result column="stname" property="stname"/>
@@ -58,10 +58,10 @@
     </select>
 	<insert id="insertBatch" parameterType="java.util.List">
         insert into [plan]
-        (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, CI, CG, L, T, F, S0, FR0, QRs0, QRss0, QRg0, CS, user_id, create_time)
+        (stcd, name, model, WU0, WL0, WD0, WUM, WLM, WDM, B, K, C, SM, EX, KSS, KG, IM, CI, CG, L, T, F, S0, FR0, QRS0, QRSS0, QRG0, CS, user_id, create_time)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.b},#{item.k},#{item.c},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.CI},#{item.CG},#{item.l},#{item.t},#{item.f},#{item.s0},#{item.FR0},#{item.QRs0},#{item.QRss0},#{item.QRg0},#{item.CS},#{item.user_id},#{item.create_time})
+            (#{item.stcd},#{item.name},#{item.model},#{item.WU0},#{item.WL0},#{item.WD0},#{item.WUM},#{item.WLM},#{item.WDM},#{item.b},#{item.k},#{item.c},#{item.SM},#{item.EX},#{item.KSS},#{item.KG},#{item.IM},#{item.CI},#{item.CG},#{item.l},#{item.t},#{item.f},#{item.s0},#{item.FR0},#{item.QRS0},#{item.QRSS0},#{item.QRG0},#{item.CS},#{item.user_id},#{item.create_time})
         </foreach>
 	</insert>
     <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
@@ -140,13 +140,13 @@
                 FR0,
             </if>
             <if test="QRs0 != null" >
-                QRs0,
+                QRS0,
             </if>
             <if test="QRss0 != null" >
-                QRss0,
+                QRSS0,
             </if>
             <if test="QRg0 != null" >
-                QRg0,
+                QRG0,
             </if>
             <if test="CS != null" >
                 CS,
@@ -232,13 +232,13 @@
                 #{FR0},
             </if>
             <if test="QRs0 != null" >
-                #{QRs0},
+                #{QRS0},
             </if>
             <if test="QRss0 != null" >
-                #{QRss0},
+                #{QRSS0},
             </if>
             <if test="QRg0 != null" >
-                #{QRg0},
+                #{QRG0},
             </if>
             <if test="CS != null" >
                 #{CS},
@@ -321,13 +321,13 @@
                 FR0 = #{FR0},
             </if>
             <if test="QRs0 != null" >
-                QRs0 = #{QRs0},
+                QRS0 = #{QRS0},
             </if>
             <if test="QRss0 != null" >
-                QRss0 = #{QRss0},
+                QRSS0 = #{QRSS0},
             </if>
             <if test="QRg0 != null" >
-                QRg0 = #{QRg0},
+                QRG0 = #{QRG0},
             </if>
             <if test="CS != null" >
                 CS = #{CS},

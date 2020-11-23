@@ -16,30 +16,26 @@ import java.util.List;
  * @date 2020年08月12日
  */
 public class EmpiricalUnitUtil {
-
     /**
-     * 数据
+     * 初始化
+     */
+    private static List<BigDecimal> LINE = new ArrayList<>();
+    /**
+     * 临时数据
      */
     private static List<BigDecimal> Pa0 = new ArrayList<>();
-
     private static List<List<BigDecimal>> R0 = new ArrayList<>();
-
     private static List<List<BigDecimal>> P0 = new ArrayList<>();
-
     private static List<Integer> PR_num = new ArrayList<>();
-
     private static Integer Pa_num = 0;
-
-    /**
-     * 以下是输出结果
-     */
-//    private static List<BigDecimal> listR = new ArrayList<>();
-
     private static List<BigDecimal> listQu = new ArrayList<>();
 
-//    private static List<BigDecimal> listQTRR = new ArrayList<>();
-//
-//    private static List<BigDecimal> listQT = new ArrayList<>();
+    /**
+     * 初始化数据
+     */
+    public static void init(List<BigDecimal> LINE){
+        LINE = LINE;
+    }
 
     /**
      * 产流
@@ -130,8 +126,7 @@ public class EmpiricalUnitUtil {
         /**
          * 读单位线
          */
-        List<BigDecimal> lines = TempUtil.getLine();
-        for (BigDecimal line : lines){
+        for (BigDecimal line : LINE){
             listQu.add(line.divide(new BigDecimal("10")));
         }
         /**

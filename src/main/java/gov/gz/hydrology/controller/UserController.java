@@ -8,19 +8,16 @@ import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.entity.write.UserStation;
 import gov.gz.hydrology.service.common.CommonService;
-import gov.gz.hydrology.service.write.StaffService;
-import gov.gz.hydrology.service.write.StationService;
-import gov.gz.hydrology.service.write.UserService;
-import gov.gz.hydrology.service.write.UserStationService;
+import gov.gz.hydrology.service.read.ZvarlService;
+import gov.gz.hydrology.service.write.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +40,34 @@ public class UserController {
 	@Autowired
 	private CommonService commonService;
 
+	@Autowired
+	private ZvarlService zvarlService;
+
+	@Autowired
+	private DrainageService drainageService;
+
+	@Autowired
+	private LineService lineService;
+
+//	@GetMapping("test")
+//	public String test() {
+//		return "views/index";
+//	}
+
+//	@GetMapping("view")
+//	public String view(@PathParam("folder") String folder, @PathParam("file") String file) {
+//		return url;
+//	}
+
 	@GetMapping("login")
 	public String login() {
+		List<BigDecimal> Z_CUR = new ArrayList<>();
+		List<BigDecimal> V_CUR = new ArrayList<>();
+		zvarlService.selectList("62302330", "2013-04-01 08:00:00.000", Z_CUR, V_CUR);
+		List<BigDecimal> Z0 = new ArrayList<>();
+		List<BigDecimal> HCOQ = new ArrayList<>();
+		drainageService.selectList("62302330", Z0, HCOQ);
+		List<BigDecimal> line = lineService.selectList("62303650");
 		return "LoginView";
 	}
 

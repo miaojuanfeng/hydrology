@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gov.gz.hydrology.mapper.write.ModelStationDao" >
+	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.ModelStation" >
+		<id column="id" property="id"/>
+		<result column="model_id" property="modelId"/>
+		<result column="mo_stcd" property="moStcd"/>
+		<result column="plan_id" property="planId"/>
+		<result column="ke" property="ke"/>
+		<result column="xe" property="xe"/>
+		<result column="cl_id" property="clId"/>
+		<result column="hl_id" property="hlId"/>
+		<result column="fa_stcd" property="faStcd"/>
+	</resultMap>
+	<select id="selectByModel" resultType="java.util.Map">
+		select
+			ms.*,
+			(select s.stname from station s where ms.mo_stcd = s.stcd and s.type = '基本站') as STNAME,
+			(select p.name from [plan] p where ms.plan_id = p.id) as [PLAN]
+		from model_station ms
+		where 1=1
+		and ms.model_id = #{modelId}
+		order by ms.id asc
+	</select>
+	<delete id="deleteByModel" parameterType="java.lang.Integer">
+        delete from model_station where model_id = #{modelId}
+    </delete>
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into model_station
+		(model_id, mo_stcd, plan_id, ke, xe, cl_id, hl_id, fa_stcd)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.modelId},#{item.moStcd},#{item.planId},#{item.ke},#{item.xe},#{item.clId},#{item.hlId},#{item.faStcd})
+		</foreach>
+	</insert>
+</mapper>

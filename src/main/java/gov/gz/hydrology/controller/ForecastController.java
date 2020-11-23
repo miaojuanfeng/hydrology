@@ -112,15 +112,15 @@ public class ForecastController {
 
 	@RequestMapping("plan")
 	public String plan(HttpServletRequest request, ModelMap map) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-
-		UserStation userStation = userStationService.selectDefault(user.getUserId());
-		map.put("stcd", userStation.getStation().getStcd());
-		map.put("station", userStation.getStation());
-
-		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
-		map.put("stationList", stationList);
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		UserStation userStation = userStationService.selectDefault(user.getUserId());
+//		map.put("stcd", userStation.getStation().getStcd());
+//		map.put("station", userStation.getStation());
+//
+//		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+//		map.put("stationList", stationList);
 		return "PlanView";
 	}
 
@@ -164,22 +164,22 @@ public class ForecastController {
 
 	@GetMapping("plan/insert/{stcd}")
 	public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
-	    HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-
-		Station station = stationService.selectByPrimaryKey(stcd);
-		map.put("station", station);
-
-		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
-		map.put("stationList", stationList);
-
-        List<Map> qtStationList = stationService.selectQtStation(stcd);
-        for(Map qtStation : qtStationList){
-            String qtStcd = String.valueOf(qtStation.get("PO_STCD"));
-            List<Plan> qtPlan = planService.selectPlan(qtStcd);
-            qtStation.put("plan", qtPlan);
-        }
-        map.put("qtStationList", qtStationList);
+//	    HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		Station station = stationService.selectByPrimaryKey(stcd);
+//		map.put("station", station);
+//
+//		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+//		map.put("stationList", stationList);
+//
+//        List<Map> qtStationList = stationService.selectQtStation(stcd);
+//        for(Map qtStation : qtStationList){
+//            String qtStcd = String.valueOf(qtStation.get("PO_STCD"));
+//            List<Plan> qtPlan = planService.selectPlan(qtStcd);
+//            qtStation.put("plan", qtPlan);
+//        }
+//        map.put("qtStationList", qtStationList);
 
 //		List<Map> childStationList = stationService.selectChildStationByStcd(stcd);
 //        map.put("childStationList", childStationList);

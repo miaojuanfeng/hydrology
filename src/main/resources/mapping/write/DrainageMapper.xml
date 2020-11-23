@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gov.gz.hydrology.mapper.write.DrainageDao" >
+	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.Drainage" >
+		<id column="stcd" property="stcd" />
+        <result column="z0" property="z0" />
+        <result column="hcoq" property="hcoq" />
+	</resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select stcd, z0, hcoq
+        from drainage
+        where stcd = #{stcd}
+        order by sort asc
+    </select>
+</mapper>
