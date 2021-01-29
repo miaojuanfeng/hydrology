@@ -21,6 +21,16 @@ public class ModelServiceImpl implements ModelService {
 	}
 
 	@Override
+	public List selectModel() {
+		return modelDao.selectModel();
+	}
+
+	@Override
+	public List selectModel(String stcd) {
+		return modelDao.selectModel(stcd);
+	}
+
+	@Override
 	public int insertSelective(Model model) {
 		return modelDao.insertSelective(model);
 	}

@@ -23,8 +23,8 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public List<Plan> selectPlan(String stcd) {
-		return planDao.selectPlan(stcd);
+	public List<Plan> selectPlan(Plan plan) {
+		return planDao.selectPlan(plan);
 	}
 
 	@Override

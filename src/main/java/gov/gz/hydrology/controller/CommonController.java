@@ -10,10 +10,8 @@ import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.write.PlanService;
 import gov.gz.hydrology.service.write.StationService;
 import gov.gz.hydrology.service.write.WarningService;
-import gov.gz.hydrology.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,14 +54,14 @@ public class CommonController {
 
     @RequestMapping("plan")
     @ResponseBody
-    public String plan(@RequestParam("stcd") String stcd) {
+    public String plan(Plan plan) {
         JSONObject retval = new JSONObject();
         JSONArray temp = new JSONArray();
-        List<Plan> planList = planService.selectPlan(stcd);
-        for (Plan plan : planList){
+        List<Plan> planList = planService.selectPlan(plan);
+        for (Plan p : planList){
             JSONObject t = new JSONObject();
-            t.put("id", plan.getId());
-            t.put("name", plan.getName());
+            t.put("id", p.getId());
+            t.put("name", p.getName());
             temp.add(t);
         }
         retval.put("code", CommonConst.HTTP_OK);

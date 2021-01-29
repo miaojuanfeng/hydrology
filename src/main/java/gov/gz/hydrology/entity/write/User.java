@@ -1,7 +1,7 @@
 package gov.gz.hydrology.entity.write;
 
 public class User {
-    private String userId;
+    private Long userId;
     private String userPsd;
     private String userName;
     private Integer userLevel;
@@ -9,11 +9,11 @@ public class User {
     private String userHead;
     private String userLevelName;
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

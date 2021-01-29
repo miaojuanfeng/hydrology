@@ -6,9 +6,12 @@
   <title>新建模型</title>
   <%@ include file="../linker.jsp" %>
 </head>
-<style>
-  .layui-tab .layui-form-label{
-    width: 50px;
+<style type="text/css">
+  .input-tr{
+    padding:0 !important;
+  }
+  .input-tr .layui-input{
+    border: none !important;
   }
 </style>
 <body>
@@ -27,7 +30,7 @@
               <div style="clear:both;float:none;"></div>
             </div>
             <div class="layui-card-body" style="padding: 15px;">
-                <div id="test9" class="demo-tree demo-tree-box" style="width: 100%; height: 500px; overflow: scroll;"></div>
+                <div id="test9" class="demo-tree demo-tree-box" style="width: 100%; height: 392px; overflow: scroll;"></div>
             </div>
           </div>
         </div>
@@ -36,13 +39,22 @@
           <div class="layui-card">
             <div class="layui-card-header">基本信息</div>
             <div class="layui-card-body" style="padding: 15px;">
-              <div class="layui-form-item">
-                <label class="layui-form-label">模型名称</label>
-                <div class="layui-input-block">
-                  <input type="hidden" name="id" value="${id}">
-                  <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入模型名称" class="layui-input" value="${name}">
-                </div>
-              </div>
+              <table class="layui-table" style="margin:0;">
+                <colgroup>
+                  <col width="30%">
+                  <col width="70%">
+                </colgroup>
+                <tbody>
+                <tr>
+                  <td>模型名称</td>
+                  <td class="input-tr">
+                    <input type="hidden" name="id" value="${id}">
+                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入模型名称" class="layui-input" value="${name}">
+                    <input type="hidden" name="stcd" value="${stcd}">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="layui-card">
@@ -59,16 +71,20 @@
                   <td id="td-stname"></td>
                 </tr>
                 <tr>
-                  <td>预报方案</td>
-                  <td id="td-plan"></td>
+                  <td>产流模型</td>
+                  <td id="td-model-cl"></td>
                 </tr>
                 <tr>
-                  <td>产流模型</td>
-                  <td id="td-cl"></td>
+                  <td>产流方案</td>
+                  <td id="td-plan-cl"></td>
                 </tr>
                 <tr>
                   <td>汇流模型</td>
-                  <td id="td-hl"></td>
+                  <td id="td-model-hl"></td>
+                </tr>
+                <tr>
+                  <td>汇流方案</td>
+                  <td id="td-plan-hl"></td>
                 </tr>
                 <tr>
                   <td>KE</td>
@@ -89,7 +105,7 @@
         <div class="layui-input-block">
           <div class="layui-footer" style="left: 0;">
             <button class="layui-btn" lay-submit="" lay-filter="save">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">关闭</button>
+            <button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="close">关闭</button>
           </div>
         </div>
       </div>
@@ -99,55 +115,71 @@
 
   <form class="layui-form" lay-filter="addform" id="addform" style="padding:15px;display: none;">
     <div class="layui-form-item">
-      <label class="layui-form-label">站点名称</label>
-      <div class="layui-input-block">
-        <select name="station" lay-filter="station" lay-verify="required" lay-search="">
-          <option value="">请选择</option>
-          <c:forEach items="${stations}" var="station" varStatus="id">
-            <option value="${station.stcd}">${station.stname}</option>
-          </c:forEach>
-        </select>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">预报方案</label>
-      <div class="layui-input-block">
-        <select name="plan" lay-verify="required" lay-search=""></select>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">产流模型</label>
-      <div class="layui-input-block">
-        <select name="cl_model" lay-verify="required" lay-search="">
-          <option value="">请选择</option>
-          <option value="1">新安江</option>
-          <option value="2">经验单位线</option>
-          <option value="3">API</option>
-        </select>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">汇流模型</label>
-      <div class="layui-input-block">
-        <select name="hl_model" lay-verify="required" lay-search="">
-          <option value="">请选择</option>
-          <option value="1">新安江</option>
-          <option value="2">经验单位线</option>
-          <option value="3">API</option>
-        </select>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">KE</label>
-      <div class="layui-input-block">
-        <input type="text" name="KE" lay-verify="KE" autocomplete="off" placeholder="请输入" class="layui-input">
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">XE</label>
-      <div class="layui-input-block">
-        <input type="text" name="XE" lay-verify="XE" autocomplete="off" placeholder="请输入" class="layui-input">
-      </div>
+      <table class="layui-table" style="margin:0;">
+        <colgroup>
+          <col width="30%">
+          <col width="70%">
+        </colgroup>
+        <tbody>
+        <tr>
+          <td>站点名称</td>
+          <td class="input-tr">
+            <select name="station" lay-filter="station" lay-verify="required" lay-search="">
+              <option value="">请选择</option>
+              <c:forEach items="${stations}" var="station" varStatus="id">
+                <option value="${station.stcd}">${station.stname}</option>
+              </c:forEach>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>产流模型</td>
+          <td class="input-tr">
+            <select name="model_cl" lay-filter="model_cl" lay-verify="required" lay-search="">
+              <option value="">请选择</option>
+              <option value="1">新安江</option>
+              <option value="2">经验单位线</option>
+              <option value="3">API</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>产流方案</td>
+          <td class="input-tr">
+            <select name="plan_cl" lay-verify="required" lay-search=""></select>
+          </td>
+        </tr>
+        <tr>
+          <td>汇流模型</td>
+          <td class="input-tr">
+            <select name="model_hl" lay-filter="model_hl" lay-verify="required" lay-search="">
+              <option value="">请选择</option>
+              <option value="1">新安江</option>
+              <option value="2">经验单位线</option>
+              <option value="3">API</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>汇流方案</td>
+          <td class="input-tr">
+            <select name="plan_hl" lay-verify="required" lay-search=""></select>
+          </td>
+        </tr>
+        <tr>
+          <td>KE</td>
+          <td class="input-tr">
+            <input type="text" name="KE" lay-verify="KE" autocomplete="off" placeholder="请输入" class="layui-input">
+          </td>
+        </tr>
+        <tr>
+          <td>XE</td>
+          <td class="input-tr">
+            <input type="text" name="XE" lay-verify="XE" autocomplete="off" placeholder="请输入" class="layui-input">
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </form>
 
@@ -232,9 +264,10 @@
         ,click: function(obj){
             var data = obj.data;
             $('#td-stname').html(data.stname);
-            $('#td-plan').html(data.plan);
-            $('#td-cl').html(data.cl);
-            $('#td-hl').html(data.hl);
+            $('#td-model-cl').html(data.modelClName);
+            $('#td-plan-cl').html(data.planClName);
+            $('#td-model-hl').html(data.modelHlName);
+            $('#td-plan-hl').html(data.planHlName);
             $('#td-ke').html(data.ke);
             $('#td-xe').html(data.xe);
         }
@@ -273,23 +306,24 @@
 
     function clearForm() {
         $("#addform select[name=station]").val('');
-        $("#addform select[name=plan]").val('');
-        $("#addform select[name=cl_model]").val('');
-        $("#addform select[name=hl_model]").val('');
+        $("#addform select[name=model_cl]").val('');
+        $("#addform select[name=plan_cl]").val('');
+        $("#addform select[name=model_hl]").val('');
+        $("#addform select[name=plan_hl]").val('');
         $("#addform input[name=KE]").val('');
         $("#addform input[name=XE]").val('');
         form.render();
     }
 
-    function setForm(e) {
-        clearForm();
-        $("#addform select[name=station]").val(e.stcd);
-        $("#addform select[name=plan]").html('<option value="">请选择</option>');
+    function setForm(type, stcd, model, planId) {
+        $("#addform select[name=plan_" + type + "]").html('<option value="">请选择</option>');
         form.render('select');
+        var loading = layer.load(0);
         $.post(
-            '${pageContext.request.contextPath}/views/plan/getByStation',
+            '${pageContext.request.contextPath}/plan/getByStation',
             {
-                stcd: e.stcd
+                stcd: stcd,
+                model: model
             },
             function (data) {
                 var stations = $.parseJSON(data);
@@ -297,18 +331,13 @@
                 $.each(stations, function (key, value) {
                     html += '<option value="' + value.id + '">' + value.name + '</option>';
                 });
-                $("#addform select[name=plan]").append(html);
-
-                $("#addform select[name=plan]").val(e.planId);
-
+                $("#addform select[name=plan_" + type + "]").append(html);
+                $("#addform select[name=plan_" + type + "]").val(planId);
                 form.render('select');
+                layer.close(loading);
             }
         );
-        $("#addform select[name=cl_model]").val(e.clId);
-        $("#addform select[name=hl_model]").val(e.hlId);
-        $("#addform input[name=KE]").val(e.ke);
-        $("#addform input[name=XE]").val(e.xe);
-        form.render();
+        $("#addform select[name=model_" + type + "]").val(model);
     }
 
     function openForm(action, deptId){
@@ -317,7 +346,7 @@
             ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
             ,id: 'layerDemo1' //防止重复弹出
             ,content: $('#addform')
-            ,area:["500px","450px"]
+            ,area:["500px","400px"]
             ,btn: ['确定', '取消']
             ,btnAlign: 'c' //按钮居中
             ,shade: 0 //不显示遮罩
@@ -325,9 +354,10 @@
                 if(action == "new" || action == "add") {
                     var submit = true;
                     if ($("#addform select[name=station]").val() == "" ||
-                        $("#addform select[name=plan]").val() == "" ||
-                        $("#addform select[name=cl_model]").val() == "" ||
-                        $("#addform select[name=hl_model]").val() == "" ||
+                        $("#addform select[name=model_cl]").val() == "" ||
+                        $("#addform select[name=plan_cl]").val() == "" ||
+                        $("#addform select[name=model_hl]").val() == "" ||
+                        $("#addform select[name=plan_hl]").val() == "" ||
                         $("#addform input[name=KE]").val() == "" ||
                         $("#addform input[name=XE]").val() == "") {
                         submit = false;
@@ -340,12 +370,14 @@
                         title: $("#addform select[name=station]").find("option:selected").text(),
                         stcd: $("#addform select[name=station]").val(),
                         stname: $("#addform select[name=station]").find("option:selected").text(),
-                        planId: $("#addform select[name=plan]").val(),
-                        plan: $("#addform select[name=plan]").find("option:selected").text(),
-                        clId: $("#addform select[name=cl_model]").val(),
-                        cl: $("#addform select[name=cl_model]").find("option:selected").text(),
-                        hlId: $("#addform select[name=hl_model]").val(),
-                        hl: $("#addform select[name=hl_model]").find("option:selected").text(),
+                        modelClId: $("#addform select[name=model_cl]").val(),
+                        modelClName: $("#addform select[name=model_cl]").find("option:selected").text(),
+                        planClId: $("#addform select[name=plan_cl]").val(),
+                        planClName: $("#addform select[name=plan_cl]").find("option:selected").text(),
+                        modelHlId: $("#addform select[name=model_hl]").val(),
+                        modelHlName: $("#addform select[name=model_hl]").find("option:selected").text(),
+                        planHlId: $("#addform select[name=plan_hl]").val(),
+                        planHlName: $("#addform select[name=plan_hl]").find("option:selected").text(),
                         ke: $("#addform input[name=KE]").val(),
                         xe: $("#addform input[name=XE]").val(),
                         id: new Date().getTime(),
@@ -353,6 +385,7 @@
                     };
                     if (deptId == 0) {
                         data1.push(station);
+                        $("input[name=stcd]").val(station.stcd);
                     } else {
                         function each(data) {
                             data.forEach(function (e) {
@@ -384,12 +417,14 @@
                                 e.title = $("#addform select[name=station]").find("option:selected").text();
                                 e.stcd = $("#addform select[name=station]").val();
                                 e.stname = $("#addform select[name=station]").find("option:selected").text();
-                                e.planId = $("#addform select[name=plan]").val();
-                                e.plan = $("#addform select[name=plan]").find("option:selected").text();
-                                e.clId = $("#addform select[name=cl_model]").val();
-                                e.cl = $("#addform select[name=cl_model]").find("option:selected").text();
-                                e.hlId = $("#addform select[name=hl_model]").val();
-                                e.hl = $("#addform select[name=hl_model]").find("option:selected").text();
+                                e.modelClId = $("#addform select[name=model_cl]").val();
+                                e.modelClName = $("#addform select[name=model_cl]").find("option:selected").text();
+                                e.planClId = $("#addform select[name=plan_cl]").val();
+                                e.planClName = $("#addform select[name=plan_cl]").find("option:selected").text();
+                                e.modelHlId = $("#addform select[name=model_hl]").val();
+                                e.modelHlName = $("#addform select[name=model_hl]").find("option:selected").text();
+                                e.planHlId = $("#addform select[name=plan_hl]").val();
+                                e.planHlName = $("#addform select[name=plan_hl]").find("option:selected").text();
                                 e.ke = $("#addform input[name=KE]").val();
                                 e.xe = $("#addform input[name=XE]").val();
                             }
@@ -432,7 +467,13 @@
                         return undefined;
                     }
                     var e = each(data1);
-                    setForm(e);
+                    clearForm();
+                    setForm("cl", e.stcd, e.modelClId, e.planClId);
+                    setForm("hl", e.stcd, e.modelHlId, e.planHlId);
+                    $("#addform select[name=station]").val(e.stcd);
+                    $("#addform input[name=KE]").val(e.ke);
+                    $("#addform input[name=XE]").val(e.xe);
+                    form.render();
                 }
             }
         });
@@ -440,24 +481,40 @@
 
     /* 根据站点获取方案 */
     form.on('select(station)', function(data){
-        $("#addform select[name=plan]").html('<option value="">请选择</option>');
-        form.render('select');
-        $.post(
-            '${pageContext.request.contextPath}/views/plan/getByStation',
-            {
-                stcd: data.value
-            },
-            function (data) {
-                var stations = $.parseJSON(data);
-                var html = '';
-                $.each(stations, function (key, value) {
-                    html += '<option value="' + value.id + '">' + value.name + '</option>';
-                });
-                $("#addform select[name=plan]").append(html);
-                form.render('select');
-            }
-        );
+        loadPlan("cl", $("select[name=station]").val(), $("select[name=model_cl]").val());
+        loadPlan("hl", $("select[name=station]").val(), $("select[name=model_hl]").val());
     });
+    form.on('select(model_cl)', function(data){
+        loadPlan("cl", $("select[name=station]").val(), $("select[name=model_cl]").val());
+    });
+    form.on('select(model_hl)', function(data){
+        loadPlan("hl", $("select[name=station]").val(), $("select[name=model_hl]").val());
+    });
+
+    function loadPlan(type, stcd, model){
+        $("#addform select[name=plan_" + type + "]").html('<option value="">请选择</option>');
+        form.render('select');
+        if( stcd != "" && model != "" ){
+          var loading = layer.load(0);
+          $.post(
+              '${pageContext.request.contextPath}/plan/getByStation',
+              {
+                  stcd: stcd,
+                  model: model
+              },
+              function (data) {
+                  var stations = $.parseJSON(data);
+                  var html = '';
+                  $.each(stations, function (key, value) {
+                      html += '<option value="' + value.id + '">' + value.name + '</option>';
+                  });
+                  $("#addform select[name=plan_" + type + "]").append(html);
+                  form.render('select');
+                  layer.close(loading);
+              }
+          );
+        }
+    }
     
     form.render(null, 'component-form-group');
     
@@ -547,10 +604,11 @@
           update = '/' + id;
       }
       $.post({
-          url: "${pageContext.request.contextPath}/views/model/insert" + update,
+          url: "${pageContext.request.contextPath}/model/insert" + update,
           contentType: "application/x-www-form-urlencoded",
           data: {
               name: $("input[name=name]").val(),
+              stcd: $("input[name=stcd]").val(),
               data: JSON.stringify(data1)
           },
           success : function(result) {
@@ -566,6 +624,11 @@
           })
       });
       return false;
+    });
+
+    /* 监听关闭 */
+    form.on('submit(close)', function(data){
+      parent.layui.admin.events.closeThisTabs();
     });
   });
   </script>

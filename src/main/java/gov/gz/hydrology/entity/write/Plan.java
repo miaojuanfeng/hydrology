@@ -11,12 +11,19 @@ public class Plan {
 	private String stcd;
 	private String name;
 	private Integer model;
-	private String userId;
-	private String userName;
-	private String stname;
+//	private String userId;
+//	private String userName;
+//	private String stname;
+	private Long createUser;
 	private Date createTime;
 	/**
-	 * 计算参数
+	 * 从外部获取
+	 */
+	private BigDecimal KE;
+	private BigDecimal XE;
+	private BigDecimal INTV;
+	/**
+	 * 新安江模型参数
 	 */
 	private BigDecimal WU0;
 	private BigDecimal WL0;
@@ -24,29 +31,39 @@ public class Plan {
 	private BigDecimal WUM;
 	private BigDecimal WLM;
 	private BigDecimal WDM;
-	private BigDecimal b;
-	private BigDecimal k;
-	private BigDecimal c;
+	private BigDecimal B;
+	private BigDecimal K;
+	private BigDecimal C;
 	private BigDecimal SM;
 	private BigDecimal EX;
 	private BigDecimal KSS;
 	private BigDecimal KG;
 	private BigDecimal IM;
-	private BigDecimal XE;
-	private BigDecimal KE;
 	private BigDecimal CS;
 	private BigDecimal CI;
 	private BigDecimal CG;
-	private Integer l;
-	private BigDecimal t;
-	private BigDecimal f;
+	private Integer L;
+	private BigDecimal T;
+	private BigDecimal F;
 	private BigDecimal S0;
 	private BigDecimal FR0;
 	private BigDecimal QRS0;
 	private BigDecimal QRSS0;
 	private BigDecimal QRG0;
-	private BigDecimal INTV;
-	private BigDecimal Pa;
+	/**
+	 * 经验单位线模型参数
+	 * @return
+	 */
+	private BigDecimal PA;
+	/**
+	 * API模型参数
+	 */
+	private BigDecimal KR;
+	private BigDecimal IMM;
+	private BigDecimal NA;
+	private BigDecimal NU;
+	private BigDecimal KU;
+	private BigDecimal AREA;
 
 	public Integer getId() {
 		return id;
@@ -80,28 +97,37 @@ public class Plan {
 		this.model = model;
 	}
 
-	public String getUserId() {
-		return userId;
+//	public String getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(String userId) {
+//		this.userId = userId;
+//	}
+//
+//	public String getUserName() {
+//		return userName;
+//	}
+//
+//	public void setUserName(String userName) {
+//		this.userName = userName;
+//	}
+//
+//	public String getStname() {
+//		return stname;
+//	}
+//
+//	public void setStname(String stname) {
+//		this.stname = stname;
+//	}
+
+
+	public Long getCreateUser() {
+		return createUser;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getStname() {
-		return stname;
-	}
-
-	public void setStname(String stname) {
-		this.stname = stname;
+	public void setCreateUser(Long createUser) {
+		this.createUser = createUser;
 	}
 
 	public Date getCreateTime() {
@@ -110,6 +136,22 @@ public class Plan {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public BigDecimal getKE() {
+		return KE;
+	}
+
+	public void setKE(BigDecimal KE) {
+		this.KE = KE;
+	}
+
+	public BigDecimal getXE() {
+		return XE;
+	}
+
+	public void setXE(BigDecimal XE) {
+		this.XE = XE;
 	}
 
 	public BigDecimal getWU0() {
@@ -161,27 +203,27 @@ public class Plan {
 	}
 
 	public BigDecimal getB() {
-		return b;
+		return B;
 	}
 
 	public void setB(BigDecimal b) {
-		this.b = b;
+		B = b;
 	}
 
 	public BigDecimal getK() {
-		return k;
+		return K;
 	}
 
 	public void setK(BigDecimal k) {
-		this.k = k;
+		K = k;
 	}
 
 	public BigDecimal getC() {
-		return c;
+		return C;
 	}
 
 	public void setC(BigDecimal c) {
-		this.c = c;
+		C = c;
 	}
 
 	public BigDecimal getSM() {
@@ -224,22 +266,6 @@ public class Plan {
 		this.IM = IM;
 	}
 
-	public BigDecimal getXE() {
-		return XE;
-	}
-
-	public void setXE(BigDecimal XE) {
-		this.XE = XE;
-	}
-
-	public BigDecimal getKE() {
-		return KE;
-	}
-
-	public void setKE(BigDecimal KE) {
-		this.KE = KE;
-	}
-
 	public BigDecimal getCS() {
 		return CS;
 	}
@@ -265,27 +291,27 @@ public class Plan {
 	}
 
 	public Integer getL() {
-		return l;
+		return L;
 	}
 
 	public void setL(Integer l) {
-		this.l = l;
+		L = l;
 	}
 
 	public BigDecimal getT() {
-		return t;
+		return T;
 	}
 
 	public void setT(BigDecimal t) {
-		this.t = t;
+		T = t;
 	}
 
 	public BigDecimal getF() {
-		return f;
+		return F;
 	}
 
 	public void setF(BigDecimal f) {
-		this.f = f;
+		F = f;
 	}
 
 	public BigDecimal getS0() {
@@ -328,19 +354,67 @@ public class Plan {
 		this.QRG0 = QRG0;
 	}
 
+	public BigDecimal getPA() {
+		return PA;
+	}
+
+	public void setPA(BigDecimal PA) {
+		this.PA = PA;
+	}
+
+	public BigDecimal getKR() {
+		return KR;
+	}
+
+	public void setKR(BigDecimal KR) {
+		this.KR = KR;
+	}
+
+	public BigDecimal getIMM() {
+		return IMM;
+	}
+
+	public void setIMM(BigDecimal IMM) {
+		this.IMM = IMM;
+	}
+
+	public BigDecimal getNA() {
+		return NA;
+	}
+
+	public void setNA(BigDecimal NA) {
+		this.NA = NA;
+	}
+
+	public BigDecimal getNU() {
+		return NU;
+	}
+
+	public void setNU(BigDecimal NU) {
+		this.NU = NU;
+	}
+
+	public BigDecimal getKU() {
+		return KU;
+	}
+
+	public void setKU(BigDecimal KU) {
+		this.KU = KU;
+	}
+
+	public BigDecimal getAREA() {
+		return AREA;
+	}
+
+	public void setAREA(BigDecimal AREA) {
+		this.AREA = AREA;
+	}
+
 	public BigDecimal getINTV() {
 		return INTV;
 	}
 
 	public void setINTV(BigDecimal INTV) {
 		this.INTV = INTV;
-	}
-
-	public BigDecimal getPa() {
-		return Pa;
-	}
-
-	public void setPa(BigDecimal pa) {
-		Pa = pa;
 	}
 }

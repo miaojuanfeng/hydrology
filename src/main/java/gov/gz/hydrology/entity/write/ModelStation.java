@@ -8,17 +8,19 @@ public class ModelStation {
 
 	private Integer modelId;
 
-	private String moStcd;
+	private String stcd;
 
-	private Integer planId;
+	private Integer planCl;
+
+	private Integer planHl;
+
+	private Integer modelCl;
+
+	private Integer modelHl;
 
 	private BigDecimal ke;
 
 	private BigDecimal xe;
-
-	private Integer clId;
-
-	private Integer hlId;
 
 	private String faStcd;
 
@@ -38,20 +40,44 @@ public class ModelStation {
 		this.modelId = modelId;
 	}
 
-	public String getMoStcd() {
-		return moStcd;
+	public String getStcd() {
+		return stcd;
 	}
 
-	public void setMoStcd(String moStcd) {
-		this.moStcd = moStcd;
+	public void setStcd(String stcd) {
+		this.stcd = stcd;
 	}
 
-	public Integer getPlanId() {
-		return planId;
+	public Integer getPlanCl() {
+		return planCl;
 	}
 
-	public void setPlanId(Integer planId) {
-		this.planId = planId;
+	public void setPlanCl(Integer planCl) {
+		this.planCl = planCl;
+	}
+
+	public Integer getPlanHl() {
+		return planHl;
+	}
+
+	public void setPlanHl(Integer planHl) {
+		this.planHl = planHl;
+	}
+
+	public Integer getModelCl() {
+		return modelCl;
+	}
+
+	public void setModelCl(Integer modelCl) {
+		this.modelCl = modelCl;
+	}
+
+	public Integer getModelHl() {
+		return modelHl;
+	}
+
+	public void setModelHl(Integer modelHl) {
+		this.modelHl = modelHl;
 	}
 
 	public BigDecimal getKe() {
@@ -68,22 +94,6 @@ public class ModelStation {
 
 	public void setXe(BigDecimal xe) {
 		this.xe = xe;
-	}
-
-	public Integer getClId() {
-		return clId;
-	}
-
-	public void setClId(Integer clId) {
-		this.clId = clId;
-	}
-
-	public Integer getHlId() {
-		return hlId;
-	}
-
-	public void setHlId(Integer hlId) {
-		this.hlId = hlId;
 	}
 
 	public String getFaStcd() {

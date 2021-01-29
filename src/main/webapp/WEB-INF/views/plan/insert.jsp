@@ -6,9 +6,12 @@
   <title>新建方案</title>
   <%@ include file="../linker.jsp" %>
 </head>
-<style>
-  .layui-tab .layui-form-label{
-    width: 50px;
+<style type="text/css">
+  .input-tr{
+    padding:0 !important;
+  }
+  .input-tr .layui-input{
+    border: none !important;
   }
 </style>
 <body>
@@ -18,262 +21,207 @@
       <div class="layui-card-header">新建方案</div>
       <div class="layui-card-body" style="padding: 15px;">
         <form class="layui-form" action="" lay-filter="component-form-group">
-
           <div class="layui-form-item">
             <label class="layui-form-label">方案名称</label>
             <div class="layui-input-block">
-              <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入方案名称" class="layui-input">
+              <input type="hidden" name="id" value="${id}">
+              <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入方案名称" class="layui-input" value="${name}">
             </div>
           </div>
 
           <div class="layui-form-item">
-            <div class="layui-inline">
-              <label class="layui-form-label">预报站</label>
-              <div class="layui-input-inline">
-                <select name="modules" lay-verify="required" lay-search="">
-                  <option value="">直接选择或搜索选择</option>
-                  <option value="1">layer</option>
-                  <option value="2">form</option>
-                  <option value="3">layim</option>
-                  <option value="4">element</option>
-                  <option value="5">laytpl</option>
-                  <option value="6">upload</option>
-                  <option value="7">laydate</option>
-                  <option value="8">laypage</option>
-                  <option value="9">flow</option>
-                  <option value="10">util</option>
-                  <option value="11">code</option>
-                  <option value="12">tree</option>
-                  <option value="13">layedit</option>
-                  <option value="14">nav</option>
-                  <option value="15">tab</option>
-                  <option value="16">table</option>
-                  <option value="17">select</option>
-                  <option value="18">checkbox</option>
-                  <option value="19">switch</option>
-                  <option value="20">radio</option>
-                </select>
-              </div>
+            <label class="layui-form-label">预报站点</label>
+            <div class="layui-input-block">
+              <select name="station" lay-filter="station" lay-verify="required" lay-search="">
+                <option value="">请选择</option>
+                <c:forEach items="${stations}" var="station" varStatus="id">
+                  <option value="${station.stcd}">${station.stname}</option>
+                </c:forEach>
+              </select>
             </div>
           </div>
-
-          <%--<div class="layui-form-item">--%>
-            <%--<label class="layui-form-label">预报模型</label>--%>
-            <%--<div class="layui-input-block">--%>
-              <%--<input type="radio" name="sex" value="男" title="新安江模型" checked="">--%>
-              <%--<input type="radio" name="sex" value="女" title="单位线模型">--%>
-              <%--<input type="radio" name="sex" value="禁" title="API模型" disabled="">--%>
-            <%--</div>--%>
-          <%--</div>--%>
 
           <div class="layui-form-item">
             <label class="layui-form-label">预报模型</label>
             <div class="layui-input-block">
-
-              <div class="layui-tab" lay-filter="demo">
-                <ul class="layui-tab-title">
-                  <li class="layui-this" lay-id="11">新安江模型</li>
-                  <li lay-id="22">单位线模型</li>
-                  <li lay-id="33">API模型</li>
-                </ul>
-                <div class="layui-tab-content" style="padding-top:20px;">
-                  <%--新安江模型--%>
-                  <div class="layui-tab-item layui-show">
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">WU0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="WU0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">WL0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="WL0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">WD0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="WD0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">WUM</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="WUM" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">WLM</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="WLM" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">WDM</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="WDM" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">B</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="B" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">K</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="K" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">C</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="C" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">SM</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="SM" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">EX</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="EX" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">KSS</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="KSS" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">KG</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="KG" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">IM</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="IM" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">CS</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="CS" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">CI</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="CI" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">CG</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="CG" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">L</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="L" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">T</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="T" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">F</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="F" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">S0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="S0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">FR0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="FR0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">QRS0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="QRS0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                      <div class="layui-inline">
-                        <label class="layui-form-label">QRSS0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="QRSS0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="layui-form-item">
-                      <div class="layui-inline">
-                        <label class="layui-form-label">FRG0</label>
-                        <div class="layui-input-inline">
-                          <input type="text" name="FRG0" lay-verify="required|number" autocomplete="off" class="layui-input">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <%--单位线模型--%>
-                  <div class="layui-tab-item">
-
-                  </div>
-                  <%--API模型--%>
-                  <div class="layui-tab-item">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-
-          
-          
-
-          <div class="layui-form-item layui-layout-admin">
-            <div class="layui-input-block">
-              <div class="layui-footer" style="left: 0;">
-                <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-              </div>
+              <select name="model" lay-filter="model" lay-verify="required" lay-search="">
+                <option value="">请选择</option>
+                <option value="1">新安江</option>
+                <option value="2">经验单位线</option>
+                <option value="3">API</option>
+              </select>
             </div>
           </div>
         </form>
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">方案参数</label>
+          <div class="layui-input-block">
+            <table id="model_" class="model_param layui-table" style="margin:0;">
+              <colgroup>
+                <col width="100%">
+              </colgroup>
+              <tbody>
+              <tr>
+                <td align="center">请先选择预报模型</td>
+              </tr>
+              </tbody>
+            </table>
+            <form id="form_model_1">
+              <table id="model_1" lay-filter="model_1" class="model_param layui-table" style="margin:0;display:none;">
+                  <colgroup>
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="15%">
+                    <col width="10%">
+                    <col width="15%">
+                  </colgroup>
+                  <tbody>
+                  <tr>
+                  <td>WU0</td>
+                  <td class="input-tr"><input type="text" name="WU0" autocomplete="off" class="layui-input"></td>
+                  <td>WL0</td>
+                  <td class="input-tr"><input type="text" name="WL0" autocomplete="off" class="layui-input"></td>
+                  <td>WD0</td>
+                  <td class="input-tr"><input type="text" name="WD0" autocomplete="off" class="layui-input"></td>
+                  <td>WUM</td>
+                  <td class="input-tr"><input type="text" name="WUM" autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>WLM</td>
+                  <td class="input-tr"><input type="text" name="WLM" autocomplete="off" class="layui-input"></td>
+                  <td>WDM</td>
+                  <td class="input-tr"><input type="text" name="WDM" autocomplete="off" class="layui-input"></td>
+                  <td>B</td>
+                  <td class="input-tr"><input type="text" name="B" autocomplete="off" class="layui-input"></td>
+                  <td>K</td>
+                  <td class="input-tr"><input type="text" name="K" autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td class="input-tr"><input type="text" name="C" autocomplete="off" class="layui-input"></td>
+                  <td>SM</td>
+                  <td class="input-tr"><input type="text" name="SM" autocomplete="off" class="layui-input"></td>
+                  <td>EX</td>
+                  <td class="input-tr"><input type="text" name="EX" autocomplete="off" class="layui-input"></td>
+                  <td>KSS</td>
+                  <td class="input-tr"><input type="text" name="KSS" autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>KG</td>
+                  <td class="input-tr"><input type="text" name="KG" autocomplete="off" class="layui-input"></td>
+                  <td>IM</td>
+                  <td class="input-tr"><input type="text" name="IM" autocomplete="off" class="layui-input"></td>
+                  <td>CS</td>
+                  <td class="input-tr"><input type="text" name="CS" autocomplete="off" class="layui-input"></td>
+                  <td>CI</td>
+                  <td class="input-tr"><input type="text" name="CI" autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>CG</td>
+                  <td class="input-tr"><input type="text" name="CG" autocomplete="off" class="layui-input"></td>
+                  <td>L</td>
+                  <td class="input-tr"><input type="text" name="L" autocomplete="off" class="layui-input"></td>
+                  <td>T</td>
+                  <td class="input-tr"><input type="text" name="T" autocomplete="off" class="layui-input"></td>
+                  <td>F</td>
+                  <td class="input-tr"><input type="text" name="F" autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>S0</td>
+                  <td class="input-tr"><input type="text" name="S0" autocomplete="off" class="layui-input"></td>
+                  <td>FR0</td>
+                  <td class="input-tr"><input type="text" name="FR0" autocomplete="off" class="layui-input"></td>
+                  <td>QRS0</td>
+                  <td class="input-tr"><input type="text" name="QRS0" autocomplete="off" class="layui-input"></td>
+                  <td>QRSS0</td>
+                  <td class="input-tr"><input type="text" name="QRSS0" autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>QRG0</td>
+                  <td class="input-tr"><input type="text" name="QRG0" autocomplete="off" class="layui-input"></td>
+                  <td colspan="6"></td>
+                </tr>
+                </tbody>
+              </table>
+            </form>
+            <form id="form_model_2">
+              <table id="model_2" lay-filter="model_2" class="model_param layui-table" style="margin:0;display:none;">
+                <colgroup>
+                  <col width="10%">
+                  <col width="15%">
+                  <col width="10%">
+                  <col width="15%">
+                  <col width="10%">
+                  <col width="15%">
+                  <col width="10%">
+                  <col width="15%">
+                </colgroup>
+                <tbody>
+                <tr>
+                  <td>PA</td>
+                  <td class="input-tr"><input type="text" name="PA" lay-filter="PA" autocomplete="off" class="layui-input"></td>
+                  <td colspan="6"></td>
+                </tr>
+                </tbody>
+              </table>
+            </form>
+            <form id="form_model_3">
+              <table id="model_3" lay-filter="model_3" class="model_param layui-table" style="margin:0;display:none;">
+                <colgroup>
+                  <col width="10%">
+                  <col width="15%">
+                  <col width="10%">
+                  <col width="15%">
+                  <col width="10%">
+                  <col width="15%">
+                  <col width="10%">
+                  <col width="15%">
+                </colgroup>
+                <tbody>
+                <tr>
+                  <td>KR</td>
+                  <td class="input-tr"><input type="text" name="KR"  autocomplete="off" class="layui-input"></td>
+                  <td>IM</td>
+                  <td class="input-tr"><input type="text" name="IM"  autocomplete="off" class="layui-input"></td>
+                  <td>IMM</td>
+                  <td class="input-tr"><input type="text" name="IMM"  autocomplete="off" class="layui-input"></td>
+                  <td>NA</td>
+                  <td class="input-tr"><input type="text" name="NA"  autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>NU</td>
+                  <td class="input-tr"><input type="text" name="NU"  autocomplete="off" class="layui-input"></td>
+                  <td>KG</td>
+                  <td class="input-tr"><input type="text" name="KG"  autocomplete="off" class="layui-input"></td>
+                  <td>KU</td>
+                  <td class="input-tr"><input type="text" name="KU"  autocomplete="off" class="layui-input"></td>
+                  <td>AREA</td>
+                  <td class="input-tr"><input type="text" name="AREA"  autocomplete="off" class="layui-input"></td>
+                </tr>
+                <tr>
+                  <td>PA</td>
+                  <td class="input-tr"><input type="text" name="PA"  autocomplete="off" class="layui-input"></td>
+                  <td colspan="6"></td>
+                </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+
+        <div class="layui-form-item layui-layout-admin">
+          <div class="layui-input-block">
+            <div class="layui-footer" style="left: 0;">
+              <button class="layui-btn" lay-submit="" lay-filter="save">立即提交</button>
+              <button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="close">关闭</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -290,6 +238,12 @@
     ,layer = layui.layer
     ,laydate = layui.laydate
     ,form = layui.form;
+
+    /* 根据模型显示参数 */
+    form.on('select(model)', function(data){
+        $(".model_param").hide();
+        $("#model_" + data.value).show();
+    });
     
     form.render(null, 'component-form-group');
 
@@ -309,36 +263,62 @@
         layedit.sync(editIndex);
       }
     });
-    
-    /* 监听指定开关 */
-    form.on('switch(component-form-switchTest)', function(data){
-      layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-        offset: '6px'
-      });
-      layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-    });
-    
-    /* 监听提交 */
-    form.on('submit(component-form-demo1)', function(data){
-      // parent.layer.alert(JSON.stringify(data.field), {
-      //   title: '最终的提交信息'
-      // })
-      $.post({
-          url : "http://localhost:8080/Chapter14/role/findRoles.form",
-          //此处需要告知传递参数类型为JSON，不能缺少
-          contentType : "application/x-www-form-urlencoded",
-          //将JSON转化为字符串传递
-          data : data.field,
-          //成功后的方法
-          success : function(result) {
 
-          }
-      }).fail(function(response) {
-          parent.layer.alert("数据保存失败", {
-            title: '错误'
-          })
-      });
-      return false;
+    /* 监听提交 */
+    form.on('submit(save)', function(data){
+        var submit = true;
+        if ($("input[name=name]").val() == "" ||
+            $("select[name=station]").val() == "" ||
+            $("select[name=model]").val() == "" ) {
+            submit = false;
+        }
+        if (!submit) {
+            layer.msg('请填妥相关信息');
+            return false;
+        }
+        var id = $("input[name=id]").val();
+        var update = '';
+        if( id != '' ){
+            update = '/' + id;
+        }
+
+        var d = {};
+        var t = $("#form_model_" + $("select[name=model]").val()).serializeArray();
+        $.each(t, function() {
+            d[this.name] = this.value;
+        });
+        d.name = $("input[name=name]").val();
+        d.stcd = $("select[name=station]").val();
+        d.model = $("select[name=model]").val();
+
+        $.post({
+            url: "${pageContext.request.contextPath}/plan/insert" + update,
+            contentType: "application/x-www-form-urlencoded",
+            // data: {
+            //     name: $("input[name=name]").val(),
+            //     stcd: $("select[name=station]").val(),
+            //     model: $("select[name=model]").val(),
+            //     data: JSON.stringify(form.val('model_2')),
+            // },
+            data: d,
+            success : function(result) {
+                parent.layer.alert("数据保存成功", {
+                    title: '成功'
+                }, function () {
+                    alert('关闭当前页面');
+                })
+            }
+        }).fail(function(response) {
+            parent.layer.alert("数据保存失败", {
+                title: '错误'
+            })
+        });
+        return false;
+    });
+
+    /* 监听关闭 */
+    form.on('submit(close)', function(data){
+        parent.layui.admin.events.closeThisTabs();
     });
   });
   </script>

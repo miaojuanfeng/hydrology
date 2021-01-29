@@ -1,19 +1,17 @@
 package gov.gz.hydrology.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
-import gov.gz.hydrology.entity.write.Staff;
-import gov.gz.hydrology.entity.write.Station;
 import gov.gz.hydrology.entity.write.User;
-import gov.gz.hydrology.entity.write.UserStation;
 import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.read.ZvarlService;
 import gov.gz.hydrology.service.write.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -100,192 +98,192 @@ public class UserController {
 		return "redirect:/cms/user/login";
 	}
 	
-	@GetMapping("register")
-	public String register() {
-		return "RegisterView";
-	}
-
-	@PostMapping("register")
-	public String register(HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam("userPsd") String userPsd, @RequestParam("psdCfm") String psdCfm, ModelMap model) {
-		Staff staff = staffService.selectByPrimaryKey(userId);
-		if( staff != null ){
-			User user = userService.selectByPrimaryKey(userId);
-			if( user == null ) {
-				if (!"".equals(userPsd) && userPsd.equals(psdCfm)) {
-					User newUser = new User();
-					newUser.setUserId(userId);
-					newUser.setUserPsd(userPsd);
-					newUser.setUserName(staff.getName());
-					newUser.setUserLevel(0);
-					newUser.setUserTime(0);
-					newUser.setUserHead("/assets/images/avatar.png");
-					userService.insertSelective(newUser);
-
-					HttpSession session = request.getSession();
-					newUser.setUserLevelName(commonService.userLevel(newUser.getUserLevel()));
-					session.setAttribute(CommonConst.SESSION_KEY_USER, newUser);
-
-					return "redirect:/cms/user/init";
-				} else {
-					model.put("userId", userId);
-					model.put("reason", "两次密码输入不一致");
-				}
-			}else{
-				model.put("reason", "用户已注册");
-			}
-		}else{
-			model.put("reason", "用户不存在");
-		}
-		return "RegisterView";
-	}
+//	@GetMapping("register")
+//	public String register() {
+//		return "RegisterView";
+//	}
+//
+//	@PostMapping("register")
+//	public String register(HttpServletRequest request, @RequestParam("userId") Long userId, @RequestParam("userPsd") String userPsd, @RequestParam("psdCfm") String psdCfm, ModelMap model) {
+//		Staff staff = staffService.selectByPrimaryKey(userId);
+//		if( staff != null ){
+//			User user = userService.selectByPrimaryKey(userId);
+//			if( user == null ) {
+//				if (!"".equals(userPsd) && userPsd.equals(psdCfm)) {
+//					User newUser = new User();
+//					newUser.setUserId(userId);
+//					newUser.setUserPsd(userPsd);
+//					newUser.setUserName(staff.getName());
+//					newUser.setUserLevel(0);
+//					newUser.setUserTime(0);
+//					newUser.setUserHead("/assets/images/avatar.png");
+//					userService.insertSelective(newUser);
+//
+//					HttpSession session = request.getSession();
+//					newUser.setUserLevelName(commonService.userLevel(newUser.getUserLevel()));
+//					session.setAttribute(CommonConst.SESSION_KEY_USER, newUser);
+//
+//					return "redirect:/cms/user/init";
+//				} else {
+//					model.put("userId", userId);
+//					model.put("reason", "两次密码输入不一致");
+//				}
+//			}else{
+//				model.put("reason", "用户已注册");
+//			}
+//		}else{
+//			model.put("reason", "用户不存在");
+//		}
+//		return "RegisterView";
+//	}
 	
-	@GetMapping("init")
-	public String init() {
-		return "InitView";
-	}
-
-	@PostMapping("init")
-	public String init(HttpServletRequest request, @RequestParam("stcd") String[] stcd, ModelMap model) {
-		boolean error = true;
-		List<UserStation> userStationList = new ArrayList<>();
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-		for (int i = 0; i < stcd.length; i++) {
-			if( !"".equals(stcd[i]) ){
-				error = false;
-				//
-				UserStation userStation = new UserStation();
-				userStation.setUserId(user.getUserId());
-				userStation.setUserStcd(stcd[i]);
-				userStationList.add(userStation);
-			}
-		}
-		if( !error ) {
-			userStationService.deleteByUserId(user.getUserId());
-			userStationService.insertBatch(userStationList);
-			return "redirect:/cms/station";
-		}else{
-			model.put("reason", "请至少选择一个站");
-		}
-		return "InitView";
-	}
+//	@GetMapping("init")
+//	public String init() {
+//		return "InitView";
+//	}
+//
+//	@PostMapping("init")
+//	public String init(HttpServletRequest request, @RequestParam("stcd") String[] stcd, ModelMap model) {
+//		boolean error = true;
+//		List<UserStation> userStationList = new ArrayList<>();
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//		for (int i = 0; i < stcd.length; i++) {
+//			if( !"".equals(stcd[i]) ){
+//				error = false;
+//				//
+//				UserStation userStation = new UserStation();
+//				userStation.setUserId(user.getUserId());
+//				userStation.setUserStcd(stcd[i]);
+//				userStationList.add(userStation);
+//			}
+//		}
+//		if( !error ) {
+//			userStationService.deleteByUserId(user.getUserId());
+//			userStationService.insertBatch(userStationList);
+//			return "redirect:/cms/station";
+//		}else{
+//			model.put("reason", "请至少选择一个站");
+//		}
+//		return "InitView";
+//	}
 	
-	@GetMapping("info")
-	public String info(HttpServletRequest request, ModelMap model) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//	@GetMapping("info")
+//	public String info(HttpServletRequest request, ModelMap model) {
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
+//		String userStationName = "";
+//		for(UserStation station : userStation) {
+//			if( userStationName.isEmpty() ){
+//				userStationName = station.getStation().getStname();
+//			}else {
+//				userStationName = userStationName + "、" + station.getStation().getStname();
+//			}
+//		}
+//		model.put("userStationName", userStationName);
+//		model.put("userlevelProcess", commonService.levelProgress(user.getUserLevel()));
+//		return "InfoView";
+//	}
+//
+//	@PostMapping("info")
+//	public String info(HttpServletRequest request, ModelMap model, @RequestParam("psd") String psd, @RequestParam("newPsd") String newPsd, @RequestParam("cfmPsd") String cfmPsd) {
+//		if( !newPsd.isEmpty() || !cfmPsd.isEmpty() ) {
+//			if( newPsd.equals(cfmPsd) ) {
+//				HttpSession session = request.getSession();
+//				User user = (User) session.getAttribute(CommonConst.SESSION_KEY_USER);
+//				if (user.getUserPsd().equals(psd)) {
+//					user.setUserPsd(newPsd);
+//					userService.updateSelective(user);
+//					model.put("reason", "修改成功");
+//				} else {
+//					model.put("reason", "原始密码不正确");
+//				}
+//			}else{
+//				model.put("reason", "两次密码输入不一致");
+//			}
+//		}else {
+//			model.put("reason", "新密码不能为空");
+//		}
+//		return "InfoView";
+//	}
 
-		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
-		String userStationName = "";
-		for(UserStation station : userStation) {
-			if( userStationName.isEmpty() ){
-				userStationName = station.getStation().getStname();
-			}else {
-				userStationName = userStationName + "、" + station.getStation().getStname();
-			}
-		}
-		model.put("userStationName", userStationName);
-		model.put("userlevelProcess", commonService.levelProgress(user.getUserLevel()));
-		return "InfoView";
-	}
+//	@RequestMapping(value="setting",method=RequestMethod.GET)
+//	public String settingGet(HttpServletRequest request, ModelMap model) {
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
+//		String userStationName = "";
+//		for(UserStation station : userStation) {
+//			if( userStationName.isEmpty() ){
+//				userStationName = station.getStation().getStname();
+//			}else {
+//				userStationName = userStationName + "、" + station.getStation().getStname();
+//			}
+//		}
+//		model.put("userStationName", userStationName);
+//		model.put("userlevelProcess", commonService.levelProgress(user.getUserLevel()));
+//		return "SettingView";
+//	}
+//
+//	@RequestMapping(value="setting",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+//	@ResponseBody
+//	public String settingPost(HttpServletRequest request, ModelMap map) {
+//
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
+//		List<String> stcdStation = new ArrayList<>();
+//		for(UserStation station : userStation) {
+//			stcdStation.add(station.getUserStcd());
+//		}
+//
+//		List<Station> stationList = stationService.selectStationByType("基本站");
+//
+//		JSONObject retval = new JSONObject();
+//		JSONArray temp = new JSONArray();
+//		int num = 1;
+//		for(Station station : stationList) {
+//			JSONObject t = new JSONObject();
+//			t.put("id", num++);
+//			t.put("stcd", station.getStcd());
+//			t.put("stname", station.getStname());
+//			t.put("type", station.getType());
+//			t.put("area", "赣州市章贡区");
+//			if( stcdStation.contains(station.getStcd()) ) {
+//				t.put("LAY_CHECKED", true);
+//			}else{
+//				t.put("LAY_CHECKED", false);
+//			}
+//			temp.add(t);
+//		}
+//		retval.put("code", 0);
+//		retval.put("count", stationList.size());
+//		retval.put("data", temp);
+//		return retval.toString();
+//	}
 
-	@PostMapping("info")
-	public String info(HttpServletRequest request, ModelMap model, @RequestParam("psd") String psd, @RequestParam("newPsd") String newPsd, @RequestParam("cfmPsd") String cfmPsd) {
-		if( !newPsd.isEmpty() || !cfmPsd.isEmpty() ) {
-			if( newPsd.equals(cfmPsd) ) {
-				HttpSession session = request.getSession();
-				User user = (User) session.getAttribute(CommonConst.SESSION_KEY_USER);
-				if (user.getUserPsd().equals(psd)) {
-					user.setUserPsd(newPsd);
-					userService.updateSelective(user);
-					model.put("reason", "修改成功");
-				} else {
-					model.put("reason", "原始密码不正确");
-				}
-			}else{
-				model.put("reason", "两次密码输入不一致");
-			}
-		}else {
-			model.put("reason", "新密码不能为空");
-		}
-		return "InfoView";
-	}
-
-	@RequestMapping(value="setting",method=RequestMethod.GET)
-	public String settingGet(HttpServletRequest request, ModelMap model) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-
-		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
-		String userStationName = "";
-		for(UserStation station : userStation) {
-			if( userStationName.isEmpty() ){
-				userStationName = station.getStation().getStname();
-			}else {
-				userStationName = userStationName + "、" + station.getStation().getStname();
-			}
-		}
-		model.put("userStationName", userStationName);
-		model.put("userlevelProcess", commonService.levelProgress(user.getUserLevel()));
-		return "SettingView";
-	}
-	
-	@RequestMapping(value="setting",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	@ResponseBody
-	public String settingPost(HttpServletRequest request, ModelMap map) {
-
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-
-		List<UserStation> userStation = userStationService.selectByUserId(user.getUserId());
-		List<String> stcdStation = new ArrayList<>();
-		for(UserStation station : userStation) {
-			stcdStation.add(station.getUserStcd());
-		}
-
-		List<Station> stationList = stationService.selectStationByType("基本站");
-
-		JSONObject retval = new JSONObject();
-		JSONArray temp = new JSONArray();
-		int num = 1;
-		for(Station station : stationList) {
-			JSONObject t = new JSONObject();
-			t.put("id", num++);
-			t.put("stcd", station.getStcd());
-			t.put("stname", station.getStname());
-			t.put("type", station.getType());
-			t.put("area", "赣州市章贡区");
-			if( stcdStation.contains(station.getStcd()) ) {
-				t.put("LAY_CHECKED", true);
-			}else{
-				t.put("LAY_CHECKED", false);
-			}
-			temp.add(t);
-		}
-		retval.put("code", 0);
-		retval.put("count", stationList.size());
-		retval.put("data", temp);
-		return retval.toString();
-	}
-
-	@RequestMapping("setting/update")
-	@ResponseBody
-	public String updateSetting(HttpServletRequest request, @RequestParam("stcds") String stcds) {
-		JSONObject retval = new JSONObject();
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-
-		List<UserStation> userStationList = new ArrayList<>();
-		for(String s : stcds.split(",")){
-			UserStation userStation = new UserStation();
-			userStation.setUserId(user.getUserId());
-			userStation.setUserStcd(s);
-			userStationList.add(userStation);
-		}
-		userStationService.deleteByUserId(user.getUserId());
-		userStationService.insertBatch(userStationList);
-		return retval.toString();
-	}
+//	@RequestMapping("setting/update")
+//	@ResponseBody
+//	public String updateSetting(HttpServletRequest request, @RequestParam("stcds") String stcds) {
+//		JSONObject retval = new JSONObject();
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		List<UserStation> userStationList = new ArrayList<>();
+//		for(String s : stcds.split(",")){
+//			UserStation userStation = new UserStation();
+//			userStation.setUserId(user.getUserId());
+//			userStation.setUserStcd(s);
+//			userStationList.add(userStation);
+//		}
+//		userStationService.deleteByUserId(user.getUserId());
+//		userStationService.insertBatch(userStationList);
+//		return retval.toString();
+//	}
 	
 //	@RequestMapping("register")
 //	public String register() {

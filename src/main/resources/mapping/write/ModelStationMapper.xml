@@ -4,19 +4,23 @@
 	<resultMap id="BaseResultMap" type="gov.gz.hydrology.entity.write.ModelStation" >
 		<id column="id" property="id"/>
 		<result column="model_id" property="modelId"/>
-		<result column="mo_stcd" property="moStcd"/>
-		<result column="plan_id" property="planId"/>
+		<result column="stcd" property="stcd"/>
 		<result column="ke" property="ke"/>
 		<result column="xe" property="xe"/>
-		<result column="cl_id" property="clId"/>
-		<result column="hl_id" property="hlId"/>
+		<result column="model_cl" property="modelCl"/>
+		<result column="plan_cl" property="planCl"/>
+		<result column="model_hl" property="modelHl"/>
+		<result column="plan_hl" property="planHl"/>
 		<result column="fa_stcd" property="faStcd"/>
 	</resultMap>
 	<select id="selectByModel" resultType="java.util.Map">
 		select
 			ms.*,
-			(select s.stname from station s where ms.mo_stcd = s.stcd and s.type = '基本站') as STNAME,
-			(select p.name from [plan] p where ms.plan_id = p.id) as [PLAN]
+			ms.plan_cl as PLAN_CL_ID,
+			ms.plan_hl as PLAN_HL_ID,
+			(select s.stname from station s where ms.stcd = s.stcd and s.type = '基本站') as STNAME,
+			(select p.name from [plan] p where ms.plan_cl = p.id) as PLAN_CL_NAME,
+			(select p.name from [plan] p where ms.plan_hl = p.id) as PLAN_HL_NAME
 		from model_station ms
 		where 1=1
 		and ms.model_id = #{modelId}
@@ -27,10 +31,10 @@
     </delete>
 	<insert id="insertBatch" parameterType="java.util.List">
 		insert into model_station
-		(model_id, mo_stcd, plan_id, ke, xe, cl_id, hl_id, fa_stcd)
+		(model_id, stcd, ke, xe, model_cl, plan_cl, model_hl, plan_hl, fa_stcd)
 		values
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.modelId},#{item.moStcd},#{item.planId},#{item.ke},#{item.xe},#{item.clId},#{item.hlId},#{item.faStcd})
+			(#{item.modelId},#{item.stcd},#{item.ke},#{item.xe},#{item.modelCl},#{item.planCl},#{item.modelHl},#{item.planHl},#{item.faStcd})
 		</foreach>
 	</insert>
 </mapper>

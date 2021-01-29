@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
-@RequestMapping("views/plan")
+@RequestMapping("plan")
 public class PlanController {
 	
 	@Autowired
@@ -25,33 +25,27 @@ public class PlanController {
 	private PlanService planService;
 
 	@GetMapping("list")
-	public String list(ModelMap map) {
+	public String list() {
 		return "views/plan/list";
 	}
 
-	@GetMapping("insert")
-	public String insert(ModelMap map) {
-		return "views/plan/insert";
-	}
-
-	@PostMapping(value="ajax/{stcd}",produces="text/plain;charset=UTF-8")
+	@PostMapping("list")
 	@ResponseBody
-	public String ajax(@PathVariable("stcd") String stcd) {
+	public String list(Plan plan) {
 		JSONObject retval = new JSONObject();
 		JSONArray temp = new JSONArray();
-		List<Plan> plans = planService.selectPlan(stcd);
+		List<Plan> plans = planService.selectPlan(plan);
 		int count = plans.size();
 		int number = 0;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		for(Plan plan : plans) {
+		for(Plan p : plans) {
 			JSONObject t = new JSONObject();
 			t.put("number", ++number);
-			t.put("id", plan.getId());
-			t.put("stname", plan.getStname());
-			t.put("name", plan.getName());
-			t.put("planModel", "新安江模型");
-			t.put("username", plan.getUserName());
-			t.put("time", format.format(plan.getCreateTime()));
+			t.put("id", p.getId());
+//			t.put("stname", p.getStname());
+			t.put("name", p.getName());
+//			t.put("username", p.getUserName());
+			t.put("createTime", format.format(p.getCreateTime()));
 			temp.add(t);
 		}
 		retval.put("code", 0);
@@ -60,15 +54,35 @@ public class PlanController {
 		return retval.toString();
 	}
 
+	@GetMapping("insert")
+	public String insert(ModelMap map) {
+		map.put("stations", stationService.selectStationByType("基本站"));
+		return "views/plan/insert";
+	}
+
+	@PostMapping("insert")
+	@ResponseBody
+	public String insert(
+			@RequestParam("name") String name,
+			@RequestParam("stcd") String stcd,
+			@RequestParam("model") Integer model,
+			Plan plan) {
+		JSONObject retval = new JSONObject();
+		plan.setName(name);
+		plan.setStcd(stcd);
+		planService.insertSelective(plan);
+		return retval.toString();
+	}
+
     @PostMapping(value="getByStation", produces="text/plain;charset=UTF-8")
     @ResponseBody
-    public String getByStation(@RequestParam("stcd") String stcd) {
+    public String getByStation(Plan plan) {
         JSONArray retval = new JSONArray();
-        List<Plan> plans = planService.selectPlan(stcd);
-        for(Plan plan : plans) {
+        List<Plan> plans = planService.selectPlan(plan);
+        for(Plan p : plans) {
             JSONObject t = new JSONObject();
-            t.put("id", plan.getId());
-            t.put("name", plan.getName());
+            t.put("id", p.getId());
+            t.put("name", p.getName());
             retval.add(t);
         }
         return retval.toString();

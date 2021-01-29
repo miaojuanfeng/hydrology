@@ -3,27 +3,30 @@ package gov.gz.hydrology.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
-import gov.gz.hydrology.entity.write.*;
+import gov.gz.hydrology.entity.write.Plan;
+import gov.gz.hydrology.entity.write.PlanStation;
+import gov.gz.hydrology.entity.write.Station;
+import gov.gz.hydrology.entity.write.User;
 import gov.gz.hydrology.service.common.CommonService;
 import gov.gz.hydrology.service.write.PlanService;
 import gov.gz.hydrology.service.write.PlanStationService;
 import gov.gz.hydrology.service.write.StationService;
 import gov.gz.hydrology.service.write.UserStationService;
+import gov.gz.hydrology.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import gov.gz.hydrology.utils.DateUtil;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
-@RequestMapping("cms/forecast")
+@RequestMapping("forecast")
 public class ForecastController {
 
 	@Autowired
@@ -43,50 +46,50 @@ public class ForecastController {
 
 	@GetMapping("calc")
 	public String getCalc(ModelMap map) {
-		map.put("date", DateUtil.getDate());
-		List<Station> stationList = stationService.selectStationByType("基本站");
-		map.put("stationList", stationList);
-		List<Plan> planList = planService.selectPlan(CommonConst.STCD_STATION[0]);
-		map.put("planList", planList);
-		if( planList.size() > 0 ){
-			Plan plan = planService.selectById(planList.get(0).getId());
-			map.put("plan", plan);
-		}
-		map.put("stationProgress", commonService.stationProgress(CommonConst.STCD_NINGDU, 1));
-		Date date = new Date();
-//		map.put("forecastTime", DateUtil.date2str(date, "yyyy-MM-dd HH:00:00"));
-//		map.put("affectTime", DateUtil.date2str(DateUtil.addMonth(date, -1), "yyyy-MM-dd HH:00:00"));
-		map.put("forecastTime", "2020-04-04 08:00:00");
-		map.put("affectTime", "2020-04-01 08:00:00");
+//		map.put("date", DateUtil.getDate());
+//		List<Station> stationList = stationService.selectStationByType("基本站");
+//		map.put("stationList", stationList);
+//		List<Plan> planList = planService.selectPlan(CommonConst.STCD_STATION[0]);
+//		map.put("planList", planList);
+//		if( planList.size() > 0 ){
+//			Plan plan = planService.selectById(planList.get(0).getId());
+//			map.put("plan", plan);
+//		}
+//		map.put("stationProgress", commonService.stationProgress(CommonConst.STCD_NINGDU, 1));
+//		Date date = new Date();
+////		map.put("forecastTime", DateUtil.date2str(date, "yyyy-MM-dd HH:00:00"));
+////		map.put("affectTime", DateUtil.date2str(DateUtil.addMonth(date, -1), "yyyy-MM-dd HH:00:00"));
+//		map.put("forecastTime", "2020-04-04 08:00:00");
+//		map.put("affectTime", "2020-04-01 08:00:00");
 
 		return "CalcView";
 	}
 
-	@RequestMapping("result")
-	public String result(HttpServletRequest request, ModelMap map) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//	@RequestMapping("result")
+//	public String result(HttpServletRequest request, ModelMap map) {
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//
+//		UserStation userStation = userStationService.selectDefault(user.getUserId());
+//		map.put("stcd", userStation.getStation().getStcd());
+//		map.put("station", userStation.getStation());
+//
+//		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+//		map.put("stationList", stationList);
+//		return "ResultView";
+//	}
 
-		UserStation userStation = userStationService.selectDefault(user.getUserId());
-		map.put("stcd", userStation.getStation().getStcd());
-		map.put("station", userStation.getStation());
-
-		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
-		map.put("stationList", stationList);
-		return "ResultView";
-	}
-
-	@RequestMapping("result/{stcd}")
-	public String stcdResult(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
-		map.put("stcd", stcd);
-		Station station = stationService.selectByPrimaryKey(stcd);
-		map.put("station", station);
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
-		map.put("stationList", stationList);
-		return "ResultView";
-	}
+//	@RequestMapping("result/{stcd}")
+//	public String stcdResult(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
+//		map.put("stcd", stcd);
+//		Station station = stationService.selectByPrimaryKey(stcd);
+//		map.put("station", station);
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+//		map.put("stationList", stationList);
+//		return "ResultView";
+//	}
 
 	@RequestMapping(value="result/data",produces="text/plain;charset=UTF-8")
 	@ResponseBody
@@ -124,43 +127,43 @@ public class ForecastController {
 		return "PlanView";
 	}
 
-	@GetMapping("plan/{stcd}")
-	public String getPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
-		map.put("stcd", stcd);
-		Station station = stationService.selectByPrimaryKey(stcd);
-		map.put("station", station);
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
-		map.put("stationList", stationList);
-		return "PlanView";
-	}
+//	@GetMapping("plan/{stcd}")
+//	public String getPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
+//		map.put("stcd", stcd);
+//		Station station = stationService.selectByPrimaryKey(stcd);
+//		map.put("station", station);
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
+//		List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+//		map.put("stationList", stationList);
+//		return "PlanView";
+//	}
 
-	@PostMapping(value="plan/{stcd}",produces="text/plain;charset=UTF-8")
-	@ResponseBody
-	public String postPlan(@PathVariable("stcd") String stcd) {
-		JSONObject retval = new JSONObject();
-		JSONArray temp = new JSONArray();
-		List<Plan> plans = planService.selectPlan(stcd);
-        int count = plans.size();
-        int number = 0;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		for(Plan plan : plans) {
-			JSONObject t = new JSONObject();
-			t.put("number", ++number);
-            t.put("id", plan.getId());
-			t.put("stname", plan.getStname());
-			t.put("name", plan.getName());
-			t.put("planModel", "新安江模型");
-			t.put("username", plan.getUserName());
-			t.put("time", format.format(plan.getCreateTime()));
-			temp.add(t);
-		}
-		retval.put("code", 0);
-		retval.put("count", count);
-		retval.put("data", temp);
-		return retval.toString();
-	}
+//	@PostMapping(value="plan/{stcd}",produces="text/plain;charset=UTF-8")
+//	@ResponseBody
+//	public String postPlan(@PathVariable("stcd") String stcd) {
+//		JSONObject retval = new JSONObject();
+//		JSONArray temp = new JSONArray();
+//		List<Plan> plans = planService.selectPlan(stcd);
+//        int count = plans.size();
+//        int number = 0;
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		for(Plan plan : plans) {
+//			JSONObject t = new JSONObject();
+//			t.put("number", ++number);
+//            t.put("id", plan.getId());
+//			t.put("stname", plan.getStname());
+//			t.put("name", plan.getName());
+//			t.put("planModel", "新安江模型");
+//			t.put("username", plan.getUserName());
+//			t.put("time", format.format(plan.getCreateTime()));
+//			temp.add(t);
+//		}
+//		retval.put("code", 0);
+//		retval.put("count", count);
+//		retval.put("data", temp);
+//		return retval.toString();
+//	}
 
 	@GetMapping("plan/insert/{stcd}")
 	public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("stcd") String stcd) {
@@ -195,7 +198,7 @@ public class ForecastController {
 	    HttpSession session = request.getSession();
         User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
 
-        plan.setUserId(user.getUserId());
+        plan.setCreateUser(user.getUserId());
         plan.setCreateTime(new Date());
         planService.insertSelective(plan);
 
@@ -218,65 +221,65 @@ public class ForecastController {
         return retval.toString();
     }
 
-    @GetMapping("plan/update/{id}")
-    public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("id") Integer id) {
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
-
-        List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
-        map.put("stationList", stationList);
-
-        Plan plan = planService.selectById(id);
-        map.put("plan", plan);
-
-        Station station = stationService.selectByPrimaryKey(plan.getStcd());
-        map.put("station", station);
-
-        List<PlanStation> planStationList = planStationService.selectByPlan(plan.getId());
-
-//		List<Map> qtStationList = stationService.selectQtStation(plan.getStcd());
-//        for(Map qtStation : qtStationList){
-//            for(PlanStation planStation : planStationList){
-//                if( String.valueOf(qtStation.get("PO_STCD")).equals(planStation.getPoStcd()) ){
-//					qtStation.put("ke", planStation.getKe());
-//					qtStation.put("xe", planStation.getXe());
+//    @GetMapping("plan/update/{id}")
+//    public String getInsertPlan(HttpServletRequest request, ModelMap map, @PathVariable("id") Integer id) {
+//        HttpSession session = request.getSession();
+//        User user = (User)session.getAttribute(CommonConst.SESSION_KEY_USER);
 //
-//					String qtStcd = String.valueOf(qtStation.get("PO_STCD"));
-//					List<Plan> qtPlan = planService.selectPlan(qtStcd);
-//					qtStation.put("plan", qtPlan);
+//        List<UserStation> stationList = userStationService.selectByUserId(user.getUserId());
+//        map.put("stationList", stationList);
 //
-//                    break;
-//                }
-//            }
-//        }
-//        map.put("qtStationList", qtStationList);
-
-		List<Map> qtStationList = new ArrayList<>();
-		for(PlanStation planStation : planStationList){
-			Map qtStation = new HashMap();
-			qtStation.put("PO_STCD", planStation.getPoStcd());
-			qtStation.put("childPlanId", planStation.getChildPlanId());
-			qtStation.put("ke", planStation.getKe());
-			qtStation.put("xe", planStation.getXe());
-			//
-			Station s = stationService.selectByPrimaryKey(planStation.getPoStcd());
-			qtStation.put("stname", s.getStname());
-			//
-			List<Plan> planList = planService.selectPlan(planStation.getPoStcd());
-			qtStation.put("plan", planList);
-			for( Plan p : planList ){
-				if( p.getId().equals(planStation.getChildPlanId()) ){
-					qtStation.put("planName", p.getName());
-					break;
-				}
-			}
-			//
-			qtStationList.add(qtStation);
-		}
-		map.put("qtStationList", qtStationList);
-
-		return "PlanInsertView";
-    }
+//        Plan plan = planService.selectById(id);
+//        map.put("plan", plan);
+//
+//        Station station = stationService.selectByPrimaryKey(plan.getStcd());
+//        map.put("station", station);
+//
+//        List<PlanStation> planStationList = planStationService.selectByPlan(plan.getId());
+//
+////		List<Map> qtStationList = stationService.selectQtStation(plan.getStcd());
+////        for(Map qtStation : qtStationList){
+////            for(PlanStation planStation : planStationList){
+////                if( String.valueOf(qtStation.get("PO_STCD")).equals(planStation.getPoStcd()) ){
+////					qtStation.put("ke", planStation.getKe());
+////					qtStation.put("xe", planStation.getXe());
+////
+////					String qtStcd = String.valueOf(qtStation.get("PO_STCD"));
+////					List<Plan> qtPlan = planService.selectPlan(qtStcd);
+////					qtStation.put("plan", qtPlan);
+////
+////                    break;
+////                }
+////            }
+////        }
+////        map.put("qtStationList", qtStationList);
+//
+//		List<Map> qtStationList = new ArrayList<>();
+//		for(PlanStation planStation : planStationList){
+//			Map qtStation = new HashMap();
+//			qtStation.put("PO_STCD", planStation.getPoStcd());
+//			qtStation.put("childPlanId", planStation.getChildPlanId());
+//			qtStation.put("ke", planStation.getKe());
+//			qtStation.put("xe", planStation.getXe());
+//			//
+//			Station s = stationService.selectByPrimaryKey(planStation.getPoStcd());
+//			qtStation.put("stname", s.getStname());
+//			//
+//			List<Plan> planList = planService.selectPlan(planStation.getPoStcd());
+//			qtStation.put("plan", planList);
+//			for( Plan p : planList ){
+//				if( p.getId().equals(planStation.getChildPlanId()) ){
+//					qtStation.put("planName", p.getName());
+//					break;
+//				}
+//			}
+//			//
+//			qtStationList.add(qtStation);
+//		}
+//		map.put("qtStationList", qtStationList);
+//
+//		return "PlanInsertView";
+//    }
 
     @PostMapping("plan/update")
     @ResponseBody
@@ -321,4 +324,45 @@ public class ForecastController {
 
         return retval.toString();
     }
+
+	/**
+	 * 新版在此
+	 */
+	@GetMapping("home")
+	public String home(ModelMap map) {
+		map.put("date", DateUtil.getDate());
+		List<Station> stations = stationService.selectStationByType("基本站");
+		map.put("stations", stations);
+//		List<Plan> planList = planService.selectPlan(CommonConst.STCD_STATION[0]);
+//		map.put("planList", planList);
+//		if( planList.size() > 0 ){
+//			Plan plan = planService.selectById(planList.get(0).getId());
+//			map.put("plan", plan);
+//		}
+//		map.put("stationProgress", commonService.stationProgress(CommonConst.STCD_NINGDU, 1));
+		Date date = new Date();
+//		map.put("forecastTime", DateUtil.date2str(date, "yyyy-MM-dd HH:00:00"));
+//		map.put("affectTime", DateUtil.date2str(DateUtil.addMonth(date, -1), "yyyy-MM-dd HH:00:00"));
+		map.put("forecastTime", "2020-04-04 08:00:00");
+		map.put("affectTime", "2020-04-01 08:00:00");
+
+		return "views/home/forecast";
+	}
+
+	/**
+	 * 预报结果
+	 * @return
+	 */
+	@PostMapping("compute")
+	@ResponseBody
+	public String compute(
+			@RequestParam("forecastTime") String forecastTime,
+			@RequestParam("affectTime") String affectTime,
+			@RequestParam("day") Integer day,
+			@RequestParam("unit") Integer unit,
+			@RequestParam("data") String data
+	) {
+		return null;
+	}
+
 }

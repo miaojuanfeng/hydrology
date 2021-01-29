@@ -21,30 +21,22 @@
               <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
             </a>
           </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="http://www.layui.com/admin/" target="_blank" title="前台">
-              <i class="layui-icon layui-icon-website"></i>
-            </a>
-          </li>
           <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;" layadmin-event="refresh" title="刷新">
               <i class="layui-icon layui-icon-refresh-3"></i>
             </a>
           </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <input type="text" placeholder="搜索..." autocomplete="off" class="layui-input layui-input-search" layadmin-event="serach" lay-action="template/search.html?keywords="> 
-          </li>
         </ul>
         <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
           
-          <li class="layui-nav-item" lay-unselect>
-            <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
-              <i class="layui-icon layui-icon-notice"></i>  
-              
-              <!-- 如果有新消息，则显示小圆点 -->
-              <span class="layui-badge-dot"></span>
-            </a>
-          </li>
+          <%--<li class="layui-nav-item" lay-unselect>--%>
+            <%--<a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">--%>
+              <%--<i class="layui-icon layui-icon-notice"></i>  --%>
+              <%----%>
+              <%--<!-- 如果有新消息，则显示小圆点 -->--%>
+              <%--<span class="layui-badge-dot"></span>--%>
+            <%--</a>--%>
+          <%--</li>--%>
           <li class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" layadmin-event="theme">
               <i class="layui-icon layui-icon-theme"></i>
@@ -71,13 +63,14 @@
               <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
             </dl>
           </li>
+          <li class="layui-nav-item layui-show-xs-inline-block" style="width: 20px" lay-unselect></li>
           
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
-            <a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>
-          </li>
-          <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
-            <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
-          </li>
+          <%--<li class="layui-nav-item layui-hide-xs" lay-unselect>--%>
+            <%--<a href="javascript:;" layadmin-event="about"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
+          <%--</li>--%>
+          <%--<li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>--%>
+            <%--<a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>--%>
+          <%--</li>--%>
         </ul>
       </div>
       
@@ -107,7 +100,7 @@
               </dl>
             </li>
             <li data-name="home" class="layui-nav-item">
-              <a href="javascript:;" lay-href="<c:url value="/views/home/forecast"></c:url>" lay-tips="预报" lay-direction="2">
+              <a href="javascript:;" lay-href="<c:url value="/forecast/home"></c:url>" lay-tips="预报" lay-direction="2">
                 <i class="layui-icon layui-icon-home"></i>
                 <cite>预报</cite>
               </a>
@@ -119,10 +112,10 @@
               </a>
               <dl class="layui-nav-child">
                 <dd data-name="console">
-                  <a lay-href="<c:url value="/views/plan/list"></c:url>">方案列表</a>
+                  <a lay-href="<c:url value="/plan/list"></c:url>">方案列表</a>
                 </dd>
                 <dd data-name="console">
-                  <a lay-href="<c:url value="/views/plan/insert"></c:url>">新建方案</a>
+                  <a lay-href="<c:url value="/plan/insert"></c:url>">新建方案</a>
                 </dd>
               </dl>
             </li>
@@ -133,10 +126,10 @@
               </a>
               <dl class="layui-nav-child">
                 <dd data-name="console">
-                  <a lay-href="<c:url value="/views/model/list"></c:url>">模型列表</a>
+                  <a lay-href="<c:url value="/model/list"></c:url>">模型列表</a>
                 </dd>
                 <dd data-name="console">
-                  <a lay-href="<c:url value="/views/model/insert"></c:url>">新建模型</a>
+                  <a lay-href="<c:url value="/model/insert"></c:url>">新建模型</a>
                 </dd>
               </dl>
             </li>

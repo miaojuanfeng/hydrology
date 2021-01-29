@@ -6,6 +6,8 @@ public class Model {
 
 	private String name;
 
+	private String stcd;
+
 	public Integer getId() {
 		return id;
 	}
@@ -20,5 +22,13 @@ public class Model {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getStcd() {
+		return stcd;
+	}
+
+	public void setStcd(String stcd) {
+		this.stcd = stcd;
 	}
 }

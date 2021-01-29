@@ -16,55 +16,31 @@ import java.util.List;
  */
 public class ApiModelUtil {
 
-    private static BigDecimal K = new BigDecimal("0.85");
-
-    private static BigDecimal Kr = new BigDecimal("0.605");
-
-    private static BigDecimal Im = new BigDecimal(60);
-
-    private static BigDecimal Imm = new BigDecimal(270);
-
-    private static BigDecimal Na = new BigDecimal(4);
-
-    private static BigDecimal Nu = new BigDecimal(150);
-
-    private static BigDecimal Kg = new BigDecimal(120);
-
-    private static BigDecimal Ku = new BigDecimal("2.7");
-
-    private static BigDecimal Area = new BigDecimal(412);
-
-    private static BigDecimal KE = new BigDecimal(18);
-
-    private static BigDecimal XE = new BigDecimal("0.15");
-
-    private static BigDecimal Pa = new BigDecimal("44.618");
-
-    private static BigDecimal B = null;
-
-    private static BigDecimal A = null;
-
-    static {
-        /**
-         * B = Imm / Im
-         * B = Round(B, 6)
-         */
-        B = Imm.divide(Im, NumberConst.DIGIT, NumberConst.MODE);
-        /**
-         * A = Imm * (1 - (1 - Pa / Im) ^ (1 / B))
-         * A = Round(A, 6)
-         */
-        BigDecimal base = NumberConst.ONE.subtract(Pa.divide(Im, NumberConst.DIGIT, NumberConst.MODE));
-        BigDecimal power = NumberConst.ONE.divide(B, NumberConst.DIGIT, NumberConst.MODE);
-        A = Imm.multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
-    }
-
     /**
      * 产流
      * @return
      */
     public static void getR(){
         CommonUtil.listR.clear();
+        /**
+         * 读取参数
+         */
+        BigDecimal Kr = CommonUtil.plan.getKR();
+        BigDecimal Im = CommonUtil.plan.getIM();
+        BigDecimal Imm = CommonUtil.plan.getIMM();
+        BigDecimal Pa = CommonUtil.plan.getPA();
+        /**
+         * B = Imm / Im
+         * B = Round(B, 6)
+         */
+        BigDecimal B = Imm.divide(Im, NumberConst.DIGIT, NumberConst.MODE);
+        /**
+         * A = Imm * (1 - (1 - Pa / Im) ^ (1 / B))
+         * A = Round(A, 6)
+         */
+        BigDecimal base = NumberConst.ONE.subtract(Pa.divide(Im, NumberConst.DIGIT, NumberConst.MODE));
+        BigDecimal power = NumberConst.ONE.divide(B, NumberConst.DIGIT, NumberConst.MODE);
+        BigDecimal A = Imm.multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
 
         for(int i = 0; i < CommonUtil.listP.size(); i++){
             BigDecimal p = CommonUtil.listP.get(i);
@@ -73,8 +49,8 @@ public class ApiModelUtil {
                 /**
                  * R(i) = Kr * (P(i) + Pa - Im + Im * (1 - (P(i) + A) / Imm) ^ B)
                  */
-                BigDecimal base = NumberConst.ONE.subtract(p.add(A).divide(Imm, NumberConst.DIGIT, NumberConst.MODE));
-                BigDecimal power = B;
+                base = NumberConst.ONE.subtract(p.add(A).divide(Imm, NumberConst.DIGIT, NumberConst.MODE));
+                power = B;
                 r = Kr.multiply(p.add(Pa).subtract(Im).add(Im.multiply(NumberUtil.pow(base, power))));
             }else{
                 /**
@@ -96,6 +72,14 @@ public class ApiModelUtil {
      */
     public static void getQTRR(){
         CommonUtil.listQTRR.clear();
+        /**
+         * 读取参数
+         */
+        BigDecimal NA = CommonUtil.plan.getNA();
+        BigDecimal NU = CommonUtil.plan.getNU();
+        BigDecimal KG = CommonUtil.plan.getKG();
+        BigDecimal KU = CommonUtil.plan.getKU();
+        BigDecimal AREA = CommonUtil.plan.getAREA();
 
         List<BigDecimal> listQu = new ArrayList<>();
 
@@ -109,7 +93,7 @@ public class ApiModelUtil {
         /**
          * For i = 0 To Nu -> Qu(i) = 0
          */
-        for(int i = 0; i <= Nu.intValue(); i++){
+        for(int i = 0; i <= NU.intValue(); i++){
             listQu.add(i, NumberConst.ZERO);
         }
         /**
@@ -128,7 +112,7 @@ public class ApiModelUtil {
         /**
          * For i = 1 To Na - 1 -> V = V * i
          */
-        for(int i = 1; i <= Na.intValue()-1; i++){
+        for(int i = 1; i <= NA.intValue()-1; i++){
             v = v.multiply(new BigDecimal(i));
         }
         /**
@@ -136,27 +120,27 @@ public class ApiModelUtil {
          */
         BigDecimal Yp = NumberConst.ZERO;
         BigDecimal Qu = NumberConst.ZERO;
-        for(int j = 1; j <= Nu.intValue(); j++){
+        for(int j = 1; j <= NU.intValue(); j++){
             if( j == 1 ){
                 /**
                  * Yp = 0.15 / 3.6 / (Kg + 0.5)
                  * Qu(J) = 0.88 / (Ku * 6 * 3.6) * Exp(1) ^ (-J / Ku) * (J / Ku) ^ 3 + 0.15 / 3.6 / (Kg + 0.5)
                  */
-                Yp = DECIMAL_0_15.divide(DECIMAL_3_6.multiply(Kg.add(DECIMAL_0_5)), NumberConst.DIGIT, NumberConst.MODE);
-                BigDecimal temp1 = DECIMAL_0_88.divide(Ku.multiply(DECIMAL_6).multiply(DECIMAL_3_6), NumberConst.DIGIT, NumberConst.MODE);
-                BigDecimal temp2 = NumberUtil.pow(e, NumberConst.ZERO.subtract(new BigDecimal(j)).divide(Ku, NumberConst.DIGIT, NumberConst.MODE));
-                BigDecimal temp3 = NumberUtil.pow(new BigDecimal(j).divide(Ku, NumberConst.DIGIT, NumberConst.MODE), DECIMAL_3);
-                BigDecimal temp4 = DECIMAL_0_15.divide(DECIMAL_3_6, NumberConst.DIGIT, NumberConst.MODE).divide(Kg.add(DECIMAL_0_5), NumberConst.DIGIT, NumberConst.MODE);
+                Yp = DECIMAL_0_15.divide(DECIMAL_3_6.multiply(KG.add(DECIMAL_0_5)), NumberConst.DIGIT, NumberConst.MODE);
+                BigDecimal temp1 = DECIMAL_0_88.divide(KU.multiply(DECIMAL_6).multiply(DECIMAL_3_6), NumberConst.DIGIT, NumberConst.MODE);
+                BigDecimal temp2 = NumberUtil.pow(e, NumberConst.ZERO.subtract(new BigDecimal(j)).divide(KU, NumberConst.DIGIT, NumberConst.MODE));
+                BigDecimal temp3 = NumberUtil.pow(new BigDecimal(j).divide(KU, NumberConst.DIGIT, NumberConst.MODE), DECIMAL_3);
+                BigDecimal temp4 = DECIMAL_0_15.divide(DECIMAL_3_6, NumberConst.DIGIT, NumberConst.MODE).divide(KG.add(DECIMAL_0_5), NumberConst.DIGIT, NumberConst.MODE);
                 Qu = temp1.multiply(temp2).multiply(temp3).add(temp4);
             }else{
                 /**
                  * Yp = (Kg - 0.5) * Yp / (Kg + 0.5)
                  * Qu(J) = 0.88 / (Ku * V * 3.6) * Exp(1) ^ (-J / Ku) * (J / Ku) ^ 3 + Yp
                  */
-                Yp = Kg.subtract(DECIMAL_0_5).multiply(Yp).divide(Kg.add(DECIMAL_0_5), NumberConst.DIGIT, NumberConst.MODE);
-                BigDecimal temp1 = DECIMAL_0_88.divide(Ku.multiply(v).multiply(DECIMAL_3_6), NumberConst.DIGIT, NumberConst.MODE);
-                BigDecimal temp2 = NumberUtil.pow(e, NumberConst.ZERO.subtract(new BigDecimal(j)).divide(Ku, NumberConst.DIGIT, NumberConst.MODE));
-                BigDecimal temp3 = NumberUtil.pow(new BigDecimal(j).divide(Ku, NumberConst.DIGIT, NumberConst.MODE), DECIMAL_3);
+                Yp = KG.subtract(DECIMAL_0_5).multiply(Yp).divide(KG.add(DECIMAL_0_5), NumberConst.DIGIT, NumberConst.MODE);
+                BigDecimal temp1 = DECIMAL_0_88.divide(KU.multiply(v).multiply(DECIMAL_3_6), NumberConst.DIGIT, NumberConst.MODE);
+                BigDecimal temp2 = NumberUtil.pow(e, NumberConst.ZERO.subtract(new BigDecimal(j)).divide(KU, NumberConst.DIGIT, NumberConst.MODE));
+                BigDecimal temp3 = NumberUtil.pow(new BigDecimal(j).divide(KU, NumberConst.DIGIT, NumberConst.MODE), DECIMAL_3);
                 Qu = temp1.multiply(temp2).multiply(temp3).add(Yp);
             }
             listQu.set(j, Qu);
@@ -166,7 +150,7 @@ public class ApiModelUtil {
          * For i = 0 To Nu -> Yp = Yp + Qu(i)
          */
         Yp = NumberConst.ZERO;
-        for(int i = 0; i <= Nu.intValue(); i++){
+        for(int i = 0; i <= NU.intValue(); i++){
             Yp = Yp.add(listQu.get(i));
         }
         /**
@@ -176,7 +160,7 @@ public class ApiModelUtil {
         /**
          * For i = 0 To Nu -> Qu(i) = Qu(i) * Yp
          */
-        for(int i = 0; i <= Nu.intValue(); i++){
+        for(int i = 0; i <= NU.intValue(); i++){
             listQu.set(i, listQu.get(i).multiply(Yp));
         }
         /**
@@ -187,7 +171,7 @@ public class ApiModelUtil {
         for(int i = 0; i < CommonUtil.listR.size(); i++){
             for(int j = 1; j <= 50; j++){
                 BigDecimal temp1 = CommonUtil.listQTRR.get(i + j - 1);
-                BigDecimal temp2 = CommonUtil.listR.get(i).multiply(listQu.get(j)).multiply(Area);
+                BigDecimal temp2 = CommonUtil.listR.get(i).multiply(listQu.get(j)).multiply(AREA);
                 CommonUtil.listQTRR.set(i + j - 1, temp1.add(temp2));
             }
         }

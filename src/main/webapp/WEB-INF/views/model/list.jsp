@@ -10,52 +10,56 @@
 
 <div class="layui-fluid">
   <div class="layui-row layui-col-space15">
-    <div class="layui-col-md2">
-      <div class="layui-card layui-form">
-        <div class="layui-card-header">搜索模型</div>
-        <form class="layui-form" action="" lay-filter="component-form-group">
-          <div class="layui-card-body layui-row">
-            <select name="modules" lay-verify="required" lay-search="">
-              <option value="">站点类型</option>
-              <option value="1">河道站</option>
-              <option value="2">水库站</option>
-            </select>
-          </div>
-          <div class="layui-card-body layui-row">
-            <select name="modules" lay-verify="required" lay-search="">
-              <option value="">站点区域</option>
-              <option value="1">宁都</option>
-              <option value="2">石城</option>
-              <option value="2">汾坑</option>
-            </select>
-          </div>
-          <div class="layui-card-body layui-row">
-            <select name="modules" lay-verify="required" lay-search="">
-              <option value="">站点名称</option>
-              <option value="1">宁都</option>
-              <option value="2">石城</option>
-              <option value="2">汾坑</option>
-            </select>
-          </div>
-          <div class="layui-card-body layui-row">
-            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-submit="" lay-filter="component-form-demo1">立即搜索</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="layui-col-md10">
+    <%--<div class="layui-col-md2">--%>
+      <%--<div class="layui-card layui-form">--%>
+        <%--<div class="layui-card-header">搜索模型</div>--%>
+        <%--<form class="layui-form" action="" lay-filter="component-form-group">--%>
+          <%--<div class="layui-card-body layui-row">--%>
+            <%--<select name="modules" lay-verify="required" lay-search="">--%>
+              <%--<option value="">站点类型</option>--%>
+              <%--<option value="1">河道站</option>--%>
+              <%--<option value="2">水库站</option>--%>
+            <%--</select>--%>
+          <%--</div>--%>
+          <%--<div class="layui-card-body layui-row">--%>
+            <%--<select name="modules" lay-verify="required" lay-search="">--%>
+              <%--<option value="">站点区域</option>--%>
+              <%--<option value="1">宁都</option>--%>
+              <%--<option value="2">石城</option>--%>
+              <%--<option value="2">汾坑</option>--%>
+            <%--</select>--%>
+          <%--</div>--%>
+          <%--<div class="layui-card-body layui-row">--%>
+            <%--<select name="modules" lay-verify="required" lay-search="">--%>
+              <%--<option value="">站点名称</option>--%>
+              <%--<option value="1">宁都</option>--%>
+              <%--<option value="2">石城</option>--%>
+              <%--<option value="2">汾坑</option>--%>
+            <%--</select>--%>
+          <%--</div>--%>
+          <%--<div class="layui-card-body layui-row">--%>
+            <%--<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-submit="" lay-filter="component-form-demo1">立即搜索</button>--%>
+          <%--</div>--%>
+        <%--</form>--%>
+      <%--</div>--%>
+    <%--</div>--%>
+    <div class="layui-col-md12">
       <div class="layui-card">
         <div class="layui-card-header">
-          <button type="button" class="layui-btn layui-btn-sm">新增模型</button>
+          <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="new">新增模型</button>
         </div>
         <div class="layui-card-body">
-
-          <table class="layui-hide" id="test-table-page"></table>
+          <table id="test-table-page" class="layui-hide" lay-filter="demo"></table>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
+</script>
 
 <script>
     layui.config({
@@ -69,19 +73,31 @@
 
         table.render({
             elem: '#test-table-page'
-            ,url: layui.setter.base + 'json/table/user.js'
+            ,method: 'post'
+            ,url: "${pageContext.request.contextPath}/model/list"
             ,cols: [[
                 {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:80, title: '用户名'}
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'city', width:80, title: '城市'}
-                ,{field:'sign', title: '签名', minWidth: 150}
-                ,{field:'experience', width:80, title: '积分', sort: true}
-                ,{field:'score', width:80, title: '评分', sort: true}
-                ,{field:'classify', width:80, title: '职业'}
-                ,{field:'wealth', width:135, title: '财富', sort: true}
+                ,{field:'name', title: '名称'}
+                ,{field:'username', width:120, title: '创建用户', sort: true}
+                ,{field:'createTime', width:170, title: '创建时间'}
+                ,{fixed: 'right', width:140, align:'center', toolbar: '#barDemo', title: '操作'}
             ]]
             ,page: true
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'edit'){
+                var href = '<c:url value="/model/insert/' + data.id + '"></c:url>';
+                var l = parent === self ? layui : top.layui;
+                l.index.openTabsPage(href, "编辑模型");
+            }else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            }
         });
 
         form.on('submit(component-form-demo1)', function(data){
@@ -89,6 +105,12 @@
                 title: '最终的提交信息'
             })
             return false;
+        });
+
+        form.on('submit(new)', function(data){
+            var href = '<c:url value="/model/insert"></c:url>';
+            var l = parent === self ? layui : top.layui;
+            l.index.openTabsPage(href, "新增模型");
         });
 
     });

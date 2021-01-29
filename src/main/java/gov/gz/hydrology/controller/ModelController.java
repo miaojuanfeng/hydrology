@@ -3,10 +3,13 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import gov.gz.hydrology.constant.ModelTypeEnum;
 import gov.gz.hydrology.entity.write.Model;
 import gov.gz.hydrology.entity.write.ModelStation;
+import gov.gz.hydrology.entity.write.Plan;
 import gov.gz.hydrology.service.write.ModelService;
 import gov.gz.hydrology.service.write.ModelStationService;
+import gov.gz.hydrology.service.write.PlanService;
 import gov.gz.hydrology.service.write.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
-@RequestMapping("views/model")
+@RequestMapping("model")
 public class ModelController {
 	
 	@Autowired
@@ -29,11 +31,38 @@ public class ModelController {
 	private ModelService modelService;
 
 	@Autowired
+	private PlanService planService;
+
+	@Autowired
 	private ModelStationService modelStationService;
 
 	@GetMapping("list")
-	public String list(ModelMap map) {
+	public String list() {
 		return "views/model/list";
+	}
+
+	@PostMapping("list")
+	@ResponseBody
+	public String list(ModelMap map) {
+		JSONObject retval = new JSONObject();
+		JSONArray temp = new JSONArray();
+		List<Model> models = modelService.selectModel();
+		int count = models.size();
+		int number = 0;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for(Model model : models) {
+			JSONObject t = new JSONObject();
+			t.put("number", ++number);
+			t.put("id", model.getId());
+			t.put("name", model.getName());
+			t.put("username", "ABC");
+			t.put("createTime", format.format(new Date()));
+			temp.add(t);
+		}
+		retval.put("code", 0);
+		retval.put("count", count);
+		retval.put("data", temp);
+		return retval.toString();
 	}
 
 	@GetMapping("insert")
@@ -46,11 +75,12 @@ public class ModelController {
 	@PostMapping("insert")
 	@ResponseBody
 	@Transactional
-	public String insert(@RequestParam("name") String name, @RequestParam("data") String data) {
+	public String insert(@RequestParam("name") String name, @RequestParam("stcd") String stcd, @RequestParam("data") String data) {
 		JSONObject retval = new JSONObject();
 
 		Model model = new Model();
 		model.setName(name);
+		model.setStcd(stcd);
 		modelService.insertSelective(model);
 
 //		JSONArray temp = JSONArray.parseArray(data);
@@ -76,12 +106,13 @@ public class ModelController {
 	@PostMapping("insert/{modelId}")
 	@ResponseBody
 	@Transactional
-	public String insert(@RequestParam("name") String name, @RequestParam("data") String data, @PathVariable("modelId") Integer modelId) {
+	public String insert(@RequestParam("name") String name, @RequestParam("stcd") String stcd, @RequestParam("data") String data, @PathVariable("modelId") Integer modelId) {
 		JSONObject retval = new JSONObject();
 
 		Model model = new Model();
 		model.setId(modelId);
 		model.setName(name);
+		model.setStcd(stcd);
 		modelService.updateSelective(model);
 
 //		JSONArray temp = JSONArray.parseArray(data);
@@ -101,19 +132,21 @@ public class ModelController {
 			if( fatherId.trim().equals((String)((String) modelStation.get("FA_STCD")).trim()) ){
 				JSONObject station = new JSONObject();
 				station.put("title", modelStation.get("STNAME"));
-				station.put("stcd", modelStation.get("MO_STCD"));
+				station.put("stcd", String.valueOf(modelStation.get("STCD")).trim());
 				station.put("stname", modelStation.get("STNAME"));
-				station.put("planId", modelStation.get("PLAN_ID"));
-				station.put("plan", modelStation.get("PLAN"));
-				station.put("clId", modelStation.get("HL_ID"));
-				station.put("cl", modelStation.get("CL"));
-				station.put("hlId", modelStation.get("HL_ID"));
-				station.put("hl", modelStation.get("HL"));
+				station.put("modelClId", modelStation.get("MODEL_CL"));
+				station.put("modelClName", ModelTypeEnum.getText((Integer)modelStation.get("MODEL_CL")));
+				station.put("planClId", modelStation.get("PLAN_CL_ID"));
+				station.put("planClName", modelStation.get("PLAN_CL_NAME"));
+				station.put("modelHlId", modelStation.get("MODEL_HL"));
+				station.put("modelHlName", ModelTypeEnum.getText((Integer)modelStation.get("MODEL_HL")));
+				station.put("planHlId", modelStation.get("PLAN_HL_ID"));
+				station.put("planHlName", modelStation.get("PLAN_HL_NAME"));
 				station.put("ke", modelStation.get("KE"));
 				station.put("xe", modelStation.get("XE"));
 				station.put("id", modelStation.get("ID"));
 				station.put("spread", true);
-				JSONArray children = getModelStationData((String)modelStation.get("MO_STCD"), modelStationList);
+				JSONArray children = getModelStationData((String)modelStation.get("STCD"), modelStationList);
 				if( children.size() > 0 ){
 					station.put("children", children);
 				}
@@ -129,12 +162,14 @@ public class ModelController {
 			JSONObject station = (JSONObject) data.get(i);
 			ModelStation modelStation = new ModelStation();
 			modelStation.setModelId(modelId);
-			modelStation.setMoStcd(station.getString("stcd"));
-			modelStation.setPlanId(station.getInteger("planId"));
+			modelStation.setStcd(station.getString("stcd"));
+
 			modelStation.setKe(station.getBigDecimal("ke"));
 			modelStation.setXe(station.getBigDecimal("xe"));
-			modelStation.setClId(station.getInteger("clId"));
-			modelStation.setHlId(station.getInteger("hlId"));
+			modelStation.setModelCl(station.getInteger("modelClId"));
+			modelStation.setPlanCl(station.getInteger("planClId"));
+			modelStation.setModelHl(station.getInteger("modelHlId"));
+			modelStation.setPlanHl(station.getInteger("planHlId"));
 			modelStation.setFaStcd(fatherId);
 			retval.add(modelStation);
 
@@ -144,5 +179,52 @@ public class ModelController {
 			}
 		}
 		return retval;
+	}
+
+	@PostMapping(value="getByStation", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getByStation(@RequestParam("stcd") String stcd) {
+		JSONArray retval = new JSONArray();
+		List<Model> models = modelService.selectModel(stcd);
+		for(Model model : models) {
+			JSONObject t = new JSONObject();
+			t.put("id", model.getId());
+			t.put("name", model.getName());
+			retval.add(t);
+		}
+		return retval.toString();
+	}
+
+	@PostMapping(value="getArea", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getArea(@RequestParam("modelId") Integer modelId) {
+		JSONArray modelStationList = getModelStationData("0", modelStationService.selectByModel(modelId));
+		setModelStationPlan(modelStationList);
+		return modelStationList.toString();
+	}
+
+	private void setModelStationPlan(JSONArray modelStationList){
+		for (int i = 0; i < modelStationList.size(); i++){
+			JSONObject modelStation = (JSONObject) modelStationList.get(i);
+			if( modelStation.containsKey("children") && modelStation.getJSONArray("children").size() > 0 ) {
+				setModelStationPlan(modelStation.getJSONArray("children"));
+			}
+			Plan plan = planService.selectById(modelStation.getInteger("planId"));
+			Map m = new HashMap();
+			m.put("name", plan.getName());
+			m.put("sm", plan.getSM());
+			m.put("ci", plan.getCI());
+			m.put("cs", plan.getCS());
+			m.put("l", plan.getL());
+			m.put("wu0", plan.getWU0());
+			m.put("wl0", plan.getWL0());
+			m.put("wd0", plan.getWD0());
+			m.put("s0", plan.getS0());
+			m.put("fr0", plan.getFR0());
+			m.put("qrs0", plan.getQRS0());
+			m.put("qrss0", plan.getQRSS0());
+			m.put("qrg0", plan.getQRG0());
+			modelStation.put("plan", m);
+		}
 	}
 }

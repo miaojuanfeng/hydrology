@@ -29,7 +29,6 @@ public class EmpiricalUnitUtil {
     private static List<Integer> PR_num = new ArrayList<>();
     private static Integer Pa_num = 0;
     private static List<BigDecimal> listQu = new ArrayList<>();
-
     /**
      * 初始化数据
      */
@@ -43,9 +42,13 @@ public class EmpiricalUnitUtil {
      */
     public static void getR(){
         CommonUtil.listR.clear();
-
-        BigDecimal Pa = CommonUtil.plan.getPa();
-
+        /**
+         * 读取参数
+         */
+        BigDecimal Pa = CommonUtil.plan.getPA();
+        /**
+         * 读初始状态
+         */
         Integer R_num01 = 0;
         Integer R_num02 = 0;
 
@@ -240,34 +243,34 @@ public class EmpiricalUnitUtil {
          *
          */
         Plan plan = new Plan();
-        plan.setF(new BigDecimal("911"));
-        plan.setK(new BigDecimal("0.735"));
-        plan.setIM(new BigDecimal("0.044"));
-        plan.setWUM(new BigDecimal("10.562"));
-        plan.setWLM(new BigDecimal("68.412"));
-        plan.setWDM(new BigDecimal("1.042"));
-        plan.setB(new BigDecimal("0.5"));
-        plan.setC(new BigDecimal("0.199"));
-        plan.setKSS(new BigDecimal("0.403"));
-        plan.setKG(new BigDecimal("0.297"));
-        plan.setSM(new BigDecimal("25.174"));
-        plan.setEX(new BigDecimal("1.5"));
-        plan.setCI(new BigDecimal("0.112"));
-        plan.setCG(new BigDecimal("0.95"));
-        plan.setCS(new BigDecimal("0.948"));
-        plan.setL(4);
-        plan.setT(new BigDecimal("1"));
+//        plan.setF(new BigDecimal("911"));
+//        plan.setK(new BigDecimal("0.735"));
+//        plan.setIM(new BigDecimal("0.044"));
+//        plan.setWUM(new BigDecimal("10.562"));
+//        plan.setWLM(new BigDecimal("68.412"));
+//        plan.setWDM(new BigDecimal("1.042"));
+//        plan.setB(new BigDecimal("0.5"));
+//        plan.setC(new BigDecimal("0.199"));
+//        plan.setKSS(new BigDecimal("0.403"));
+//        plan.setKG(new BigDecimal("0.297"));
+//        plan.setSM(new BigDecimal("25.174"));
+//        plan.setEX(new BigDecimal("1.5"));
+//        plan.setCI(new BigDecimal("0.112"));
+//        plan.setCG(new BigDecimal("0.95"));
+//        plan.setCS(new BigDecimal("0.948"));
+//        plan.setL(4);
+//        plan.setT(new BigDecimal("1"));
         plan.setKE(new BigDecimal("18"));
         plan.setXE(new BigDecimal("0.15"));
-        plan.setWU0(new BigDecimal("10"));
-        plan.setWL0(new BigDecimal("60"));
-        plan.setWD0(new BigDecimal("10"));
-        plan.setS0(new BigDecimal("6"));
-        plan.setFR0(new BigDecimal("0.7"));
-        plan.setQRS0(new BigDecimal("3"));
-        plan.setQRSS0(new BigDecimal("38"));
-        plan.setQRG0(new BigDecimal("7"));
-        plan.setPa(new BigDecimal(60));
+//        plan.setWU0(new BigDecimal("10"));
+//        plan.setWL0(new BigDecimal("60"));
+//        plan.setWD0(new BigDecimal("10"));
+//        plan.setS0(new BigDecimal("6"));
+//        plan.setFR0(new BigDecimal("0.7"));
+//        plan.setQRS0(new BigDecimal("3"));
+//        plan.setQRSS0(new BigDecimal("38"));
+//        plan.setQRG0(new BigDecimal("7"));
+        plan.setPA(new BigDecimal(60));
         CommonUtil.plan = plan;
 
         List<BigDecimal> listP = new ArrayList<>();
@@ -451,6 +454,6 @@ public class EmpiricalUnitUtil {
 
         getR();
         getQTRR();
-        CommonUtil.getQT();
+//        CommonUtil.getQT();
     }
 }

@@ -12,9 +12,9 @@
         <result column="WUM" property="WUM"/>
         <result column="WLM" property="WLM"/>
         <result column="WDM" property="WDM"/>
-        <result column="B" property="b"/>
-        <result column="K" property="k"/>
-        <result column="C" property="c"/>
+        <result column="B" property="B"/>
+        <result column="K" property="K"/>
+        <result column="C" property="C"/>
         <result column="SM" property="SM"/>
         <result column="EX" property="EX"/>
         <result column="KSS" property="KSS"/>
@@ -23,15 +23,15 @@
         <result column="CS" property="CS"/>
         <result column="CI" property="CI"/>
         <result column="CG" property="CG"/>
-        <result column="L" property="l"/>
-        <result column="T" property="t"/>
-        <result column="F" property="f"/>
-        <result column="S0" property="s0"/>
+        <result column="L" property="L"/>
+        <result column="T" property="T"/>
+        <result column="F" property="F"/>
+        <result column="S0" property="S0"/>
         <result column="FR0" property="FR0"/>
         <result column="QRS0" property="QRS0"/>
         <result column="QRSS0" property="QRSS0"/>
         <result column="QRG0" property="QRG0"/>
-        <result column="user_id" property="userId"/>
+        <result column="create_user" property="createUser"/>
         <result column="create_time" property="createTime"/>
         <result column="stname" property="stname"/>
         <result column="user_name" property="userName"/>
@@ -41,13 +41,16 @@
         where p.id = #{id}
     </select>
 	<select id="selectPlan" resultMap="BaseResultMap">
-		select p.*, s.stname, u.user_name from [plan] p
+		select p.* from [plan] p
         inner join station s on p.stcd = s.stcd
-        inner join [user] u on p.user_id = u.user_id
+--         inner join [user] u on p.create_user = u.user_id
 		where s.type = '基本站'
 		<if test="stcd != null and stcd != ''" >
 			and p.stcd = #{stcd}
 		</if>
+        <if test="model != null and model != ''" >
+            and p.model = #{model}
+        </if>
 		order by p.create_time desc
 	</select>
     <select id="selectChildPlan" resultMap="BaseResultMap">
@@ -67,271 +70,122 @@
     <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into [plan]
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="stcd != null" >
-                stcd,
-            </if>
-            <if test="name != null" >
-                name,
-            </if>
-            <if test="model != null" >
-                model,
-            </if>
-            <if test="WU0 != null" >
-                WU0,
-            </if>
-            <if test="WL0 != null" >
-                WL0,
-            </if>
-            <if test="WD0 != null" >
-                WD0,
-            </if>
-            <if test="WUM != null" >
-                WUM,
-            </if>
-            <if test="WLM != null" >
-                WLM,
-            </if>
-            <if test="WDM != null" >
-                WDM,
-            </if>
-            <if test="b != null" >
-                B,
-            </if>
-            <if test="k != null" >
-                K,
-            </if>
-            <if test="c != null" >
-                C,
-            </if>
-            <if test="SM != null" >
-                SM,
-            </if>
-            <if test="EX != null" >
-                EX,
-            </if>
-            <if test="KSS != null" >
-                KSS,
-            </if>
-            <if test="KG != null" >
-                KG,
-            </if>
-            <if test="IM != null" >
-                IM,
-            </if>
-            <if test="CI != null" >
-                CI,
-            </if>
-            <if test="CG != null" >
-                CG,
-            </if>
-            <if test="l != null" >
-                L,
-            </if>
-            <if test="t != null" >
-                T,
-            </if>
-            <if test="f != null" >
-                F,
-            </if>
-            <if test="s0 != null" >
-                S0,
-            </if>
-            <if test="FR0 != null" >
-                FR0,
-            </if>
-            <if test="QRs0 != null" >
-                QRS0,
-            </if>
-            <if test="QRss0 != null" >
-                QRSS0,
-            </if>
-            <if test="QRg0 != null" >
-                QRG0,
-            </if>
-            <if test="CS != null" >
-                CS,
-            </if>
-            <if test="userId != null" >
-                user_id,
-            </if>
-            <if test="createTime != null" >
-                create_time,
-            </if>
+            <if test="stcd != null" >stcd,</if>
+            <if test="name != null" >name,</if>
+            <if test="model != null" >model,</if>
+            <if test="WU0 != null" >WU0,</if>
+            <if test="WL0 != null" >WL0,</if>
+            <if test="WD0 != null" >WD0,</if>
+            <if test="WUM != null" >WUM,</if>
+            <if test="WLM != null" >WLM,</if>
+            <if test="WDM != null" >WDM,</if>
+            <if test="B != null" >B,</if>
+            <if test="K != null" >K,</if>
+            <if test="C != null" >C,</if>
+            <if test="SM != null" >SM,</if>
+            <if test="EX != null" >EX,</if>
+            <if test="KSS != null" >KSS,</if>
+            <if test="KG != null" >KG,</if>
+            <if test="IM != null" >IM,</if>
+            <if test="CI != null" >CI,</if>
+            <if test="CG != null" >CG,</if>
+            <if test="L != null" >L,</if>
+            <if test="T != null" >T,</if>
+            <if test="F != null" >F,</if>
+            <if test="s0 != null" >S0,</if>
+            <if test="FR0 != null" >FR0,</if>
+            <if test="QRS0 != null" >QRS0,</if>
+            <if test="QRSS0 != null" >QRSS0,</if>
+            <if test="QRG0 != null" >QRG0,</if>
+            <if test="CS != null" >CS,</if>
+            <if test="PA != null" >PA,</if>
+            <if test="KR != null" >KR,</if>
+            <if test="IMM != null" >IMM,</if>
+            <if test="NA != null" >NA,</if>
+            <if test="NU != null" >NU,</if>
+            <if test="KU != null" >KU,</if>
+            <if test="AREA != null" >AREA,</if>
+            <if test="createUser != null" >create_user,</if>
+            <if test="createTime != null" >create_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="stcd != null" >
-                #{stcd},
-            </if>
-            <if test="name != null" >
-                #{name},
-            </if>
-            <if test="model != null" >
-                #{model},
-            </if>
-            <if test="WU0 != null" >
-                #{WU0},
-            </if>
-            <if test="WL0 != null" >
-                #{WL0},
-            </if>
-            <if test="WD0 != null" >
-                #{WD0},
-            </if>
-            <if test="WUM != null" >
-                #{WUM},
-            </if>
-            <if test="WLM != null" >
-                #{WLM},
-            </if>
-            <if test="WDM != null" >
-                #{WDM},
-            </if>
-            <if test="b != null" >
-                #{b},
-            </if>
-            <if test="k != null" >
-                #{k},
-            </if>
-            <if test="c != null" >
-                #{c},
-            </if>
-            <if test="SM != null" >
-                #{SM},
-            </if>
-            <if test="EX != null" >
-                #{EX},
-            </if>
-            <if test="KSS != null" >
-                #{KSS},
-            </if>
-            <if test="KG != null" >
-                #{KG},
-            </if>
-            <if test="IM != null" >
-                #{IM},
-            </if>
-            <if test="CI != null" >
-                #{CI},
-            </if>
-            <if test="CG != null" >
-                #{CG},
-            </if>
-            <if test="l != null" >
-                #{l},
-            </if>
-            <if test="t != null" >
-                #{t},
-            </if>
-            <if test="f != null" >
-                #{f},
-            </if>
-            <if test="s0 != null" >
-                #{s0},
-            </if>
-            <if test="FR0 != null" >
-                #{FR0},
-            </if>
-            <if test="QRs0 != null" >
-                #{QRS0},
-            </if>
-            <if test="QRss0 != null" >
-                #{QRSS0},
-            </if>
-            <if test="QRg0 != null" >
-                #{QRG0},
-            </if>
-            <if test="CS != null" >
-                #{CS},
-            </if>
-            <if test="userId != null" >
-                #{userId},
-            </if>
-            <if test="createTime != null" >
-                #{createTime},
-            </if>
+            <if test="stcd != null" >#{stcd},</if>
+            <if test="name != null" >#{name},</if>
+            <if test="model != null" >#{model},</if>
+            <if test="WU0 != null" >#{WU0},</if>
+            <if test="WL0 != null" >#{WL0},</if>
+            <if test="WD0 != null" >#{WD0},</if>
+            <if test="WUM != null" >#{WUM},</if>
+            <if test="WLM != null" >#{WLM},</if>
+            <if test="WDM != null" >#{WDM},</if>
+            <if test="B != null" >#{b},</if>
+            <if test="K != null" >#{k},</if>
+            <if test="C != null" >#{c},</if>
+            <if test="SM != null" >#{SM},</if>
+            <if test="EX != null" >#{EX},</if>
+            <if test="KSS != null" >#{KSS},</if>
+            <if test="KG != null" >#{KG},</if>
+            <if test="IM != null" >#{IM},</if>
+            <if test="CI != null" >#{CI},</if>
+            <if test="CG != null" >#{CG},</if>
+            <if test="L != null" >#{l},</if>
+            <if test="T != null" >#{t},</if>
+            <if test="F != null" >#{f},</if>
+            <if test="s0 != null" >#{s0},</if>
+            <if test="FR0 != null" >#{FR0},</if>
+            <if test="QRS0 != null" >#{QRS0},</if>
+            <if test="QRSS0 != null" >#{QRSS0},</if>
+            <if test="QRG0 != null" >#{QRG0},</if>
+            <if test="CS != null" >#{CS},</if>
+            <if test="PA != null" >#{PA},</if>
+            <if test="KR != null" >#{KR},</if>
+            <if test="IMM != null" >#{IMM},</if>
+            <if test="NA != null" >#{NA},</if>
+            <if test="NU != null" >#{NU},</if>
+            <if test="KU != null" >#{KU},</if>
+            <if test="AREA != null" >#{AREA},</if>
+            <if test="createUser != null" >#{createUser},</if>
+            <if test="createTime != null" >#{createTime},</if>
         </trim>
     </insert>
     <update id="updateSelective" parameterType="gov.gz.hydrology.entity.write.Plan">
         update [plan]
         <set>
-            <if test="stcd != null" > stcd = #{stcd},</if>
-            <if test="name != null" > name = #{name},</if>
-            <if test="model != null" > model = #{model},</if>
-            <if test="WU0 != null" >
-                WU0 = #{WU0},
-            </if>
-            <if test="WL0 != null" >
-                WL0 = #{WL0},
-            </if>
-            <if test="WD0 != null" >
-                WD0 = #{WD0},
-            </if>
-            <if test="WUM != null" >
-                WUM = #{WUM},
-            </if>
-            <if test="WLM != null" >
-                WLM = #{WLM},
-            </if>
-            <if test="WDM != null" >
-                WDM = #{WDM},
-            </if>
-            <if test="b != null" >
-                B = #{b},
-            </if>
-            <if test="k != null" >
-                K = #{k},
-            </if>
-            <if test="c != null" >
-                C = #{c},
-            </if>
-            <if test="SM != null" >
-                SM = #{SM},
-            </if>
-            <if test="EX != null" >
-                EX = #{EX},
-            </if>
-            <if test="KSS != null" >
-                KSS = #{KSS},
-            </if>
-            <if test="KG != null" >
-                KG = #{KG},
-            </if>
-            <if test="IM != null" >
-                IM = #{IM},
-            </if>
-            <if test="CI != null" >
-                CI = #{CI},
-            </if>
-            <if test="CG != null" >
-                CG = #{CG},
-            </if>
-            <if test="l != null" >
-                L = #{l},
-            </if>
-            <if test="t != null" >
-                T = #{t},
-            </if>
-            <if test="f != null" >
-                F = #{f},
-            </if>
-            <if test="s0 != null" >
-                S0 = #{s0},
-            </if>
-            <if test="FR0 != null" >
-                FR0 = #{FR0},
-            </if>
-            <if test="QRs0 != null" >
-                QRS0 = #{QRS0},
-            </if>
-            <if test="QRss0 != null" >
-                QRSS0 = #{QRSS0},
-            </if>
-            <if test="QRg0 != null" >
-                QRG0 = #{QRG0},
-            </if>
-            <if test="CS != null" >
-                CS = #{CS},
-            </if>
+            <if test="stcd != null" >stcd = #{stcd},</if>
+            <if test="name != null" >name = #{name},</if>
+            <if test="model != null" >model = #{model},</if>
+            <if test="WU0 != null" >WU0 = #{WU0},</if>
+            <if test="WL0 != null" >WL0 = #{WL0},</if>
+            <if test="WD0 != null" >WD0 = #{WD0},</if>
+            <if test="WUM != null" >WUM = #{WUM},</if>
+            <if test="WLM != null" >WLM = #{WLM},</if>
+            <if test="WDM != null" >WDM = #{WDM},</if>
+            <if test="B != null" >B = #{b},</if>
+            <if test="K != null" >K = #{k},</if>
+            <if test="C != null" >C = #{c},</if>
+            <if test="SM != null" >SM = #{SM},</if>
+            <if test="EX != null" >EX = #{EX},</if>
+            <if test="KSS != null" >KSS = #{KSS},</if>
+            <if test="KG != null" >KG = #{KG},</if>
+            <if test="IM != null" >IM = #{IM},</if>
+            <if test="CI != null" >CI = #{CI},</if>
+            <if test="CG != null" >CG = #{CG},</if>
+            <if test="L != null" >L = #{l},</if>
+            <if test="T != null" >T = #{t},</if>
+            <if test="F != null" >F = #{f},</if>
+            <if test="s0 != null" >S0 = #{s0},</if>
+            <if test="FR0 != null" >FR0 = #{FR0},</if>
+            <if test="QRS0 != null" >QRS0 = #{QRS0},</if>
+            <if test="QRSS0 != null" >QRSS0 = #{QRSS0},</if>
+            <if test="QRG0 != null" >QRG0 = #{QRG0},</if>
+            <if test="CS != null" >CS = #{CS},</if>
+            <if test="PA != null" >PA = #{PA},</if>
+            <if test="KR != null" >KR = #{KR},</if>
+            <if test="IMM != null" >IMM = #{IMM},</if>
+            <if test="NA != null" >NA = #{NA},</if>
+            <if test="NU != null" >NU = #{NU},</if>
+            <if test="KU != null" >KU = #{KU},</if>
+            <if test="AREA != null" >AREA = #{AREA},</if>
         </set>
         where id = #{id}
     </update>

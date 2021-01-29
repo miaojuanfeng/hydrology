@@ -9,16 +9,30 @@
         select m.* from [model] m
         where m.id = #{id}
     </select>
+    <select id="selectModel" resultMap="BaseResultMap">
+        select m.* from model m
+        where 1=1
+        <if test="stcd != null and stcd != ''" >
+            and m.stcd = #{stcd}
+        </if>
+        order by m.id desc
+    </select>
     <insert id="insertSelective" parameterType="gov.gz.hydrology.entity.write.Model" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into [model]
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="name != null" >
                 name,
             </if>
+            <if test="stcd != null" >
+                stcd,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="name != null" >
                 #{name},
+            </if>
+            <if test="stcd != null" >
+                #{stcd},
             </if>
         </trim>
     </insert>
@@ -26,6 +40,7 @@
         update [model]
         <set>
             <if test="name != null" > name = #{name},</if>
+            <if test="stcd != null" > stcd = #{stcd},</if>
         </set>
         where id = #{id}
     </update>
