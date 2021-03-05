@@ -85,99 +85,99 @@
           <div class="layui-card-header">流域模型</div>
           <div id="area" class="demo-tree demo-tree-box" style="width: 100%; height: 240px; overflow-y: scroll; padding-top:10px;"></div>
 
-          <div class="layui-card-header"><span class="stname"></span>参数调整</div>
-          <table class="layui-table table-param" style="margin:0;">
-            <colgroup>
-              <col width="25%">
-              <col width="25%">
-              <col width="25%">
-              <col width="25%">
-            </colgroup>
-            <tbody>
-            <tr>
-              <td>SM</td>
-              <td class="input-tr">
-                <input id="SM" type="text" name="SM" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>CI</td>
-              <td class="input-tr">
-                <input id="CI" type="text" name="CI" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            <tr>
-              <td>CS</td>
-              <td class="input-tr">
-                <input id="CS" type="text" name="CS" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>L</td>
-              <td class="input-tr">
-                <input id="L" type="text" name="L" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            <tr>
-              <td>KE</td>
-              <td class="input-tr">
-                <input id="KE" type="text" name="KE" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>XE</td>
-              <td class="input-tr">
-                <input id="XE" type="text" name="XE" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            </tbody>
-          </table>
+          <%--<div class="layui-card-header"><span class="stname"></span>参数调整</div>--%>
+          <%--<table class="layui-table table-param" style="margin:0;">--%>
+            <%--<colgroup>--%>
+              <%--<col width="25%">--%>
+              <%--<col width="25%">--%>
+              <%--<col width="25%">--%>
+              <%--<col width="25%">--%>
+            <%--</colgroup>--%>
+            <%--<tbody>--%>
+            <%--<tr>--%>
+              <%--<td>SM</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="SM" type="text" name="SM" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>CI</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="CI" type="text" name="CI" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--<tr>--%>
+              <%--<td>CS</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="CS" type="text" name="CS" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>L</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="L" type="text" name="L" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--<tr>--%>
+              <%--<td>KE</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="KE" type="text" name="KE" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>XE</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="XE" type="text" name="XE" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--</tbody>--%>
+          <%--</table>--%>
 
-          <div class="layui-card-header"><span class="stname"></span>状态调整</div>
-          <table class="layui-table table-param" style="margin:0;">
-            <colgroup>
-              <col width="25%">
-              <col width="25%">
-              <col width="25%">
-              <col width="25%">
-            </colgroup>
-            <tbody>
-            <tr>
-              <td>WU0</td>
-              <td class="input-tr">
-                <input id="WU0" type="text" name="WU0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>WL0</td>
-              <td class="input-tr">
-                <input id="WL0" type="text" name="WL0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            <tr>
-              <td>WD0</td>
-              <td class="input-tr">
-                <input id="WD0" type="text" name="WD0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>S0</td>
-              <td class="input-tr">
-                <input id="S0" type="text" name="S0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            <tr>
-              <td>FR0</td>
-              <td class="input-tr">
-                <input id="FR0" type="text" name="FR0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>QRS0</td>
-              <td class="input-tr">
-                <input id="QRS0" type="text" name="QRS0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            <tr>
-              <td>QRSS0</td>
-              <td class="input-tr">
-                <input id="QRSS0" type="text" name="QRSS0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-              <td>QRG0</td>
-              <td class="input-tr">
-                <input id="QRG0" type="text" name="QRG0" placeholder="请输入" autocomplete="off" class="layui-input">
-              </td>
-            </tr>
-            </tbody>
-          </table>
+          <%--<div class="layui-card-header"><span class="stname"></span>状态调整</div>--%>
+          <%--<table class="layui-table table-param" style="margin:0;">--%>
+            <%--<colgroup>--%>
+              <%--<col width="25%">--%>
+              <%--<col width="25%">--%>
+              <%--<col width="25%">--%>
+              <%--<col width="25%">--%>
+            <%--</colgroup>--%>
+            <%--<tbody>--%>
+            <%--<tr>--%>
+              <%--<td>WU0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="WU0" type="text" name="WU0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>WL0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="WL0" type="text" name="WL0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--<tr>--%>
+              <%--<td>WD0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="WD0" type="text" name="WD0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>S0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="S0" type="text" name="S0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--<tr>--%>
+              <%--<td>FR0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="FR0" type="text" name="FR0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>QRS0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="QRS0" type="text" name="QRS0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--<tr>--%>
+              <%--<td>QRSS0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="QRSS0" type="text" name="QRSS0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+              <%--<td>QRG0</td>--%>
+              <%--<td class="input-tr">--%>
+                <%--<input id="QRG0" type="text" name="QRG0" placeholder="请输入" autocomplete="off" class="layui-input">--%>
+              <%--</td>--%>
+            <%--</tr>--%>
+            <%--</tbody>--%>
+          <%--</table>--%>
         </div>
       </div>
       <div class="layui-col-md9">
@@ -271,7 +271,8 @@
               // layer.msg(JSON.stringify(obj.data));
               // layer.msg(JSON.stringify(data1));
               // $(".stname").html(obj.data.stname);
-              setParam(obj.data);
+              // setParam(obj.data);  因为分了产流和汇流
+              loadStation(obj.data.stcd);
           }
       });
 
@@ -312,11 +313,11 @@
               },
               function (data) {
                   data1 = $.parseJSON(data);
-                  if(data1.length > 0){
-                      setParam(data1[0]);
-                  }else{
-                      clearParam();
-                  }
+                  // if(data1.length > 0){
+                  //     setParam(data1[0]);
+                  // }else{
+                  //     clearParam();
+                  // }
                   tree.reload('area', {
                       data: data1
                   });
@@ -325,25 +326,46 @@
           );
       });
 
+      function loadStation(stcd) {
+          var loading = layer.load(0);
+          $.post({
+              url: "${pageContext.request.contextPath}/forecast/station",
+              contentType: "application/x-www-form-urlencoded",
+              data: {
+                  stcd: stcd,
+              },
+              success : function(data) {
+                  var result = $.parseJSON(data);
+                  draw(result.timeArr, result.P, result.R, result.QTRR);
+                  layer.close(loading);
+              }
+          }).fail(function(response) {
+              parent.layer.alert("计算出错，请重试", {
+                  title: '错误'
+              })
+          });
+          return false;
+      }
+
       function setParam(data) {
           paramStcd = data.stcd;
           $(".stname").html(data.stname);
 
-          $("input[name=SM]").val(data.plan.sm);
-          $("input[name=CI]").val(data.plan.ci);
-          $("input[name=CS]").val(data.plan.cs);
-          $("input[name=L]").val(data.plan.l);
-          $("input[name=KE]").val(data.ke);
-          $("input[name=XE]").val(data.xe);
+          $("input[name=SM]").val(data.plan.SM);
+          $("input[name=CI]").val(data.plan.CI);
+          $("input[name=CS]").val(data.plan.CS);
+          $("input[name=L]").val(data.plan.L);
+          $("input[name=KE]").val(data.KE);
+          $("input[name=XE]").val(data.XE);
 
-          $("input[name=WU0]").val(data.plan.wu0);
-          $("input[name=WL0]").val(data.plan.wl0);
-          $("input[name=WD0]").val(data.plan.wd0);
-          $("input[name=S0]").val(data.plan.s0);
-          $("input[name=FR0]").val(data.plan.fr0);
-          $("input[name=QRS0]").val(data.plan.qrs0);
-          $("input[name=QRSS0]").val(data.plan.qrss0);
-          $("input[name=QRG0]").val(data.plan.qrg0);
+          $("input[name=WU0]").val(data.plan.WU0);
+          $("input[name=WL0]").val(data.plan.WL0);
+          $("input[name=WD0]").val(data.plan.WD0);
+          $("input[name=S0]").val(data.plan.S0);
+          $("input[name=FR0]").val(data.plan.FR0);
+          $("input[name=QRS0]").val(data.plan.QRS0);
+          $("input[name=QRSS0]").val(data.plan.QRSS0);
+          $("input[name=QRG0]").val(data.plan.QRG0);
       }
 
       function clearParam() {
@@ -401,45 +423,118 @@
           updateParam();
       });
 
-      var option = {
-          title: {
-              text: '今日流量趋势',
-              x: 'center',
-              textStyle: {
-                  fontSize: 14
-              }
-          },
-          tooltip : {
-              trigger: 'axis'
-          },
-          legend: {
-              data:['','']
-          },
-          xAxis : [{
-              type : 'category',
-              boundaryGap : false,
-              data: ['06:00','06:30','07:00','07:30','08:00','08:30','09:00','09:30','10:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30']
-          }],
-          yAxis : [{
-              type : 'value'
-          }],
-          series : [{
-              name:'PV',
-              type:'line',
-              smooth:true,
-              itemStyle: {normal: {areaStyle: {type: 'default'}}},
-              data: [111,222,333,444,555,666,3333,33333,55555,66666,33333,3333,6666,11888,26666,38888,56666,42222,39999,28888,17777,9666,6555,5555,3333,2222,3111,6999,5888,2777,1666,999,888,777]
-          },{
-              name:'UV',
-              type:'line',
-              smooth:true,
-              itemStyle: {normal: {areaStyle: {type: 'default'}}},
-              data: [11,22,33,44,55,66,333,3333,5555,12666,3333,333,666,1188,2666,3888,6666,4222,3999,2888,1777,966,655,555,333,222,311,699,588,277,166,99,88,77]
-          }]
-      };
-
       var chart = echarts.init(document.getElementById('chart'));
-      chart.setOption(option);
+
+      function draw(xTitle, xData1, xData2, xData3) {
+          var option = {
+              title: {
+                  text: '今日流量趋势',
+                  x: 'center',
+                  textStyle: {
+                      fontSize: 14
+                  }
+              },
+              tooltip: {
+                  trigger: 'axis'
+              },
+              legend: {
+                  data: ['', '']
+              },
+              xAxis: [{
+                  type: 'category',
+                  boundaryGap: false,
+                  data: xTitle
+              }],
+              yAxis: [{
+                  type: 'value'
+              }],
+              series: [
+                  {
+                      name:'降雨量',
+                      type:'bar',
+                      // itemStyle:{
+                      //     normal:{
+                      //         color:'#7EC0EE',
+                      //
+                      //     }
+                      // },
+                      // barWidth: '40%',
+                      // yAxisIndex:1,
+                      // animation: true,
+                      data: xData1
+                  },
+                  {
+                      name:'实测水位',
+                      type:'line',
+                      animation: true,
+                      smooth: true,
+                      symbol: 'circle',
+                      symbolSize: 1,
+                      itemStyle:{
+                          normal:{
+                              color:'#7EC0EE',
+                          }
+                      },
+                      lineStyle: {
+                          normal: {
+                              color:'#7EC0EE',
+                              width: 3,
+                              shadowColor: 'rgba(0,0,0,0.4)',
+                              shadowBlur: 10,
+                              shadowOffsetY: 10
+                          }
+                      },
+                      data: xData2
+                  },
+                  {
+                      name:'预报水位',
+                      type:'line',
+                      animation: true,
+                      smooth: true,
+                      symbol: 'circle',
+                      symbolSize: 1,
+                      itemStyle:{
+                          normal:{
+                              color:'#ff0000',
+
+                          }
+                      },
+                      lineStyle: {
+                          normal: {
+                              color:'#ff0000',
+                              width: 3,
+                              shadowColor: 'rgba(0,0,0,0.4)',
+                              shadowBlur: 10,
+                              shadowOffsetY: 10
+                          }
+                      },
+                      data: xData3,
+                      // markLine: {
+                      //     itemStyle: {
+                      //         normal: { lineStyle: { color:'#CD2626' },
+                      //             label: { show: true , position:'middle' }
+                      //         }
+                      //     },
+                      //     data: [
+                      //
+                      //         {
+                      //             name: '警戒水位',
+                      //             yAxis: 22
+                      //         }
+                      //     ]
+                      // },
+                      // markPoint: {
+                      //     symbolSize: 65,
+                      //     data: [
+                      //         {type: 'max', name: '最大值'}
+                      //
+                      //     ]
+                      // }
+                  }
+              ]
+          };
+          chart.setOption(option);
+      }
 
       /* 预报流量 */
       form.on('submit(forecast1)', function(data){
@@ -455,22 +550,23 @@
           //     layer.msg('请填妥相关信息');
           //     return false;
           // }
+          var loading = layer.load(0);
           $.post({
               url: "${pageContext.request.contextPath}/forecast/compute",
               contentType: "application/x-www-form-urlencoded",
               data: {
+                  type: 1,
+                  stcd: $("select[name=station]").val(),
                   forecastTime: $("input[name=forecastTime]").val(),
                   affectTime: $("input[name=affectTime]").val(),
                   day: $("select[name=day]").val(),
                   unit: $("select[name=unit]").val(),
                   data: JSON.stringify(data1)
               },
-              success : function(result) {
-                  parent.layer.alert("数据保存成功", {
-                      title: '成功'
-                  }, function () {
-                      alert('关闭当前页面');
-                  })
+              success : function(data) {
+                  var result = $.parseJSON(data);
+                  draw(result.timeArr, result.P, result.R, result.QTRR);
+                  layer.close(loading);
               }
           }).fail(function(response) {
               parent.layer.alert("计算出错，请重试", {

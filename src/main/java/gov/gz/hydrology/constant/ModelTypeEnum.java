@@ -24,6 +24,10 @@ public enum ModelTypeEnum {
         this.text = text;
     }
 
+    public Integer getId(){
+        return id;
+    }
+
     public static String getText(Integer id) {
         ModelTypeEnum[] modelTypeEnums = values();
         for (ModelTypeEnum modelTypeEnum : modelTypeEnums) {

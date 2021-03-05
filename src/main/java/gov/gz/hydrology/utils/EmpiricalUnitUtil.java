@@ -40,12 +40,12 @@ public class EmpiricalUnitUtil {
      * 产流
      * @return
      */
-    public static void getR(){
-        CommonUtil.listR.clear();
+    public static List<BigDecimal> getR(Plan plan, List<BigDecimal> listP){
+        List<BigDecimal> listR = new ArrayList<>();
         /**
          * 读取参数
          */
-        BigDecimal Pa = CommonUtil.plan.getPA();
+        BigDecimal Pa = plan.getPA();
         /**
          * 读初始状态
          */
@@ -64,13 +64,13 @@ public class EmpiricalUnitUtil {
         List<BigDecimal> R01 = new ArrayList<>();
         List<BigDecimal> R02 = new ArrayList<>();
         List<BigDecimal> R_h = new ArrayList<>();
-        for (int i = 0; i < CommonUtil.listP.size(); i++){
+        for (int i = 0; i < listP.size(); i++){
             R01.add(NumberConst.ZERO);
             R02.add(NumberConst.ZERO);
             R_h.add(NumberConst.ZERO);
         }
-        for (int i = 0; i < CommonUtil.listP.size(); i++){
-            P_sum = P_sum.add(CommonUtil.listP.get(i));
+        for (int i = 0; i < listP.size(); i++){
+            P_sum = P_sum.add(listP.get(i));
             P_h.add(P_sum);
             if( NumberUtil.gt(P_sum, NumberConst.ZERO) ){
                 for (int j = 0; j <= PR_num.get(R_num01).intValue(); j++){
@@ -112,10 +112,11 @@ public class EmpiricalUnitUtil {
         /**
          * For i = 1 To sum -> R(i) = R_h(i) - R_h(i - 1)
          */
-        CommonUtil.listR.add(NumberConst.ZERO);
-        for (int i = 1; i < CommonUtil.listP.size(); i++){
-            CommonUtil.listR.add(R_h.get(i).subtract(R_h.get(i-1)));
+        listR.add(NumberConst.ZERO);
+        for (int i = 1; i < listP.size(); i++){
+            listR.add(R_h.get(i).subtract(R_h.get(i-1)));
         }
+        return listR;
     }
 
     /**
@@ -123,9 +124,9 @@ public class EmpiricalUnitUtil {
      * 算法有误差，需要核实
      * @return
      */
-    public static void getQTRR(){
+    public static List<BigDecimal> getQTRR(Plan plan, List<BigDecimal> listR){
         listQu.clear();
-        CommonUtil.listQTRR.clear();
+        List<BigDecimal> listQTRR = new ArrayList<>();
         /**
          * 读单位线
          */
@@ -136,25 +137,26 @@ public class EmpiricalUnitUtil {
          * 汇流
          * 这里如果sum+24，则会出现下标越界问题
          */
-        for (int i = 0; i < CommonUtil.listR.size() + listQu.size(); i++){
-            CommonUtil.listQTRR.add(NumberConst.ZERO);
+        for (int i = 0; i < listR.size() + listQu.size(); i++){
+            listQTRR.add(NumberConst.ZERO);
         }
-        for (int i = 0; i < CommonUtil.listR.size(); i++){
+        for (int i = 0; i < listR.size(); i++){
             for (int j = 1; j < listQu.size(); j++){
-                CommonUtil.listQTRR.set(i+j-1, CommonUtil.listQTRR.get(i+j-1).add(CommonUtil.listR.get(i).multiply(listQu.get(j))));
+                listQTRR.set(i+j-1, listQTRR.get(i+j-1).add(listR.get(i).multiply(listQu.get(j))));
             }
         }
         /**
          * 把多余的数组元素移除
          */
-        Iterator<BigDecimal> it = CommonUtil.listQTRR.iterator();
+        Iterator<BigDecimal> it = listQTRR.iterator();
         int i = 0;
         while(it.hasNext()){
             it.next();
-            if( i++ >= CommonUtil.listR.size() + 24 ) {
+            if( i++ >= listR.size() + 24 ) {
                 it.remove();
             }
         }
+        return listQTRR;
     }
 
 //    /**
@@ -271,7 +273,6 @@ public class EmpiricalUnitUtil {
 //        plan.setQRSS0(new BigDecimal("38"));
 //        plan.setQRG0(new BigDecimal("7"));
         plan.setPA(new BigDecimal(60));
-        CommonUtil.plan = plan;
 
         List<BigDecimal> listP = new ArrayList<>();
         listP.add(new BigDecimal("0.00"));
@@ -450,10 +451,9 @@ public class EmpiricalUnitUtil {
 //        listP.add(new BigDecimal("0"));
 //        listP.add(new BigDecimal("0"));
 //        listP.add(new BigDecimal("0"));
-        CommonUtil.listP = listP;
 
-        getR();
-        getQTRR();
+        List<BigDecimal> listR = getR(plan, listP);
+        List<BigDecimal> listQTRR = getQTRR(plan, listR);
 //        CommonUtil.getQT();
     }
 }

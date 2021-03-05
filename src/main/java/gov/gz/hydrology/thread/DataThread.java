@@ -22,7 +22,7 @@ public class DataThread extends Thread{
 
     public DataThread(){
         dataService = CommonConst.APPLICATION_CONTEXT.getBean(DataService.class);
-        System.out.println("开启数据线程");
+        System.out.println("start thread");
         this.start();
     }
 
@@ -31,13 +31,13 @@ public class DataThread extends Thread{
         while (true){
             synchronized (lock){
                 try {
-                    System.out.println("开始");
+                    System.out.println("start");
                     dataService.rainfallDaily();
-                    System.out.println("降雨趋势");
+                    System.out.println("rainfallDaily");
                     dataService.rainfallTotal();
-                    System.out.println("累计雨量");
+                    System.out.println("rainfallTotal");
                     dataService.riverTime();
-                    System.out.println("水位过程");
+                    System.out.println("riverTime");
                     lock.wait(timeout);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

@@ -2,7 +2,6 @@ package gov.gz.hydrology.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import gov.gz.hydrology.constant.CommonConst;
-import gov.gz.hydrology.constant.NumberConfig;
 import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.read.Rainfall;
 import gov.gz.hydrology.entity.read.River;
@@ -18,12 +17,15 @@ import gov.gz.hydrology.service.read.RiverService;
 import gov.gz.hydrology.service.read.ZqService;
 import gov.gz.hydrology.service.read2.ForecastService;
 import gov.gz.hydrology.service.write.*;
-import gov.gz.hydrology.utils.*;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import gov.gz.hydrology.utils.DateUtil;
+import gov.gz.hydrology.utils.NumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -423,7 +425,7 @@ public class IframeController {
             map.put("timeArr", listTime);
             map.put("rainfallArr", listRainfall);
 
-            CommonUtil.listP = listRainfall;
+//            CommonUtil.listP = listRainfall;
 
 //            for(BigDecimal r : rainfallArr){
 //                System.out.println(r);

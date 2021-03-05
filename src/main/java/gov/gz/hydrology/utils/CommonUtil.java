@@ -1,6 +1,7 @@
 package gov.gz.hydrology.utils;
 
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Forecast;
 import gov.gz.hydrology.entity.write.Plan;
 
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class CommonUtil {
     /**
      * 参数
      */
-    public static Plan plan = new Plan();
+//    public static Plan plan = new Plan();
     /**
      * 初始化
      */
@@ -29,11 +30,12 @@ public class CommonUtil {
     /**
      * 结果
      */
-    public static List<BigDecimal> listP = new ArrayList<>();
-    public static List<BigDecimal> listR = new ArrayList<>();
-    public static List<BigDecimal> listQTRR = new ArrayList<>();
-    public static List<BigDecimal> listOQ = new ArrayList<>();
-    public static List<BigDecimal> listQT = new ArrayList<>();
+//    public static List<BigDecimal> listP = new ArrayList<>();
+//    public static List<BigDecimal> listR = new ArrayList<>();
+//    public static List<BigDecimal> listQTRR = new ArrayList<>();
+//    public static List<BigDecimal> listOQ = new ArrayList<>();
+//    public static List<BigDecimal> listQT = new ArrayList<>();
+    public static Forecast forecast = new Forecast();
 
     /**
      * 初始化数据
@@ -55,11 +57,8 @@ public class CommonUtil {
      * QTRR -> QT
      * @return listQT
      */
-    public static void getQT(){
-        listQT.clear();
-
-        BigDecimal KE = plan.getKE();
-        BigDecimal XE = plan.getXE();
+    public static List<BigDecimal> getQT(BigDecimal KE, BigDecimal XE, List<BigDecimal> listR, List<BigDecimal> listQTRR){
+        List<BigDecimal> listQT = new ArrayList<>();
 
         BigDecimal K = KE;
         BigDecimal T = KE;
@@ -101,7 +100,7 @@ public class CommonUtil {
         BigDecimal QS2;
         BigDecimal QX1 = listQTRR.get(0);
         BigDecimal QX2 = NumberConst.ZERO;
-        for (int i = 0; i < listR.size(); i++){
+        for (int i = 0; i < listR.size() - 1; i++){
             QS1 = listQTRR.get(i);
             QS2 = listQTRR.get(i+1);
             for (int j = 1; j <= K.intValue(); j++){
@@ -120,6 +119,8 @@ public class CommonUtil {
         for (int i = 0; i <= K.intValue() - 1; i++){
             listQT.set(i, listQT.get(K.intValue()));
         }
+
+        return listQT;
     }
 
     /**
@@ -127,8 +128,9 @@ public class CommonUtil {
      * QTRR -> OQ -> QT
      * @return listQT
      */
-    public static void getOQ(){
-        BigDecimal INTV = plan.getINTV();
+    public static List<BigDecimal> getOQ(BigDecimal INTV, List<BigDecimal> listR, List<BigDecimal> listQTRR){
+        List<BigDecimal> listOQ = new ArrayList<>();
+
         // 预见期水位过程
         List<BigDecimal> Z = new ArrayList<>();
         // 预见期库容过程
@@ -157,7 +159,7 @@ public class CommonUtil {
          */
         for (int i = 0; i <= listR.size(); i++){
             Z.add(NumberConst.ZERO);
-            CommonUtil.listOQ.add(NumberConst.ZERO);
+            listOQ.add(NumberConst.ZERO);
             W.add(NumberConst.ZERO);
         }
 //        /**
@@ -177,8 +179,8 @@ public class CommonUtil {
         /**
          * 读取初始出库流量，从实时数据库读取  ST_RSVR_R，预报时间往前最近的一个出库流量   字段OTQ
          */
-        CommonUtil.listOQ.set(0, new BigDecimal("20"));
-        Temp_OQ = CommonUtil.listOQ.get(0);
+        listOQ.set(0, new BigDecimal("20"));
+        Temp_OQ = listOQ.get(0);
         /**
          * 读取汛限水位，从实时数据库的汛期水位表 ST_RSVRFSR_B 读取   字段FSLTDZ      BGMD EDMD两个字段为开始结束时间，根据这两个时间来读汛限水位
          */
@@ -203,25 +205,25 @@ public class CommonUtil {
             /**
              * Temp_W = W(i) + (QTRR(i) + QTRR(i + 1)) * 0.0018 * INTV - OQ(i) * 0.0036 * INTV
              */
-            Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(CommonUtil.listOQ, i, INTV));
+            Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(listOQ, i, INTV));
             if( NumberUtil.gt(Temp_W, W_lim) ){
                 // OQ(i) = (W(i) + (QTRR(i + 1) + QTRR(i)) * 0.0018 * INTV - W00) / (0.0036 * INTV)
-                CommonUtil.listOQ.set(i, W.get(i).add(temp1(listQTRR, i, INTV)).subtract(W00).divide(temp3(INTV), NumberConst.DIGIT, NumberConst.MODE));
-                if( NumberUtil.gt(CommonUtil.listOQ.get(i), maxIQ) ){
-                    CommonUtil.listOQ.set(i, maxIQ);
+                listOQ.set(i, W.get(i).add(temp1(listQTRR, i, INTV)).subtract(W00).divide(temp3(INTV), NumberConst.DIGIT, NumberConst.MODE));
+                if( NumberUtil.gt(listOQ.get(i), maxIQ) ){
+                    listOQ.set(i, maxIQ);
                 }
-                Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(CommonUtil.listOQ, i, INTV));
+                Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(listOQ, i, INTV));
             }
             if( NumberUtil.lt(Temp_W, W_lim) ){
                 // OQ(i) = (W(i) + (QTRR(i + 1) + QTRR(i)) * 0.0018 * INTV - W00) / (0.0036 * INTV)
-                CommonUtil.listOQ.set(i, W.get(i).add(temp1(listQTRR, i, INTV)).subtract(W00).divide(temp3(INTV), NumberConst.DIGIT, NumberConst.MODE));
-                if( NumberUtil.gt(CommonUtil.listOQ.get(i), maxIQ) ){
-                    CommonUtil.listOQ.set(i, maxIQ);
+                listOQ.set(i, W.get(i).add(temp1(listQTRR, i, INTV)).subtract(W00).divide(temp3(INTV), NumberConst.DIGIT, NumberConst.MODE));
+                if( NumberUtil.gt(listOQ.get(i), maxIQ) ){
+                    listOQ.set(i, maxIQ);
                 }
-                Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(CommonUtil.listOQ, i, INTV));
-                if( NumberUtil.le(CommonUtil.listOQ.get(i), NumberConst.ZERO) ){
-                    CommonUtil.listOQ.set(i, Temp_OQ);
-                    Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(CommonUtil.listOQ, i, INTV));
+                Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(listOQ, i, INTV));
+                if( NumberUtil.le(listOQ.get(i), NumberConst.ZERO) ){
+                    listOQ.set(i, Temp_OQ);
+                    Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(listOQ, i, INTV));
                 }
             }
             /**
@@ -230,17 +232,19 @@ public class CommonUtil {
             Temp_Z = CommonUtil.diffVal(W.get(i), V_CUR, Z_CUR);
             maxOQ = CommonUtil.diffVal(Temp_Z, Z0, HCOQ);
 
-            if( NumberUtil.gt(CommonUtil.listOQ.get(i), maxOQ) ){
-                CommonUtil.listOQ.set(i, maxOQ);
-                Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(CommonUtil.listOQ, i, INTV));
+            if( NumberUtil.gt(listOQ.get(i), maxOQ) ){
+                listOQ.set(i, maxOQ);
+                Temp_W = W.get(i).add(temp1(listQTRR, i, INTV)).subtract(temp2(listOQ, i, INTV));
             }
 
             Temp_Z = CommonUtil.diffVal(Temp_W, V_CUR, Z_CUR);
             W.set(i+1, Temp_W);
             Z.set(i+1, Temp_Z);
-            CommonUtil.listOQ.set(i+1, CommonUtil.listOQ.get(i));
-            Temp_OQ = CommonUtil.listOQ.get(i+1);
+            listOQ.set(i+1, listOQ.get(i));
+            Temp_OQ = listOQ.get(i+1);
         }
+
+        return listOQ;
     }
 
     private static BigDecimal diffVal(BigDecimal x, List<BigDecimal> X0, List<BigDecimal> Y0){

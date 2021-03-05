@@ -1,6 +1,7 @@
 package gov.gz.hydrology.utils;
 
 import gov.gz.hydrology.constant.NumberConst;
+import gov.gz.hydrology.entity.write.Plan;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,15 +21,15 @@ public class ApiModelUtil {
      * 产流
      * @return
      */
-    public static void getR(){
-        CommonUtil.listR.clear();
+    public static List<BigDecimal> getR(Plan plan, List<BigDecimal> listP){
+        List<BigDecimal> listR = new ArrayList<>();
         /**
          * 读取参数
          */
-        BigDecimal Kr = CommonUtil.plan.getKR();
-        BigDecimal Im = CommonUtil.plan.getIM();
-        BigDecimal Imm = CommonUtil.plan.getIMM();
-        BigDecimal Pa = CommonUtil.plan.getPA();
+        BigDecimal Kr = plan.getKR();
+        BigDecimal Im = plan.getIM();
+        BigDecimal Imm = plan.getIMM();
+        BigDecimal Pa = plan.getPA();
         /**
          * B = Imm / Im
          * B = Round(B, 6)
@@ -42,8 +43,8 @@ public class ApiModelUtil {
         BigDecimal power = NumberConst.ONE.divide(B, NumberConst.DIGIT, NumberConst.MODE);
         BigDecimal A = Imm.multiply(NumberConst.ONE.subtract(NumberUtil.pow(base, power)));
 
-        for(int i = 0; i < CommonUtil.listP.size(); i++){
-            BigDecimal p = CommonUtil.listP.get(i);
+        for(int i = 0; i < listP.size(); i++){
+            BigDecimal p = listP.get(i);
             BigDecimal r;
             if( NumberUtil.lt(p.add(A), Imm) ){
                 /**
@@ -61,25 +62,27 @@ public class ApiModelUtil {
             if( NumberUtil.lt(r, NumberConst.ZERO) ){
                 r = NumberConst.ZERO;
             }
-            CommonUtil.listR.add(i, r);
+            listR.add(i, r);
         }
-        CommonUtil.listR.add(NumberConst.ZERO);
+        listR.add(NumberConst.ZERO);
+
+        return listR;
     }
 
     /**
      * 汇流
      * @return
      */
-    public static void getQTRR(){
-        CommonUtil.listQTRR.clear();
+    public static List<BigDecimal> getQTRR(Plan plan, List<BigDecimal> listR){
+        List<BigDecimal> listQTRR = new ArrayList<>();
         /**
          * 读取参数
          */
-        BigDecimal NA = CommonUtil.plan.getNA();
-        BigDecimal NU = CommonUtil.plan.getNU();
-        BigDecimal KG = CommonUtil.plan.getKG();
-        BigDecimal KU = CommonUtil.plan.getKU();
-        BigDecimal AREA = CommonUtil.plan.getAREA();
+        BigDecimal NA = plan.getNA();
+        BigDecimal NU = plan.getNU();
+        BigDecimal KG = plan.getKG();
+        BigDecimal KU = plan.getKU();
+        BigDecimal AREA = plan.getAREA();
 
         List<BigDecimal> listQu = new ArrayList<>();
 
@@ -100,8 +103,8 @@ public class ApiModelUtil {
          * For i = 0 To sum + 24 -> QTRR(i) = 0
          * 这里如果sum+24，则会出现下标越界问题
          */
-        for(int i = 0; i < CommonUtil.listR.size() + listQu.size(); i++){
-            CommonUtil.listQTRR.add(i, NumberConst.ZERO);
+        for(int i = 0; i < listR.size() + listQu.size(); i++){
+            listQTRR.add(i, NumberConst.ZERO);
         }
         /**
          * V = 1
@@ -168,24 +171,26 @@ public class ApiModelUtil {
          *   For J = 1 To 50
          *      QTRR(i + J - 1) = QTRR(i + J - 1) + R(i) * Qu(J) * Area
          */
-        for(int i = 0; i < CommonUtil.listR.size(); i++){
+        for(int i = 0; i < listR.size(); i++){
             for(int j = 1; j <= 50; j++){
-                BigDecimal temp1 = CommonUtil.listQTRR.get(i + j - 1);
-                BigDecimal temp2 = CommonUtil.listR.get(i).multiply(listQu.get(j)).multiply(AREA);
-                CommonUtil.listQTRR.set(i + j - 1, temp1.add(temp2));
+                BigDecimal temp1 = listQTRR.get(i + j - 1);
+                BigDecimal temp2 = listR.get(i).multiply(listQu.get(j)).multiply(AREA);
+                listQTRR.set(i + j - 1, temp1.add(temp2));
             }
         }
         /**
          * 把多余的数组元素移除
          */
-        Iterator<BigDecimal> it = CommonUtil.listQTRR.iterator();
+        Iterator<BigDecimal> it = listQTRR.iterator();
         int i = 0;
         while(it.hasNext()){
             it.next();
-            if( i++ >= CommonUtil.listR.size() + 24 ) {
+            if( i++ >= listR.size() + 24 ) {
                 it.remove();
             }
         }
+
+        return listQTRR;
     }
 
     public static void main(String[] args){
@@ -365,11 +370,10 @@ public class ApiModelUtil {
         listP.add(new BigDecimal("0.0"));
         listP.add(new BigDecimal("0.0"));
         listP.add(new BigDecimal("0.0"));
-        CommonUtil.listP = listP;
 
-        getR();
-        getQTRR();
-        CommonUtil.getQT();
-        CommonUtil.getOQ();
+//        getR(plan, );
+//        getQTRR();
+//        CommonUtil.getQT();
+//        CommonUtil.getOQ();
     }
 }

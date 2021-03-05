@@ -1,5 +1,6 @@
 package gov.gz.hydrology.utils;
 
+import gov.gz.hydrology.constant.CommonConst;
 import gov.gz.hydrology.constant.NumberConst;
 import gov.gz.hydrology.entity.write.Plan;
 
@@ -20,8 +21,8 @@ public class XinanRiverUtil {
      * 产流
      * @return
      */
-    public static void getR(){
-        CommonUtil.listR.clear();
+    public static List<BigDecimal> getR(Plan plan, List<BigDecimal> listP, Integer returnType){
+//        List<BigDecimal> listR = new ArrayList<>();
         /**
          * 中间数据
          */
@@ -54,7 +55,7 @@ public class XinanRiverUtil {
         List<BigDecimal> listQRSS = new ArrayList<>();
         List<BigDecimal> listQRG = new ArrayList<>();
         List<BigDecimal> listQTR = new ArrayList<>();
-        for (int i = 0; i < CommonUtil.listP.size(); i++){
+        for (int i = 0; i < listP.size(); i++){
             listPE.add(NumberConst.ZERO);
             listR.add(NumberConst.ZERO);
             listRd.add(NumberConst.ZERO);
@@ -88,38 +89,38 @@ public class XinanRiverUtil {
         /**
          * 读取参数
          */
-        BigDecimal F = CommonUtil.plan.getF();
-        BigDecimal K = CommonUtil.plan.getK();
+        BigDecimal F = plan.getF();
+        BigDecimal K = plan.getK();
         BigDecimal E = getE();
-        BigDecimal IM = CommonUtil.plan.getIM();
-        BigDecimal WUm = CommonUtil.plan.getWUM();
-        BigDecimal WLm = CommonUtil.plan.getWLM();
-        BigDecimal WDm = CommonUtil.plan.getWDM();
-        BigDecimal B = CommonUtil.plan.getB();
-        BigDecimal C = CommonUtil.plan.getC();
-        BigDecimal KSS = CommonUtil.plan.getKSS();
-        BigDecimal KG = CommonUtil.plan.getKG();
-        BigDecimal SM = CommonUtil.plan.getSM();
-        BigDecimal EX = CommonUtil.plan.getEX();
-        BigDecimal CI = CommonUtil.plan.getCI();
-        BigDecimal CG = CommonUtil.plan.getCG();
-        BigDecimal CS = CommonUtil.plan.getCS();
-        Integer LAG = CommonUtil.plan.getL();
-        BigDecimal T = CommonUtil.plan.getT();
-        BigDecimal KE = CommonUtil.plan.getKE();
-        BigDecimal XE = CommonUtil.plan.getXE();
+        BigDecimal IM = plan.getIM();
+        BigDecimal WUm = plan.getWUM();
+        BigDecimal WLm = plan.getWLM();
+        BigDecimal WDm = plan.getWDM();
+        BigDecimal B = plan.getB();
+        BigDecimal C = plan.getC();
+        BigDecimal KSS = plan.getKSS();
+        BigDecimal KG = plan.getKG();
+        BigDecimal SM = plan.getSM();
+        BigDecimal EX = plan.getEX();
+        BigDecimal CI = plan.getCI();
+        BigDecimal CG = plan.getCG();
+        BigDecimal CS = plan.getCS();
+        Integer LAG = plan.getL();
+        BigDecimal T = plan.getT();
+        BigDecimal KE = plan.getKE();
+        BigDecimal XE = plan.getXE();
         /**
          * 读初始状态
          */
-        BigDecimal WUup = CommonUtil.plan.getWU0();
-        BigDecimal WLup = CommonUtil.plan.getWL0();
-        BigDecimal WDup = CommonUtil.plan.getWD0();
+        BigDecimal WUup = plan.getWU0();
+        BigDecimal WLup = plan.getWL0();
+        BigDecimal WDup = plan.getWD0();
         BigDecimal Wup = WUup.add(WLup).add(WDup);
-        BigDecimal Sup = CommonUtil.plan.getS0();
-        BigDecimal FRup = CommonUtil.plan.getFR0();
-        BigDecimal QRSup = CommonUtil.plan.getQRS0();
-        BigDecimal QRSSup = CommonUtil.plan.getQRSS0();
-        BigDecimal QRGup = CommonUtil.plan.getQRG0();
+        BigDecimal Sup = plan.getS0();
+        BigDecimal FRup = plan.getFR0();
+        BigDecimal QRSup = plan.getQRS0();
+        BigDecimal QRSSup = plan.getQRSS0();
+        BigDecimal QRGup = plan.getQRG0();
         BigDecimal QTRup = QRSup.add(QRSSup).add(QRGup);
         /**
          * 参数转换
@@ -150,8 +151,8 @@ public class XinanRiverUtil {
         /**
          * 循环雨量P
          */
-        for (int i = 0; i < CommonUtil.listP.size(); i++){
-            listPE.set(i, CommonUtil.listP.get(i).subtract(K.multiply(E)));
+        for (int i = 0; i < listP.size(); i++){
+            listPE.set(i, listP.get(i).subtract(K.multiply(E)));
             listA.set(i, getA(Wup, Wm, Wmm, B));
             /**
              * 产流量计算
@@ -202,7 +203,7 @@ public class XinanRiverUtil {
                     listWD.set(i, WDup);
                 }else{
                     listWU.set(i, NumberConst.ZERO);
-                    listEU.set(i, WUup.add(CommonUtil.listP.get(i)));
+                    listEU.set(i, WUup.add(listP.get(i)));
                     if( NumberUtil.gt(WLup, WLm.multiply(C)) ){
                         listEL.set(i, (K.multiply(E).subtract(listEU.get(i))).multiply(WLup).divide(WLm, NumberConst.DIGIT, NumberConst.MODE));
                         listWL.set(i, WLup.subtract(listEL.get(i)));
@@ -314,26 +315,27 @@ public class XinanRiverUtil {
             QRGup = listQRG.get(i);
             QTRup = listQTR.get(i);
         }
-        CommonUtil.listR = listQTR;
+        return returnType.equals(CommonConst.RETURN_TYPE_R) ? listR : listQTR;
     }
 
-    public static void getQTRR(){
-        CommonUtil.listQTRR.clear();
+    public static List<BigDecimal> getQTRR(Plan plan, List<BigDecimal> listR){
+        List<BigDecimal> listQTRR = new ArrayList<>();
 
-        Integer LAG = CommonUtil.plan.getL();
-        BigDecimal KE = CommonUtil.plan.getKE();
+        Integer LAG = plan.getL();
+        BigDecimal KE = plan.getKE();
 
         for(int i = 0; i < LAG; i++){
-            CommonUtil.listQTRR.add(CommonUtil.listR.get(0));
+            listQTRR.add(listR.get(0));
         }
-        for(int i = LAG; i < CommonUtil.listR.size() + LAG; i++){
-            CommonUtil.listQTRR.add(CommonUtil.listR.get(i-LAG));
+        for(int i = LAG; i < listR.size() + LAG; i++){
+            listQTRR.add(listR.get(i-LAG));
         }
         if( NumberUtil.gt(KE, new BigDecimal(LAG)) ){
-            for(int i = CommonUtil.listR.size() + LAG; i < CommonUtil.listR.size() + KE.intValue(); i++){
-                CommonUtil.listQTRR.add(CommonUtil.listR.get(CommonUtil.listR.size()-1));
+            for(int i = listR.size() + LAG; i < listR.size() + KE.intValue(); i++){
+                listQTRR.add(listR.get(listR.size()-1));
             }
         }
+        return listQTRR;
     }
 
     /**
@@ -426,7 +428,6 @@ public class XinanRiverUtil {
         plan.setQRS0(new BigDecimal("3"));
         plan.setQRSS0(new BigDecimal("38"));
         plan.setQRG0(new BigDecimal("7"));
-        CommonUtil.plan = plan;
 
         List<BigDecimal> listP = new ArrayList<>();
 		listP.add(new BigDecimal("0.00"));
@@ -669,10 +670,9 @@ public class XinanRiverUtil {
         listP.add(new BigDecimal("0.00"));
         listP.add(new BigDecimal("0.25"));
         listP.add(new BigDecimal("0.85"));
-        CommonUtil.listP = listP;
 
-        getR();
-        getQTRR();
-        CommonUtil.getQT();
+        List<BigDecimal> listR = getR(plan, listP, CommonConst.RETURN_TYPE_QTR);
+        List<BigDecimal> listQTRR = getQTRR(plan, listR);
+//        CommonUtil.getQT();
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -70,6 +71,8 @@ public class PlanController {
 		JSONObject retval = new JSONObject();
 		plan.setName(name);
 		plan.setStcd(stcd);
+		plan.setCreateUser(16607978866L);
+		plan.setCreateTime(new Date());
 		planService.insertSelective(plan);
 		return retval.toString();
 	}

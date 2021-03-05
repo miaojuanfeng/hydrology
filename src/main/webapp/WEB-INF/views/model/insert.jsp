@@ -485,11 +485,24 @@
         loadPlan("hl", $("select[name=station]").val(), $("select[name=model_hl]").val());
     });
     form.on('select(model_cl)', function(data){
+        if(!checkModel()) return;
         loadPlan("cl", $("select[name=station]").val(), $("select[name=model_cl]").val());
     });
     form.on('select(model_hl)', function(data){
+        if(!checkModel()) return;
         loadPlan("hl", $("select[name=station]").val(), $("select[name=model_hl]").val());
     });
+
+    function checkModel() {
+        if( $("select[name=model_cl]").val() != 1 && $("select[name=model_hl]").val() == 1 ){
+            $("select[name=model_hl]").val('');
+            $("select[name=plan_hl]").val('');
+            form.render('select');
+            layer.msg('新安江汇流只可与新安江产流组合计算');
+            return false;
+        }
+        return true;
+    }
 
     function loadPlan(type, stcd, model){
         $("#addform select[name=plan_" + type + "]").html('<option value="">请选择</option>');
